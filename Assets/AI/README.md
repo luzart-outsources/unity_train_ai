@@ -18,20 +18,24 @@ Assets/AI/
     └── MovementAgent.cs          Phase B wrapper
 ```
 
-## Setup nhanh (~5 phút)
+## ⚡ 1-CLICK TEST (~30 giây)
 
-1. **Đảm bảo Unity 6 + InferenceEngine 2.6.1 đã có trong `Packages/manifest.json`** (đã verified):
-   ```json
-   "com.unity.ai.inference": "2.6.1"
-   ```
+1. **Mở Unity Editor** với project này
+2. Đợi import xong (~30s lần đầu)
+3. Menu bar → **AI** → **Build & Run Test Scene**
+4. Đợi ~5 giây — scene auto build + Play tự bật
+5. **Console** hiển thị kết quả test:
+   - Phase A: 5 câu intent classification (target ≥4/5 đúng)
+   - Phase B: agent đi tới target trong ~30 giây
 
-2. **Mở Unity Editor**. Folder `Assets/AI/` sẽ tự import:
-   - `*.onnx` → `ModelAsset`
-   - `*.json` trong Resources/ → `TextAsset`
-   - `*.cs` → MonoBehaviour scripts
+Không cần drag/drop, không cần tạo Layers, không cần code thêm. Editor script tự lo.
 
-3. **Test Phase A** (NPC chat) — xem `../../UNITY_SETUP_GUIDE.md` mục 1
-4. **Test Phase B** (lính tự đi) — xem `../../UNITY_SETUP_GUIDE.md` mục 2
+> [!info]
+> Nếu menu "AI" không hiện → Unity chưa compile xong, đợi thêm 30s.
+
+## Manual setup (nếu muốn tự làm từng bước)
+
+Xem `UNITY_SETUP_GUIDE.md` ở project root.
 
 ## Models metrics
 
