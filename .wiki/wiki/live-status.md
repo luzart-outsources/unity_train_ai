@@ -16,20 +16,21 @@ updated: 2026-05-07
 > cat  "AI_Training/overnight_v3_state.json"
 > ```
 
-## Snapshot lúc 2026-05-07 14:05
+## Snapshot lúc 2026-05-07 19:38 — máy 2 LOOP COMPLETED
 
 ### Loop info máy 1
 - Master script: `AI_Training/overnight_loop.py`
-- Started: 09:00:00 (deadline 19:00:00 — còn ~4h55m)
+- Started: 09:00:00, deadline 19:00:00 — đã hoàn tất (state cuối từ user, chưa pull về máy 2)
 - Config: `PHASE_A_TARGET=5000`, `PHASE_B_STEPS=1_000_000`, archs cycle `[lstm, fasttext, transformer]`
+- Best ghi nhận lúc 14:00 từ user: Phase A LSTM 98.4%, Phase B 6.011
 
-### Loop info máy 2 (HEAVY) — RESTARTED 14:03 (skip Phase A)
+### Loop info máy 2 (HEAVY) — COMPLETED 18:59:10
 - Master script: `AI_Training/overnight_loop_machine2.py`
-- Started attempt 2: 11:19:07 → restarted lúc **14:03:27** với config mới
-- PID orchestrator: 163636; Phase B PPO worker active (h3_deepfocus)
-- Cấu hình mới: `PHASE_A_ARCHS=[]` (skip), 2M PPO × 4 HP cycle, resume HP cycle position from state
-- Output cô lập: `deliverables_m2/`, `overnight_v3_m2.{log,_state.json}`, `intents_v3_m2.csv`, `soldier_m2.onnx`
-- ⚠️ Hardware: máy 2 chỉ Intel UHD 770, KHÔNG GPU NVIDIA → toàn bộ train trên CPU. Phase B đã `device=cpu` sẵn nên OK.
+- Started: 11:19:07 → restarted 14:03:27 (skip Phase A) → **clean exit lúc 18:59:10** khi `tl <= 60s`
+- Phase B iters thật sự train: **5 iters (iter 3-7) × 2M steps = 10M total PPO steps explored**
+- Số "iter" trong state.json (123) bao gồm spin-guard sleep loop sau khi không còn time cho Phase B mới — chỉ 5 iter có Phase B work thật
+- Output: `deliverables_m2/soldier_m2.onnx` = h3_deepfocus 6.572 ⭐
+- ⚠️ Hardware: máy 2 chỉ Intel UHD 770, KHÔNG GPU NVIDIA → toàn bộ train trên CPU. Phase B đã `device=cpu` sẵn.
 - Chi tiết: [[decisions/two-machine-parallel]]
 
 > [!info] Skip Phase A trên máy 2 (decision 14:03)
@@ -38,16 +39,22 @@ updated: 2026-05-07
 > [!bug] Generator O(N²) blocker tại HEAVY scale (đã fix)
 > Lần launch đầu (11:09) bị stall 7+ phút ở `generate_dataset_v3.py` vì line 746 dùng `len([r for r in rows if r["intent"]==intent])` — quadratic theo N. Fix: counter `kept` O(1). 200k samples: 30+ min → **3 sec**. Chi tiết: [[bugs/generator-on2-quadratic]].
 
-### Phase B máy 2 — HP cycle results so far
+### Phase B máy 2 — FINAL HP grid (per-HP best across 2 seeds)
 
-| HP | Net | Ent | LR | Iter | Reward | Status |
+| HP | Net | Ent | LR | Best Reward | Best Iter | Best Seed |
 |---|---|---|---|---|---|---|
-| **h1_baseline** | [128,128] | 0.01 | 3e-4 | 1 | **6.236** ⭐ | done — current best |
-| h2_bigexplore | [256,128] | 0.02 | 3e-4 | 2 | 5.675 | done — worse than baseline |
-| h3_deepfocus | [128,128,64] | 0.005 | 1e-4 | 3 | đang chạy | ETA ~14:48 |
-| h4_bigwide | [256,256] | 0.05 | 5e-4 | 4 | chưa | sau h3 |
+| **h3_deepfocus** ⭐ | [128,128,64] | 0.005 | 1e-4 | **6.572** | 7 | 7006 |
+| h2_bigexplore | [256,128] | 0.02 | 3e-4 | 6.263 | 6 | 7005 |
+| h1_baseline | [128,128] | 0.01 | 3e-4 | 6.236 | 1 | 7000 |
+| h4_bigwide | [256,256] | 0.05 | 5e-4 | 5.252 | 4 | 7003 |
 
-**Soldier_m2.onnx hiện tại** = h1_baseline iter 1 (6.236), vượt máy 1 best 6.011.
+**Soldier_m2.onnx final** = h3_deepfocus iter 7 (6.572), vượt máy 1 best 6.011 ~9.3%.
+
+**Bài học HP grid**:
+- Conservative HP thắng: low ent (0.005) + low lr (1e-4) + deeper net [128,128,64] = best
+- Bigger net hurt khi không kèm careful tuning — h4 [256,256] với ent=0.05 → 5.252 (flop)
+- Variance cao: h2 lần 1 = 5.675 → lần 2 = 6.263 (+0.59 chỉ do seed)
+- ≥2 seeds/HP cần thiết để đánh giá đáng tin
 
 ### Phase A — current bests (all 3 archs trained on v3.1 40k data)
 | Arch | acc | iter | data_seed | Trạng thái |
@@ -126,6 +133,9 @@ Khi 2 máy chạy 2 Claude instances cùng lúc:
 - 2026-05-07 12:41 — máy 2 iter 1 Phase B h1_baseline = 6.236 ⭐ (vượt máy 1 best 6.011)
 - 2026-05-07 14:01 — máy 2 iter 2 Phase B h2_bigexplore = 5.675 (worse), Phase A timeout 2× iter
 - 2026-05-07 14:03 — máy 2 RESTART với `PHASE_A_ARCHS=[]` skip Phase A, resume HP cycle từ h3
+- 2026-05-07 17:48 — máy 2 iter 7 Phase B h3_deepfocus = **6.572** ⭐ (NEW best, vượt h1 baseline 6.236)
+- 2026-05-07 18:59 — máy 2 loop CLEAN EXIT (deadline reached). Final best: 6.572 h3_deepfocus
+- 2026-05-07 19:38 — wiki sync với final HP grid 4 configs × 2 seeds
 
 ## Backlinks
 

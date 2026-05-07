@@ -109,12 +109,12 @@ Mỗi claim có ID stable `c-YYYYMMDD-NN`. Khi GDD revision sửa giá trị →
 - **Sources**: Smoke test máy 2 11:09 (stall 7+ min) → 11:18 fix → 11:19 verify
 - **Used by**: [[bugs/generator-on2-quadratic]], [[live-status]], [[decisions/two-machine-parallel]]
 - **Status**: fixed, pushed commit `1cf36ff`. Máy 1 được hưởng sau git pull.
-### c-20260507-17 — Phase B máy 2 vượt máy 1 (6.236 vs 6.011)
-- **Claim**: Phase B HEAVY trên máy 2 (h1_baseline iter 1, 2M PPO steps, net [128,128] ent 0.01 lr 3e-4, seed 7000) đạt mean_reward = **6.236**, vượt máy 1's best 6.011 (1M PPO, cùng net + ent + lr nhưng 1/2 steps). Confirms hypothesis "PPO vẫn cải thiện ở 1M-2M, chưa hit ceiling".
-- **Sources**: `overnight_v3_m2_state.json` best_phase_b = `m2_iter1_h1_baseline_s7000`, log entry `[12:41:45] [B] mean_reward = 6.236`
+### c-20260507-17 — Phase B máy 2 h1_baseline = 6.236 (intermediate)
+- **Claim**: Phase B HEAVY trên máy 2 (h1_baseline iter 1, 2M PPO steps, net [128,128] ent 0.01 lr 3e-4, seed 7000) đạt mean_reward = **6.236**, vượt máy 1's best 6.011. Đầu tiên prove "2M PPO > 1M PPO" với cùng HP.
+- **Sources**: `overnight_v3_m2_state.json` best_phase_b_per_hp.h1_baseline, log `[12:41:45] [B] mean_reward = 6.236`
 - **Used by**: [[systems/movement-ai]], [[live-status]], [[decisions/two-machine-parallel]]
-- **Status**: active (current best across both machines)
-- **Notes**: h2_bigexplore iter 2 (net [256,128] ent 0.02, cùng lr) đạt 5.675 — worse. Bigger net + higher entropy hurt ở scale này. Dữ liệu HP grid sẽ rõ hơn sau h3-h4.
+- **Status**: superseded by c-20260507-19 (h3_deepfocus 6.572). Vẫn là per-HP best của h1_baseline.
+- **Notes**: h1 không phải HP tốt nhất ở scale 2M PPO. Cần tuning sâu hơn (xem c-19).
 
 ### c-20260507-18 — Skip Phase A trên máy 2 (decision)
 - **Claim**: Phase A trên máy 2 luôn timeout: 200k samples × 35 epochs LSTM CPU > `PHASE_A_TRAIN_TIMEOUT=2400`s (40 min). Iter 1-3 đều fail rc=-1. Quyết định 14:03: set `PHASE_A_ARCHS=[]` + guard `if PHASE_A_ARCHS:` trong loop, máy 2 100% focus Phase B HP exploration. Restart loop từ state.iter=2 với resume HP cycle position. Edit cùng làm cho seed_a, seed_b, hp_idx resume được giữa các restart.
@@ -122,3 +122,22 @@ Mỗi claim có ID stable `c-YYYYMMDD-NN`. Khi GDD revision sửa giá trị →
 - **Used by**: [[live-status]], [[decisions/two-machine-parallel]]
 - **Status**: active (loop đang chạy iter 3 h3_deepfocus với config mới)
 - **Notes**: Lý do: máy 1 đã có canonical LSTM 98.4% từ iter 1, máy 2 không cần cạnh tranh Phase A. Lợi ích: từ ~4 iter → ~7 iter trong còn lại deadline.
+
+### c-20260507-19 — Phase B máy 2 FINAL: h3_deepfocus = 6.572 ⭐
+- **Claim**: Sau full HP cycle (4 configs × 2 seeds), best Phase B máy 2 = **6.572** từ h3_deepfocus iter 7 seed 7006: net [128,128,64] (3-layer deeper), ent 0.005 (low exploration), lr 1e-4 (slow learning rate). Vượt máy 1 best 6.011 ~9.3%. Per-HP final: h3=6.572 ⭐ > h2=6.263 > h1=6.236 > h4=5.252.
+- **Sources**: `overnight_v3_m2_state.json` best_phase_b = `{reward:6.572, hp:h3_deepfocus, iter:7, seed:7006, tag:m2_iter7_h3_deepfocus_s7006}`, log entry `[17:48:?? ?] [B] mean_reward = 6.572`
+- **Used by**: [[systems/movement-ai]], [[live-status]], [[decisions/two-machine-parallel]]
+- **Status**: active (FINAL best across both machines, máy 2 winner sẽ thành canonical sau merge)
+- **Notes — Bài học HP**:
+  - Conservative HP thắng: low ent + low lr + deeper net hơn brute-force capacity
+  - Bigger net không bằng tuning HP cẩn thận: h4 [256,256] với ent=0.05 → flop 5.252
+  - Variance cao đáng kể: h2 lần 1 (iter 2) = 5.675 → lần 2 (iter 6) = 6.263, chênh +0.59 chỉ do seed
+  - ≥2 seeds/HP cần thiết cho HP grid đáng tin
+  - 5 iter Phase B × 2M PPO steps = 10M total steps trong ~5h CPU (máy 2 Intel UHD)
+
+### c-20260507-20 — Resume protocol cho overnight_loop_machine2
+- **Claim**: `overnight_loop_machine2.py` được patch để resume từ state.json sau restart: `seed_a = 5000 + state["iter"]`, `seed_b = 7000 + state["iter"]`, `hp_idx = state["iter"]`. Đảm bảo HP cycle position không reset về h1 sau mỗi restart, seed không trùng. Critical cho safety khi cần kill+restart giữa chừng (như đã làm 14:03 để skip Phase A).
+- **Sources**: `overnight_loop_machine2.py:250-253`, commit `ff5affc`
+- **Used by**: [[decisions/two-machine-parallel]]
+- **Status**: active
+- **Notes**: Test thực tế: restart từ state.iter=2 → loop start iter 3 với hp_idx=2 → h3_deepfocus đầu tiên ✓

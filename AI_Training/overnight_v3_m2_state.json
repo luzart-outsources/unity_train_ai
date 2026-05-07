@@ -1,0 +1,119 @@
+{
+  "machine": "m2",
+  "started_at": "2026-05-07T11:19:07.350069",
+  "iter": 123,
+  "best_phase_a": {
+    "acc": 0.0,
+    "iter": 0,
+    "data_seed": null,
+    "arch": null
+  },
+  "best_phase_a_per_arch": {
+    "lstm": {
+      "acc": 0.0,
+      "iter": 0,
+      "data_seed": null
+    }
+  },
+  "best_phase_b": {
+    "reward": 6.572,
+    "iter": 7,
+    "seed": 7006,
+    "tag": "m2_iter7_h3_deepfocus_s7006",
+    "hp": "h3_deepfocus"
+  },
+  "best_phase_b_per_hp": {
+    "h1_baseline": {
+      "reward": 6.236,
+      "iter": 1,
+      "seed": 7000
+    },
+    "h2_bigexplore": {
+      "reward": 6.263,
+      "iter": 6,
+      "seed": 7005
+    },
+    "h3_deepfocus": {
+      "reward": 6.572,
+      "iter": 7,
+      "seed": 7006
+    },
+    "h4_bigwide": {
+      "reward": 5.252,
+      "iter": 4,
+      "seed": 7003
+    }
+  },
+  "history": [
+    {
+      "iter": 1,
+      "phase": "A",
+      "seed": 5000,
+      "ok": false,
+      "stage": "train"
+    },
+    {
+      "iter": 1,
+      "phase": "B",
+      "seed": 7000,
+      "hp": "h1_baseline",
+      "ok": true,
+      "mean_reward": 6.236
+    },
+    {
+      "iter": 2,
+      "phase": "A",
+      "seed": 5001,
+      "ok": false,
+      "stage": "train"
+    },
+    {
+      "iter": 2,
+      "phase": "B",
+      "seed": 7001,
+      "hp": "h2_bigexplore",
+      "ok": true,
+      "mean_reward": 5.675
+    },
+    {
+      "iter": 3,
+      "phase": "B",
+      "seed": 7002,
+      "hp": "h3_deepfocus",
+      "ok": true,
+      "mean_reward": 6.084
+    },
+    {
+      "iter": 4,
+      "phase": "B",
+      "seed": 7003,
+      "hp": "h4_bigwide",
+      "ok": true,
+      "mean_reward": 5.252
+    },
+    {
+      "iter": 5,
+      "phase": "B",
+      "seed": 7004,
+      "hp": "h1_baseline",
+      "ok": true,
+      "mean_reward": 5.892
+    },
+    {
+      "iter": 6,
+      "phase": "B",
+      "seed": 7005,
+      "hp": "h2_bigexplore",
+      "ok": true,
+      "mean_reward": 6.263
+    },
+    {
+      "iter": 7,
+      "phase": "B",
+      "seed": 7006,
+      "hp": "h3_deepfocus",
+      "ok": true,
+      "mean_reward": 6.572
+    }
+  ]
+}

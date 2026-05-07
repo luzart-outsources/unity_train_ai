@@ -33,26 +33,29 @@ User của wiki này phụ trách **TRAIN 2 model AI** (việc của tôi). Quy�
 3. **2 endings**: Pass / Fail dựa trên chỉ số tích lũy
 4. **AI hỗ trợ immersion**: chỉ huy nói tiếng Việt + lính tự di chuyển
 
-## Current state (live snapshot — last updated 2026-05-07 10:53)
+## Current state (FINAL snapshot — 2026-05-07 19:38, máy 2 loop completed)
 
-AI training v3.1 overnight loop running on máy 1 (started 09:00, deadline 19:00 7/5 — còn ~8h):
+AI training v3.1 overnight loop hoàn tất 19:00 7/5/2026 (máy 1 + máy 2 song song HEAVY):
 
-| Phase | Best | Status |
+| Phase | Best | Source |
 |---|---|---|
-| **Phase A LSTM** ⭐ | 63/64 = **98.4%** (iter 1) | canonical `intent_classifier.onnx` |
-| Phase A FastText | 61/64 = 95.3% (iter 2) | per-arch best |
-| Phase A Transformer | 61/64 = 95.3% (iter 3) | per-arch best |
-| **Phase B v3.1** | mean_reward **6.011** (iter 2, 1M steps) | `soldier.onnx` 80KB |
+| **Phase A LSTM** ⭐ | 63/64 = **98.4%** (iter 1) | máy 1 — canonical `intent_classifier.onnx` |
+| Phase A FastText | 61/64 = 95.3% (iter 2) | máy 1 — per-arch best |
+| Phase A Transformer | 61/64 = 95.3% (iter 3) | máy 1 — per-arch best |
+| **Phase B v3.1 FINAL** ⭐ | mean_reward **6.572** (h3_deepfocus, 2M steps, seed 7006) | máy 2 — `soldier_m2.onnx` |
+| Phase B máy 1 best | mean_reward 6.011 (iter 2, 1M steps) | máy 1 — `soldier.onnx` |
 | Phase B v2 backup | mean_reward 6.126 (fixed env, ref only) | `soldier_v2_fixedenv.onnx` |
 
 Cả 3 archs đạt ~95-98% với 40k data → **data scale > arch complexity**.
+
+Máy 2 HP grid winner = h3_deepfocus (deeper net + low ent + low lr) → **conservative HP > brute capacity** trên scale 2M PPO.
 
 Chi tiết tức thời: [[live-status]].
 
 Chi tiết per-system: [[systems/sentis-chat]], [[systems/movement-ai]].
 
-> [!info] 2-machine parallel
-> Plan chạy 2 máy parallel: máy 1 (đang chạy) iteration nhanh + 3 archs cycle, máy 2 (chưa start) **HEAVY**: 200k data, 2M PPO × 4 HP cycle. Cuối ngày `merge_machine_results.py` auto-pick winner. Setup chi tiết: [[decisions/two-machine-parallel]].
+> [!info] 2-machine parallel — COMPLETED
+> Máy 1 lo Phase A (GPU advantage), máy 2 lo Phase B HP exploration (HEAVY: 2M PPO × 4 HP × 2 seeds). Final winners: máy 1 LSTM 98.4% Phase A, máy 2 h3_deepfocus 6.572 Phase B. Phân vai theo strength → mỗi máy dominates đúng phase. Setup: [[decisions/two-machine-parallel]]. Merge tool: `AI_Training/merge_machine_results.py`.
 
 ## Key systems
 
