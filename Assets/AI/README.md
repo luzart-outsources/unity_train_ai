@@ -18,15 +18,25 @@ Assets/AI/
     └── MovementAgent.cs          Phase B wrapper
 ```
 
-## ⚡ 1-CLICK TEST (~30 giây)
+## ⚡ 1-CLICK TEST — 3 menu options
 
-1. **Mở Unity Editor** với project này
-2. Đợi import xong (~30s lần đầu)
-3. Menu bar → **AI** → **Build & Run Test Scene**
-4. Đợi ~5 giây — scene auto build + Play tự bật
-5. **Console** hiển thị kết quả test:
-   - Phase A: 5 câu intent classification (target ≥4/5 đúng)
-   - Phase B: agent đi tới target trong ~30 giây
+Mở Unity Editor → menu bar → **AI** → chọn 1 trong 3:
+
+### Option 1: AI > 1. Phase A — Chat Test
+- Auto-test 5 câu sample → log Console
+- Mở UI chat (Game window) — bạn gõ tay câu bất kỳ → xem intent + reply
+- Test riêng phần NPC chat tiếng Việt
+
+### Option 2: AI > 2. Phase B — Movement Test
+- Tự build 3D scene: 1 plane, 1 cube xanh (agent), 1 cube đỏ (target), 6 cube nâu (obstacles)
+- Cube xanh tự đi tới target tránh obstacles
+- Có nút "Reset & Run again" để test multiple episodes
+- Test riêng phần lính tự đi
+
+### Option 3: AI > 3. Both — Combined Auto Test
+- Chạy cả 2 phase tự động trong 1 scene
+- Phase A: classify 5 câu → log
+- Phase B: build scene + run 1 episode → log
 
 Không cần drag/drop, không cần tạo Layers, không cần code thêm. Editor script tự lo.
 

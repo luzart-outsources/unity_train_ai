@@ -1,15 +1,9 @@
 // AITestSceneBuilder.cs
 //
-// 1-CLICK SETUP: tạo Scene test với AITestRunner đã configure sẵn assets.
-//
-// Menu: AI > Build & Run Test Scene
-//
-// Workflow:
-//   1. Đảm bảo Layers "Obstacle" + "Target" + Tags tồn tại (tự create)
-//   2. Tạo scene mới với AITestRunner GameObject
-//   3. Auto-assign các ModelAsset, TextAsset vào AITestRunner inspector
-//   4. Save scene Assets/Scenes/AITest.unity
-//   5. Mở scene và switch to Play mode
+// 1-CLICK SETUP — 3 menu items:
+//   AI / 1. Phase A — Chat Test       → scene riêng test NPC chat (UI input)
+//   AI / 2. Phase B — Movement Test    → scene riêng test agent movement
+//   AI / 3. Both (combined)            → 1 scene chạy cả 2 phase tự động
 
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -19,37 +13,102 @@ using Unity.InferenceEngine;
 
 public static class AITestSceneBuilder
 {
-    private const string SCENE_PATH = "Assets/Scenes/AITest.unity";
+    [MenuItem("AI/1. Phase A — Chat Test", false, 100)]
+    public static void BuildPhaseA()
+    {
+        if (!CheckNotPlaying()) return;
+        EnsureLayersAndTags();
+        var (intentModel, _, intentMeta, responsesJson) = LoadAssets();
+        if (intentModel == null) return;
 
-    [MenuItem("AI/Build && Run Test Scene", false, 100)]
-    public static void BuildAndRun()
+        var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
+        var runner = new GameObject("PhaseAChatTester");
+        var comp = runner.AddComponent<PhaseAChatTester>();
+        comp.intentModel = intentModel;
+        comp.intentMeta = intentMeta;
+        comp.responsesJson = responsesJson;
+
+        SaveAndPlay(scene, "Assets/Scenes/PhaseA_ChatTest.unity");
+    }
+
+    [MenuItem("AI/2. Phase B — Movement Test", false, 101)]
+    public static void BuildPhaseB()
+    {
+        if (!CheckNotPlaying()) return;
+        EnsureLayersAndTags();
+        var (_, movementModel, _, _) = LoadAssets();
+        if (movementModel == null) return;
+
+        var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
+        var runner = new GameObject("PhaseBMovementTester");
+        var comp = runner.AddComponent<PhaseBMovementTester>();
+        comp.movementModel = movementModel;
+
+        SaveAndPlay(scene, "Assets/Scenes/PhaseB_MovementTest.unity");
+    }
+
+    [MenuItem("AI/3. Both — Combined Auto Test", false, 102)]
+    public static void BuildBoth()
+    {
+        if (!CheckNotPlaying()) return;
+        EnsureLayersAndTags();
+        var (intentModel, movementModel, intentMeta, responsesJson) = LoadAssets();
+        if (intentModel == null || movementModel == null) return;
+
+        var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
+        var runner = new GameObject("AITestRunner");
+        var comp = runner.AddComponent<AITestRunner>();
+        comp.intentModel = intentModel;
+        comp.intentMeta = intentMeta;
+        comp.responsesJson = responsesJson;
+        comp.movementModel = movementModel;
+
+        SaveAndPlay(scene, "Assets/Scenes/AITest.unity");
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    // Helpers
+    // ─────────────────────────────────────────────────────────────────────
+    static bool CheckNotPlaying()
     {
         if (EditorApplication.isPlaying)
         {
             Debug.LogWarning("[AISetup] Đang Play — Stop trước khi build scene mới");
-            return;
+            return false;
         }
-
-        EnsureLayersAndTags();
-        BuildScene();
-        EnterPlayMode();
+        return true;
     }
 
-    [MenuItem("AI/Just Build Scene (no Play)", false, 101)]
-    public static void BuildOnly()
+    static (ModelAsset intentModel, ModelAsset movementModel, TextAsset intentMeta, TextAsset responsesJson) LoadAssets()
     {
-        if (EditorApplication.isPlaying)
+        var intentModel = AssetDatabase.LoadAssetAtPath<ModelAsset>("Assets/AI/Models/intent_classifier.onnx");
+        var movementModel = AssetDatabase.LoadAssetAtPath<ModelAsset>("Assets/AI/Models/soldier.onnx");
+        var intentMeta = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/intent_classifier_meta.json");
+        var responsesJson = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/responses.json");
+
+        if (intentModel == null || movementModel == null || intentMeta == null || responsesJson == null)
         {
-            Debug.LogWarning("[AISetup] Đang Play — Stop trước");
-            return;
+            Debug.LogError("[AISetup] Một số asset không load được — refresh Project rồi thử lại");
+            Debug.LogError($"  intentModel: {(intentModel != null)}, movementModel: {(movementModel != null)}, intentMeta: {(intentMeta != null)}, responsesJson: {(responsesJson != null)}");
         }
-        EnsureLayersAndTags();
-        BuildScene();
-        Debug.Log("[AISetup] Scene đã build. Click Play khi sẵn sàng.");
+        return (intentModel, movementModel, intentMeta, responsesJson);
+    }
+
+    static void SaveAndPlay(UnityEngine.SceneManagement.Scene scene, string path)
+    {
+        System.IO.Directory.CreateDirectory("Assets/Scenes");
+        EditorSceneManager.SaveScene(scene, path);
+        AssetDatabase.Refresh();
+        Debug.Log($"[AISetup] Scene saved: {path}");
+        EditorApplication.delayCall += () =>
+        {
+            EditorApplication.EnterPlaymode();
+            Debug.Log("[AISetup] ▶ Entering Play mode...");
+        };
     }
 
     // ─────────────────────────────────────────────────────────────────────
-    // Layer + Tag setup (programmatic — modify ProjectSettings/TagManager.asset)
+    // Layer + Tag setup
     // ─────────────────────────────────────────────────────────────────────
     static void EnsureLayersAndTags()
     {
@@ -61,11 +120,9 @@ public static class AITestSceneBuilder
         }
         var tm = new SerializedObject(tagAssets[0]);
 
-        // Tags
         EnsureTag(tm, "Obstacle");
         EnsureTag(tm, "Target");
 
-        // Layers — slot 6 và 7 (user layers)
         var layers = tm.FindProperty("layers");
         SetLayerIfEmpty(layers, 6, "Obstacle");
         SetLayerIfEmpty(layers, 7, "Target");
@@ -96,53 +153,5 @@ public static class AITestSceneBuilder
         {
             Debug.LogWarning($"[AISetup] Layer {idx} đã được dùng cho '{slot.stringValue}', skip");
         }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────
-    // Scene creation
-    // ─────────────────────────────────────────────────────────────────────
-    static void BuildScene()
-    {
-        // Load assets
-        var intentModel = AssetDatabase.LoadAssetAtPath<ModelAsset>("Assets/AI/Models/intent_classifier.onnx");
-        var movementModel = AssetDatabase.LoadAssetAtPath<ModelAsset>("Assets/AI/Models/soldier.onnx");
-        var intentMeta = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/intent_classifier_meta.json");
-        var responsesJson = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/responses.json");
-
-        if (intentModel == null || movementModel == null || intentMeta == null || responsesJson == null)
-        {
-            Debug.LogError("[AISetup] Một số asset không load được — refresh Project rồi thử lại");
-            Debug.LogError($"  intentModel: {(intentModel != null)}, movementModel: {(movementModel != null)}, intentMeta: {(intentMeta != null)}, responsesJson: {(responsesJson != null)}");
-            return;
-        }
-
-        // Create scene
-        var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
-
-        // Add AITestRunner GameObject
-        var runner = new GameObject("AITestRunner");
-        var runnerComp = runner.AddComponent<AITestRunner>();
-        runnerComp.intentModel = intentModel;
-        runnerComp.intentMeta = intentMeta;
-        runnerComp.responsesJson = responsesJson;
-        runnerComp.movementModel = movementModel;
-
-        // Save scene
-        System.IO.Directory.CreateDirectory("Assets/Scenes");
-        EditorSceneManager.SaveScene(scene, SCENE_PATH);
-        AssetDatabase.Refresh();
-        Debug.Log($"[AISetup] Scene saved: {SCENE_PATH}");
-    }
-
-    // ─────────────────────────────────────────────────────────────────────
-    // Play mode entry
-    // ─────────────────────────────────────────────────────────────────────
-    static void EnterPlayMode()
-    {
-        EditorApplication.delayCall += () =>
-        {
-            EditorApplication.EnterPlaymode();
-            Debug.Log("[AISetup] ▶ Entering Play mode — đợi Console hiện kết quả");
-        };
     }
 }
