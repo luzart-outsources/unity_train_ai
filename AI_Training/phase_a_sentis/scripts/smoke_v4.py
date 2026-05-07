@@ -69,7 +69,7 @@ def main():
     model, vocab, id2label, max_len = load_v4()
     slots_db = load_slots()
     print(f"[load] v4 LSTM ready - vocab={len(vocab)} classes={len(id2label)} max_len={max_len}")
-    print(f"[load] slot vocab: " + ", ".join(f"{k}={len(v)}" for k, v in slots_db.items()))
+    print(f"[load] slot vocab:" + ", ".join(f"{k}={len(v)}" for k, v in slots_db.items()))
 
     # User pain-point cases + adversarial mix
     cases = [
@@ -91,7 +91,7 @@ def main():
         ("Wifi yếu quá",                     "OUT_OF_SCOPE"),
     ]
     pass_count = 0
-    print("\n=== v4 + slot extractor sanity ===")
+    print("\nv4 + slot extractor sanity")
     for text, expected in cases:
         intent, conf = classify(model, vocab, id2label, max_len, text)
         ok = intent == expected
@@ -99,7 +99,7 @@ def main():
         slot_dict = extract(text, slots_db)
         slot_str = "  ".join(f"{k}=\"{v}\"" for k, v in slot_dict.items()) or "(no slots)"
         mark = "OK " if ok else "X  "
-        print(f"  {mark} \"{text:<35s}\" -> {intent:<14s} ({conf*100:5.1f}%) [exp {expected:<14s}]  slots: {slot_str}")
+        print(f"{mark} \"{text:<35s}\" -> {intent:<14s} ({conf*100:5.1f}%) [exp {expected:<14s}]  slots: {slot_str}")
     print(f"\nScore: {pass_count}/{len(cases)} = {pass_count/len(cases)*100:.1f}%")
 
 if __name__ == "__main__":

@@ -49,7 +49,7 @@ def main():
 
     torch.manual_seed(args.seed)
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    print(f"[setup] device={device}  arch={args.arch}  epochs={args.epochs}")
+    print(f"[setup] device={device} arch={args.arch} epochs={args.epochs}")
 
     df = load_csv(args.data)
     print(f"[data ] total samples: {len(df)}")
@@ -60,7 +60,7 @@ def main():
     labels = sorted(df["intent"].unique())
     label2id = {l: i for i, l in enumerate(labels)}
     id2label = {i: l for l, i in label2id.items()}
-    print(f"[data ] vocab size  : {len(vocab)}  num_classes={len(labels)}")
+    print(f"[data ] vocab size : {len(vocab)} num_classes={len(labels)}")
 
     train_ds = IntentDataset(train_df, vocab, label2id, args.max_len)
     val_ds = IntentDataset(val_df, vocab, label2id, args.max_len)
@@ -105,10 +105,10 @@ def main():
                 "max_len": args.max_len,
             }, MODEL_DIR / f"{args.arch}{tag}_best.pt")
             flag = "  [SAVED]"
-        print(f"[epoch {epoch:>3}] train_loss={train_loss:.4f}  val_loss={val_loss:.4f}  val_acc={val_acc:.4f}{flag}")
+        print(f"[epoch {epoch:>3}] train_loss={train_loss:.4f} val_loss={val_loss:.4f} val_acc={val_acc:.4f}{flag}")
 
     save_json({"log": log, "best_val_acc": best_acc, "elapsed_sec": time.time() - t0}, MODEL_DIR / f"training_log{tag}.json")
-    print(f"\n[done] best val_acc = {best_acc:.4f}  elapsed = {time.time()-t0:.1f}s")
+    print(f"\n[done] best val_acc = {best_acc:.4f} elapsed = {time.time()-t0:.1f}s")
     print(f"[done] checkpoint   : {MODEL_DIR / f'{args.arch}{tag}_best.pt'}")
 
 if __name__ == "__main__":

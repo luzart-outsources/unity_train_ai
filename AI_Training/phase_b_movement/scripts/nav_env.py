@@ -68,9 +68,7 @@ class NavCubeEnv(gym.Env):
         # obstacles: list of (cx, cy, half) tuples
         self.obstacles: list[tuple[float, float, float]] = []
 
-    # --------------------------------------------------------------------
     # Sampling helpers
-    # --------------------------------------------------------------------
     def _sample_free_point(self, min_clearance: float) -> np.ndarray:
         """Sample point not overlapping any obstacle (with margin)."""
         for _ in range(60):
@@ -90,9 +88,7 @@ class NavCubeEnv(gym.Env):
             d = min(d, math.hypot(dx, dy))
         return d
 
-    # --------------------------------------------------------------------
     # Gym API
-    # --------------------------------------------------------------------
     def reset(self, *, seed: int | None = None, options=None):
         if seed is not None:
             self._rng = np.random.default_rng(seed)
@@ -206,9 +202,7 @@ class NavCubeEnv(gym.Env):
 
         return self._obs(), reward, terminated, truncated, {}
 
-    # --------------------------------------------------------------------
     # Observation construction (mirrors what Unity raycast would give)
-    # --------------------------------------------------------------------
     def _obs(self) -> np.ndarray:
         # Rays in agent frame, evenly spaced 360°
         ray_dists = np.zeros(self.num_rays, dtype=np.float32)

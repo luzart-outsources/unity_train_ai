@@ -90,7 +90,7 @@ def main():
     # eval final
     from stable_baselines3.common.evaluation import evaluate_policy
     mean_r, std_r = evaluate_policy(model, eval_env, n_eval_episodes=20, deterministic=True)
-    print(f"[ppo] tag={args.tag} done in {elapsed/60:.1f}min  final mean_reward={mean_r:.3f} ± {std_r:.3f}")
+    print(f"[ppo] tag={args.tag} done in {elapsed/60:.1f}min final mean_reward={mean_r:.3f} ± {std_r:.3f}")
 
     # Append summary to CSV
     summary_csv = LOG_DIR / "training_runs.csv"

@@ -143,7 +143,7 @@ def main():
         results[arch] = r
         print(f"\n=== {arch.upper()} — {r['correct']}/{r['total']} = {r['accuracy']*100:.1f}% ===")
         for row in r["rows"]:
-            mark = "[OK]" if row["ok"] else "[X] "
+            mark = "ok" if row["ok"] else "fail "
             print(f"  {mark} {row['text']:40s} -> {row['pred']:14s} (exp {row['expected']:14s}) {row['conf']*100:5.1f}%")
 
     if args.save:
@@ -153,7 +153,7 @@ def main():
 
     if results:
         best = max(results.values(), key=lambda r: r["accuracy"])
-        print(f"\n>>> WINNER: {best['arch']} with {best['accuracy']*100:.1f}% on real-world set")
+        print(f"\nWINNER: {best['arch']} with {best['accuracy']*100:.1f}% on real-world set")
 
 if __name__ == "__main__":
     main()

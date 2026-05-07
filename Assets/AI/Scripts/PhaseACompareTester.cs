@@ -95,7 +95,7 @@ public class PhaseACompareTester : MonoBehaviour
         if (_v1Brain == null || _v2Brain == null) { Debug.LogError("[Compare] brains not initialized"); return; }
 
         _samplesTotal = Samples.Length;
-        Debug.Log("+- Sanity samples -");
+        Debug.Log("Sanity samples -");
         foreach (var (text, expected) in Samples)
         {
             // V1
@@ -107,7 +107,7 @@ public class PhaseACompareTester : MonoBehaviour
             _v1History.Add(new Entry
             {
                 isUser = false, text = v1Reply,
-                subInfo = $"{v1Intent} ({v1Conf*100:F0}%) — expect {expected} {(v1Ok ? "[OK]" : "[X]")}",
+                subInfo = $"{v1Intent} ({v1Conf*100:F0}%) — expect {expected} {(v1Ok ? "ok" : "fail")}",
             });
 
             // V2
@@ -122,14 +122,14 @@ public class PhaseACompareTester : MonoBehaviour
             _v2History.Add(new Entry
             {
                 isUser = false, text = v2Reply,
-                subInfo = $"{v2Intent} ({v2Conf*100:F0}%) — expect {expected} {(v2Ok ? "[OK]" : "[X]")}",
+                subInfo = $"{v2Intent} ({v2Conf*100:F0}%) — expect {expected} {(v2Ok ? "ok" : "fail")}",
                 subInfoExtra = slotInfo,
             });
 
-            Debug.Log($"| \"{text,-30}\" V1={v1Intent} ({v1Conf*100:F0}%) {(v1Ok?"[OK]":"[X]")} | V2={v2Intent} ({v2Conf*100:F0}%) {(v2Ok?"[OK]":"[X]")} slots={slotInfo}");
+            Debug.Log($"| \"{text,-30}\" V1={v1Intent} ({v1Conf*100:F0}%) {(v1Ok?"ok":"fail")} | V2={v2Intent} ({v2Conf*100:F0}%) {(v2Ok?"ok":"fail")} slots={slotInfo}");
         }
         Debug.Log($"| V1 score {_v1Pass}/{_samplesTotal}  |  V2 score {_v2Pass}/{_samplesTotal}");
-        Debug.Log("+----");
+        Debug.Log("");
         _ready = true;
     }
 

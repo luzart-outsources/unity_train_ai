@@ -31,7 +31,6 @@ public static class AITestSceneBuilder
         var chatUI = commander.AddComponent<PhaseAChatUI>();
         chatUI.slotVocabJson = assets.slotVocabJson;     // * EntityExtractor input
 
-        // --- Canvas hierarchy -------------------------------------------
         var canvasGo = new GameObject("ChatCanvas", typeof(RectTransform));
         var canvas = canvasGo.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;

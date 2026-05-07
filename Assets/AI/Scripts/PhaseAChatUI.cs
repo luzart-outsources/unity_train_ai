@@ -65,7 +65,7 @@ public class PhaseAChatUI : MonoBehaviour
         if (_brain == null || !_brain.enabled)
         {
             Debug.LogError("[PhaseA] NPCDialogueBrain not ready");
-            if (statusText != null) statusText.text = "[FAIL] Brain not ready — check Inspector";
+            if (statusText != null) statusText.text = "fail Brain not ready — check Inspector";
             return;
         }
 
@@ -74,7 +74,7 @@ public class PhaseAChatUI : MonoBehaviour
         // (Input System only). Bat Enter qua Update() + Keyboard.current.
 
         // Auto sanity
-        Debug.Log("+- Sanity (5 sample) -");
+        Debug.Log("Sanity (5 sample) -");
         foreach (var (text, expected) in Samples)
         {
             // V2: extract slots cho moi sample de response chinh xac
@@ -88,9 +88,9 @@ public class PhaseAChatUI : MonoBehaviour
             if (ok) _passCount++;
             AddBubble(text, isUser: true, subInfo: null);
             AddBubble(reply, isUser: false,
-                      subInfo: $"{intent} ({conf * 100:F0}%) — expect {expected} {(ok ? "[OK]" : "[X]")}",
+                      subInfo: $"{intent} ({conf * 100:F0}%) — expect {expected} {(ok ? "ok" : "fail")}",
                       subColor: ok ? new Color(0.55f, 0.85f, 0.55f) : new Color(0.95f, 0.45f, 0.45f));
-            Debug.Log($"| {(ok ? "[OK]" : "[X]")} \"{text}\" -> {intent} ({conf * 100:F1}%)");
+            Debug.Log($"| {(ok ? "ok" : "fail")} \"{text}\" -> {intent} ({conf * 100:F1}%)");
         }
         Debug.Log($"| Score {_passCount}/{Samples.Length}");
 

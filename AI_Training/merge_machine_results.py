@@ -33,7 +33,6 @@ def main():
 
     lines = ["# MERGED REPORT — End of Day", "", f"Generated: {datetime.now().isoformat()}", ""]
 
-    # -- Phase A comparison ------------------------------------------------
     a1 = s1["best_phase_a"] if s1 else None
     a2 = s2["best_phase_a"] if s2 else None
     a1_acc = a1["acc"] if a1 else 0.0
@@ -59,7 +58,6 @@ def main():
     lines.append(f"**Winner: {winner_a}** ({winner_a_state['acc']*100:.2f}%, {winner_a_state.get('arch','?')})")
     lines.append("")
 
-    # -- Phase B comparison ------------------------------------------------
     b1 = s1["best_phase_b"] if s1 else None
     b2 = s2["best_phase_b"] if s2 else None
     b1_r = b1["reward"] if b1 else -1e9
@@ -85,7 +83,6 @@ def main():
     lines.append(f"**Winner: {winner_b}** ({winner_b_state['reward']:.3f})")
     lines.append("")
 
-    # -- Per-HP breakdown (may 2) ------------------------------------------
     if s2 and "best_phase_b_per_hp" in s2:
         lines.append("### Máy 2 — per-HP breakdown")
         lines.append("")
@@ -95,13 +92,11 @@ def main():
             lines.append(f"| {name} | {b['reward']:.3f} | {b['iter']} | {b.get('seed','?')} |")
         lines.append("")
 
-    # -- Iteration counts --------------------------------------------------
     lines.append("## Iteration counts")
     if s1: lines.append(f"- Máy 1: {s1['iter']} iter ({len(s1.get('history',[]))} entries in history)")
     if s2: lines.append(f"- Máy 2: {s2['iter']} iter ({len(s2.get('history',[]))} entries in history)")
     lines.append("")
 
-    # -- Final canonical files ---------------------------------------------
     lines.append("## Canonical deliverables (after merge)")
     lines.append("")
     if not args.report_only:

@@ -47,7 +47,7 @@ def main():
 
     obs_dim = policy.observation_space.shape[0]
     act_dim = policy.action_space.shape[0]
-    print(f"[onnx] loaded {ckpt_path.name}  obs_dim={obs_dim}  act_dim={act_dim}")
+    print(f"[onnx] loaded {ckpt_path.name} obs_dim={obs_dim} act_dim={act_dim}")
 
     wrapper = OnnxablePolicy(policy)
     wrapper.eval()

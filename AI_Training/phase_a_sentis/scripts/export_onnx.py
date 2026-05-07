@@ -45,7 +45,7 @@ def main():
         opset_version=args.opset,
     )
     onnx.checker.check_model(onnx.load(onnx_path))
-    print(f"[onnx] saved   : {onnx_path}")
+    print(f"[onnx] saved : {onnx_path}")
 
     # Verify with onnxruntime
     sess = ort.InferenceSession(onnx_path.as_posix(), providers=["CPUExecutionProvider"])
@@ -79,7 +79,7 @@ def main():
     meta_path = MODEL_DIR / f"{args.arch}{suffix}_intent_meta.json"
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta, f, ensure_ascii=False, indent=2)
-    print(f"[meta] saved   : {meta_path}")
+    print(f"[meta] saved : {meta_path}")
 
 if __name__ == "__main__":
     main()

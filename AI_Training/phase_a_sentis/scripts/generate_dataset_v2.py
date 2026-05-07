@@ -10,9 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SEED_PATH = ROOT / "data" / "intents.csv"
 OUT_PATH = ROOT / "data" / "intents_v2.csv"
 
-# --------------------------------------------------------------------------
 # Word pools — feel free to extend
-# --------------------------------------------------------------------------
 
 TIMES = [
     "hôm nay", "hôm qua", "ngày mai", "ngày kia", "chiều nay", "tối nay", "sáng nay",
@@ -73,9 +71,7 @@ PARTICLES_END = [
     "?", " ?",
 ]
 
-# --------------------------------------------------------------------------
 # Templates — 20+ per intent
-# --------------------------------------------------------------------------
 
 TEMPLATES = {
     "HOI_LICH": [
@@ -308,9 +304,7 @@ TEMPLATES = {
     ],
 }
 
-# --------------------------------------------------------------------------
 # Augmentations
-# --------------------------------------------------------------------------
 
 ACCENT_MAP = str.maketrans(
     "àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ"
@@ -343,9 +337,7 @@ def drop_filler_word(s: str) -> str:
 def cap_first(s: str) -> str:
     return s[0].upper() + s[1:] if s else s
 
-# --------------------------------------------------------------------------
 # Generation
-# --------------------------------------------------------------------------
 
 def fill(template: str) -> str:
     return (
@@ -416,7 +408,7 @@ def main():
     print(f"[gen v2] wrote {len(out)} rows to {OUT_PATH}")
     print(f"[gen v2] per intent:")
     for intent, n in counts.items():
-        print(f"          {intent:<14}  {n}")
+        print(f"{intent:<14} {n}")
 
     # Quick vocab estimate
     from collections import Counter

@@ -43,7 +43,7 @@ public class PhaseAChatTester : MonoBehaviour
         }
 
         // Auto sanity test
-        Debug.Log("+- Auto sanity (5 sample) -");
+        Debug.Log("Auto sanity (5 sample) -");
         _totalSamples = Samples.Length;
         foreach (var (text, expected) in Samples)
         {
@@ -56,12 +56,12 @@ public class PhaseAChatTester : MonoBehaviour
             {
                 isUser = false,
                 content = reply,
-                subInfo = $"{intent} ({conf*100:F0}%) — expect {expected} {(ok ? "[OK]" : "[X]")}"
+                subInfo = $"{intent} ({conf*100:F0}%) — expect {expected} {(ok ? "ok" : "fail")}"
             });
-            Debug.Log($"| {(ok ? "[OK]" : "[X]")} \"{text}\" -> {intent} ({conf*100:F1}%, expect {expected})");
+            Debug.Log($"| {(ok ? "ok" : "fail")} \"{text}\" -> {intent} ({conf*100:F1}%, expect {expected})");
         }
         Debug.Log($"| Score: {_passCount}/{_totalSamples}");
-        Debug.Log("+--------------------------------");
+        Debug.Log("");
         _ready = true;
     }
 

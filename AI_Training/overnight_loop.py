@@ -7,9 +7,7 @@ import subprocess
 import time
 from pathlib import Path
 
-# ----------------------------------------------------------------------------
 # CONFIG — edit DEADLINE if user wants different stop time
-# ----------------------------------------------------------------------------
 DEADLINE = dt.datetime(2026, 5, 7, 19, 0, 0)  # 7 PM 7/5/2026 (~12h from 7 AM)
 
 PHASE_A_EPOCHS = 25
@@ -26,7 +24,6 @@ MIN_TIME_FOR_LIGHT = 8 * 60       # 8 min: 40k gen + cached train
 SPIN_GUARD_SLEEP = 30
 PHASE_A_TRAIN_TIMEOUT = 1800      # 30 min
 
-# ----------------------------------------------------------------------------
 ROOT = Path(__file__).resolve().parent
 PHASE_A = ROOT / "phase_a_sentis"
 PHASE_B = ROOT / "phase_b_movement"
@@ -83,9 +80,7 @@ def run(cmd: list[str], cwd: Path | None = None, timeout: int | None = None) -> 
     except Exception as e:
         return -2, f"EXC {type(e).__name__}: {e}"
 
-# ----------------------------------------------------------------------------
 # Phase A iteration: regenerate v3 + train one arch + eval
-# ----------------------------------------------------------------------------
 def phase_a_iter(seed: int, arch: str, state: dict) -> dict:
     log(f"[A] iter — seed={seed} arch={arch} target={PHASE_A_TARGET}/intent")
     rc, _ = run([str(PYTHON), str(PHASE_A / "scripts/generate_dataset_v3.py"),
@@ -159,9 +154,7 @@ def phase_a_iter(seed: int, arch: str, state: dict) -> dict:
 
     return {"ok": True, "acc": acc, "arch": arch}
 
-# ----------------------------------------------------------------------------
 # Phase B iteration: PPO 500k + ONNX export
-# ----------------------------------------------------------------------------
 def phase_b_iter(seed: int, state: dict) -> dict:
     tag = f"v3_iter{state['iter']}_s{seed}"
     log(f"[B] iter — tag={tag} steps={PHASE_B_STEPS:,} net={PHASE_B_NET}")
@@ -220,9 +213,7 @@ def phase_b_iter(seed: int, state: dict) -> dict:
             log(f"[B] new BEST -> deliverables/soldier.onnx")
     return {"ok": True, "mean_reward": mean_r}
 
-# ----------------------------------------------------------------------------
 # Main loop
-# ----------------------------------------------------------------------------
 def main():
     log(f"=== overnight v3 loop started — DEADLINE {DEADLINE.isoformat()} ===")
     log(f"     time left: {time_left()/60:.1f} min")

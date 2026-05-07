@@ -10,9 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SEED_PATH = ROOT / "data" / "intents.csv"
 OUT_PATH = ROOT / "data" / "intents_v3.csv"
 
-# --------------------------------------------------------------------------
 # Massive word pools
-# --------------------------------------------------------------------------
 TIMES = [
     # Day-relative
     "hôm nay", "hôm qua", "hôm kia", "ngày mai", "ngày kia", "ngày mốt",
@@ -222,9 +220,7 @@ OOC = [
     "cuối năm có thưởng không", "hôm nay có gì đặc biệt",
 ]
 
-# --------------------------------------------------------------------------
 # Templates — 50+ per intent (compound forms included)
-# --------------------------------------------------------------------------
 TEMPLATES = {
     "HOI_LICH": [
         "{time} có lịch gì",
@@ -589,9 +585,7 @@ TEMPLATES = {
     "OUT_OF_SCOPE": OOC,
 }
 
-# --------------------------------------------------------------------------
 # Augmentation — Vietnamese-specific
-# --------------------------------------------------------------------------
 ACCENT_MAP = str.maketrans(
     "àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ"
     "ÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬÈÉẺẼẸÊỀẾỂỄỆÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴĐ",
@@ -645,9 +639,7 @@ def drop_filler_word(s: str) -> str:
 def cap_first(s: str) -> str:
     return s[0].upper() + s[1:] if s else s
 
-# --------------------------------------------------------------------------
 # Generation
-# --------------------------------------------------------------------------
 
 def fill(template: str) -> str:
     return (
@@ -731,7 +723,7 @@ def main():
     counts = out["intent"].value_counts()
     print(f"[gen v3] wrote {len(out)} rows to {out_path}")
     for intent, n in counts.items():
-        print(f"          {intent:<14}  {n}")
+        print(f"{intent:<14} {n}")
 
     from collections import Counter
     c = Counter()

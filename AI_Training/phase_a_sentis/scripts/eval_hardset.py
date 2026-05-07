@@ -353,7 +353,7 @@ def main():
 
     if results:
         best = max(results.values(), key=lambda r: r["accuracy"])
-        print(f"\n>>> WINNER: {best['arch']} with {best['accuracy']*100:.1f}% on hard test set ({best['total']} Q)")
+        print(f"\nWINNER: {best['arch']} with {best['accuracy']*100:.1f}% on hard test set ({best['total']} Q)")
 
 if __name__ == "__main__":
     main()

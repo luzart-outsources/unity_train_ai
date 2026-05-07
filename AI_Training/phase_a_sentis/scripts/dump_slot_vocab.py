@@ -44,7 +44,7 @@ def main():
     for k, v in payload.items():
         if k.startswith("_"):
             continue
-        print(f"  {k:<8} {len(v)} entries")
+        print(f"{k:<8} {len(v)} entries")
 
 if __name__ == "__main__":
     main()

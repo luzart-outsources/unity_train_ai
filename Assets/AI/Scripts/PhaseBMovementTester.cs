@@ -21,13 +21,13 @@ public class PhaseBMovementTester : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("==============================================");
-        Debug.Log(" PHASE B — Movement Test (scene đã pre-build)");
-        Debug.Log("==============================================");
+        Debug.Log("");
+        Debug.Log("PHASE B — Movement Test (scene đã pre-build)");
+        Debug.Log("");
         if (agent == null || target == null)
         {
             Debug.LogError("[PhaseB] agent/target chưa assign. Rebuild scene qua menu AI.");
-            _status = "[FAIL] Scene không có agent/target. Rebuild scene.";
+            _status = "fail Scene không có agent/target. Rebuild scene.";
             return;
         }
         StartEpisode();
@@ -57,16 +57,16 @@ public class PhaseBMovementTester : MonoBehaviour
         {
             _running = false;
             _successCount++;
-            _status = $"[PASS] REACHED sau {elapsed:F1}s, dist={dist:F2}";
-            Debug.Log($"[PhaseB] Episode #{_episodeCount} [PASS] REACHED at {elapsed:F1}s");
+            _status = $"pass REACHED sau {elapsed:F1}s, dist={dist:F2}";
+            Debug.Log($"[PhaseB] Episode #{_episodeCount} pass REACHED at {elapsed:F1}s");
             return;
         }
 
         if (elapsed >= timeoutSeconds)
         {
             _running = false;
-            _status = $"[!] TIMEOUT sau {elapsed:F1}s, dist={dist:F2}";
-            Debug.LogWarning($"[PhaseB] Episode #{_episodeCount} [!] TIMEOUT");
+            _status = $"warn TIMEOUT sau {elapsed:F1}s, dist={dist:F2}";
+            Debug.LogWarning($"[PhaseB] Episode #{_episodeCount} warn TIMEOUT");
         }
     }
 

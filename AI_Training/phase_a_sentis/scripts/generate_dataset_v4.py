@@ -10,9 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SEED_PATH = ROOT / "data" / "intents.csv"
 OUT_PATH = ROOT / "data" / "intents_v4.csv"
 
-# --------------------------------------------------------------------------
 # MEGA Word Pools - ~5x bigger than v3
-# --------------------------------------------------------------------------
 
 TIMES = [
     # Day-relative
@@ -348,9 +346,7 @@ OOC = [
     "tốc độ ánh sáng", "vận tốc âm thanh",
 ]
 
-# --------------------------------------------------------------------------
 # SYNONYM SWAP - apply to fully-formed sentences
-# --------------------------------------------------------------------------
 SYNONYMS = {
     # verbs
     "ăn": ["ăn", "xơi", "chén", "đớp", "lùa", "đợp", "phang"],
@@ -374,9 +370,7 @@ SYNONYMS = {
     "đồng chí": ["đồng chí", "anh", "em", "bạn"],
 }
 
-# --------------------------------------------------------------------------
 # TEMPLATES - 200+ per intent
-# --------------------------------------------------------------------------
 TEMPLATES = {
     "HOI_LICH": [
         # Direct question forms
@@ -1450,9 +1444,7 @@ TEMPLATES = {
     "OUT_OF_SCOPE": OOC,
 }
 
-# --------------------------------------------------------------------------
 # Augmentation - Vietnamese-specific (similar to v3 but more aggressive)
-# --------------------------------------------------------------------------
 ACCENT_MAP = str.maketrans(
     "àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ"
     "ÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬÈÉẺẼẸÊỀẾỂỄỆÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴĐ",
@@ -1536,9 +1528,7 @@ def shuffle_safe(s: str) -> str:
     words[i], words[i + 1] = words[i + 1], words[i]
     return " ".join(words)
 
-# --------------------------------------------------------------------------
 # Generation
-# --------------------------------------------------------------------------
 def fill(template: str) -> str:
     return (
         template
@@ -1628,7 +1618,7 @@ def main():
     counts = out["intent"].value_counts()
     print(f"\n[gen v4] wrote {len(out)} rows to {out_path}")
     for intent, n in counts.items():
-        print(f"          {intent:<14}  {n}")
+        print(f"{intent:<14} {n}")
 
     from collections import Counter
     c = Counter()

@@ -44,7 +44,7 @@ def main():
                 probs = F.softmax(logits, dim=-1)[0]
             topk = probs.topk(min(args.top_k, len(id2label)))
             for prob, idx in zip(topk.values.tolist(), topk.indices.tolist()):
-                print(f"   {id2label[idx]:<14}  {prob*100:5.1f}%")
+                print(f"{id2label[idx]:<14} {prob*100:5.1f}%")
             print()
     except (KeyboardInterrupt, EOFError):
         print("\nbye.")

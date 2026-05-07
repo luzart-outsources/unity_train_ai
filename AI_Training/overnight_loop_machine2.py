@@ -7,7 +7,6 @@ import subprocess
 import time
 from pathlib import Path
 
-# ----------------------------------------------------------------------------
 DEADLINE = dt.datetime(2026, 5, 7, 19, 0, 0)
 
 PHASE_A_EPOCHS = 35
@@ -33,7 +32,6 @@ MIN_TIME_FOR_LIGHT = 12 * 60      # 12 min for 200k data + train
 SPIN_GUARD_SLEEP = 30
 PHASE_A_TRAIN_TIMEOUT = 2400      # 40 min — generous for 200k data train
 
-# ----------------------------------------------------------------------------
 ROOT = Path(__file__).resolve().parent
 PHASE_A = ROOT / "phase_a_sentis"
 PHASE_B = ROOT / "phase_b_movement"
