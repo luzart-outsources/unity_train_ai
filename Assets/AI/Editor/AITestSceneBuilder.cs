@@ -19,25 +19,26 @@ using UnityEngine.InputSystem.UI;
 
 public static class AITestSceneBuilder
 {
-    [MenuItem("AI/1. Phase A — Chat Test", false, 100)]
+    [MenuItem("AI/1. Phase A — Chat Test (V2)", false, 100)]
     public static void BuildPhaseA()
     {
         if (!CheckNotPlaying()) return;
         EnsureLayersAndTags();
         var assets = LoadAssets();
-        if (assets.intentModel == null) return;
+        if (assets.intentV2Model == null) { Debug.LogError("[AISetup] V2 model thiếu — check Assets/AI/Models/intent_classifier_v2.onnx"); return; }
 
         var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
 
-        // Commander với brain + ChatUI script
+        // Commander với brain V2 + ChatUI script + V2 stack (EntityExtractor + SmartContext)
         var commander = new GameObject("Commander");
         var brain = commander.AddComponent<NPCDialogueBrain>();
-        brain.modelAsset = assets.intentModel;
-        brain.metaJson = assets.intentMeta;
-        brain.responsesJson = assets.responsesJson;
+        brain.modelAsset = assets.intentV2Model;        // ⭐ V2 model (LSTM v5, 707K params, 96.8% hard test)
+        brain.metaJson = assets.intentV2Meta;            // ⭐ V2 meta (vocab 10k, max_len=40)
+        brain.responsesJson = assets.responsesV2Json;    // ⭐ V2 responses (5-7 templates, slot-aware)
         brain.backend = BackendType.CPU;
         brain.minConfidence = 0.40f;
         var chatUI = commander.AddComponent<PhaseAChatUI>();
+        chatUI.slotVocabJson = assets.slotVocabJson;     // ⭐ EntityExtractor input
 
         // ─── Canvas hierarchy ───────────────────────────────────────────
         var canvasGo = new GameObject("ChatCanvas", typeof(RectTransform));
@@ -334,24 +335,30 @@ public static class AITestSceneBuilder
         Debug.Log($"[AISetup] Phase B scene built: 1 plane, 1 agent, 1 target, 6 obstacles. Hierarchy hiện đầy đủ. Click Play.");
     }
 
-    [MenuItem("AI/3. Both — Combined", false, 102)]
+    [MenuItem("AI/3. Both — Combined (V2 Phase A + Phase B)", false, 102)]
     public static void BuildBoth()
     {
         if (!CheckNotPlaying()) return;
         EnsureLayersAndTags();
         var assets = LoadAssets();
-        if (assets.intentModel == null || assets.movementModel == null) return;
+        if (assets.intentV2Model == null || assets.movementModel == null) return;
 
         var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
 
-        // Phase A: Commander
+        // Phase A: Commander dùng V2 (PhaseAChatTester IMGUI fallback, không Canvas vì 3D scene chiếm view)
         var commander = new GameObject("Commander");
         var brain = commander.AddComponent<NPCDialogueBrain>();
-        brain.modelAsset = assets.intentModel;
-        brain.metaJson = assets.intentMeta;
-        brain.responsesJson = assets.responsesJson;
+        brain.modelAsset = assets.intentV2Model;          // ⭐ V2
+        brain.metaJson = assets.intentV2Meta;              // ⭐ V2
+        brain.responsesJson = assets.responsesV2Json;      // ⭐ V2
         brain.backend = BackendType.CPU;
-        commander.AddComponent<PhaseAChatTester>();
+        // Wire EntityExtractor + SmartContext qua direct field access (cần component
+        // PhaseAChatTester bị deprecated, nên dùng helper bằng cách init context
+        // direct trong Awake của tester)
+        var tester = commander.AddComponent<PhaseAChatTester>();
+        // Note: PhaseAChatTester (IMGUI) hiện chưa support slot extraction.
+        // Combined scene chỉ test classify, không test slot-aware response.
+        // Để dùng V2 đầy đủ với UI Canvas, dùng menu 1.
 
         // Phase B: scene 3D (như BuildPhaseB nhưng smaller arena để 2 system coexist)
         int obstacleLayerId = LayerMask.NameToLayer("Obstacle");
@@ -430,8 +437,14 @@ public static class AITestSceneBuilder
 
     struct AssetBundle
     {
-        public ModelAsset intentModel, movementModel;
+        // V1 (legacy — giữ cho menu compare/both)
+        public ModelAsset intentModel;
         public TextAsset intentMeta, responsesJson;
+        // V2 (canonical — dùng cho menu 1)
+        public ModelAsset intentV2Model;
+        public TextAsset intentV2Meta, responsesV2Json, slotVocabJson;
+        // Phase B
+        public ModelAsset movementModel;
     }
 
     static AssetBundle LoadAssets()
@@ -439,15 +452,21 @@ public static class AITestSceneBuilder
         var b = new AssetBundle
         {
             intentModel = AssetDatabase.LoadAssetAtPath<ModelAsset>("Assets/AI/Models/intent_classifier.onnx"),
-            movementModel = AssetDatabase.LoadAssetAtPath<ModelAsset>("Assets/AI/Models/soldier.onnx"),
             intentMeta = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/intent_classifier_meta.json"),
             responsesJson = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/responses.json"),
+
+            intentV2Model = AssetDatabase.LoadAssetAtPath<ModelAsset>("Assets/AI/Models/intent_classifier_v2.onnx"),
+            intentV2Meta = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/intent_classifier_v2_meta.json"),
+            responsesV2Json = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/responses_v2.json"),
+            slotVocabJson = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/slot_vocab.json"),
+
+            movementModel = AssetDatabase.LoadAssetAtPath<ModelAsset>("Assets/AI/Models/soldier.onnx"),
         };
-        if (b.intentModel == null || b.movementModel == null || b.intentMeta == null || b.responsesJson == null)
-        {
-            Debug.LogError("[AISetup] Một số asset không load được — refresh Project rồi thử lại");
-            Debug.LogError($"  intentModel: {(b.intentModel != null)}, movementModel: {(b.movementModel != null)}, intentMeta: {(b.intentMeta != null)}, responsesJson: {(b.responsesJson != null)}");
-        }
+        // Verify required assets per menu — log warnings cho missing
+        if (b.movementModel == null)
+            Debug.LogWarning("[AISetup] Phase B model missing: Assets/AI/Models/soldier.onnx");
+        if (b.intentV2Model == null)
+            Debug.LogWarning("[AISetup] V2 intent model missing — menu 1 sẽ fail. Re-train hoặc download.");
         return b;
     }
 

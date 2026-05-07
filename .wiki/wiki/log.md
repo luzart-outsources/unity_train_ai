@@ -112,6 +112,20 @@ Updated wiki:
 - technical/unity-integration.md: + 1-click setup section + Inspector verify checklist
 - systems/sentis-chat.md: + multi-word tokenization section
 
+## [2026-05-08] update | Menu 1 dùng V2 canonical (replace V1)
+
+User feedback: "Xử lý lại Phase A. Dùng mọi thứ ở v2 chứ không ở v1."
+
+Updates:
+- `PhaseAChatUI.cs`: + `slotVocabJson` field, Awake() init EntityExtractor + SmartRuntimeContext, gắn vào `brain.context`. Submit() và sanity test extract slot trước khi Respond.
+- `AITestSceneBuilder.cs`:
+  - Menu 1 (Phase A): wire V2 assets (intent_classifier_v2.onnx, intent_classifier_v2_meta.json, responses_v2.json, slot_vocab.json)
+  - Menu 3 (Both): cũng dùng V2 model (PhaseAChatTester IMGUI chưa support slot extraction, dùng menu 1 cho V2 đầy đủ)
+  - LoadAssets() return cả V1 + V2, BuildPhaseA require V2
+- Verify Python: V2 ONNX shape OK ([batch, seq_len] → [batch, 8]), vocab 10k, "Mấy giờ ăn cơm" → HOI_GIO_AN 100%
+
+V1 files (intent_classifier.onnx, responses.json) giữ trong Assets/AI/ để menu 4 (Compare V1 vs V2) còn xài.
+
 ## [2026-05-07 19:36] EOD | Máy 1 loop kết thúc — wiki sync final
 
 - Loop máy 1 ended cleanly at 18:59:21 (deadline 19:00 reached)

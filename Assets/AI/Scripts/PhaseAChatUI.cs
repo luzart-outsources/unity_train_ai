@@ -23,7 +23,13 @@ public class PhaseAChatUI : MonoBehaviour
     public InputField inputField;
     public Button sendButton;
 
+    [Header("V2 — slot extraction (set bởi editor builder)")]
+    [Tooltip("slot_vocab.json — nếu null thì context dùng DummyContext fallback only")]
+    public TextAsset slotVocabJson;
+
     private NPCDialogueBrain _brain;
+    private EntityExtractor _extractor;
+    private SmartRuntimeContext _smartContext;
     private int _passCount = 0;
     private Font _font;
 
@@ -43,6 +49,19 @@ public class PhaseAChatUI : MonoBehaviour
         // Use Arial OS font — supports Vietnamese diacritics
         _font = Font.CreateDynamicFontFromOSFont("Arial", 16);
         if (_font == null) _font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+
+        // V2 stack — wire slot extractor + smart context vào brain
+        if (slotVocabJson != null && !string.IsNullOrEmpty(slotVocabJson.text))
+        {
+            _extractor = new EntityExtractor(slotVocabJson.text);
+            _smartContext = new SmartRuntimeContext();   // fallback to DummyContext inside
+            if (_brain != null) _brain.context = _smartContext;
+            Debug.Log("[PhaseA] V2 stack ready — EntityExtractor + SmartRuntimeContext attached");
+        }
+        else
+        {
+            Debug.LogWarning("[PhaseA] slotVocabJson chưa assign → V2 không có entity extraction (fallback DummyContext only)");
+        }
     }
 
     void Start()
@@ -64,6 +83,11 @@ public class PhaseAChatUI : MonoBehaviour
         Debug.Log("┌─ Sanity (5 sample) ─");
         foreach (var (text, expected) in Samples)
         {
+            // V2: extract slots cho mỗi sample để response chính xác
+            if (_extractor != null && _smartContext != null)
+            {
+                _smartContext.SetExtractedSlots(_extractor.Extract(text));
+            }
             var (intent, conf) = _brain.Classify(text);
             string reply = _brain.Respond(text);
             bool ok = intent == expected;
@@ -116,6 +140,13 @@ public class PhaseAChatUI : MonoBehaviour
         if (inputField == null) return;
         string text = inputField.text.Trim();
         if (string.IsNullOrWhiteSpace(text)) return;
+
+        // V2: extract slots TRƯỚC khi Respond để SmartRuntimeContext fill placeholder
+        if (_extractor != null && _smartContext != null)
+        {
+            var slots = _extractor.Extract(text);
+            _smartContext.SetExtractedSlots(slots);
+        }
 
         var (intent, conf) = _brain.Classify(text);
         string reply = _brain.Respond(text);

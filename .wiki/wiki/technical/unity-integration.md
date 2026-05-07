@@ -112,27 +112,32 @@ for (int i = 0; i < 8; i++) {
 
 ## 1-click test setup (Editor menu)
 
-Setup `Assets/AI/Editor/AITestSceneBuilder.cs` cung cấp 3 menu items để build test scene tự động:
+Setup `Assets/AI/Editor/AITestSceneBuilder.cs` cung cấp 4 menu items để build test scene tự động:
 
 ```
-AI / 1. Phase A — Chat Test
-   → Tạo scene với Canvas UI đầy đủ:
-     - Background, Header (Title + Status), ScrollView (chat history),
-       InputRow (InputField + Send Button), EventSystem
-     - Commander GameObject với NPCDialogueBrain + PhaseAChatUI
-       (assets pre-assigned, refs wired)
-   → Auto sanity test 5 câu, hiển thị bubbles có sub-info "expect ABC ✓/✗"
-   → User gõ thêm câu, Enter submit
+AI / 1. Phase A — Chat Test (V2)        ⭐ Canonical
+   → Scene với Canvas UI đầy đủ + V2 stack:
+     - Commander: NPCDialogueBrain (V2 model 707K params, 96.8% hard test)
+                + PhaseAChatUI (Canvas, EntityExtractor + SmartRuntimeContext)
+     - V2 assets: intent_classifier_v2.onnx + intent_classifier_v2_meta.json
+                + responses_v2.json + slot_vocab.json
+   → Sanity test 5 câu + UI input gõ thêm
+   → V2 stack: model classify intent + EntityExtractor extract slot →
+     SmartRuntimeContext fill placeholder → response chính xác (vd:
+     "khu A ở đâu?" → trả lời về khu A, KHÔNG bị trả khu B5 hardcoded)
 
 AI / 2. Phase B — Movement Test
-   → Tạo scene 3D với:
-     - Floor, Target (đỏ), Agent (xanh, MovementAgent attached),
-       6 Obstacles (nâu), Camera top-down, StatusMonitor
-   → Tags + Layers (Obstacle=6, Target=7) tự create vào TagManager.asset
-   → Click Play: agent di chuyển tới target, status UI hiện distance/timer
+   → Scene 3D với Floor + Agent + Target + 6 Obstacles + StatusMonitor
+   → Layers (Obstacle=6, Target=7) tự create
+   → Click Play: agent đi tới target
 
-AI / 3. Both — Combined
-   → 1 scene chạy cả 2
+AI / 3. Both — Combined (V2 Phase A + Phase B)
+   → 1 scene chạy cả 2 (Phase A IMGUI fallback chưa có slot extraction —
+     dùng menu 1 nếu cần test V2 đầy đủ)
+
+AI / 4. Phase A — Compare V1 (Old) vs V2 (New)
+   → A/B test side-by-side: V1 LSTM v3 vs V2 LSTM v5 + slot extractor
+   → Cùng input → 2 reply song song để verify V2 thông minh hơn
 ```
 
 Sau khi click menu, scene mở ra trong Editor với Hierarchy đầy đủ, click Play.
