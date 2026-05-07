@@ -43,6 +43,7 @@ Master catalog. Read first to find relevant pages.
 - [[bugs/fasttext-overfit-narrow-test]] — FastText "100%" lừa dối trên test 16 câu (root: mean-pool)
 - [[bugs/loop-spin-near-deadline]] — Loop spin 493k iter gần deadline (root: thiếu sleep guard)
 - [[bugs/generator-on2-quadratic]] — Generator O(N²) blocker máy 2 HEAVY (30+ min → 3s sau fix)
+- [[bugs/unity-integration-bugs]] — 6 bugs Phase A/B integration (coord, tokenization, Input System, UI)
 
 ## Analysis
 - [[analysis/evolution-v1-to-v3.1]] — Lịch sử v1→v3.1 (data scale, eval rigor, loop maturity)

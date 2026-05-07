@@ -85,6 +85,33 @@ Chronological record of all wiki operations.
 - Đã pull khi máy 1 đang Phase B PPO iter 4 (subprocess load script vào RAM, an toàn)
 - Máy 1 sẽ dùng generator NEW từ iter 5 trở đi (giảm vài chục giây/iter)
 
+## [2026-05-07 20:30] integration | Unity setup + 6 bugs fixed
+
+Sau khi user test Unity, phát hiện 6 bugs trong integration phase. Tất cả đã fix + push:
+
+**Phase B (3 coord bugs)** — commit `174151d` + `ffcfd72`:
+1. `arenaDiagonal=28.28f → 35.36f` (= 25×√2 match v3 random env training)
+2. Collision: `CheckSphere` block hoàn toàn → `OverlapSphere` + slide projection
+3. **Turn flipped** (Python right-hand CCW vs Unity left-hand CW): negate turn
+
+**Phase A (tokenization bug)** — commit `4214dc2`:
+4. Whitespace split → greedy longest-match (vocab có multi-word entries `"ăn cơm"`, `"thủ trưởng"`)
+
+**Phase A UI** — commit `161136c` + `b1a0000`:
+5. IMGUI → Canvas-based real Unity UI (user yêu cầu)
+6. Legacy Input → Unity 6 InputSystem (`Keyboard.current` + `InputSystemUIInputModule`)
+
+**1-click Editor menu** — commit `7b7f228`:
+- AITestSceneBuilder.cs với 3 menu items (Phase A, B, Both)
+- Auto-create Layers + Tags + full scene Hierarchy
+- Pre-built scenes: PhaseA_ChatTest.unity, PhaseB_MovementTest.unity, AITest.unity
+
+Updated wiki:
+- New page: `bugs/unity-integration-bugs.md` — chi tiết 6 bugs + fix
+- claims.md: + c-20260507-24/25/26/27
+- technical/unity-integration.md: + 1-click setup section + Inspector verify checklist
+- systems/sentis-chat.md: + multi-word tokenization section
+
 ## [2026-05-07 19:36] EOD | Máy 1 loop kết thúc — wiki sync final
 
 - Loop máy 1 ended cleanly at 18:59:21 (deadline 19:00 reached)

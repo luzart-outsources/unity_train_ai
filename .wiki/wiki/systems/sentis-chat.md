@@ -61,6 +61,30 @@ NPC nói: "Sáng 6h, trưa 11h30, tối 18h..."
 
 Generator chi tiết: [[technical/data-generation]].
 
+## Tokenization — multi-word match (Vietnamese-specific)
+
+Vocab có entries multi-word chứa space (do Python `underthesea` segment):
+- `"ăn cơm"` (1 token, có space)
+- `"thủ trưởng"` (1 token)
+- `"báo cáo"` (1 token)
+- `"điều lệnh"`, `"chỉ huy"`, etc.
+
+C# wrapper PHẢI greedy longest-match, không split whitespace đơn giản:
+
+```csharp
+// Tại mỗi vị trí từ, thử ghép N..1 word liên tiếp
+for (int span = maxMultiWordLen; span >= 1; span--) {
+    string candidate = string.Join(" ", words, wi, span);
+    if (vocab.TryGetValue(candidate, out int id)) {
+        // Match longest! Consume span words.
+        wi += span;
+        break;
+    }
+}
+```
+
+Bug whitespace-only đã document chi tiết: [[bugs/unity-integration-bugs]] bug 4.
+
 ## ONNX contract (Quyền cần biết để load)
 
 ```

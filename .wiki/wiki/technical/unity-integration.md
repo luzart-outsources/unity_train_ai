@@ -104,8 +104,57 @@ for (int i = 0; i < 8; i++) {
 | `using Unity.Sentis` không tìm thấy | Unity 6 dùng `InferenceEngine` | Đổi sang `using Unity.InferenceEngine;` |
 | ONNX không load | File không phải opset 15 | Re-export với `--opset 15` |
 | Action toàn 0 | Tensor input chưa scale đúng | Verify từng index theo meta.json |
-| Lính đi xoắn ốc | Raycast direction sai (Unity vs numpy CCW) | Dùng `-right` thay vì `right` cho CCW |
+| Lính đi xoắn ốc / kẹt | Coord system mismatch | Xem [[bugs/unity-integration-bugs]] (4 bugs Phase B) |
+| Phase A classify sai | Tokenization whitespace vs underthesea | Xem [[bugs/unity-integration-bugs]] bug 4 |
+| `Input.GetKeyDown` không hoạt động | Unity 6 Input System only | Dùng `Keyboard.current.enterKey.wasPressedThisFrame` |
+| `StandaloneInputModule` bug | Cần `InputSystemUIInputModule` | Editor builder tự dùng nếu `ENABLE_INPUT_SYSTEM` |
 | Compile error tensor API | Sentis version cũ | Update `com.unity.ai.inference` lên 2.6+ |
+
+## 1-click test setup (Editor menu)
+
+Setup `Assets/AI/Editor/AITestSceneBuilder.cs` cung cấp 3 menu items để build test scene tự động:
+
+```
+AI / 1. Phase A — Chat Test
+   → Tạo scene với Canvas UI đầy đủ:
+     - Background, Header (Title + Status), ScrollView (chat history),
+       InputRow (InputField + Send Button), EventSystem
+     - Commander GameObject với NPCDialogueBrain + PhaseAChatUI
+       (assets pre-assigned, refs wired)
+   → Auto sanity test 5 câu, hiển thị bubbles có sub-info "expect ABC ✓/✗"
+   → User gõ thêm câu, Enter submit
+
+AI / 2. Phase B — Movement Test
+   → Tạo scene 3D với:
+     - Floor, Target (đỏ), Agent (xanh, MovementAgent attached),
+       6 Obstacles (nâu), Camera top-down, StatusMonitor
+   → Tags + Layers (Obstacle=6, Target=7) tự create vào TagManager.asset
+   → Click Play: agent di chuyển tới target, status UI hiện distance/timer
+
+AI / 3. Both — Combined
+   → 1 scene chạy cả 2
+```
+
+Sau khi click menu, scene mở ra trong Editor với Hierarchy đầy đủ, click Play.
+
+## Inspector verify checklist
+
+Sau khi builder build xong, click GameObject và verify:
+
+### Commander (Phase A)
+- NPCDialogueBrain: Model Asset = `intent_classifier.onnx`, Meta Json + Responses Json không null
+- PhaseAChatUI: titleText, statusText, contentParent, scrollRect, inputField, sendButton đều có ref
+
+### Agent (Phase B)
+- MovementAgent:
+  - Model Asset = `soldier.onnx`
+  - Target = transform của Target GameObject
+  - Obstacle Layer = LayerMask "Obstacle" (= 64 nếu layer 6)
+  - Target Layer = LayerMask "Target" (= 128 nếu layer 7)
+  - Arena Diagonal = 35.36 (KHÔNG phải 28.28!)
+
+### EventSystem
+- Component = `InputSystemUIInputModule` (KHÔNG phải StandaloneInputModule)
 
 ## Backlinks
 

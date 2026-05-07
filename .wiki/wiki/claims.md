@@ -155,6 +155,39 @@ Mỗi claim có ID stable `c-YYYYMMDD-NN`. Khi GDD revision sửa giá trị →
   - ≥2 seeds/HP cần thiết cho HP grid đáng tin
   - 5 iter Phase B × 2M PPO steps = 10M total steps trong ~5h CPU (máy 2 Intel UHD)
 
+### c-20260507-24 — Phase B coord system bugs (3 bugs)
+- **Claim**: 3 bugs phát hiện khi setup Unity scene Phase B:
+  1. `arenaDiagonal=28.28f` (cũ) → `35.36f` (= 25 × √2 match v3 random env)
+  2. `Physics.CheckSphere` block hoàn toàn → `OverlapSphere` + slide projection (match Python env)
+  3. **Turn rotation flipped** (Python right-hand CCW vs Unity left-hand CW): negate turn arg trong `transform.Rotate(0, -turn × ..., 0)`
+- **Sources**: `Assets/AI/Scripts/MovementAgent.cs`, user screenshot 7/5/2026
+- **Used by**: [[bugs/unity-integration-bugs]], [[systems/movement-ai]]
+- **Status**: fixed, commits `174151d` (bug 1+2) và `ffcfd72` (bug 3)
+- **Notes**: Bug 3 là CRITICAL — model output `turn=+0.5` nghĩa là CCW (rẽ trái) trong Python convention, Unity transform.Rotate dương = CW → rẽ phải đâm obstacle → kẹt.
+
+### c-20260507-25 — Phase A tokenization mismatch (CRITICAL)
+- **Claim**: C# whitespace tokenizer không match Python underthesea. Vocab có multi-word entries như `"ăn cơm"`, `"thủ trưởng"` (chứa space). Whitespace split → cả 2 thành UNK → ~30-50% tokens UNK → model fail.
+- **Sources**: `Assets/AI/Scripts/NPCDialogueBrain.cs::Encode()`, `intent_classifier_meta.json` vocab
+- **Used by**: [[bugs/unity-integration-bugs]], [[systems/sentis-chat]]
+- **Fix**: greedy longest-match từ vocab keys (precompute `_maxMultiWordLen` trong ParseMeta). Commit `4214dc2`.
+- **Status**: fixed, approximation underthesea (không hoàn hảo nhưng đủ tốt cho 8 intent)
+
+### c-20260507-26 — Unity 6 Input System Package only
+- **Claim**: Project ProjectSettings có `activeInputHandler: 1` (Input System Package only, không legacy). Hậu quả: `Input.GetKeyDown(KeyCode.Return)` silent fail, `StandaloneInputModule` không hoạt động đúng.
+- **Sources**: `ProjectSettings/ProjectSettings.asset`, package `com.unity.inputsystem 1.14.2`
+- **Used by**: [[technical/unity-integration]], [[bugs/unity-integration-bugs]]
+- **Fix**:
+  - Replace `Input.GetKeyDown` bằng `UnityEngine.InputSystem.Keyboard.current.enterKey.wasPressedThisFrame`
+  - Replace `StandaloneInputModule` bằng `InputSystemUIInputModule`
+  - Wrap với `#if ENABLE_INPUT_SYSTEM` cho cross-compat
+- **Status**: fixed, commit `b1a0000`
+
+### c-20260507-27 — 1-click Editor menu setup
+- **Claim**: `Assets/AI/Editor/AITestSceneBuilder.cs` provide 3 menu items để build pre-built test scenes. Editor tự tạo Layers + Tags trong TagManager.asset, full Canvas UI hierarchy cho Phase A, full 3D scene cho Phase B. User mở scene là thấy mọi GameObject trong Hierarchy.
+- **Sources**: `Assets/AI/Editor/AITestSceneBuilder.cs`
+- **Used by**: [[technical/unity-integration]]
+- **Status**: deployed, scenes commit ở `7b7f228`
+
 ### c-20260507-23 — Resume protocol cho overnight_loop_machine2
 - **Claim**: `overnight_loop_machine2.py` được patch để resume từ state.json sau restart: `seed_a = 5000 + state["iter"]`, `seed_b = 7000 + state["iter"]`, `hp_idx = state["iter"]`. Đảm bảo HP cycle position không reset về h1 sau mỗi restart, seed không trùng. Critical cho safety khi cần kill+restart giữa chừng (như đã làm 14:03 để skip Phase A).
 - **Sources**: `overnight_loop_machine2.py:250-253`, commit `ff5affc`
