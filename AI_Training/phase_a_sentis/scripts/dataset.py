@@ -1,10 +1,3 @@
-"""Dataset + tokenizer + vocabulary for Vietnamese intent classification.
-
-Tokenization strategy:
-  1. Try `underthesea.word_tokenize` (Vietnamese-aware).
-  2. Fall back to whitespace split if underthesea import fails.
-Vocab is built from the training split only.
-"""
 from __future__ import annotations
 import json
 import re
@@ -19,7 +12,6 @@ from torch.utils.data import Dataset
 PAD_TOKEN = "<pad>"
 UNK_TOKEN = "<unk>"
 
-
 def vi_tokenize(text: str) -> List[str]:
     """Tokenize Vietnamese text. Lowercase + word segmentation."""
     text = text.lower().strip()
@@ -30,7 +22,6 @@ def vi_tokenize(text: str) -> List[str]:
         return word_tokenize(text)
     except Exception:
         return text.split()
-
 
 def build_vocab(texts: List[str], min_freq: int = 1, max_size: int = 5000) -> dict:
     """Return token -> id mapping. Reserves 0 for PAD, 1 for UNK."""
@@ -44,13 +35,11 @@ def build_vocab(texts: List[str], min_freq: int = 1, max_size: int = 5000) -> di
         vocab[tok] = len(vocab)
     return vocab
 
-
 def encode(text: str, vocab: dict, max_len: int = 32) -> List[int]:
     ids = [vocab.get(tok, vocab[UNK_TOKEN]) for tok in vi_tokenize(text)]
     ids = ids[:max_len]
     ids += [vocab[PAD_TOKEN]] * (max_len - len(ids))
     return ids
-
 
 class IntentDataset(Dataset):
     """Pre-encodes all texts once at init — avoids re-tokenizing per epoch.
@@ -79,14 +68,12 @@ class IntentDataset(Dataset):
     def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
         return self._x[idx], self._y[idx]
 
-
 def load_csv(path: str | Path) -> pd.DataFrame:
     df = pd.read_csv(path)
     df = df.dropna().reset_index(drop=True)
     df["text"] = df["text"].astype(str).str.strip()
     df["intent"] = df["intent"].astype(str).str.strip()
     return df
-
 
 def save_json(obj, path: str | Path) -> None:
     Path(path).parent.mkdir(parents=True, exist_ok=True)

@@ -1,39 +1,3 @@
-// MovementAgent.cs
-//
-// Phase B — soldier NPC movement controller for Unity 6.
-// Loads soldier.onnx (trained with Python PPO on a 2D top-down nav environment)
-// and drives a NavCube agent toward a target while avoiding obstacle cubes.
-//
-// IMPORTANT — observation contract:
-//   The Python training used these 21 inputs IN THIS ORDER:
-//     [0..7]   8 ray distances normalized by ray_max_dist (10.0m)
-//              Rays are evenly spaced 360° starting from the agent's forward
-//              direction, going counter-clockwise (matches np convention).
-//              Index 0 = forward, 1..7 = 45° increments left.
-//     [8..15]  ray hit-target one-hot — 1.0 if that ray hit the target, else 0.0
-//     [16]     velocity_forward (in agent frame) / max_speed (3.5)
-//     [17]     velocity_lateral (in agent frame, +right) / max_speed
-//     [18]     direction-to-target forward component (cos angle in agent frame)
-//     [19]     direction-to-target lateral component (sin angle in agent frame)
-//     [20]     distance-to-target / arena_diagonal (28.28)
-//
-//   Output: 2 floats in [-1, 1]:
-//     [0] thrust  (forward, negative = reverse at half speed)
-//     [1] turn    (positive = right, negative = left, scaled by max_turn)
-//
-// In Unity 3D, the agent moves on the Y=0 plane (top-down). Set the cube's
-// transform.position.y to 0 (or whatever your floor y is). Pass forward/lateral
-// in world XZ via the agent's local axes. See ComputeObservation() for the
-// reference impl.
-//
-// Required scene setup:
-//   * 1 GameObject "Agent" with this MovementAgent component + a Cube child
-//     (visual). Assign Target GameObject in Inspector. Tag obstacles "Obstacle".
-//   * Tag the Target GameObject "Target".
-//
-// Required model assets:
-//   * soldier.onnx imported as ModelAsset (Assets/AI/soldier.onnx)
-//   * Optionally read soldier.meta.json for sanity check on dims.
 
 using System;
 using UnityEngine;
@@ -102,26 +66,16 @@ public class MovementAgent : MonoBehaviour
         float thrust = Mathf.Clamp(act[0], -1f, 1f);
         float turn = Mathf.Clamp(act[1], -1f, 1f);
 
-        // 3) Apply action — same kinematics as Python env
-        // CRITICAL: Python rotation positive = CCW (right-hand math: heading += turn).
-        // Unity positive Y rotation = CW from above (left-handed coords).
-        // -> Negate để khớp Python: turn>0 từ model nghĩa là CCW (rẽ trái), Unity phải
-        //   xoay -turn để cũng ra CCW.
         transform.Rotate(0f, -turn * maxTurnRadPerSec * dt * Mathf.Rad2Deg, 0f, Space.World);
         float speed = thrust > 0 ? thrust * maxSpeed : thrust * maxSpeed * 0.5f;
         Vector3 fwd = transform.forward; fwd.y = 0f; fwd.Normalize();
         _velocity = fwd * speed;
         Vector3 next = transform.position + _velocity * dt;
 
-        // 4) Collision response — match Python: slide along nearest face thay vì block
-        // Python code (nav_env.py::step):
-        //   ox, oy = new_pos[0]-cx, new_pos[1]-cy
-        //   if abs(ox) > abs(oy): new_pos[0] = cx + sign(ox)*(h+r+0.01)
-        //   else:                 new_pos[1] = cy + sign(oy)*(h+r+0.01)
         Collider[] hits = Physics.OverlapSphere(next, agentRadius, obstacleLayer);
         if (hits != null && hits.Length > 0)
         {
-            // Slide ra cạnh gần nhất của obstacle đầu tiên
+            // Slide ra canh gan nhat cua obstacle dau tien
             var ob = hits[0];
             Vector3 obCenter = ob.bounds.center;
             float halfX = ob.bounds.extents.x;
@@ -136,10 +90,6 @@ public class MovementAgent : MonoBehaviour
         transform.position = next;
     }
 
-    /// <summary>
-    /// Build the 21-dim observation vector. Lays out values in the exact order
-    /// the Python training expected.
-    /// </summary>
     void ComputeObservation(float[] outBuf)
     {
         Vector3 pos = transform.position;

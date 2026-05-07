@@ -1,12 +1,3 @@
-"""V6 - v5 + surgical fixes for the remaining 7 hard-test misses (target 98%+).
-
-Diff vs v5:
-  * +HOI_LICH: "rảnh không nhỉ" forms WITHOUT optional "có" filler word
-  * +HOI_VI_TRI code-mix: more English place words + Vietnamese question
-  * +HOI_VI_TRI no-accent: explicit no-accent place query templates
-  * +OUT_OF_SCOPE: more academic-complaint templates ("Bài tập nhiều quá", ...)
-  * Bump drop_accent rate 18%->24% to harden NO_ACCENT generalization
-"""
 from __future__ import annotations
 import argparse
 import random
@@ -18,7 +9,6 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parent.parent
 SEED_PATH = ROOT / "data" / "intents.csv"
 OUT_PATH = ROOT / "data" / "intents_v6.csv"
-
 
 # --------------------------------------------------------------------------
 # MEGA Word Pools - ~5x bigger than v3
@@ -358,7 +348,6 @@ OOC = [
     "tốc độ ánh sáng", "vận tốc âm thanh",
 ]
 
-
 # --------------------------------------------------------------------------
 # SYNONYM SWAP - apply to fully-formed sentences
 # --------------------------------------------------------------------------
@@ -384,7 +373,6 @@ SYNONYMS = {
     "thủ trưởng": ["thủ trưởng", "thầy", "anh", "chỉ huy", "đại đội trưởng"],
     "đồng chí": ["đồng chí", "anh", "em", "bạn"],
 }
-
 
 # --------------------------------------------------------------------------
 # TEMPLATES - 200+ per intent
@@ -1151,7 +1139,7 @@ TEMPLATES = {
         "đã đạt yêu cầu báo cáo lên",
         "đã đạt yêu cầu báo cáo",
         "đã đạt chỉ tiêu báo cáo",
-        # Variants of "thủ trưởng"
+        # Variants of "thu truong"
         "thủ trưởng tôi báo cáo {report} đầy đủ",
         "thủ trưởng em báo cáo {report} đầy đủ",
         "thưa thủ trưởng {report} đầy đủ",
@@ -1462,12 +1450,11 @@ TEMPLATES = {
     "OUT_OF_SCOPE": OOC,
 }
 
-
 # --------------------------------------------------------------------------
 # V5 GAP-FILLERS — targeted templates for v4 hard-test misses
 # --------------------------------------------------------------------------
 
-# HOI_LICH gaps: free/busy semantics + future-time + "đi đâu" = activity
+# HOI_LICH gaps: free/busy semantics + future-time + "di dau" = activity
 TEMPLATES["HOI_LICH"].extend([
     "{time} có rảnh không",
     "{time} mình rảnh không",
@@ -1493,7 +1480,7 @@ TEMPLATES["HOI_LICH"].extend([
     "có rảnh không {time}",
     "bận không {time}",
     "trống lịch chưa {time}",
-    # Future-time + "đi đâu" = where do we go (still asking schedule)
+    # Future-time + "di dau" = where do we go (still asking schedule)
     "{time} đi đâu",
     "{time} mình đi đâu",
     "{time} đại đội đi đâu",
@@ -1513,7 +1500,7 @@ TEMPLATES["HOI_LICH"].extend([
     "{time} đại đội tập ở đâu",
 ])
 
-# XIN_PHEP gaps: pure-symptom forms (no "xin phép" keyword) — student
+# XIN_PHEP gaps: pure-symptom forms (no "xin phep" keyword) — student
 # implicitly asks for leave by stating the reason.
 TEMPLATES["XIN_PHEP"].extend([
     # Symptom-only
@@ -1563,7 +1550,7 @@ TEMPLATES["XIN_PHEP"].extend([
     "em không khỏe lắm",
     "em yếu quá",
     "em ngất xỉu",
-    # Family / gấp
+    # Family / gap
     "nhà có việc gấp",
     "nhà em có việc gấp",
     "gia đình em có việc gấp",
@@ -1612,7 +1599,7 @@ TEMPLATES["HOI_VI_TRI"].extend([
     "tim {place} o dau",
     "tim {place} cho nao",
     "muon di {place} thi di dau",
-    # Adversarial — make sure cantin/căn tin/wifi-yếu boundary is clear
+    # Adversarial — make sure cantin/can tin/wifi-yeu boundary is clear
     "căn tin chỗ nào",
     "căng tin ở đâu",
     "căn tin",
@@ -1645,7 +1632,7 @@ TEMPLATES["OUT_OF_SCOPE"].extend([
     "ngày mai đi đâu chơi",
     "cuối tuần nóng quá",
     "cuối tuần đi đâu",
-    # Weather + hunger compound (mimics "Hôm nay trời đẹp và tớ đói")
+    # Weather + hunger compound (mimics "Hom nay troi dep va to doi")
     "trời đẹp tớ đói",
     "trời nắng tớ đói",
     "trời đẹp với lại tớ đói",
@@ -1682,7 +1669,7 @@ TEMPLATES["OUT_OF_SCOPE"].extend([
 # V6 SURGICAL FIXES — for v5's remaining 7 hard-test misses
 # --------------------------------------------------------------------------
 
-# HOI_LICH: rảnh-không-nhỉ form WITHOUT "có" filler (test was "Hôm nay rảnh không nhỉ")
+# HOI_LICH: ranh-khong-nhi form WITHOUT "co" filler (test was "Hom nay ranh khong nhi")
 TEMPLATES["HOI_LICH"].extend([
     "{time} rảnh không",
     "{time} rảnh không nhỉ",
@@ -1759,7 +1746,7 @@ TEMPLATES["HOI_VI_TRI"].extend([
 ])
 
 # OUT_OF_SCOPE: more academic / student complaint forms — these should NOT be HOI_VI_TRI
-# even when they contain "nhà" or place-like nouns
+# even when they contain "nha" or place-like nouns
 TEMPLATES["OUT_OF_SCOPE"].extend([
     "Bài tập về nhà nhiều quá",
     "Bài tập về nhà khó vãi",
@@ -1821,17 +1808,14 @@ TELEX_TYPOS = [
     ("ă", "aw"), ("đ", "dd"),
 ]
 
-
 def drop_accent(s: str) -> str:
     return s.translate(ACCENT_MAP)
-
 
 def telex_typo(s: str) -> str:
     for vowel, raw in TELEX_TYPOS:
         if vowel in s and random.random() < 0.5:
             return s.replace(vowel, raw, 1)
     return s
-
 
 def random_typo(s: str) -> str:
     if len(s) < 6:
@@ -1841,7 +1825,6 @@ def random_typo(s: str) -> str:
         return s
     return s[:i] + s[i + 1:]
 
-
 def char_swap(s: str) -> str:
     if len(s) < 4:
         return s
@@ -1850,7 +1833,6 @@ def char_swap(s: str) -> str:
         return s
     return s[:i] + s[i + 1] + s[i] + s[i + 2:]
 
-
 def drop_filler_word(s: str) -> str:
     fillers = {"thì", "là", "à", "ơi", "ạ", "vậy", "thế", "đó", "mà", "đấy"}
     words = s.split()
@@ -1858,7 +1840,6 @@ def drop_filler_word(s: str) -> str:
     if 0 < len(keep) < len(words):
         return " ".join(keep)
     return s
-
 
 def synonym_swap(s: str) -> str:
     """Replace at most one matched synonym with a random alternative.
@@ -1874,7 +1855,7 @@ def synonym_swap(s: str) -> str:
     random.shuffle(indices)
     for idx in indices[:5]:
         w = words[idx]
-        # Try multi-word too: "thế nào", "khi nào"
+        # Try multi-word too: "the nao", "khi nao"
         for k, opts in SYNONYMS.items():
             if k == w or (idx + len(k.split()) <= len(words) and " ".join(words[idx:idx + len(k.split())]) == k):
                 pick = random.choice(opts)
@@ -1884,10 +1865,8 @@ def synonym_swap(s: str) -> str:
                 return " ".join(words[:idx] + pick.split() + words[idx + ksize:])
     return s
 
-
 def cap_first(s: str) -> str:
     return s[0].upper() + s[1:] if s else s
-
 
 def shuffle_safe(s: str) -> str:
     """Lightly shuffle word order for non-syntactic intents (BAO_CAO with
@@ -1899,7 +1878,6 @@ def shuffle_safe(s: str) -> str:
     i = random.randrange(1, len(words) - 1)
     words[i], words[i + 1] = words[i + 1], words[i]
     return " ".join(words)
-
 
 # --------------------------------------------------------------------------
 # Generation
@@ -1915,13 +1893,11 @@ def fill(template: str) -> str:
         .replace("{reason}", random.choice(REASONS))
     )
 
-
 def decorate(text: str) -> str:
     pre = random.choice(PRE_GREETINGS)
     post = random.choice(POST_PARTICLES)
     s = pre + text + post
     return re.sub(r"\s+", " ", s).strip()
-
 
 def maybe_compound(intent: str, text: str) -> str:
     """With some probability, append a second clause from the same intent."""
@@ -1930,7 +1906,6 @@ def maybe_compound(intent: str, text: str) -> str:
         connector = random.choice(CONNECTORS)
         return f"{text} {connector} {second}"
     return text
-
 
 def augment(text: str, intent: str) -> str:
     """v6 raises drop_accent rate to 24% (vs v5 18%) to harden NO_ACCENT cases
@@ -1955,7 +1930,6 @@ def augment(text: str, intent: str) -> str:
     if random.random() < 0.30:
         text = cap_first(text)
     return text
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -2005,7 +1979,6 @@ def main():
     for t in out["text"]:
         c.update(t.lower().split())
     print(f"[gen v4] approx vocab (whitespace): {len(c)} unique tokens")
-
 
 if __name__ == "__main__":
     main()

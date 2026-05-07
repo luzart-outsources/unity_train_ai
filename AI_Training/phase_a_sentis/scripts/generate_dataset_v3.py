@@ -1,22 +1,3 @@
-"""V3 — massive Vietnamese intent dataset for army-context NPC chat.
-
-Goals over v2:
-  * 6-10x bigger word pools (places, times, knowledge topics, reasons, ...)
-  * 50+ templates per intent (vs 22), including compound + multi-clause forms
-  * Multi-segment composition: occasionally chain two templates with a connector
-    ("Cho hỏi {A}, với lại {B}") for natural conversational variety
-  * Sociolinguistic variants: formal cấp dưới ↔ cấp trên, peers, regional
-    politeness particles (ạ/nhé/nha/nghe), Hà Nội ↔ Sài Gòn slip-ins
-  * Vietnamese-keyboard typo simulator (telex/VNI mistakes — most realistic
-    OOV pattern for student NPC users)
-  * Number/place/time enumeration to broaden literal vocabulary
-
-Run:
-    .venv/Scripts/python scripts/generate_dataset_v3.py --per_intent 2000
-
-Output:
-    data/intents_v3.csv
-"""
 from __future__ import annotations
 import argparse
 import random
@@ -28,7 +9,6 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parent.parent
 SEED_PATH = ROOT / "data" / "intents.csv"
 OUT_PATH = ROOT / "data" / "intents_v3.csv"
-
 
 # --------------------------------------------------------------------------
 # Massive word pools
@@ -241,7 +221,6 @@ OOC = [
     "tớ vừa nhận lương", "tháng này tiêu hết tiền",
     "cuối năm có thưởng không", "hôm nay có gì đặc biệt",
 ]
-
 
 # --------------------------------------------------------------------------
 # Templates — 50+ per intent (compound forms included)
@@ -610,7 +589,6 @@ TEMPLATES = {
     "OUT_OF_SCOPE": OOC,
 }
 
-
 # --------------------------------------------------------------------------
 # Augmentation — Vietnamese-specific
 # --------------------------------------------------------------------------
@@ -627,10 +605,8 @@ TELEX_TYPOS = [
     ("ă", "aw"), ("đ", "dd"),
 ]
 
-
 def drop_accent(s: str) -> str:
     return s.translate(ACCENT_MAP)
-
 
 def telex_typo(s: str) -> str:
     """Simulate one composition mistake — 'ô' -> 'oo' for example."""
@@ -638,7 +614,6 @@ def telex_typo(s: str) -> str:
         if vowel in s and random.random() < 0.5:
             return s.replace(vowel, raw, 1)
     return s
-
 
 def random_typo(s: str) -> str:
     """Drop a random char (small chance) — simulates fast typing."""
@@ -649,7 +624,6 @@ def random_typo(s: str) -> str:
         return s
     return s[:i] + s[i + 1:]
 
-
 def char_swap(s: str) -> str:
     """Adjacent char swap — common touch-typing typo."""
     if len(s) < 4:
@@ -658,7 +632,6 @@ def char_swap(s: str) -> str:
     if s[i] == " " or s[i + 1] == " ":
         return s
     return s[:i] + s[i + 1] + s[i] + s[i + 2:]
-
 
 def drop_filler_word(s: str) -> str:
     """Drop one filler word."""
@@ -669,10 +642,8 @@ def drop_filler_word(s: str) -> str:
         return " ".join(keep)
     return s
 
-
 def cap_first(s: str) -> str:
     return s[0].upper() + s[1:] if s else s
-
 
 # --------------------------------------------------------------------------
 # Generation
@@ -689,13 +660,11 @@ def fill(template: str) -> str:
         .replace("{reason}", random.choice(REASONS))
     )
 
-
 def decorate(text: str) -> str:
     pre = random.choice(PRE_GREETINGS)
     post = random.choice(POST_PARTICLES)
     s = pre + text + post
     return re.sub(r"\s+", " ", s).strip()
-
 
 def maybe_compound(intent: str, text: str) -> str:
     """With small probability, append a second clause from the same intent."""
@@ -704,7 +673,6 @@ def maybe_compound(intent: str, text: str) -> str:
         connector = random.choice(CONNECTORS)
         return f"{text} {connector} {second}"
     return text
-
 
 def augment(text: str) -> str:
     """Apply 0-2 augmentations randomly. Conservative — keep most clean."""
@@ -722,7 +690,6 @@ def augment(text: str) -> str:
     if random.random() < 0.30:
         text = cap_first(text)
     return text
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -771,7 +738,6 @@ def main():
     for t in out["text"]:
         c.update(t.lower().split())
     print(f"[gen v3] approx vocab (whitespace): {len(c)} unique tokens")
-
 
 if __name__ == "__main__":
     main()

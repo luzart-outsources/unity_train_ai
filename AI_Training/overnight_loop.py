@@ -1,15 +1,3 @@
-"""V3 — bigger data, more cases, longer PPO. Same orchestration shape.
-
-Changes from v2:
-  * Phase A uses generate_dataset_v3.py with --per_intent 2000 (was 250-300)
-  * Phase B uses 500k PPO steps per iter (was 200k) + net_arch [128, 128]
-  * Phase B env now randomizes obstacle count + arena size per episode
-  * Sleep 30s if both phases skipped near deadline (fixes spin bug)
-  * Tracks "best per arch" for Phase A (FastText/LSTM/Transformer cycled)
-
-Run:
-    .venv/Scripts/python overnight_loop.py
-"""
 from __future__ import annotations
 import datetime as dt
 import json
@@ -51,14 +39,11 @@ STATE_PATH = ROOT / "overnight_v3_state.json"
 env = os.environ.copy()
 env["PYTHONIOENCODING"] = "utf-8"
 
-
 def now() -> dt.datetime:
     return dt.datetime.now()
 
-
 def time_left() -> float:
     return (DEADLINE - now()).total_seconds()
-
 
 def log(msg: str) -> None:
     line = f"[{now().strftime('%H:%M:%S')}] {msg}"
@@ -66,11 +51,9 @@ def log(msg: str) -> None:
     with open(LOG_PATH, "a", encoding="utf-8") as f:
         f.write(line + "\n")
 
-
 def save_state(state: dict) -> None:
     with open(STATE_PATH, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
-
 
 def load_state() -> dict:
     if STATE_PATH.exists():
@@ -87,7 +70,6 @@ def load_state() -> dict:
         "history": [],
     }
 
-
 def run(cmd: list[str], cwd: Path | None = None, timeout: int | None = None) -> tuple[int, str]:
     try:
         p = subprocess.run(cmd, cwd=str(cwd) if cwd else None,
@@ -100,7 +82,6 @@ def run(cmd: list[str], cwd: Path | None = None, timeout: int | None = None) -> 
         return -1, "TIMEOUT"
     except Exception as e:
         return -2, f"EXC {type(e).__name__}: {e}"
-
 
 # ----------------------------------------------------------------------------
 # Phase A iteration: regenerate v3 + train one arch + eval
@@ -178,7 +159,6 @@ def phase_a_iter(seed: int, arch: str, state: dict) -> dict:
 
     return {"ok": True, "acc": acc, "arch": arch}
 
-
 # ----------------------------------------------------------------------------
 # Phase B iteration: PPO 500k + ONNX export
 # ----------------------------------------------------------------------------
@@ -239,7 +219,6 @@ def phase_b_iter(seed: int, state: dict) -> dict:
                                      "seed": seed, "tag": tag}
             log(f"[B] new BEST -> deliverables/soldier.onnx")
     return {"ok": True, "mean_reward": mean_r}
-
 
 # ----------------------------------------------------------------------------
 # Main loop
@@ -302,7 +281,6 @@ def main():
         f"(iter {state['best_phase_b']['iter']}, tag {state['best_phase_b'].get('tag')})")
     save_state(state)
     log(f"     deliverables/ ready for review")
-
 
 if __name__ == "__main__":
     main()

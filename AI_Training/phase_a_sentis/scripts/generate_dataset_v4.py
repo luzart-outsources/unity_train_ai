@@ -1,24 +1,3 @@
-"""V4 - massive Vietnamese intent dataset with paraphrase-first design.
-
-Goals over v3:
-  * 200-300 templates per intent (vs 50)
-  * 5x bigger word pools (esp synonyms, dialects, fuzzy-time, military slang)
-  * Heavy paraphrase patterns:
-      - declarative-with-rising-tone forms
-      - ellipsis ("con mai thi sao")
-      - complaint-as-question ("doi qua", "lac duong roi")
-      - greetings-then-question
-  * Code-mixing (5% English insertion - schedule, location, lunch, etc.)
-  * Stronger augmentation rate (~30%)
-  * Synonym swap inside fully-formed sentences (a -> {an,xoi,chen}, di -> {di,toi,ra})
-  * Cross-intent hard negatives (HOI_VI_TRI vs XIN_PHEP about location etc.)
-
-Run:
-    .venv/Scripts/python scripts/generate_dataset_v4.py --per_intent 30000
-
-Output:
-    data/intents_v4.csv  (~240k rows for 8 intents)
-"""
 from __future__ import annotations
 import argparse
 import random
@@ -30,7 +9,6 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parent.parent
 SEED_PATH = ROOT / "data" / "intents.csv"
 OUT_PATH = ROOT / "data" / "intents_v4.csv"
-
 
 # --------------------------------------------------------------------------
 # MEGA Word Pools - ~5x bigger than v3
@@ -370,7 +348,6 @@ OOC = [
     "tốc độ ánh sáng", "vận tốc âm thanh",
 ]
 
-
 # --------------------------------------------------------------------------
 # SYNONYM SWAP - apply to fully-formed sentences
 # --------------------------------------------------------------------------
@@ -396,7 +373,6 @@ SYNONYMS = {
     "thủ trưởng": ["thủ trưởng", "thầy", "anh", "chỉ huy", "đại đội trưởng"],
     "đồng chí": ["đồng chí", "anh", "em", "bạn"],
 }
-
 
 # --------------------------------------------------------------------------
 # TEMPLATES - 200+ per intent
@@ -1163,7 +1139,7 @@ TEMPLATES = {
         "đã đạt yêu cầu báo cáo lên",
         "đã đạt yêu cầu báo cáo",
         "đã đạt chỉ tiêu báo cáo",
-        # Variants of "thủ trưởng"
+        # Variants of "thu truong"
         "thủ trưởng tôi báo cáo {report} đầy đủ",
         "thủ trưởng em báo cáo {report} đầy đủ",
         "thưa thủ trưởng {report} đầy đủ",
@@ -1474,7 +1450,6 @@ TEMPLATES = {
     "OUT_OF_SCOPE": OOC,
 }
 
-
 # --------------------------------------------------------------------------
 # Augmentation - Vietnamese-specific (similar to v3 but more aggressive)
 # --------------------------------------------------------------------------
@@ -1490,17 +1465,14 @@ TELEX_TYPOS = [
     ("ă", "aw"), ("đ", "dd"),
 ]
 
-
 def drop_accent(s: str) -> str:
     return s.translate(ACCENT_MAP)
-
 
 def telex_typo(s: str) -> str:
     for vowel, raw in TELEX_TYPOS:
         if vowel in s and random.random() < 0.5:
             return s.replace(vowel, raw, 1)
     return s
-
 
 def random_typo(s: str) -> str:
     if len(s) < 6:
@@ -1510,7 +1482,6 @@ def random_typo(s: str) -> str:
         return s
     return s[:i] + s[i + 1:]
 
-
 def char_swap(s: str) -> str:
     if len(s) < 4:
         return s
@@ -1519,7 +1490,6 @@ def char_swap(s: str) -> str:
         return s
     return s[:i] + s[i + 1] + s[i] + s[i + 2:]
 
-
 def drop_filler_word(s: str) -> str:
     fillers = {"thì", "là", "à", "ơi", "ạ", "vậy", "thế", "đó", "mà", "đấy"}
     words = s.split()
@@ -1527,7 +1497,6 @@ def drop_filler_word(s: str) -> str:
     if 0 < len(keep) < len(words):
         return " ".join(keep)
     return s
-
 
 def synonym_swap(s: str) -> str:
     """Replace at most one matched synonym with a random alternative.
@@ -1543,7 +1512,7 @@ def synonym_swap(s: str) -> str:
     random.shuffle(indices)
     for idx in indices[:5]:
         w = words[idx]
-        # Try multi-word too: "thế nào", "khi nào"
+        # Try multi-word too: "the nao", "khi nao"
         for k, opts in SYNONYMS.items():
             if k == w or (idx + len(k.split()) <= len(words) and " ".join(words[idx:idx + len(k.split())]) == k):
                 pick = random.choice(opts)
@@ -1553,10 +1522,8 @@ def synonym_swap(s: str) -> str:
                 return " ".join(words[:idx] + pick.split() + words[idx + ksize:])
     return s
 
-
 def cap_first(s: str) -> str:
     return s[0].upper() + s[1:] if s else s
-
 
 def shuffle_safe(s: str) -> str:
     """Lightly shuffle word order for non-syntactic intents (BAO_CAO with
@@ -1568,7 +1535,6 @@ def shuffle_safe(s: str) -> str:
     i = random.randrange(1, len(words) - 1)
     words[i], words[i + 1] = words[i + 1], words[i]
     return " ".join(words)
-
 
 # --------------------------------------------------------------------------
 # Generation
@@ -1584,13 +1550,11 @@ def fill(template: str) -> str:
         .replace("{reason}", random.choice(REASONS))
     )
 
-
 def decorate(text: str) -> str:
     pre = random.choice(PRE_GREETINGS)
     post = random.choice(POST_PARTICLES)
     s = pre + text + post
     return re.sub(r"\s+", " ", s).strip()
-
 
 def maybe_compound(intent: str, text: str) -> str:
     """With some probability, append a second clause from the same intent."""
@@ -1599,7 +1563,6 @@ def maybe_compound(intent: str, text: str) -> str:
         connector = random.choice(CONNECTORS)
         return f"{text} {connector} {second}"
     return text
-
 
 def augment(text: str, intent: str) -> str:
     """Apply 0-2 augmentations randomly. v4 is more aggressive (~30% noise)."""
@@ -1623,7 +1586,6 @@ def augment(text: str, intent: str) -> str:
     if random.random() < 0.30:
         text = cap_first(text)
     return text
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -1673,7 +1635,6 @@ def main():
     for t in out["text"]:
         c.update(t.lower().split())
     print(f"[gen v4] approx vocab (whitespace): {len(c)} unique tokens")
-
 
 if __name__ == "__main__":
     main()

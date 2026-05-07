@@ -1,11 +1,3 @@
-"""Export slot vocabulary pools (PLACES, TIMES, KNOWLEDGE, ...) from
-generate_dataset_v4 into a JSON file for the C# EntityExtractor.
-
-Run:
-    .venv/Scripts/python scripts/dump_slot_vocab.py
-Output:
-    Assets/AI/Resources/slot_vocab.json
-"""
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -17,7 +9,6 @@ import generate_dataset_v4 as gen
 # Up to project root TrainAI_Unity/
 ROOT = Path(__file__).resolve().parents[3]
 OUT = ROOT / "Assets" / "AI" / "Resources" / "slot_vocab.json"
-
 
 def dedupe_lower(items: list[str]) -> list[str]:
     seen = set()
@@ -31,7 +22,6 @@ def dedupe_lower(items: list[str]) -> list[str]:
     # Sort by length desc so longest-match works in C# (matters for greedy)
     out.sort(key=lambda s: (-len(s.split()), -len(s), s))
     return out
-
 
 def main():
     payload = {
@@ -55,7 +45,6 @@ def main():
         if k.startswith("_"):
             continue
         print(f"  {k:<8} {len(v)} entries")
-
 
 if __name__ == "__main__":
     main()

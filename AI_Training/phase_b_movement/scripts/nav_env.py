@@ -1,29 +1,8 @@
-"""Gymnasium 2D nav environment — agent (cube) reaching target (cube) past obstacles (cubes).
-
-Designed to mirror what Unity ML-Agents would expose, so the trained ONNX
-plugs into Unity by re-implementing the same observation pipeline:
-
-    Observation (21 floats):
-       [0..7]   8 raycast distances normalized (forward, FR, R, BR, B, BL, L, FL)
-       [8..15]  8 raycast hit types: 1.0 if ray hit target else 0.0
-       [16..17] agent velocity in agent frame (forward, lateral) / max_speed
-       [18..19] direction-to-target in agent frame (cos, sin)
-       [20]     distance-to-target / arena_diagonal
-
-    Action (2 floats, continuous in [-1, 1]):
-       [0] forward thrust
-       [1] turn rate (left negative, right positive)
-
-The arena is a flat top-down square with axis-aligned cube obstacles. The
-agent uses simple kinematic physics (forward velocity + turn rate). One
-"step" advances 0.1 simulated seconds.
-"""
 from __future__ import annotations
 import math
 import numpy as np
 import gymnasium as gym
 from gymnasium import spaces
-
 
 class NavCubeEnv(gym.Env):
     """2D top-down nav with cube obstacles, mirroring Unity raycast obs."""
@@ -317,7 +296,6 @@ class NavCubeEnv(gym.Env):
             if t_min > t_max:
                 return float("inf")
         return t_min if t_min > 0 else float("inf")
-
 
 if __name__ == "__main__":
     env = NavCubeEnv(seed=0)

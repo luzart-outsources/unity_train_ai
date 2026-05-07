@@ -1,13 +1,3 @@
-"""Train PPO on NavCubeEnv. Saves best by mean episode reward.
-
-Usage:
-    .venv/Scripts/python scripts/train_ppo.py --total_steps 500000
-
-Outputs:
-    checkpoints/ppo_<seed>_step<N>.zip   periodic
-    checkpoints/ppo_best.zip              best policy seen
-    logs/eval_<seed>.csv                  eval log per checkpoint
-"""
 from __future__ import annotations
 import argparse
 import csv
@@ -29,13 +19,11 @@ ROOT = Path(__file__).resolve().parent.parent
 CKPT_DIR = ROOT / "checkpoints"
 LOG_DIR = ROOT / "logs"
 
-
 def make_env(seed: int, **kw):
     def _thunk():
         env = NavCubeEnv(seed=seed, **kw)
         return env
     return _thunk
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -116,7 +104,6 @@ def main():
 
     print(f"[ppo] saved: {last_path}")
     print(f"[ppo] best : {CKPT_DIR / 'best_model.zip'} (managed by EvalCallback)")
-
 
 if __name__ == "__main__":
     main()

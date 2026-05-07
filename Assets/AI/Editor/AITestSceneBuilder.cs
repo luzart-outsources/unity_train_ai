@@ -1,12 +1,3 @@
-// AITestSceneBuilder.cs — pre-build scenes với GameObjects sẵn trong Hierarchy
-//
-// Click menu -> scene mở ra với mọi thứ visible trong Editor (chưa Play).
-// User có thể inspect, di chuyển obstacle, đổi position trước khi Play.
-//
-// Menu items:
-//   AI / 1. Phase A — Chat Test       -> scene với Commander (brain + chat UI)
-//   AI / 2. Phase B — Movement Test    -> scene với Floor + Agent + Target + 6 Obstacles + Camera
-//   AI / 3. Both — Combined            -> scene với cả 2
 
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -29,7 +20,7 @@ public static class AITestSceneBuilder
 
         var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
 
-        // Commander với brain V2 + ChatUI script + V2 stack (EntityExtractor + SmartContext)
+        // Commander voi brain V2 + ChatUI script + V2 stack (EntityExtractor + SmartContext)
         var commander = new GameObject("Commander");
         var brain = commander.AddComponent<NPCDialogueBrain>();
         brain.modelAsset = assets.intentV2Model;        // * V2 model (LSTM v5, 707K params, 96.8% hard test)
@@ -161,7 +152,7 @@ public static class AITestSceneBuilder
         btnText.alignment = TextAnchor.MiddleCenter;
         btnText.text = "Gửi";
 
-        // EventSystem — Unity 6 Input System dùng InputSystemUIInputModule
+        // EventSystem — Unity 6 Input System dung InputSystemUIInputModule
         if (GameObject.FindFirstObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
         {
             var es = new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem));
@@ -172,7 +163,7 @@ public static class AITestSceneBuilder
 #endif
         }
 
-        // Wire references vào ChatUI
+        // Wire references vao ChatUI
         chatUI.titleText = titleText;
         chatUI.statusText = statusText;
         chatUI.contentParent = content;
@@ -180,7 +171,7 @@ public static class AITestSceneBuilder
         chatUI.inputField = input;
         chatUI.sendButton = btn;
 
-        // Camera đặt sang chỗ không quan trọng (UI overlay không cần camera angle)
+        // Camera dat sang cho khong quan trong (UI overlay khong can camera angle)
         var cam = GameObject.Find("Main Camera");
         if (cam != null) cam.transform.position = new Vector3(0, 1, -10);
 
@@ -188,9 +179,6 @@ public static class AITestSceneBuilder
         Debug.Log("[AISetup] Phase A scene built — Hierarchy có Canvas + Background + Header + ScrollView + InputRow + Commander. Click Play.");
     }
 
-    // ---------------------------------------------------------------------
-    // UI helpers
-    // ---------------------------------------------------------------------
     static RectTransform MakeUIChild(Transform parent, string name)
     {
         var go = new GameObject(name, typeof(RectTransform));
@@ -276,7 +264,7 @@ public static class AITestSceneBuilder
         floor.transform.localScale = new Vector3(3, 1, 3);
         SetColor(floor, new Color(0.7f, 0.7f, 0.7f));
 
-        // Target — đỏ
+        // Target — do
         var target = GameObject.CreatePrimitive(PrimitiveType.Cube);
         target.name = "Target";
         target.tag = "Target";
@@ -284,7 +272,7 @@ public static class AITestSceneBuilder
         target.transform.position = new Vector3(8, 0.5f, 8);
         SetColor(target, Color.red);
 
-        // 6 Obstacles — nâu
+        // 6 Obstacles — nau
         var rng = new System.Random(42);
         for (int i = 0; i < 6; i++)
         {
@@ -299,12 +287,12 @@ public static class AITestSceneBuilder
             SetColor(ob, new Color(0.4f, 0.25f, 0.1f));
         }
 
-        // Agent — xanh, gắn MovementAgent (assets pre-assigned)
+        // Agent — xanh, gan MovementAgent (assets pre-assigned)
         var agent = GameObject.CreatePrimitive(PrimitiveType.Cube);
         agent.name = "Agent";
         agent.transform.position = new Vector3(-8, 0.5f, -8);
         SetColor(agent, Color.blue);
-        // Disable collider trigger để không bị physics
+        // Disable collider trigger de khong bi physics
         var agentCol = agent.GetComponent<BoxCollider>();
         if (agentCol != null) agentCol.isTrigger = true;
 
@@ -315,7 +303,7 @@ public static class AITestSceneBuilder
         if (obstacleLayerId >= 0) moveAgent.obstacleLayer = 1 << obstacleLayerId;
         if (targetLayerId >= 0) moveAgent.targetLayer = 1 << targetLayerId;
 
-        // Camera — đặt góc trên xuống
+        // Camera — dat goc tren xuong
         var cam = GameObject.Find("Main Camera");
         if (cam != null)
         {
@@ -345,22 +333,16 @@ public static class AITestSceneBuilder
 
         var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
 
-        // Phase A: Commander dùng V2 (PhaseAChatTester IMGUI fallback, không Canvas vì 3D scene chiếm view)
+        // Phase A: Commander dung V2 (PhaseAChatTester IMGUI fallback, khong Canvas vi 3D scene chiem view)
         var commander = new GameObject("Commander");
         var brain = commander.AddComponent<NPCDialogueBrain>();
         brain.modelAsset = assets.intentV2Model;          // * V2
         brain.metaJson = assets.intentV2Meta;              // * V2
         brain.responsesJson = assets.responsesV2Json;      // * V2
         brain.backend = BackendType.CPU;
-        // Wire EntityExtractor + SmartContext qua direct field access (cần component
-        // PhaseAChatTester bị deprecated, nên dùng helper bằng cách init context
-        // direct trong Awake của tester)
         var tester = commander.AddComponent<PhaseAChatTester>();
-        // Note: PhaseAChatTester (IMGUI) hiện chưa support slot extraction.
-        // Combined scene chỉ test classify, không test slot-aware response.
-        // Để dùng V2 đầy đủ với UI Canvas, dùng menu 1.
 
-        // Phase B: scene 3D (như BuildPhaseB nhưng smaller arena để 2 system coexist)
+        // Phase B: scene 3D (nhu BuildPhaseB nhung smaller arena de 2 system coexist)
         int obstacleLayerId = LayerMask.NameToLayer("Obstacle");
         int targetLayerId = LayerMask.NameToLayer("Target");
 
@@ -422,9 +404,6 @@ public static class AITestSceneBuilder
         Debug.Log("[AISetup] Combined scene built. Click Play.");
     }
 
-    // ---------------------------------------------------------------------
-    // Helpers
-    // ---------------------------------------------------------------------
     static bool CheckNotPlaying()
     {
         if (EditorApplication.isPlaying)
@@ -437,10 +416,10 @@ public static class AITestSceneBuilder
 
     struct AssetBundle
     {
-        // V1 (legacy — giữ cho menu compare/both)
+        // V1 (legacy — giu cho menu compare/both)
         public ModelAsset intentModel;
         public TextAsset intentMeta, responsesJson;
-        // V2 (canonical — dùng cho menu 1)
+        // V2 (canonical — dung cho menu 1)
         public ModelAsset intentV2Model;
         public TextAsset intentV2Meta, responsesV2Json, slotVocabJson;
         // Phase B
@@ -492,9 +471,6 @@ public static class AITestSceneBuilder
         }
     }
 
-    // ---------------------------------------------------------------------
-    // Layer + Tag setup
-    // ---------------------------------------------------------------------
     static void EnsureLayersAndTags()
     {
         var tagAssets = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset");

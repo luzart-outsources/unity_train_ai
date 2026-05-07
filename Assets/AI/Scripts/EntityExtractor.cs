@@ -1,24 +1,3 @@
-// EntityExtractor.cs
-//
-// Phase A v2 — rule-based slot extractor cho NPC chat.
-//
-// Vấn đề con AI cũ giải: model classify intent rất tốt (HOI_VI_TRI khi user hỏi
-// về địa điểm), nhưng response template dùng placeholder {place} luôn được fill
-// bằng giá trị HARDCODED trong DummyContext (vd: "khu B"). Kết quả: user hỏi
-// "khu A ở đâu" -> AI vẫn nhả "khu A nằm ở khu B5". Trông như AI ngu — nhưng thực
-// ra là tầng response không nhận biết user vừa hỏi cái gì.
-//
-// EntityExtractor đọc câu user, scan qua vocabulary slot (đồng bộ với
-// generate_dataset_v4.py), longest-match rồi return slot map cho RuntimeContext
-// dùng khi substitute template.
-//
-// Slot vocab được dump bởi `scripts/dump_slot_vocab.py` ra
-// `Assets/AI/Resources/slot_vocab.json` (load qua TextAsset / Resources.Load).
-//
-// Usage:
-//   var extractor = new EntityExtractor(slotVocabJson);
-//   var slots = extractor.Extract("khu A ở đâu");
-//   // slots["place"] == "khu A"
 
 using System;
 using System.Collections.Generic;
@@ -39,7 +18,6 @@ public class EntityExtractor
         ParseVocab(slotVocabJsonText);
     }
 
-    /// <summary>Extract first match per slot from text. Returns dict slotName -> matched phrase.</summary>
     public Dictionary<string, string> Extract(string text)
     {
         var result = new Dictionary<string, string>();
@@ -63,9 +41,6 @@ public class EntityExtractor
         return result;
     }
 
-    // ---------------------------------------------------------------------
-    // Matching helpers
-    // ---------------------------------------------------------------------
     private static string Normalize(string s)
     {
         // Lowercase and pad with spaces so word-boundary check at edges is uniform.
@@ -102,7 +77,6 @@ public class EntityExtractor
         return compact.ToString();
     }
 
-    /// <summary>Check that <paramref name="needle"/> appears as a whole word/phrase in pre-normalized <paramref name="hay"/>.</summary>
     private static bool ContainsAsWord(string hay, string needle)
     {
         if (string.IsNullOrEmpty(needle)) return false;
@@ -112,11 +86,6 @@ public class EntityExtractor
         return hay.IndexOf(padded, StringComparison.Ordinal) >= 0;
     }
 
-    // ---------------------------------------------------------------------
-    // Tiny JSON parser (slot_vocab.json shape)
-    //   { "_README": "...", "place": ["a", "b"], "time": ["..."], ... }
-    // We only need top-level keys mapping to string arrays.
-    // ---------------------------------------------------------------------
     private void ParseVocab(string json)
     {
         int idx = 0;

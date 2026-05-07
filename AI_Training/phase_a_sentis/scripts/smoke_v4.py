@@ -1,13 +1,3 @@
-"""Smoke test for v4 LSTM + slot extractor logic (Python mirror of C#).
-
-Verifies:
-  1. v4 model classifies user pain-point examples correctly
-  2. Slot extractor (greedy longest-match against slot_vocab.json) returns
-     the right entity strings for substitution
-
-Run:
-    .venv/Scripts/python scripts/smoke_v4.py
-"""
 from __future__ import annotations
 import io
 import json
@@ -30,7 +20,6 @@ MODEL_DIR = ROOT / "models"
 UNITY_ROOT = ROOT.parent.parent
 SLOT_VOCAB_PATH = UNITY_ROOT / "Assets" / "AI" / "Resources" / "slot_vocab.json"
 
-
 def load_v4():
     ckpt = torch.load(MODEL_DIR / "lstm_v4_best.pt", map_location="cpu", weights_only=True)
     model = build_model("lstm", ckpt["vocab_size"], ckpt["num_classes"])
@@ -42,12 +31,10 @@ def load_v4():
         id2label = {int(k): v for k, v in json.load(f).items()}
     return model, vocab, id2label, ckpt["max_len"]
 
-
 def load_slots() -> dict[str, list[str]]:
     with open(SLOT_VOCAB_PATH, encoding="utf-8") as f:
         data = json.load(f)
     return {k: v for k, v in data.items() if not k.startswith("_")}
-
 
 def normalize(text: str) -> str:
     out = []
@@ -58,7 +45,6 @@ def normalize(text: str) -> str:
             out.append(" ")
     s = " " + " ".join("".join(out).split()) + " "
     return s
-
 
 def extract(text: str, slot_vocab: dict[str, list[str]]) -> dict[str, str]:
     """Mirror EntityExtractor.cs Extract logic."""
@@ -72,14 +58,12 @@ def extract(text: str, slot_vocab: dict[str, list[str]]) -> dict[str, str]:
                 break
     return result
 
-
 def classify(model, vocab, id2label, max_len, text: str) -> tuple[str, float]:
     ids = torch.tensor([encode(text, vocab, max_len)], dtype=torch.long)
     with torch.no_grad():
         probs = F.softmax(model(ids), dim=-1)[0]
     idx = int(probs.argmax())
     return id2label[idx], float(probs[idx])
-
 
 def main():
     model, vocab, id2label, max_len = load_v4()
@@ -117,7 +101,6 @@ def main():
         mark = "OK " if ok else "X  "
         print(f"  {mark} \"{text:<35s}\" -> {intent:<14s} ({conf*100:5.1f}%) [exp {expected:<14s}]  slots: {slot_str}")
     print(f"\nScore: {pass_count}/{len(cases)} = {pass_count/len(cases)*100:.1f}%")
-
 
 if __name__ == "__main__":
     main()

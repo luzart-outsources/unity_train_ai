@@ -1,7 +1,3 @@
-// PhaseAChatTester.cs
-//
-// UI chat IMGUI với layout đẹp + auto-focus input + auto-scroll history.
-// Yêu cầu NPCDialogueBrain trên cùng GameObject (set bởi editor builder).
 
 using System.Collections.Generic;
 using UnityEngine;
@@ -186,7 +182,7 @@ public class PhaseAChatTester : MonoBehaviour
         return total;
     }
 
-    // Helper — tạo solid color texture cho box backgrounds
+    // Helper — tao solid color texture cho box backgrounds
     private Dictionary<Color, Texture2D> _texCache = new Dictionary<Color, Texture2D>();
     Texture2D MakeTex(Color c)
     {

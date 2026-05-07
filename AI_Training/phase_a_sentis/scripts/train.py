@@ -1,16 +1,3 @@
-"""Train Vietnamese intent classifier and save best checkpoint.
-
-Usage (from phase_a_sentis/):
-    .venv/Scripts/python scripts/train.py --arch fasttext --epochs 20
-    .venv/Scripts/python scripts/train.py --arch lstm --epochs 30
-    .venv/Scripts/python scripts/train.py --arch transformer --epochs 40
-
-Output:
-    models/<arch>_best.pt
-    models/vocab.json
-    models/label2id.json
-    models/training_log.json
-"""
 from __future__ import annotations
 import argparse
 import json
@@ -33,7 +20,6 @@ ROOT = Path(__file__).resolve().parent.parent  # phase_a_sentis/
 DATA_PATH = ROOT / "data" / "intents.csv"
 MODEL_DIR = ROOT / "models"
 
-
 def evaluate(model: nn.Module, loader: DataLoader, device: str) -> tuple[float, float]:
     model.eval()
     total_loss, correct, total = 0.0, 0, 0
@@ -46,7 +32,6 @@ def evaluate(model: nn.Module, loader: DataLoader, device: str) -> tuple[float, 
             correct += (logits.argmax(dim=1) == y).sum().item()
             total += y.size(0)
     return total_loss / max(total, 1), correct / max(total, 1)
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -125,7 +110,6 @@ def main():
     save_json({"log": log, "best_val_acc": best_acc, "elapsed_sec": time.time() - t0}, MODEL_DIR / f"training_log{tag}.json")
     print(f"\n[done] best val_acc = {best_acc:.4f}  elapsed = {time.time()-t0:.1f}s")
     print(f"[done] checkpoint   : {MODEL_DIR / f'{args.arch}{tag}_best.pt'}")
-
 
 if __name__ == "__main__":
     main()

@@ -1,17 +1,3 @@
-// AITestRunner.cs
-//
-// 1-CLICK TEST: tự động test cả Phase A (5 câu intent) + Phase B (1 episode movement)
-// trong cùng 1 scene. Mở scene + Play = mọi thứ tự chạy + log Console.
-//
-// User flow:
-//   1. Mở Unity project
-//   2. Menu "AI/Build & Run Test Scene" (chỉ lần đầu — tạo scene + Layers)
-//   3. Scene mở ra. Click Play.
-//   4. Console hiển thị:
-//      - Phase A: 5 sentences classified (target ≥4/5 đúng)
-//      - Phase B: Agent đi tới target trong N giây
-//
-// No manual drag/drop required.
 
 using System.Collections;
 using System.Collections.Generic;
@@ -38,7 +24,7 @@ public class AITestRunner : MonoBehaviour
     private GameObject _target;
     private MovementAgent _moveAgent;
 
-    // Phase A test sentences với expected intent
+    // Phase A test sentences voi expected intent
     private static readonly (string text, string expected)[] PhaseATests = new[]
     {
         ("Mấy giờ thì ăn cơm",       "HOI_GIO_AN"),
@@ -74,9 +60,6 @@ public class AITestRunner : MonoBehaviour
         Debug.Log("==============================================");
     }
 
-    // ---------------------------------------------------------------------
-    // Phase A
-    // ---------------------------------------------------------------------
     IEnumerator RunPhaseATest()
     {
         Debug.Log("+- PHASE A: Intent Classifier (5 câu test) -");
@@ -87,9 +70,6 @@ public class AITestRunner : MonoBehaviour
             yield break;
         }
 
-        // Tạo Commander GameObject với NPCDialogueBrain
-        // CRITICAL: SetActive(false) trước AddComponent vì Awake() chạy ngay
-        // khi component được add -> fields chưa kịp assign -> fail "missing assets"
         var commander = new GameObject("Commander");
         commander.SetActive(false);
         _brain = commander.AddComponent<NPCDialogueBrain>();
@@ -98,9 +78,9 @@ public class AITestRunner : MonoBehaviour
         _brain.responsesJson = responsesJson;
         _brain.backend = BackendType.CPU;  // CPU stable cho test
         _brain.minConfidence = 0.40f;
-        commander.SetActive(true);  // bây giờ Awake() chạy với fields đầy đủ
+        commander.SetActive(true);  // bay gio Awake() chay voi fields day du
 
-        yield return null;  // đợi 1 frame cho Awake hoàn tất
+        yield return null;  // doi 1 frame cho Awake hoan tat
 
         int correct = 0;
         for (int i = 0; i < PhaseATests.Length; i++)
@@ -121,9 +101,6 @@ public class AITestRunner : MonoBehaviour
         Debug.Log("+--------------------------------------------");
     }
 
-    // ---------------------------------------------------------------------
-    // Phase B — build scene + run episode
-    // ---------------------------------------------------------------------
     void BuildPhaseBScene()
     {
         Debug.Log("+- PHASE B: Movement (build scene + 1 episode) -");
@@ -136,26 +113,26 @@ public class AITestRunner : MonoBehaviour
         var floorMat = floor.GetComponent<Renderer>().material;
         floorMat.color = new Color(0.7f, 0.7f, 0.7f);
 
-        // Target — màu đỏ
+        // Target — mau do
         _target = GameObject.CreatePrimitive(PrimitiveType.Cube);
         _target.name = "Target";
-        _target.tag = "Target";   // tag must be defined — Editor script sẽ tạo
+        _target.tag = "Target";   // tag must be defined — Editor script se tao
         int targetLayerId = LayerMask.NameToLayer("Target");
         if (targetLayerId >= 0) _target.layer = targetLayerId;
         _target.transform.position = new Vector3(8, 0.5f, 8);
         _target.GetComponent<Renderer>().material.color = Color.red;
 
-        // Agent — màu xanh, SetActive(false) trước để Awake không fail
+        // Agent — mau xanh, SetActive(false) truoc de Awake khong fail
         _agent = GameObject.CreatePrimitive(PrimitiveType.Cube);
         _agent.name = "Agent";
-        _agent.SetActive(false);  // ngăn Awake chạy trước khi assign properties
+        _agent.SetActive(false);  // ngan Awake chay truoc khi assign properties
         _agent.transform.position = new Vector3(-8, 0.5f, -8);
         _agent.GetComponent<Renderer>().material.color = Color.blue;
-        // Remove collider — agent là kinematic, không cần collide
+        // Remove collider — agent la kinematic, khong can collide
         var col = _agent.GetComponent<BoxCollider>();
         if (col != null) col.isTrigger = true;
 
-        // Obstacles — 6 cube ngẫu nhiên
+        // Obstacles — 6 cube ngau nhien
         int obstacleLayerId = LayerMask.NameToLayer("Obstacle");
         var rng = new System.Random(42);
         for (int i = 0; i < 6; i++)
@@ -171,7 +148,7 @@ public class AITestRunner : MonoBehaviour
             ob.GetComponent<Renderer>().material.color = new Color(0.3f, 0.2f, 0.1f);
         }
 
-        // Add MovementAgent component (agent đang inactive nên Awake chưa chạy)
+        // Add MovementAgent component (agent dang inactive nen Awake chua chay)
         _moveAgent = _agent.AddComponent<MovementAgent>();
         _moveAgent.modelAsset = movementModel;
         _moveAgent.target = _target.transform;
@@ -179,10 +156,10 @@ public class AITestRunner : MonoBehaviour
         if (obstacleLayerId >= 0) _moveAgent.obstacleLayer = 1 << obstacleLayerId;
         if (targetLayerId >= 0) _moveAgent.targetLayer = 1 << targetLayerId;
 
-        // Bây giờ activate -> Awake() sẽ chạy với fields đầy đủ
+        // Bay gio activate -> Awake() se chay voi fields day du
         _agent.SetActive(true);
 
-        // Camera — đặt ở góc trên nhìn xuống
+        // Camera — dat o goc tren nhin xuong
         if (Camera.main != null)
         {
             Camera.main.transform.position = new Vector3(0, 25, -15);

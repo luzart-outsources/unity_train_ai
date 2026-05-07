@@ -1,39 +1,3 @@
-// NPCDialogueBrain.cs
-//
-// Phase A — Vietnamese army-context NPC chat brain for Unity 6.
-// Uses Sentis (com.unity.ai.inference 2.6.x) which Unity 6 ships under the
-// `Unity.InferenceEngine` namespace.
-//
-// What this script does (the AI part Quyen does NOT need to retrain):
-//   1. Load fasttext_intent.onnx + fasttext_intent_meta.json (vocab + label map).
-//   2. Tokenize user text (lowercased whitespace split — matches Python whitespace
-//      tokenization in production. Note: Python training used `underthesea` which
-//      multiword-segments. For BEST accuracy in Unity you'd port underthesea or
-//      use SentencePiece. For Quyen's basic deployment, whitespace is fine — most
-//      eval-set sentences still classify correctly because FastText averages
-//      embeddings).
-//   3. Run inference -> argmax -> intent label.
-//   4. Look up a random response template from responses.json and substitute
-//      runtime placeholders ({scheduled_today}, {place}, etc.) using game state.
-//
-// What Quyen DOES need to do:
-//   * Drop fasttext_intent.onnx into Assets/AI/ as a ModelAsset (Unity imports it).
-//   * Drop fasttext_intent_meta.json + responses.json as TextAssets (in Resources/
-//     or use direct path loading — example below uses Resources/).
-//   * Add this MonoBehaviour to a commander NPC GameObject. Attach a UI for
-//     receiving user text input and showing the reply.
-//   * Implement RuntimeContext (the `_ctx` instance below) so it can fill in
-//     placeholders like {scheduled_today} from your game's day system.
-//
-// Tested format expectations:
-//   Model input  : "input_ids" int64 tensor of shape [1, max_len]  (max_len=32)
-//   Model output : "logits"    float tensor of shape [1, num_classes] (8 intents)
-//
-// Notes on Unity 6 / InferenceEngine 2.6.x API:
-//   * Worker creation:  new Worker(model, BackendType.GPUCompute) — or CPU
-//   * Input scheduling: worker.Schedule(tensor)
-//   * Output read     : worker.PeekOutput("logits") — copy/clone before disposing.
-//   * Tensor disposal : ALWAYS Dispose() input tensors or you'll leak GPU memory.
 
 using System;
 using System.Collections.Generic;
@@ -85,9 +49,6 @@ public class NPCDialogueBrain : MonoBehaviour
     private Model _model;
     private Worker _worker;
 
-    // Plug your game state here — implement the methods to look up real values.
-    // The default implementation below returns placeholders so the game runs
-    // without crashing while Quyen wires up real state.
     public IRuntimeContext context = new DummyContext();
 
     void Awake()
@@ -112,7 +73,6 @@ public class NPCDialogueBrain : MonoBehaviour
         _worker?.Dispose();
     }
 
-    /// <summary>Main entry point — give the user's sentence, get an NPC reply.</summary>
     public string Respond(string userText)
     {
         var (intent, conf) = Classify(userText);
@@ -123,7 +83,6 @@ public class NPCDialogueBrain : MonoBehaviour
         return PickReply(intent);
     }
 
-    /// <summary>Run the model. Returns (intent label, softmax confidence).</summary>
     public (string intent, float confidence) Classify(string text)
     {
         int[] ids = Encode(text);
@@ -150,15 +109,8 @@ public class NPCDialogueBrain : MonoBehaviour
         return (_id2label[bestId], bestProb);
     }
 
-    // ---------------------------------------------------------------------
-    // Tokenization
-    // ---------------------------------------------------------------------
     int[] Encode(string text)
     {
-        // Whitespace tokenize on lowercased text. Multi-word vocab entries (e.g.
-        // "thủ trưởng") that exist after underthesea segmentation will fall
-        // through to UNK if the user types them as separate words. For higher
-        // accuracy, segment with a Vietnamese tokenizer port.
         text = text.ToLowerInvariant().Trim();
         // Strip basic punctuation
         var sb = new StringBuilder(text.Length);
@@ -178,9 +130,6 @@ public class NPCDialogueBrain : MonoBehaviour
         return ids;
     }
 
-    // ---------------------------------------------------------------------
-    // Response lookup with placeholder substitution
-    // ---------------------------------------------------------------------
     string PickReply(string intent)
     {
         if (!_responses.TryGetValue(intent, out var pool) || pool.Count == 0)
@@ -209,11 +158,6 @@ public class NPCDialogueBrain : MonoBehaviour
         return sb.ToString();
     }
 
-    // ---------------------------------------------------------------------
-    // JSON parsing — tiny custom parser to avoid extra dependencies.
-    // The meta + responses files are small and well-formed enough that
-    // splitting on quotes works. For robustness, drop in Newtonsoft.Json.
-    // ---------------------------------------------------------------------
     void ParseMeta(string json)
     {
         _vocab = new Dictionary<string, int>();
@@ -356,12 +300,8 @@ public class NPCDialogueBrain : MonoBehaviour
     }
 }
 
-// -------------------------------------------------------------------------
-// Runtime context interface — Quyen implements this with real game data.
-// -------------------------------------------------------------------------
 public interface IRuntimeContext
 {
-    /// <summary>Return the substitution for {key}, or null if unknown.</summary>
     string Get(string key);
 }
 

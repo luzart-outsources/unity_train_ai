@@ -1,39 +1,3 @@
-// MovementAgent.cs
-//
-// Phase B — soldier NPC movement controller for Unity 6.
-// Loads soldier.onnx (trained with Python PPO on a 2D top-down nav environment)
-// and drives a NavCube agent toward a target while avoiding obstacle cubes.
-//
-// IMPORTANT — observation contract:
-//   The Python training used these 21 inputs IN THIS ORDER:
-//     [0..7]   8 ray distances normalized by ray_max_dist (10.0m)
-//              Rays are evenly spaced 360° starting from the agent's forward
-//              direction, going counter-clockwise (matches np convention).
-//              Index 0 = forward, 1..7 = 45° increments left.
-//     [8..15]  ray hit-target one-hot — 1.0 if that ray hit the target, else 0.0
-//     [16]     velocity_forward (in agent frame) / max_speed (3.5)
-//     [17]     velocity_lateral (in agent frame, +right) / max_speed
-//     [18]     direction-to-target forward component (cos angle in agent frame)
-//     [19]     direction-to-target lateral component (sin angle in agent frame)
-//     [20]     distance-to-target / arena_diagonal (28.28)
-//
-//   Output: 2 floats in [-1, 1]:
-//     [0] thrust  (forward, negative = reverse at half speed)
-//     [1] turn    (positive = right, negative = left, scaled by max_turn)
-//
-// In Unity 3D, the agent moves on the Y=0 plane (top-down). Set the cube's
-// transform.position.y to 0 (or whatever your floor y is). Pass forward/lateral
-// in world XZ via the agent's local axes. See ComputeObservation() for the
-// reference impl.
-//
-// Required scene setup:
-//   * 1 GameObject "Agent" with this MovementAgent component + a Cube child
-//     (visual). Assign Target GameObject in Inspector. Tag obstacles "Obstacle".
-//   * Tag the Target GameObject "Target".
-//
-// Required model assets:
-//   * soldier.onnx imported as ModelAsset (Assets/AI/soldier.onnx)
-//   * Optionally read soldier.meta.json for sanity check on dims.
 
 using System;
 using UnityEngine;
@@ -115,10 +79,6 @@ public class MovementAgent : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Build the 21-dim observation vector. Lays out values in the exact order
-    /// the Python training expected.
-    /// </summary>
     void ComputeObservation(float[] outBuf)
     {
         Vector3 pos = transform.position;

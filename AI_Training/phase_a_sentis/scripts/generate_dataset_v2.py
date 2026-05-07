@@ -1,20 +1,3 @@
-"""Generate a richer Vietnamese intent dataset for army + KTMM student NPC chat.
-
-This is v2 of expand_dataset.py with:
-  1. Larger word pools (synonyms, names, places, times) — vocab target ~1000 tokens
-  2. 20+ templates per intent (vs 6 previously) — covers formal + informal speech
-  3. Conversational fillers (ơi, ạ, nhỉ, thế, vậy, đi, đấy, chứ)
-  4. Greetings/honorifics (thưa thủ trưởng, anh ơi, em hỏi với, đồng chí)
-  5. Augmentation: drop accent (people commonly type "minh" for "mình"),
-                  drop filler word, append/prepend particle, casing variation
-  6. OUT_OF_SCOPE: real student-life topics (KTMM-specific) so the model
-                  learns "this is small talk, not a command"
-
-Output: data/intents_v2.csv  — used by train.py with --data flag.
-
-Run:
-  .venv/Scripts/python scripts/generate_dataset_v2.py --per_intent 250
-"""
 from __future__ import annotations
 import argparse
 import random
@@ -26,7 +9,6 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parent.parent
 SEED_PATH = ROOT / "data" / "intents.csv"
 OUT_PATH = ROOT / "data" / "intents_v2.csv"
-
 
 # --------------------------------------------------------------------------
 # Word pools — feel free to extend
@@ -90,7 +72,6 @@ PARTICLES_END = [
     " được không", " được không ạ", " thưa thủ trưởng",
     "?", " ?",
 ]
-
 
 # --------------------------------------------------------------------------
 # Templates — 20+ per intent
@@ -327,7 +308,6 @@ TEMPLATES = {
     ],
 }
 
-
 # --------------------------------------------------------------------------
 # Augmentations
 # --------------------------------------------------------------------------
@@ -339,10 +319,8 @@ ACCENT_MAP = str.maketrans(
     "AAAAAAAAAAAAAAAAAEEEEEEEEEEEIIIIIOOOOOOOOOOOOOOOOOUUUUUUUUUUUYYYYYD",
 )
 
-
 def drop_accent(s: str) -> str:
     return s.translate(ACCENT_MAP)
-
 
 def random_typo(s: str) -> str:
     """Drop a random char (small chance) — simulates fast typing."""
@@ -353,7 +331,6 @@ def random_typo(s: str) -> str:
         return s
     return s[:i] + s[i + 1:]
 
-
 def drop_filler_word(s: str) -> str:
     """Drop one filler word like 'thì', 'là', 'à', 'ơi'."""
     fillers = {"thì", "là", "à", "ơi", "ạ", "vậy", "thế", "đó"}
@@ -363,10 +340,8 @@ def drop_filler_word(s: str) -> str:
         return " ".join(keep)
     return s
 
-
 def cap_first(s: str) -> str:
     return s[0].upper() + s[1:] if s else s
-
 
 # --------------------------------------------------------------------------
 # Generation
@@ -383,14 +358,12 @@ def fill(template: str) -> str:
         .replace("{reason}", random.choice(REASONS))
     )
 
-
 def decorate(text: str) -> str:
     """Add greeting prefix + ending particle stochastically."""
     pre = random.choice(GREETINGS_PRE)
     post = random.choice(PARTICLES_END)
     s = pre + text + post
     return re.sub(r"\s+", " ", s).strip()
-
 
 def augment(text: str) -> str:
     """Apply 0–2 augmentations randomly."""
@@ -404,7 +377,6 @@ def augment(text: str) -> str:
     if random.random() < 0.30:
         text = cap_first(text)
     return text
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -452,7 +424,6 @@ def main():
     for t in out["text"]:
         c.update(t.lower().split())
     print(f"[gen v2] approx vocab (whitespace, no underthesea): {len(c)} unique tokens")
-
 
 if __name__ == "__main__":
     main()

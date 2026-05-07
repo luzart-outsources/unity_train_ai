@@ -1,12 +1,6 @@
-"""Intent classifier architectures.
-
-Three options, sorted by capacity. All export cleanly to ONNX opset 15.
-Pick via `--arch fasttext|lstm|transformer` in train.py.
-"""
 from __future__ import annotations
 import torch
 import torch.nn as nn
-
 
 class FastTextClassifier(nn.Module):
     """Embedding + mean-pool + 2 Linear. Tiny (~150K params), fast, robust ONNX.
@@ -34,7 +28,6 @@ class FastTextClassifier(nn.Module):
         h = self.dropout(h)
         return self.fc2(h)                         # (B, C)
 
-
 class LSTMClassifier(nn.Module):
     """Bidirectional LSTM. ~250K params. Better on long sentences with word order.
 
@@ -53,7 +46,6 @@ class LSTMClassifier(nn.Module):
         out, _ = self.lstm(emb)           # (B, L, 2H)
         pooled = out.mean(dim=1)          # (B, 2H)
         return self.fc(self.dropout(pooled))
-
 
 class TinyTransformer(nn.Module):
     """Small Transformer encoder. ~400K params. Best accuracy on noisy data."""
@@ -77,7 +69,6 @@ class TinyTransformer(nn.Module):
         keep = (~mask).unsqueeze(-1).float()
         pooled = (h * keep).sum(dim=1) / keep.sum(dim=1).clamp(min=1.0)
         return self.fc(pooled)
-
 
 def build_model(arch: str, vocab_size: int, num_classes: int) -> nn.Module:
     arch = arch.lower()

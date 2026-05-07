@@ -1,9 +1,3 @@
-// PhaseAChatUI.cs
-//
-// Unity UI (Canvas-based) cho Phase A chat. Thay thế PhaseAChatTester (IMGUI).
-// Editor builder tạo full Canvas hierarchy với Background + Title + ScrollView
-// + InputField + SendButton, wire references qua Inspector. Khi Play, script
-// chỉ làm logic: classify + add chat bubbles.
 
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,7 +44,7 @@ public class PhaseAChatUI : MonoBehaviour
         _font = Font.CreateDynamicFontFromOSFont("Arial", 16);
         if (_font == null) _font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
-        // V2 stack — wire slot extractor + smart context vào brain
+        // V2 stack — wire slot extractor + smart context vao brain
         if (slotVocabJson != null && !string.IsNullOrEmpty(slotVocabJson.text))
         {
             _extractor = new EntityExtractor(slotVocabJson.text);
@@ -76,14 +70,14 @@ public class PhaseAChatUI : MonoBehaviour
         }
 
         if (sendButton != null) sendButton.onClick.AddListener(OnSend);
-        // KHÔNG dùng Input.GetKeyDown — project Unity 6 set activeInputHandler=1
-        // (Input System only). Bắt Enter qua Update() + Keyboard.current.
+        // KHONG dung Input.GetKeyDown — project Unity 6 set activeInputHandler=1
+        // (Input System only). Bat Enter qua Update() + Keyboard.current.
 
         // Auto sanity
         Debug.Log("+- Sanity (5 sample) -");
         foreach (var (text, expected) in Samples)
         {
-            // V2: extract slots cho mỗi sample để response chính xác
+            // V2: extract slots cho moi sample de response chinh xac
             if (_extractor != null && _smartContext != null)
             {
                 _smartContext.SetExtractedSlots(_extractor.Extract(text));
@@ -122,14 +116,14 @@ public class PhaseAChatUI : MonoBehaviour
 
     void Update()
     {
-        // Bắt Enter để submit — Unity 6 Input System
+        // Bat Enter de submit — Unity 6 Input System
 #if ENABLE_INPUT_SYSTEM
         if (inputField != null && inputField.isFocused
             && Keyboard.current != null
             && (Keyboard.current.enterKey.wasPressedThisFrame
                 || Keyboard.current.numpadEnterKey.wasPressedThisFrame))
         {
-            // Defer 1 frame vì Enter có thể vừa được consume bởi InputField
+            // Defer 1 frame vi Enter co the vua duoc consume boi InputField
             OnSend();
         }
 #endif
@@ -141,7 +135,7 @@ public class PhaseAChatUI : MonoBehaviour
         string text = inputField.text.Trim();
         if (string.IsNullOrWhiteSpace(text)) return;
 
-        // V2: extract slots TRƯỚC khi Respond để SmartRuntimeContext fill placeholder
+        // V2: extract slots TRUOC khi Respond de SmartRuntimeContext fill placeholder
         if (_extractor != null && _smartContext != null)
         {
             var slots = _extractor.Extract(text);
@@ -163,14 +157,11 @@ public class PhaseAChatUI : MonoBehaviour
         StartCoroutine(ScrollToBottomNextFrame());
     }
 
-    // ---------------------------------------------------------------------
-    // Tạo chat bubble runtime với Image + Text(s) + ContentSizeFitter
-    // ---------------------------------------------------------------------
     void AddBubble(string content, bool isUser, string subInfo, Color? subColor = null)
     {
         if (contentParent == null) return;
 
-        // Outer wrapper với HorizontalLayoutGroup để align trái/phải
+        // Outer wrapper voi HorizontalLayoutGroup de align trai/phai
         var wrapper = new GameObject(isUser ? "UserMsg" : "NPCMsg", typeof(RectTransform));
         wrapper.transform.SetParent(contentParent, false);
         var wrapperLayout = wrapper.AddComponent<HorizontalLayoutGroup>();
@@ -186,7 +177,7 @@ public class PhaseAChatUI : MonoBehaviour
         var wrapperLE = wrapper.AddComponent<LayoutElement>();
         wrapperLE.flexibleWidth = 1;
 
-        // Bubble với background color
+        // Bubble voi background color
         var bubble = new GameObject("Bubble", typeof(RectTransform));
         bubble.transform.SetParent(wrapper.transform, false);
         var bg = bubble.AddComponent<Image>();

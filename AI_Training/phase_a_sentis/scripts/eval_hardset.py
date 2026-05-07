@@ -1,20 +1,3 @@
-"""Hard test set - 200+ Q designed to expose paraphrase weakness.
-
-Categories (target 25 per intent x 8 = 200, plus extras):
-  * CLEAN: standard well-formed Vietnamese
-  * NO_ACCENT: no diacritics
-  * TELEX_TYPOS: telex composition errors
-  * CODE_MIX: English/VN mix
-  * COMPOUND: 2 questions in one
-  * ELLIPSIS: short / context-dependent
-  * SYNONYM: rare synonyms not in training templates
-  * COMPLAINT: complaint-as-question form
-  * SLANG: informal teen/student slang
-  * ADVERSARIAL: near-confusing with another intent
-
-Compare two checkpoints side-by-side:
-    .venv/Scripts/python scripts/eval_hardset.py --archs lstm transformer
-"""
 from __future__ import annotations
 import argparse
 import io
@@ -274,7 +257,6 @@ TEST_CASES = [
     ("Python dễ ghê", "OUT_OF_SCOPE", "ADVERSARIAL"),
 ]
 
-
 def evaluate_arch(arch: str, tag: str = "", vocab_path: Path = None, label_path: Path = None) -> dict:
     """Eval an arch checkpoint on the hard test set.
 
@@ -326,7 +308,6 @@ def evaluate_arch(arch: str, tag: str = "", vocab_path: Path = None, label_path:
     return {"arch": arch, "tag": tag, "accuracy": acc, "correct": correct,
             "total": len(TEST_CASES), "rows": rows, "by_cat": by_cat}
 
-
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--archs", nargs="+", default=["fasttext", "lstm", "transformer"])
@@ -373,7 +354,6 @@ def main():
     if results:
         best = max(results.values(), key=lambda r: r["accuracy"])
         print(f"\n>>> WINNER: {best['arch']} with {best['accuracy']*100:.1f}% on hard test set ({best['total']} Q)")
-
 
 if __name__ == "__main__":
     main()

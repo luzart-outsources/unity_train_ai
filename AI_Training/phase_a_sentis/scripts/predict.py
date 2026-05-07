@@ -1,11 +1,3 @@
-"""Interactive sanity check: predict intent for arbitrary Vietnamese sentences.
-
-Usage:
-    .venv/Scripts/python scripts/predict.py --arch fasttext
-    > Hôm nay ăn gì?
-    > Lớp học chỗ nào?
-    > (Ctrl+C to quit)
-"""
 from __future__ import annotations
 import argparse
 import json
@@ -21,7 +13,6 @@ from model import build_model
 
 ROOT = Path(__file__).resolve().parent.parent
 MODEL_DIR = ROOT / "models"
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -57,7 +48,6 @@ def main():
             print()
     except (KeyboardInterrupt, EOFError):
         print("\nbye.")
-
 
 if __name__ == "__main__":
     main()

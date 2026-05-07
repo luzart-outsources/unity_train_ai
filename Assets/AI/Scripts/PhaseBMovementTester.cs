@@ -1,12 +1,3 @@
-// PhaseBMovementTester.cs
-//
-// Status monitor cho Phase B test scene. KHÔNG spawn objects — Editor đã
-// pre-build scene với Floor + Agent (MovementAgent đã configure) + Target +
-// 6 Obstacles + Camera. Component này chỉ:
-//   - Track distance agent -> target
-//   - Hiển thị status UI (timer, dist, success count)
-//   - Nút "Reset Episode" teleport agent về start position
-//   - Log Console khi reach hoặc timeout
 
 using UnityEngine;
 

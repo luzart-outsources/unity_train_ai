@@ -1,18 +1,3 @@
-"""End-of-day merge tool — chọn winner giữa máy 1 và máy 2.
-
-Đọc state files của 2 máy -> so sánh best metrics -> pick winner cho mỗi phase
--> copy winning ONNX vào `deliverables/` (canonical) -> ghi summary report.
-
-Usage (chạy trên máy 1 sau khi đã pull machine-2-results branch):
-
-    .venv/Scripts/python AI_Training/merge_machine_results.py
-    .venv/Scripts/python AI_Training/merge_machine_results.py --report-only
-
-Output:
-    deliverables/MERGED_REPORT.md       — báo cáo so sánh
-    deliverables/intent_classifier.onnx — winner Phase A (sao chép từ máy thắng)
-    deliverables/soldier.onnx           — winner Phase B
-"""
 from __future__ import annotations
 import argparse
 import json
@@ -27,13 +12,11 @@ DELIVERABLES_M2 = ROOT / "deliverables_m2"
 STATE_M1 = ROOT / "overnight_v3_state.json"
 STATE_M2 = ROOT / "overnight_v3_m2_state.json"
 
-
 def load_state(p: Path) -> dict | None:
     if not p.exists():
         return None
     with open(p, encoding="utf-8") as f:
         return json.load(f)
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -102,7 +85,7 @@ def main():
     lines.append(f"**Winner: {winner_b}** ({winner_b_state['reward']:.3f})")
     lines.append("")
 
-    # -- Per-HP breakdown (máy 2) ------------------------------------------
+    # -- Per-HP breakdown (may 2) ------------------------------------------
     if s2 and "best_phase_b_per_hp" in s2:
         lines.append("### Máy 2 — per-HP breakdown")
         lines.append("")
@@ -154,7 +137,6 @@ def main():
     print(f"[merge] report -> {out_path}")
     if args.report_only:
         print("[merge] --report-only: KHÔNG copy ONNX (dry-run)")
-
 
 if __name__ == "__main__":
     main()

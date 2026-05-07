@@ -1,8 +1,3 @@
-"""Evaluate trained models on a hand-crafted real-world test set.
-
-This is the *generalization* check that v2 baseline failed (1/8 = 12.5%).
-The bar to clear: the new model trained on intents_v2.csv must score >50%.
-"""
 from __future__ import annotations
 import argparse
 import json
@@ -105,7 +100,6 @@ TEST_CASES = [
     ("Ngày mai có khảo sát môn nào", "OUT_OF_SCOPE"),
 ]
 
-
 def evaluate_arch(arch: str) -> dict:
     ckpt = torch.load(MODEL_DIR / f"{arch}_best.pt", map_location="cpu", weights_only=True)
     model = build_model(arch, ckpt["vocab_size"], ckpt["num_classes"])
@@ -132,7 +126,6 @@ def evaluate_arch(arch: str) -> dict:
     acc = correct / len(TEST_CASES)
     return {"arch": arch, "accuracy": acc, "correct": correct,
             "total": len(TEST_CASES), "rows": rows}
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -161,7 +154,6 @@ def main():
     if results:
         best = max(results.values(), key=lambda r: r["accuracy"])
         print(f"\n>>> WINNER: {best['arch']} with {best['accuracy']*100:.1f}% on real-world set")
-
 
 if __name__ == "__main__":
     main()

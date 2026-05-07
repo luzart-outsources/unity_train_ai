@@ -1,12 +1,3 @@
-"""Export trained checkpoint to ONNX (opset 15, dynamic seq_len).
-
-Usage:
-    .venv/Scripts/python scripts/export_onnx.py --arch fasttext
-
-Output:
-    models/<arch>_intent.onnx
-    models/<arch>_intent_meta.json   (vocab + labels + max_len for the C# wrapper)
-"""
 from __future__ import annotations
 import argparse
 import json
@@ -22,7 +13,6 @@ from model import build_model
 
 ROOT = Path(__file__).resolve().parent.parent
 MODEL_DIR = ROOT / "models"
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -90,7 +80,6 @@ def main():
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta, f, ensure_ascii=False, indent=2)
     print(f"[meta] saved   : {meta_path}")
-
 
 if __name__ == "__main__":
     main()

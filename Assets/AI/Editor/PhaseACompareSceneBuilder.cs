@@ -1,17 +1,3 @@
-// PhaseACompareSceneBuilder.cs
-//
-// Editor menu: AI / 4. Phase A — Compare V1 (Old) vs V2 (New)
-//
-// Tạo scene chứa GameObject "PhaseACompare" với PhaseACompareTester component,
-// pre-wire references đến cả 2 model bundle:
-//
-//   V1 (CŨ): intent_classifier.onnx + intent_classifier_meta.json + responses.json
-//   V2 (MỚI): intent_classifier_v2.onnx + intent_classifier_v2_meta.json + responses_v2.json
-//
-// Khi Play, scene chạy IMGUI 2 cột so sánh trực tiếp old vs new responses.
-// Nếu V2 model chưa có (chưa train xong), V2 column sẽ fall back về V1 model
-// (vẫn khác V1 vì dùng SmartContext + EntityExtractor -> response template
-// được fill bằng slot trích thật từ câu user).
 
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -35,7 +21,7 @@ public static class PhaseACompareSceneBuilder
         var v1Meta      = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/intent_classifier_meta.json");
         var v1Responses = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/responses.json");
 
-        // V2 assets - may not exist yet if train chưa xong
+        // V2 assets - may not exist yet if train chua xong
         var v2Model     = AssetDatabase.LoadAssetAtPath<ModelAsset>("Assets/AI/Models/intent_classifier_v2.onnx");
         var v2Meta      = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/intent_classifier_v2_meta.json");
         var v2Responses = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/AI/Resources/responses_v2.json");

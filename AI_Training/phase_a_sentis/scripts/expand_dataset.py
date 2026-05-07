@@ -1,12 +1,3 @@
-"""Expand the seed CSV using simple template + augmentation.
-
-Strategy (zero LLM call, pure rules):
-  1. Use slot templates per intent — fills in time, place, object slots.
-  2. For each base sentence: lowercase / random-cap / typo / synonym swap.
-
-Run: .venv/Scripts/python scripts/expand_dataset.py --target 120
-Output: data/intents_expanded.csv  (kept separate from seed)
-"""
 from __future__ import annotations
 import argparse
 import random
@@ -18,7 +9,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SEED_PATH = ROOT / "data" / "intents.csv"
 OUT_PATH = ROOT / "data" / "intents_expanded.csv"
 
-# Slot vocab (Quyền có thể bổ sung)
+# Slot vocab (Quyen co the bo sung)
 TIMES = ["sáng nay", "chiều nay", "tối nay", "ngày mai", "tuần này", "thứ 2", "thứ 3", "thứ 4", "thứ 5", "thứ 6", "cuối tuần", "8 giờ", "10 giờ", "trưa", "chiều"]
 MEALS = ["ăn cơm", "ăn trưa", "ăn tối", "ăn sáng", "phát cơm", "có cơm"]
 PLACES = ["nhà ăn", "phòng tập", "sân tập", "lớp học", "phòng y tế", "doanh trại", "nhà kho", "bãi tập", "kho súng", "đại đội"]
@@ -93,7 +84,6 @@ TEMPLATES = {
     ],
 }
 
-
 def fill(template: str) -> str:
     return (
         template
@@ -103,10 +93,8 @@ def fill(template: str) -> str:
         .replace("{topic}", random.choice(KNOWLEDGE))
     )
 
-
 def cap_first(s: str) -> str:
     return s[0].upper() + s[1:] if s else s
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -134,7 +122,6 @@ def main():
     out.to_csv(OUT_PATH, index=False, encoding="utf-8")
     print(f"[expand] wrote {len(out)} rows to {OUT_PATH}")
     print(f"[expand] per intent:\n{out['intent'].value_counts()}")
-
 
 if __name__ == "__main__":
     main()

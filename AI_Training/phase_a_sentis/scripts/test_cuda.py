@@ -1,8 +1,3 @@
-"""Verify PyTorch + CUDA + GPU detection.
-
-Run: .venv/Scripts/python scripts/test_cuda.py
-Expected: 'cuda available: True' and GPU name 'NVIDIA GeForce GTX 1060'.
-"""
 import torch
 
 print(f"PyTorch version : {torch.__version__}")

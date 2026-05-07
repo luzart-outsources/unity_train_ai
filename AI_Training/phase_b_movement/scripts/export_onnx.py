@@ -1,16 +1,3 @@
-"""Export SB3 PPO policy actor to ONNX.
-
-The exported network takes obs (21 floats) and returns deterministic action (2 floats).
-This matches what Unity / Sentis can run via InferenceEngine 2.x.
-
-Usage:
-    .venv/Scripts/python scripts/export_onnx.py --ckpt checkpoints/best_model.zip
-    .venv/Scripts/python scripts/export_onnx.py --ckpt checkpoints/ppo_run_last.zip
-
-Output:
-    checkpoints/<basename>.onnx
-    checkpoints/<basename>_meta.json
-"""
 from __future__ import annotations
 import argparse
 import json
@@ -22,7 +9,6 @@ import torch.nn as nn
 from stable_baselines3 import PPO
 
 ROOT = Path(__file__).resolve().parent.parent
-
 
 class OnnxablePolicy(nn.Module):
     """Wrap SB3 policy to output deterministic mean action (no sampling)."""
@@ -43,7 +29,6 @@ class OnnxablePolicy(nn.Module):
         # which uses unsquashed Gaussian mean, but for ONNX deployment we clip explicitly
         # so Unity always gets [-1, 1] regardless of policy distribution head).
         return torch.tanh(mean_actions)
-
 
 def main():
     p = argparse.ArgumentParser()
@@ -118,7 +103,6 @@ def main():
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta, f, indent=2)
     print(f"[meta] saved : {meta_path}")
-
 
 if __name__ == "__main__":
     main()

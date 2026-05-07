@@ -1,23 +1,3 @@
-// PhaseACompareTester.cs
-//
-// Phase A — A/B compare giữa NPC brain CŨ (intent_classifier.onnx + DummyContext
-// + responses.json) và NPC brain MỚI (intent_classifier_v2.onnx + EntityExtractor
-// + SmartRuntimeContext + responses_v2.json).
-//
-// Mục tiêu: cho user gõ 1 câu, AI cũ và AI mới reply song song để so sánh
-// trực tiếp xem AI mới có thực sự thông minh hơn không.
-//
-// IMGUI-based để build nhanh, không cần Canvas hierarchy. Chia 2 cột:
-//   +------------------+------------------+
-//   | V1 — AI cũ       | V2 — AI mới      |
-//   | (LSTM v3 trained | (model v4 +      |
-//   |  on intents_v3,  |  slot extractor) |
-//   |  no slot extract)|                  |
-//   +------------------+------------------+
-//   [User input]                    [Send]
-//
-// Editor builder bind references trong Inspector. Khi Play, script chạy 2 brain
-// trong 1 GameObject và đẩy reply lên cột tương ứng.
 
 using System.Collections.Generic;
 using UnityEngine;

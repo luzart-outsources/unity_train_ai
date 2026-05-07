@@ -1,37 +1,3 @@
-"""V3.1 — MACHINE 2 HEAVY variant. Run in parallel with overnight_loop.py on máy 1.
-
-Strategy: máy 2 dồn lực vào "heavy lifting" — data 5× lớn hơn, PPO HP cycle
-qua 4 configs để khám phá HP space rộng. Máy 1 vẫn chạy iter nhanh + diverse
-archs cycle. Cuối ngày dùng `merge_machine_results.py` tổng hợp best của 2 máy.
-
-Phase A (HEAVY DATA):
-  * 25,000 samples per intent = 200,000 total (5× máy 1)
-  * LSTM only — proven winner, focus thay vì cycle waste time
-  * 35 epochs
-
-Phase B (HP CYCLE):
-  * 2M steps per iter (2× máy 1)
-  * Cycle qua 4 HP configs, mỗi iter dùng 1 config khác:
-       Config 1: net [128,128]    ent 0.01  lr 3e-4   (baseline reference)
-       Config 2: net [256,128]    ent 0.02  lr 3e-4   (bigger + more explore)
-       Config 3: net [128,128,64] ent 0.005 lr 1e-4   (deeper + less explore)
-       Config 4: net [256,256]    ent 0.05  lr 5e-4   (much bigger + much more explore)
-
-Output:
-  * `deliverables_m2/` — best ONNX của máy 2 (separate folder)
-  * `overnight_v3_m2.log` + `overnight_v3_m2_state.json`
-  * `phase_b_movement/checkpoints/m2_<tag>/` per-iter checkpoints
-
-Setup máy 2:
-  1. git clone https://github.com/luzart-outsources/unity_train_ai.git
-  2. cd unity_train_ai
-  3. Recreate venv:
-       python -m venv AI_Training/phase_a_sentis/.venv
-       AI_Training/phase_a_sentis/.venv/Scripts/pip install -r AI_Training/phase_a_sentis/requirements.txt
-       AI_Training/phase_a_sentis/.venv/Scripts/pip install stable-baselines3==2.4.0 gymnasium==0.29.1
-  4. Run (background, tách shell):
-       nohup AI_Training/phase_a_sentis/.venv/Scripts/python AI_Training/overnight_loop_machine2.py > m2.out 2>&1 &
-"""
 from __future__ import annotations
 import datetime as dt
 import json
@@ -45,14 +11,14 @@ from pathlib import Path
 DEADLINE = dt.datetime(2026, 5, 7, 19, 0, 0)
 
 PHASE_A_EPOCHS = 35
-PHASE_A_TARGET = 25_000           # 25k/intent × 8 = 200k total (5× máy 1)
-# Phase A skipped on máy 2: 200k LSTM 35 epochs CPU > 40 min timeout.
-# Máy 1 already produced LSTM 98.4% canonical — máy 2 focuses 100% on
+PHASE_A_TARGET = 25_000           # 25k/intent × 8 = 200k total (5× may 1)
+# Phase A skipped on may 2: 200k LSTM 35 epochs CPU > 40 min timeout.
+# May 1 already produced LSTM 98.4% canonical — may 2 focuses 100% on
 # Phase B PPO HP exploration where it has comparative advantage.
 # To re-enable: PHASE_A_ARCHS = ["lstm"]
 PHASE_A_ARCHS: list[str] = []
 
-PHASE_B_STEPS = 2_000_000         # 2× máy 1
+PHASE_B_STEPS = 2_000_000         # 2× may 1
 PHASE_B_DEVICE = "cpu"
 # HP configs cycled per Phase B iter
 PHASE_B_HPS = [
@@ -80,14 +46,11 @@ STATE_PATH = ROOT / "overnight_v3_m2_state.json"
 env = os.environ.copy()
 env["PYTHONIOENCODING"] = "utf-8"
 
-
 def now() -> dt.datetime:
     return dt.datetime.now()
 
-
 def time_left() -> float:
     return (DEADLINE - now()).total_seconds()
-
 
 def log(msg: str) -> None:
     line = f"[{now().strftime('%H:%M:%S')}] [M2] {msg}"
@@ -95,11 +58,9 @@ def log(msg: str) -> None:
     with open(LOG_PATH, "a", encoding="utf-8") as f:
         f.write(line + "\n")
 
-
 def save_state(state: dict) -> None:
     with open(STATE_PATH, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
-
 
 def load_state() -> dict:
     if STATE_PATH.exists():
@@ -119,7 +80,6 @@ def load_state() -> dict:
         "history": [],
     }
 
-
 def run(cmd: list[str], cwd: Path | None = None, timeout: int | None = None) -> tuple[int, str]:
     try:
         p = subprocess.run(cmd, cwd=str(cwd) if cwd else None,
@@ -132,7 +92,6 @@ def run(cmd: list[str], cwd: Path | None = None, timeout: int | None = None) -> 
         return -1, "TIMEOUT"
     except Exception as e:
         return -2, f"EXC {type(e).__name__}: {e}"
-
 
 def phase_a_iter(seed: int, arch: str, state: dict) -> dict:
     log(f"[A] iter — seed={seed} arch={arch} HEAVY target={PHASE_A_TARGET}/intent (200k total)")
@@ -181,7 +140,6 @@ def phase_a_iter(seed: int, arch: str, state: dict) -> dict:
                 f.write(f"machine=m2\narch={arch}\nacc={acc*100:.2f}%\niter={state['iter']}\nseed={seed}\nsamples=200000\n")
             log(f"[A] new BEST -> deliverables_m2/{arch}_intent.onnx ({acc*100:.2f}%)")
     return {"ok": True, "acc": acc, "arch": arch}
-
 
 def phase_b_iter(seed: int, hp: dict, state: dict) -> dict:
     tag = f"m2_iter{state['iter']}_{hp['name']}_s{seed}"
@@ -236,7 +194,6 @@ def phase_b_iter(seed: int, hp: dict, state: dict) -> dict:
                                      "seed": seed, "tag": tag, "hp": hp["name"]}
             log(f"[B] new BEST -> deliverables_m2/soldier_m2.onnx ({mean_r:.3f}, HP={hp['name']})")
     return {"ok": True, "mean_reward": mean_r, "hp": hp["name"]}
-
 
 def main():
     log(f"=== overnight v3 M2 HEAVY loop started — DEADLINE {DEADLINE.isoformat()} ===")
@@ -298,7 +255,6 @@ def main():
     for hp_name, b in state["best_phase_b_per_hp"].items():
         log(f"       {hp_name}: {b['reward']:.3f} (iter {b['iter']}, seed {b['seed']})")
     save_state(state)
-
 
 if __name__ == "__main__":
     main()
