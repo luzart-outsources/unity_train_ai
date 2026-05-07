@@ -33,26 +33,33 @@ User của wiki này phụ trách **TRAIN 2 model AI** (việc của tôi). Quy�
 3. **2 endings**: Pass / Fail dựa trên chỉ số tích lũy
 4. **AI hỗ trợ immersion**: chỉ huy nói tiếng Việt + lính tự di chuyển
 
-## Current state (live snapshot — last updated 2026-05-07 10:53)
+## Current state — END OF DAY MÁY 1 (2026-05-07 19:36)
 
-AI training v3.1 overnight loop running on máy 1 (started 09:00, deadline 19:00 7/5 — còn ~8h):
+Loop `overnight_loop.py` máy 1 kết thúc tự nhiên ở 18:59 (deadline reached). 27 iters total, ~10h training.
 
-| Phase | Best | Status |
-|---|---|---|
-| **Phase A LSTM** ⭐ | 63/64 = **98.4%** (iter 1) | canonical `intent_classifier.onnx` |
-| Phase A FastText | 61/64 = 95.3% (iter 2) | per-arch best |
-| Phase A Transformer | 61/64 = 95.3% (iter 3) | per-arch best |
-| **Phase B v3.1** | mean_reward **6.011** (iter 2, 1M steps) | `soldier.onnx` 80KB |
-| Phase B v2 backup | mean_reward 6.126 (fixed env, ref only) | `soldier_v2_fixedenv.onnx` |
+### Final bests máy 1
 
-Cả 3 archs đạt ~95-98% với 40k data → **data scale > arch complexity**.
+| Phase | Best | Iter | File |
+|---|---|---|---|
+| **Phase A LSTM** ⭐ | 63/64 = **98.44%** | 1 | `intent_classifier.onnx` (canonical) + `lstm_intent.onnx` |
+| **Phase A FastText** ⭐ | 63/64 = **98.44%** | **17** | `fasttext_intent.onnx` — match LSTM sau 8× seed |
+| Phase A Transformer | 62/64 = 96.88% | 18 | `transformer_intent.onnx` |
+| **Phase B PPO** ⭐ | reward **6.569** | **14** | `soldier.onnx` — break plateau 6.0! |
+| Phase B v2 backup | reward 6.126 | (fixed env) | `soldier_v2_fixedenv.onnx` |
+
+→ **Cả 3 archs Phase A đều ≥96.9%**, LSTM/FastText ngang nhau 98.44%. Confirm "data scale > arch given enough seed".
+
+### Máy 2 — last known từ commit `ff5affc` (14:05)
+- Decision: skip Phase A (timeout 40 min). Focus 100% Phase B HP cycle.
+- Best Phase B máy 2: **6.236** (iter 1 h1_baseline, 12:41)
+- Status sau 14:05 không rõ — đợi push branch.
 
 Chi tiết tức thời: [[live-status]].
 
 Chi tiết per-system: [[systems/sentis-chat]], [[systems/movement-ai]].
 
-> [!info] 2-machine parallel
-> Plan chạy 2 máy parallel: máy 1 (đang chạy) iteration nhanh + 3 archs cycle, máy 2 (chưa start) **HEAVY**: 200k data, 2M PPO × 4 HP cycle. Cuối ngày `merge_machine_results.py` auto-pick winner. Setup chi tiết: [[decisions/two-machine-parallel]].
+> [!info] Bước tiếp theo
+> Khi máy 2 push xong branch `machine-2-results`, chạy `merge_machine_results.py` để auto-pick winner cuối cùng giữa 2 máy.
 
 ## Key systems
 

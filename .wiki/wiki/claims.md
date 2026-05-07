@@ -122,3 +122,23 @@ Mỗi claim có ID stable `c-YYYYMMDD-NN`. Khi GDD revision sửa giá trị →
 - **Used by**: [[live-status]], [[decisions/two-machine-parallel]]
 - **Status**: active (loop đang chạy iter 3 h3_deepfocus với config mới)
 - **Notes**: Lý do: máy 1 đã có canonical LSTM 98.4% từ iter 1, máy 2 không cần cạnh tranh Phase A. Lợi ích: từ ~4 iter → ~7 iter trong còn lại deadline.
+
+### c-20260507-19 — Phase B PPO break plateau ở 6.569 (máy 1 iter 14)
+- **Claim**: Phase B PPO máy 1 iter 14 (1M steps, [128,128] net, ent=0.01, lr=3e-4, seed 2013, tag `v3_iter14_s2013`) đạt mean_reward = **6.569** — vượt plateau ~6.0 đã giữ qua 13 iter trước. Jump 0.5 reward sau 14 lần thử seed.
+- **Sources**: `overnight_v3.log` 17:14:55, `training_runs.csv` row v3_iter14_s2013
+- **Used by**: [[systems/movement-ai]], [[live-status]], [[analysis/evolution-v1-to-v3.1]]
+- **Status**: active (current best Phase B máy 1)
+- **Notes**: Lottery ticket effect — confirms hypothesis "RL stochastic, càng nhiều seed thử, càng dễ trúng config tốt".
+
+### c-20260507-20 — FastText match LSTM ở 98.44% (máy 1 iter 17)
+- **Claim**: Phase A FastText train iter 17 (40k samples seed 1016) đạt 63/64 = 98.44% — match LSTM iter 1's 98.44%. Trước đó FastText giữ 95.31% (iter 2) → 96.88% (iter 5) → **98.44% (iter 17)**. Cần 8 lần seed thử để FastText leo cùng mức.
+- **Sources**: `overnight_v3.log` ~17:00 entries, `eval_iter17_fasttext.json`
+- **Used by**: [[systems/sentis-chat]], [[technical/architecture-comparison]], [[analysis/evolution-v1-to-v3.1]], [[bugs/fasttext-overfit-narrow-test]]
+- **Status**: active
+- **Notes**: Final confirmation "data > arch given enough seed exploration". FastText (51K params) đủ để match LSTM (116K) khi data đa dạng + nhiều seed. Mean-pool architecture KHÔNG fundamentally limited tới 95% — chỉ stochastic.
+
+### c-20260507-21 — Loop máy 1 kết thúc clean ở 18:59 (27 iters)
+- **Claim**: Loop overnight_loop.py máy 1 chạy 09:00 → 18:59:21, total 27 iters. Spin guard (30s sleep) đã handle các iter near-deadline đúng — không spin millions như v2 bug. Process exit clean, no zombie python.
+- **Sources**: `overnight_v3.log` `=== deadline reached === iterations: 27`
+- **Used by**: [[live-status]], [[bugs/loop-spin-near-deadline]]
+- **Status**: active (final)

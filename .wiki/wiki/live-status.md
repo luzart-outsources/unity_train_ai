@@ -16,9 +16,88 @@ updated: 2026-05-07
 > cat  "AI_Training/overnight_v3_state.json"
 > ```
 
-## Snapshot lúc 2026-05-07 14:05
+## Snapshot lúc 2026-05-07 19:36 — END OF DAY MÁY 1 ⭐
 
-### Loop info máy 1
+### Loop info máy 1 — KẾT THÚC tự nhiên ở 18:59:21 (deadline reached)
+- Master script: `AI_Training/overnight_loop.py`
+- Started: 09:00:00, Ended: 18:59:21 (~10h training)
+- Iters completed: **27** (vài iter spin gần deadline đã được spin guard handle ✓)
+- Loop process exit clean — `tasklist | grep python` empty
+
+### Final Phase A bests (per-arch, từ 27 iters)
+| Arch | Best acc | At iter | Trend |
+|---|---|---|---|
+| **LSTM** ⭐ | **98.44%** (63/64) | 1 | sat từ đầu, không cải thiện qua 6 lần thử |
+| **FastText** ⭐ | **98.44%** (63/64) | **17** | 🚀 95.31% → 96.88% → **98.44%** (match LSTM) |
+| Transformer | 96.88% (62/64) | 18 | 95.31% → 96.88% |
+
+**Phát hiện big**: FastText (51K params) match LSTM (116K) sau 6 lần seed thử. Confirm "data scale > arch complexity, given enough seed exploration".
+
+### Final Phase B máy 1 — break plateau!
+- **Best mean_reward: 6.569** (iter 14, tag `v3_iter14_s2013`, 17:14:55)
+- File: `deliverables/soldier.onnx` (~80KB, [128,128] net, random env)
+- **Plateau 6.0 đã break** sau 14 iter (lottery ticket cho seed 2013)
+- Range của 14 PPO iter: 2.4 (outlier crash iter 9) đến 6.569 (iter 14)
+- Snapshot Phase B history:
+  - iter 1=5.572, iter 2=6.011, iter 4=6.045, iter 9=2.442 (outlier),
+    iter 12=6.013, iter 13=6.051, **iter 14=6.569** ⭐, iter 15=5.769, iter 16=6.283
+
+### Bài học từ 27 iters
+1. **Phase A LSTM saturate ngay iter 1** — 5 lần thử thêm vô ích
+2. **Phase A FastText cần exploration** — 8 iter mới đến 98.44%, mỗi seed tạo embedding khác
+3. **Phase B PPO = lottery ticket** — 14 iter mới trúng seed 2013 đạt 6.569 (jump 0.5 vs trước)
+4. Nhiều iter chỉ có ích khi **metric chưa saturate** hoặc **training stochastic**
+5. Saturated → wasted compute (Phase A LSTM iters 2,4 sau iter 1)
+
+### Deliverables (máy 1 final)
+```
+deliverables/
+├── intent_classifier.onnx       LSTM 98.44% canonical (1.2MB)
+├── lstm_intent.onnx             LSTM 98.44%
+├── fasttext_intent.onnx         FastText 98.44% (NEW — match LSTM, 928KB)
+├── transformer_intent.onnx      Transformer 96.88% (1.27MB)
+├── soldier.onnx                 ⭐ PPO 6.569 (80KB)
+├── soldier_v2_fixedenv.onnx     v2 backup 6.126
+├── intent_classifier_meta.json  LSTM vocab
+├── responses.json               8 intent × 4 templates
+├── NPCDialogueBrain.cs          Unity wrapper Phase A
+└── MovementAgent.cs             Unity wrapper Phase B
+```
+
+### Máy 2 — last known state từ commit `ff5affc` (14:05)
+- Decision lớn 14:03: skip Phase A (200k LSTM CPU > 40 min timeout, 3 lần fail rc=-1)
+- Focus 100% Phase B HP cycle 4 configs
+- Last known best Phase B: **6.236** (iter 1 h1_baseline, 2M steps, seed 7000, 12:41:45)
+- ⚠️ Status sau 14:05 không rõ — state file trong .gitignore, máy 2 chưa push branch riêng
+- Deadline máy 2 = 19:00 — đã end (chưa biết best cuối)
+
+### So sánh 2 máy (last known)
+| | Máy 1 (FINAL) | Máy 2 (14:05 known) |
+|---|---|---|
+| Phase A | LSTM/FastText 98.44% | skip (timeout) |
+| Phase B | **6.569** | 6.236 |
+| Steps/iter | 1M | 2M |
+| Effective iters | ~16 | ~3-4 |
+
+→ Máy 1 dẫn ở Phase B nhưng máy 2 có thể có run mới sau 14:05.
+
+### Bước tiếp theo — merge máy 2
+
+Khi máy 2 push xong branch:
+```bash
+git fetch origin
+git checkout -b end-of-day
+git merge origin/machine-2-results --no-ff
+AI_Training/phase_a_sentis/.venv/Scripts/python AI_Training/merge_machine_results.py
+```
+
+`merge_machine_results.py` đọc state file của 2 máy → so sánh → copy ONNX winner vào canonical → ghi `MERGED_REPORT.md`.
+
+---
+
+## Snapshot lúc 2026-05-07 14:05 (cũ — máy 1 còn đang chạy)
+
+### Loop info máy 1 (cũ)
 - Master script: `AI_Training/overnight_loop.py`
 - Started: 09:00:00 (deadline 19:00:00 — còn ~4h55m)
 - Config: `PHASE_A_TARGET=5000`, `PHASE_B_STEPS=1_000_000`, archs cycle `[lstm, fasttext, transformer]`

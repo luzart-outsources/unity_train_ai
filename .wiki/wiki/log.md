@@ -75,3 +75,22 @@ Chronological record of all wiki operations.
 - claims.md: 4 claims mới (c-20260507-13, 14, 15)
 - evolution.md: iter 2/3 detail + snapshot tables
 - Sẵn sàng cho user deploy máy 2 (đợi máy 1 iter 3 PPO xong ~10:55)
+
+## [2026-05-07 11:30] pull | Lấy fix generator O(N²) từ máy 2
+
+- `git pull origin main` thành công (fast-forward 7b20972 → 779bb7e)
+- 2 commit từ máy 2:
+  - `1cf36ff`: fix generator O(N²) bug (line 746). 200k samples 30+min → 3sec
+  - `779bb7e`: wiki sync máy 2 deployed + bug page
+- Đã pull khi máy 1 đang Phase B PPO iter 4 (subprocess load script vào RAM, an toàn)
+- Máy 1 sẽ dùng generator NEW từ iter 5 trở đi (giảm vài chục giây/iter)
+
+## [2026-05-07 19:36] EOD | Máy 1 loop kết thúc — wiki sync final
+
+- Loop máy 1 ended cleanly at 18:59:21 (deadline 19:00 reached)
+- 27 iters total, ~16 effective + spin guard handle 11 near-deadline
+- **Best Phase A**: LSTM 98.44% (iter 1) + FastText 98.44% (iter 17, match LSTM!) + Transformer 96.88%
+- **Best Phase B**: 6.569 (iter 14, seed 2013, lottery ticket) — break plateau 6.0
+- Updated: live-status.md (snapshot 19:36 EOD), claims.md (+c-20260507-19, 20, 21), evolution.md (final tables), overview.md (bảng final)
+- Pulled commit `ff5affc` từ máy 2 (skip Phase A decision)
+- Đợi máy 2 push branch `machine-2-results` để chạy merge_machine_results.py

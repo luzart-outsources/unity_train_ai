@@ -112,6 +112,61 @@ Mở rộng test lên 64 câu (slang, telex, compound, OOD):
 - Cuối ngày `merge_machine_results.py` auto-pick winner cho canonical
 - Chi tiết: [[decisions/two-machine-parallel]]
 
+## End of day v3.1 — máy 1 (2026-05-07 18:59)
+
+Loop `overnight_loop.py` kết thúc tự nhiên ở 18:59:21 (deadline 19:00, có spin guard 30s nên dừng đúng giờ thay vì spin junk như v2 bug). Tổng cộng **27 iter** (~16 effective + 11 spin-guard cuối ngày).
+
+### Final per-arch bests (Phase A) — qua 27 iters
+
+| Arch | Best | At iter | Số lần thử seed |
+|---|---|---|---|
+| **LSTM** ⭐ | **98.44%** | 1 | 6 (không cải thiện sau iter 1) |
+| **FastText** ⭐ | **98.44%** | **17** | 8 (cần exploration để leo) |
+| Transformer | 96.88% | 18 | 6 (cải thiện chậm) |
+
+**Bài học**: FastText cần 8× retry seeds để đạt 98.44% (match LSTM). Nếu chỉ chạy iter 1 thì 95.3% — sai lệch 3pp do random seed lottery. Nhiều iter HỮU ÍCH cho FastText/Transformer; vô ích cho LSTM (saturated từ iter 1).
+
+### Phase B history (1M steps mỗi iter)
+
+| Iter | Reward | Time |
+|---|---|---|
+| 1 | 5.572 | 09:38 |
+| 2 | 6.011 | 10:14 |
+| 3 | 5.573 | 11:02 |
+| 4 | 6.045 | 11:39 |
+| 5 | 5.896 | 12:09 |
+| 6-7 | n/a | — |
+| 8 | 5.962 | 13:50 |
+| 9 | 2.442 (outlier) | 14:27 |
+| 10 | 5.914 | 14:58 |
+| 11 | 4.770 | 15:28 |
+| 12 | 6.013 | 16:08 |
+| 13 | 6.051 | 16:42 |
+| **14** | **6.569** ⭐ | **17:14** |
+| 15 | 5.769 | 17:54 |
+| 16 | 6.283 | 18:28 |
+
+**Ceiling break ở iter 14** (seed 2013, lucky lottery ticket). Plateau cũ 6.0-6.05 → 6.569 = jump 0.5.
+
+### Final state máy 1
+- `intent_classifier.onnx`: LSTM 98.44% (canonical từ iter 1)
+- `lstm_intent.onnx`: LSTM 98.44%
+- `fasttext_intent.onnx`: **FastText 98.44%** (NEW từ iter 17)
+- `transformer_intent.onnx`: Transformer 96.88%
+- `soldier.onnx`: **PPO 6.569** (từ iter 14)
+
+### Bài học cuối session
+1. **Saturated metric** → wasted compute. LSTM 5/6 lần thử thừa.
+2. **Stochastic training** (PPO + non-saturated FastText) → mỗi iter có giá trị, lottery ticket
+3. **Spin guard FIX hoạt động** — v2 spin 493k iter, v3.1 spin 11 iter (30s sleep mỗi cái = 5.5 min wasted, acceptable)
+4. **Data scale > arch** confirmed: FastText (51K) match LSTM (116K) với data đủ + seed đủ
+5. **Single canonical filename** an toàn hơn dual (legacy alias) — phải xử lý collision sau
+
+### Máy 2 — last known 14:05
+- Decision lớn: skip Phase A (timeout 40 min mỗi iter). Focus Phase B HP cycle.
+- Best Phase B máy 2: **6.236** (iter 1 h1_baseline, 12:41) — thấp hơn máy 1 final 6.569.
+- Status sau 14:05 chưa rõ, đợi máy 2 push branch.
+
 ## Bài học chính
 
 | Lesson | Source |
