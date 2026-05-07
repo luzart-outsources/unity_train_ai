@@ -37,6 +37,7 @@ Master catalog. Read first to find relevant pages.
 - [[decisions/lstm-canonical-not-fasttext]] — Đổi canonical Phase A: LSTM thay FastText
 - [[decisions/eval-set-must-be-real]] — Test 16 câu cũ misleading, đổi 64 câu khó
 - [[decisions/scope-cuts]] — Cắt 8 mini-game
+- [[decisions/two-machine-parallel]] — Chạy 2 máy song song (config + sync protocol)
 
 ## Bugs
 - [[bugs/fasttext-overfit-narrow-test]] — FastText "100%" lừa dối trên test 16 câu (root: mean-pool)
