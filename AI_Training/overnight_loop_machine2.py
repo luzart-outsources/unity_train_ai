@@ -46,7 +46,11 @@ DEADLINE = dt.datetime(2026, 5, 7, 19, 0, 0)
 
 PHASE_A_EPOCHS = 35
 PHASE_A_TARGET = 25_000           # 25k/intent × 8 = 200k total (5× máy 1)
-PHASE_A_ARCHS = ["lstm"]          # winner only, focus
+# Phase A skipped on máy 2: 200k LSTM 35 epochs CPU > 40 min timeout.
+# Máy 1 already produced LSTM 98.4% canonical — máy 2 focuses 100% on
+# Phase B PPO HP exploration where it has comparative advantage.
+# To re-enable: PHASE_A_ARCHS = ["lstm"]
+PHASE_A_ARCHS: list[str] = []
 
 PHASE_B_STEPS = 2_000_000         # 2× máy 1
 PHASE_B_DEVICE = "cpu"
@@ -243,10 +247,10 @@ def main():
         log(f"       {h['name']}: net={h['net']} ent={h['ent']} lr={h['lr']}")
     state = load_state()
 
-    seed_a = 5000
-    seed_b = 7000
+    seed_a = 5000 + state["iter"]   # resume seed offset across restarts
+    seed_b = 7000 + state["iter"]
     arch_idx = 0
-    hp_idx = 0
+    hp_idx = state["iter"]          # resume HP cycle position across restarts
 
     while True:
         tl = time_left()
@@ -257,7 +261,7 @@ def main():
 
         did_anything = False
 
-        if tl >= MIN_TIME_FOR_LIGHT:
+        if PHASE_A_ARCHS and tl >= MIN_TIME_FOR_LIGHT:
             arch = PHASE_A_ARCHS[arch_idx % len(PHASE_A_ARCHS)]
             arch_idx += 1
             r = phase_a_iter(seed_a, arch, state)

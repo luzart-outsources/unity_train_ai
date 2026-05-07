@@ -44,6 +44,7 @@ AI_Training/**/.ipynb_checkpoints/
 # Per-iter checkpoints (accumulate fast — keep only "best_model.zip" we care about)
 AI_Training/phase_b_movement/checkpoints/v3_*/
 AI_Training/phase_b_movement/checkpoints/iter*/
+AI_Training/phase_b_movement/checkpoints/m2_*/
 AI_Training/phase_b_movement/checkpoints/ppo_*_last.zip
 
 # High-churn files written by overnight_loop — snapshot is volatile

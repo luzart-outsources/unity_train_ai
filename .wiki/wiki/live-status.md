@@ -16,25 +16,38 @@ updated: 2026-05-07
 > cat  "AI_Training/overnight_v3_state.json"
 > ```
 
-## Snapshot lúc 2026-05-07 11:25
+## Snapshot lúc 2026-05-07 14:05
 
 ### Loop info máy 1
 - Master script: `AI_Training/overnight_loop.py`
-- Started: 09:00:00 (deadline 19:00:00 — còn ~7h35m)
-- Iter hiện tại: **3** completed (Phase B 1M PPO ~10:55), iter 4 đang chạy
+- Started: 09:00:00 (deadline 19:00:00 — còn ~4h55m)
 - Config: `PHASE_A_TARGET=5000`, `PHASE_B_STEPS=1_000_000`, archs cycle `[lstm, fasttext, transformer]`
 
-### Loop info máy 2 (HEAVY) — STARTED
+### Loop info máy 2 (HEAVY) — RESTARTED 14:03 (skip Phase A)
 - Master script: `AI_Training/overnight_loop_machine2.py`
-- Started: **11:19:07** (sau khi setup uv venv + sửa generator bug)
-- PID orchestrator: 172464; Phase A train worker active (200k LSTM 35 epochs CPU)
-- Cấu hình: 200k samples (5× máy 1), 2M PPO × 4 HP cycle
+- Started attempt 2: 11:19:07 → restarted lúc **14:03:27** với config mới
+- PID orchestrator: 163636; Phase B PPO worker active (h3_deepfocus)
+- Cấu hình mới: `PHASE_A_ARCHS=[]` (skip), 2M PPO × 4 HP cycle, resume HP cycle position from state
 - Output cô lập: `deliverables_m2/`, `overnight_v3_m2.{log,_state.json}`, `intents_v3_m2.csv`, `soldier_m2.onnx`
-- ⚠️ Hardware: máy 2 chỉ Intel UHD 770, KHÔNG GPU NVIDIA → toàn bộ train trên CPU. Phase B đã `device=cpu` sẵn nên OK; Phase A LSTM 200k × 35 epochs CPU dự kiến 15-30 min/iter.
+- ⚠️ Hardware: máy 2 chỉ Intel UHD 770, KHÔNG GPU NVIDIA → toàn bộ train trên CPU. Phase B đã `device=cpu` sẵn nên OK.
 - Chi tiết: [[decisions/two-machine-parallel]]
 
-> [!bug] Generator O(N²) blocker tại HEAVY scale
-> Lần launch đầu (11:09) bị stall 7+ phút ở `generate_dataset_v3.py` vì line 746 dùng `len([r for r in rows if r["intent"]==intent])` — quadratic theo N. Tại `--per_intent=5000` (máy 1) chậm vừa phải, tại `--per_intent=25000` (máy 2 HEAVY) → ~30+ min, vượt timeout 600s. Fix: thay bằng counter `kept` O(1). 200k samples: 30+ min → **3 sec**. Chi tiết: [[bugs/generator-on2-quadratic]].
+> [!info] Skip Phase A trên máy 2 (decision 14:03)
+> Iter 1-3 (Phase A): 200k samples × 35 epochs LSTM CPU > 40 min, hit timeout `PHASE_A_TRAIN_TIMEOUT=2400` mỗi lần → fail rc=-1 mỗi iter, phí 40 phút/iter vô ích. Máy 1 đã có canonical LSTM 98.4% từ iter 1 nên máy 2 không cần Phase A. Set `PHASE_A_ARCHS=[]` + guard `if PHASE_A_ARCHS:` ở loop. Lợi ích: từ ~4 iter → ~7 iter trong cùng deadline, mở rộng HP grid 1.5×.
+
+> [!bug] Generator O(N²) blocker tại HEAVY scale (đã fix)
+> Lần launch đầu (11:09) bị stall 7+ phút ở `generate_dataset_v3.py` vì line 746 dùng `len([r for r in rows if r["intent"]==intent])` — quadratic theo N. Fix: counter `kept` O(1). 200k samples: 30+ min → **3 sec**. Chi tiết: [[bugs/generator-on2-quadratic]].
+
+### Phase B máy 2 — HP cycle results so far
+
+| HP | Net | Ent | LR | Iter | Reward | Status |
+|---|---|---|---|---|---|---|
+| **h1_baseline** | [128,128] | 0.01 | 3e-4 | 1 | **6.236** ⭐ | done — current best |
+| h2_bigexplore | [256,128] | 0.02 | 3e-4 | 2 | 5.675 | done — worse than baseline |
+| h3_deepfocus | [128,128,64] | 0.005 | 1e-4 | 3 | đang chạy | ETA ~14:48 |
+| h4_bigwide | [256,256] | 0.05 | 5e-4 | 4 | chưa | sau h3 |
+
+**Soldier_m2.onnx hiện tại** = h1_baseline iter 1 (6.236), vượt máy 1 best 6.011.
 
 ### Phase A — current bests (all 3 archs trained on v3.1 40k data)
 | Arch | acc | iter | data_seed | Trạng thái |
@@ -110,6 +123,9 @@ Khi 2 máy chạy 2 Claude instances cùng lúc:
 - 2026-05-07 11:09 — máy 2 launch attempt 1: stall do generator O(N²)
 - 2026-05-07 11:18 — fix `generate_dataset_v3.py` (O(N²) → O(N)), 200k samples 30+min → 3sec
 - 2026-05-07 11:19 — máy 2 launch attempt 2: success, iter 1 đang chạy
+- 2026-05-07 12:41 — máy 2 iter 1 Phase B h1_baseline = 6.236 ⭐ (vượt máy 1 best 6.011)
+- 2026-05-07 14:01 — máy 2 iter 2 Phase B h2_bigexplore = 5.675 (worse), Phase A timeout 2× iter
+- 2026-05-07 14:03 — máy 2 RESTART với `PHASE_A_ARCHS=[]` skip Phase A, resume HP cycle từ h3
 
 ## Backlinks
 
