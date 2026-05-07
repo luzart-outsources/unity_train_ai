@@ -741,10 +741,10 @@ def main():
 
     for intent, templates in TEMPLATES.items():
         seen = set(r["text"] for r in rows if r["intent"] == intent)
+        kept = len(seen)  # O(1) running count for this intent (was O(N) per-iter scan)
         attempts = 0
         target_attempts = args.per_intent * 5
-        while (len([r for r in rows if r["intent"] == intent]) < args.per_intent
-               and attempts < target_attempts):
+        while kept < args.per_intent and attempts < target_attempts:
             attempts += 1
             t = random.choice(templates)
             text = fill(t)
@@ -756,6 +756,7 @@ def main():
                 continue
             seen.add(text)
             rows.append({"text": text, "intent": intent})
+            kept += 1
 
     out = pd.DataFrame(rows).drop_duplicates(subset=["text"]).reset_index(drop=True)
     out.to_csv(out_path, index=False, encoding="utf-8")

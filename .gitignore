@@ -54,10 +54,17 @@ AI_Training/overnight.log
 AI_Training/overnight_state.json
 AI_Training/err.log
 AI_Training/phase_a_sentis/err.log
+# Machine-2 HEAVY loop variants
+AI_Training/overnight_v3_m2.log
+AI_Training/overnight_v3_m2_state.json
+AI_Training/m2.out
+AI_Training/m2.err
 
 # Per-iter generated artifacts (regenerable)
 AI_Training/phase_a_sentis/data/intents_v3.csv
+AI_Training/phase_a_sentis/data/intents_v3_m2.csv
 AI_Training/phase_a_sentis/data/intents_expanded.csv
 AI_Training/phase_a_sentis/models/eval_iter*.json
+AI_Training/phase_a_sentis/models/eval_m2_iter*.json
 AI_Training/phase_a_sentis/models/training_log_*.json
 AI_Training/phase_a_sentis/models/eval_realworld.json
