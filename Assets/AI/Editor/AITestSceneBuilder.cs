@@ -26,7 +26,7 @@ public static class AITestSceneBuilder
 
         var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
 
-        // Commander GameObject — both brain + chat UI on same GO
+        // Commander với brain + ChatUI script
         var commander = new GameObject("Commander");
         var brain = commander.AddComponent<NPCDialogueBrain>();
         brain.modelAsset = assets.intentModel;
@@ -34,15 +34,219 @@ public static class AITestSceneBuilder
         brain.responsesJson = assets.responsesJson;
         brain.backend = BackendType.CPU;
         brain.minConfidence = 0.40f;
+        var chatUI = commander.AddComponent<PhaseAChatUI>();
 
-        commander.AddComponent<PhaseAChatTester>();
+        // ─── Canvas hierarchy ───────────────────────────────────────────
+        var canvasGo = new GameObject("ChatCanvas", typeof(RectTransform));
+        var canvas = canvasGo.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.sortingOrder = 0;
+        var scaler = canvasGo.AddComponent<UnityEngine.UI.CanvasScaler>();
+        scaler.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(1920, 1080);
+        scaler.matchWidthOrHeight = 0.5f;
+        canvasGo.AddComponent<UnityEngine.UI.GraphicRaycaster>();
 
-        // Camera nhỏ phía sau (không quan trọng vì UI là IMGUI fullscreen)
+        // Background (full screen dark)
+        var bg = MakeUIChild(canvasGo.transform, "Background");
+        StretchAll(bg);
+        bg.gameObject.AddComponent<UnityEngine.UI.Image>().color = new Color(0.1f, 0.12f, 0.16f, 1f);
+
+        // Header panel (top, height 100)
+        var header = MakeUIChild(canvasGo.transform, "Header");
+        AnchorTop(header, height: 100, leftRight: 40);
+        var titleText = MakeText(header, "Title", "Phase A — NPC Chỉ Huy Chat", 32, FontStyle.Bold, Color.white,
+                                 TextAnchor.UpperLeft);
+        AnchorAll(titleText.rectTransform, leftRight: 0, top: 10, bottom: 50);
+        var statusText = MakeText(header, "Status", "Đang khởi tạo...", 18, FontStyle.Normal,
+                                  new Color(0.75f, 0.85f, 0.95f), TextAnchor.UpperLeft);
+        AnchorAll(statusText.rectTransform, leftRight: 0, top: 55, bottom: 0);
+
+        // ScrollView (middle)
+        var scrollGo = MakeUIChild(canvasGo.transform, "ScrollView");
+        AnchorMiddle(scrollGo, top: 110, bottom: 110, leftRight: 40);
+        scrollGo.gameObject.AddComponent<UnityEngine.UI.Image>().color = new Color(0.06f, 0.08f, 0.10f, 1f);
+        var scrollRect = scrollGo.gameObject.AddComponent<UnityEngine.UI.ScrollRect>();
+        scrollRect.horizontal = false;
+        scrollRect.vertical = true;
+        scrollRect.movementType = UnityEngine.UI.ScrollRect.MovementType.Clamped;
+
+        var viewport = MakeUIChild(scrollGo, "Viewport");
+        StretchAll(viewport);
+        viewport.gameObject.AddComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 0, 0.01f);
+        viewport.gameObject.AddComponent<UnityEngine.UI.Mask>().showMaskGraphic = false;
+
+        var content = MakeUIChild(viewport, "Content");
+        content.anchorMin = new Vector2(0, 1);
+        content.anchorMax = new Vector2(1, 1);
+        content.pivot = new Vector2(0.5f, 1);
+        content.anchoredPosition = Vector2.zero;
+        content.sizeDelta = new Vector2(0, 0);
+        var contentLayout = content.gameObject.AddComponent<UnityEngine.UI.VerticalLayoutGroup>();
+        contentLayout.padding = new RectOffset(20, 20, 15, 15);
+        contentLayout.spacing = 8;
+        contentLayout.childAlignment = TextAnchor.UpperLeft;
+        contentLayout.childControlWidth = true;
+        contentLayout.childControlHeight = true;
+        contentLayout.childForceExpandWidth = true;
+        contentLayout.childForceExpandHeight = false;
+        var contentFitter = content.gameObject.AddComponent<UnityEngine.UI.ContentSizeFitter>();
+        contentFitter.verticalFit = UnityEngine.UI.ContentSizeFitter.FitMode.PreferredSize;
+        scrollRect.viewport = viewport;
+        scrollRect.content = content;
+
+        // Input row (bottom)
+        var inputRow = MakeUIChild(canvasGo.transform, "InputRow");
+        AnchorBottom(inputRow, height: 80, leftRight: 40, bottom: 20);
+
+        var inputBg = MakeUIChild(inputRow, "InputField");
+        inputBg.anchorMin = new Vector2(0, 0);
+        inputBg.anchorMax = new Vector2(1, 1);
+        inputBg.offsetMin = new Vector2(0, 0);
+        inputBg.offsetMax = new Vector2(-150, 0);   // leave 150 for button
+        var inputImage = inputBg.gameObject.AddComponent<UnityEngine.UI.Image>();
+        inputImage.color = new Color(0.95f, 0.95f, 0.95f, 1f);
+        var input = inputBg.gameObject.AddComponent<UnityEngine.UI.InputField>();
+
+        var inputTextRT = MakeUIChild(inputBg, "Text");
+        StretchAll(inputTextRT);
+        inputTextRT.offsetMin = new Vector2(15, 5);
+        inputTextRT.offsetMax = new Vector2(-15, -5);
+        var inputText = inputTextRT.gameObject.AddComponent<UnityEngine.UI.Text>();
+        inputText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        inputText.fontSize = 22;
+        inputText.color = new Color(0.1f, 0.1f, 0.1f);
+        inputText.alignment = TextAnchor.MiddleLeft;
+        inputText.supportRichText = false;
+
+        var placeholderRT = MakeUIChild(inputBg, "Placeholder");
+        StretchAll(placeholderRT);
+        placeholderRT.offsetMin = new Vector2(15, 5);
+        placeholderRT.offsetMax = new Vector2(-15, -5);
+        var placeholder = placeholderRT.gameObject.AddComponent<UnityEngine.UI.Text>();
+        placeholder.font = inputText.font;
+        placeholder.fontSize = 22;
+        placeholder.color = new Color(0.5f, 0.5f, 0.5f, 0.7f);
+        placeholder.alignment = TextAnchor.MiddleLeft;
+        placeholder.fontStyle = FontStyle.Italic;
+        placeholder.text = "Gõ tiếng Việt rồi nhấn Enter...";
+
+        input.targetGraphic = inputImage;
+        input.textComponent = inputText;
+        input.placeholder = placeholder;
+        input.lineType = UnityEngine.UI.InputField.LineType.SingleLine;
+
+        // Send button
+        var btnRT = MakeUIChild(inputRow, "SendButton");
+        btnRT.anchorMin = new Vector2(1, 0);
+        btnRT.anchorMax = new Vector2(1, 1);
+        btnRT.pivot = new Vector2(1, 0.5f);
+        btnRT.anchoredPosition = Vector2.zero;
+        btnRT.sizeDelta = new Vector2(140, 0);
+        var btnImage = btnRT.gameObject.AddComponent<UnityEngine.UI.Image>();
+        btnImage.color = new Color(0.2f, 0.55f, 0.85f, 1f);
+        var btn = btnRT.gameObject.AddComponent<UnityEngine.UI.Button>();
+        btn.targetGraphic = btnImage;
+        var btnTextRT = MakeUIChild(btnRT, "Text");
+        StretchAll(btnTextRT);
+        var btnText = btnTextRT.gameObject.AddComponent<UnityEngine.UI.Text>();
+        btnText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        btnText.fontSize = 22;
+        btnText.fontStyle = FontStyle.Bold;
+        btnText.color = Color.white;
+        btnText.alignment = TextAnchor.MiddleCenter;
+        btnText.text = "Gửi";
+
+        // EventSystem (cần cho UI input hoạt động)
+        if (GameObject.FindFirstObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
+        {
+            var es = new GameObject("EventSystem",
+                typeof(UnityEngine.EventSystems.EventSystem),
+                typeof(UnityEngine.EventSystems.StandaloneInputModule));
+        }
+
+        // Wire references vào ChatUI
+        chatUI.titleText = titleText;
+        chatUI.statusText = statusText;
+        chatUI.contentParent = content;
+        chatUI.scrollRect = scrollRect;
+        chatUI.inputField = input;
+        chatUI.sendButton = btn;
+
+        // Camera đặt sang chỗ không quan trọng (UI overlay không cần camera angle)
         var cam = GameObject.Find("Main Camera");
         if (cam != null) cam.transform.position = new Vector3(0, 1, -10);
 
         SaveAndOpen(scene, "Assets/Scenes/PhaseA_ChatTest.unity");
-        Debug.Log("[AISetup] Phase A scene built. Click Play để chạy.");
+        Debug.Log("[AISetup] Phase A scene built — Hierarchy có Canvas + Background + Header + ScrollView + InputRow + Commander. Click Play.");
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    // UI helpers
+    // ─────────────────────────────────────────────────────────────────────
+    static RectTransform MakeUIChild(Transform parent, string name)
+    {
+        var go = new GameObject(name, typeof(RectTransform));
+        go.transform.SetParent(parent, false);
+        return go.GetComponent<RectTransform>();
+    }
+
+    static UnityEngine.UI.Text MakeText(RectTransform parent, string name, string content, int size,
+                                         FontStyle style, Color color, TextAnchor align)
+    {
+        var rt = MakeUIChild(parent, name);
+        var txt = rt.gameObject.AddComponent<UnityEngine.UI.Text>();
+        txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        txt.text = content;
+        txt.fontSize = size;
+        txt.fontStyle = style;
+        txt.color = color;
+        txt.alignment = align;
+        txt.horizontalOverflow = HorizontalWrapMode.Wrap;
+        txt.verticalOverflow = VerticalWrapMode.Overflow;
+        return txt;
+    }
+
+    static void StretchAll(RectTransform rt)
+    {
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = Vector2.zero;
+        rt.offsetMax = Vector2.zero;
+    }
+
+    static void AnchorAll(RectTransform rt, float leftRight, float top, float bottom)
+    {
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = new Vector2(leftRight, bottom);
+        rt.offsetMax = new Vector2(-leftRight, -top);
+    }
+
+    static void AnchorTop(RectTransform rt, float height, float leftRight)
+    {
+        rt.anchorMin = new Vector2(0, 1);
+        rt.anchorMax = new Vector2(1, 1);
+        rt.pivot = new Vector2(0.5f, 1);
+        rt.anchoredPosition = new Vector2(0, -10);
+        rt.sizeDelta = new Vector2(-2 * leftRight, height);
+    }
+
+    static void AnchorBottom(RectTransform rt, float height, float leftRight, float bottom)
+    {
+        rt.anchorMin = new Vector2(0, 0);
+        rt.anchorMax = new Vector2(1, 0);
+        rt.pivot = new Vector2(0.5f, 0);
+        rt.anchoredPosition = new Vector2(0, bottom);
+        rt.sizeDelta = new Vector2(-2 * leftRight, height);
+    }
+
+    static void AnchorMiddle(RectTransform rt, float top, float bottom, float leftRight)
+    {
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = new Vector2(leftRight, bottom);
+        rt.offsetMax = new Vector2(-leftRight, -top);
     }
 
     [MenuItem("AI/2. Phase B — Movement Test", false, 101)]
