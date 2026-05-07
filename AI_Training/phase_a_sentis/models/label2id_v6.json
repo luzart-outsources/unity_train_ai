@@ -1,0 +1,10 @@
+{
+  "BAO_CAO": 0,
+  "HOI_GIO_AN": 1,
+  "HOI_KIEN_THUC": 2,
+  "HOI_LICH": 3,
+  "HOI_VI_TRI": 4,
+  "OUT_OF_SCOPE": 5,
+  "TAM_BIET": 6,
+  "XIN_PHEP": 7
+}

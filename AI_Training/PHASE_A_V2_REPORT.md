@@ -1,16 +1,23 @@
-# Phase A v2 — Smarter NPC Brain
+# Phase A v2 — Smarter NPC Brain (v5 deployed)
 
 ## TL;DR
 
-| Metric                              | V1 (cũ)            | V2 (mới)              | Cải thiện         |
-| ----------------------------------- | ------------------ | --------------------- | ----------------- |
-| Model arch                          | LSTM (250K params) | LSTM (707K params)    | ~3x params        |
-| Training data                       | 40k samples (v3)   | 240k samples (v4)     | 6x lớn hơn        |
-| Vocab size                          | ~5,000 token       | 10,000 token          | 2x lớn hơn        |
-| max_len                             | 32                 | 40                    | dài hơn 25%       |
-| Val acc (synthetic)                 | 99.48%             | 99.73%                | +0.25 pp          |
-| **Hard test acc (216 câu)**         | **38.0% (82/216)** | **92.6% (200/216)**   | **+54.6 pp** ✨   |
-| Slot extraction (entity awareness)  | ❌ không có        | ✅ rule-based (134 places, 185 times, 188 topics, 45 meals, 100 reasons, 61 reports) | nguyên tính năng mới |
+| Metric                              | V1 (cũ)            | V2 v4 (iter 1)      | V2 v5 (deployed)    | Cải thiện         |
+| ----------------------------------- | ------------------ | ------------------- | ------------------- | ----------------- |
+| Model arch                          | LSTM (250K params) | LSTM (707K params)  | LSTM (707K params)  | ~3x params        |
+| Training data                       | 40k samples (v3)   | 240k samples (v4)   | 240k samples (v5)   | 6x lớn hơn        |
+| Vocab size                          | ~5,000 token       | 10,000 token        | 10,000 token        | 2x lớn hơn        |
+| max_len                             | 32                 | 40                  | 40                  | dài hơn 25%       |
+| Val acc (synthetic)                 | 99.48%             | 99.73%              | 99.64%              | gần saturate      |
+| **Hard test acc (216 câu)**         | **38.0% (82/216)** | **92.6% (200/216)** | **96.8% (209/216)** | **+58.8 pp** ✨   |
+| Slot extraction (entity awareness)  | ❌ không có        | ✅                  | ✅                  | tính năng mới     |
+
+V5 thêm gap-filler templates cho 16 misses của v4: rảnh/bận semantics, "đi đâu"
+ambiguity, pure-symptom XIN_PHEP, lone-place ellipsis, no-accent place asks.
+Plus bumped augmentation rate (~32% → ~45%).
+
+V6 thử fix 7 misses còn lại nhưng ROI âm (96.8% → 96.3% do regression),
+nên ship v5.
 
 V2 không thay thế V1 — cả 2 model + script + responses đều giữ nguyên trên disk
 để Quyền A/B compare trực tiếp.
@@ -149,17 +156,27 @@ Sanity 8 câu auto chạy lúc Start. Score sẽ hiện trên header.
 #   models/lstm_v4_intent_meta.json → Assets/AI/Resources/intent_classifier_v2_meta.json
 ```
 
-## Failure modes còn tồn
+## Failure modes còn tồn (v5 deployed)
 
-V2 vẫn miss 16/216 câu trên hard test (~7.4%). Phân loại:
+V5 miss 7/216 câu (~3.2%). Phân loại:
 
-| Category     | V2 score    | Ghi chú                              |
-| ------------ | ----------- | ------------------------------------ |
-| TELEX_TYPOS  | 7/12 (58%)  | Yếu nhất — cần subword/char n-gram   |
-| COMPLAINT    | 18/23 (78%) | "Hôm nay rảnh không nhỉ" → OOS sai   |
-| ELLIPSIS     | 23/25 (92%) | Câu cực ngắn vẫn mơ hồ               |
-| NO_ACCENT    | 22/24 (92%) | Token "may gio" đôi khi vẫn UNK      |
+| Category     | V5 score    | Cụ thể câu miss                                |
+| ------------ | ----------- | ---------------------------------------------- |
+| TELEX_TYPOS  | 9/12 (75%)  | "Phoongg học oo đâu", "Bááoo cáo đủù quânnn", "Emm chào thủủ trưởng emm đii" — extreme multi-char duplications, cần char n-gram subword |
+| CODE_MIX     | 23/24 (96%) | "Library ở đâu thầy" — model classify HOI_LICH (regression của v4)            |
+| CLEAN        | 54/55 (98%) | "Bài tập về nhà nhiều quá" — confused với HOI_VI_TRI vì có "nhà"             |
+| COMPLAINT    | 22/23 (96%) | "Hôm nay rảnh không nhỉ" — vẫn classify OOS thay vì HOI_LICH                  |
+| NO_ACCENT    | 23/24 (96%) | "Cho em hoi sang van dong o dau" — borderline confidence                       |
 
-Nâng cấp tương lai (nếu cần): switch sang FastText subword (char n-gram 3-5)
-sẽ giải hầu hết TELEX_TYPOS + NO_ACCENT vì subword embedding không phụ thuộc
-exact word match. Cost: phải port subword tokenizer sang C#, ~1 ngày làm.
+3 trong 7 misses là TELEX cực đoan (`Phoongg`, `Bááoo`, `Emm`) — user thực
+tế hiếm khi gõ thế này. Để fix triệt để cần subword tokenization (FastText
+char n-gram 3-5), cost ~1 ngày port sang C#.
+
+## Iteration log
+
+| Iter | Dataset       | Augmentation | Hard test    | Notes                         |
+| ---- | ------------- | ------------ | ------------ | ----------------------------- |
+| v3   | 40k (intents_v3.csv) | ~10% noise   | 38.0%        | baseline (deployed in v1)     |
+| v4   | 240k (intents_v4.csv) | ~32% noise   | 92.6% (+54.6) | bigger pools, 200+ tpl/intent |
+| v5   | 240k (intents_v5.csv) | ~45% noise   | **96.8% (+4.2)** | gap-fill v4 misses (deployed) |
+| v6   | 240k (intents_v6.csv) | ~50% noise   | 96.3% (-0.5) | thêm template gây xáo trộn boundary, không ship |
