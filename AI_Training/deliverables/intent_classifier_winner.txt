@@ -1,0 +1,4 @@
+arch=lstm
+acc=98.44%
+iter=1
+seed=1000

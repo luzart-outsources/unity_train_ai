@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+models/*.pt
+models/*.onnx
+models/training_log.json
+.ipynb_checkpoints/

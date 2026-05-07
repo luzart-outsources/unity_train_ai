@@ -1,0 +1,24 @@
+# Phase A — Sentis intent classifier
+# Pinned for Python 3.10 + CUDA 12.x driver + GTX 1060 (compute cap 6.1)
+
+# Core training
+torch==2.5.1
+torchvision==0.20.1
+torchaudio==2.5.1
+
+# Data
+pandas==2.2.3
+scikit-learn==1.5.2
+numpy==1.26.4
+
+# Tokenizer (Vietnamese-friendly fallback to char-level if needed)
+sentencepiece==0.2.0
+underthesea==6.8.4
+
+# ONNX export + verify
+onnx==1.17.0
+onnxruntime==1.20.1
+
+# Misc
+tqdm==4.67.1
+matplotlib==3.9.2

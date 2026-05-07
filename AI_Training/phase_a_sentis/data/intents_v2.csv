@@ -1,0 +1,2401 @@
+text,intent
+Hôm nay có lịch gì?,HOI_LICH
+Lịch ngày mai thế nào?,HOI_LICH
+Thứ 2 phải làm gì?,HOI_LICH
+Cho tôi xem thời khoá biểu,HOI_LICH
+Lịch tuần này có gì?,HOI_LICH
+Mấy giờ ăn cơm?,HOI_GIO_AN
+Bao giờ có cơm?,HOI_GIO_AN
+Khi nào ăn trưa?,HOI_GIO_AN
+Giờ ăn tối là khi nào?,HOI_GIO_AN
+Chiều mấy giờ ăn?,HOI_GIO_AN
+Nhà ăn ở đâu?,HOI_VI_TRI
+Phòng tập thể dục ở chỗ nào?,HOI_VI_TRI
+Sân tập ở đâu vậy?,HOI_VI_TRI
+Lớp học ở khu nào?,HOI_VI_TRI
+Cho tôi đường tới phòng y tế,HOI_VI_TRI
+Lựu đạn được phát mấy quả?,HOI_KIEN_THUC
+Súng AK có trọng lượng bao nhiêu?,HOI_KIEN_THUC
+Quy tắc bắn 3 điểm là gì?,HOI_KIEN_THUC
+Đội hình hàng dọc đứng thế nào?,HOI_KIEN_THUC
+Cách chào điều lệnh ra sao?,HOI_KIEN_THUC
+Báo cáo đại đội đã có mặt đầy đủ,BAO_CAO
+Báo cáo trung đội 1 đủ quân,BAO_CAO
+Tôi xin báo cáo đã hoàn thành nhiệm vụ,BAO_CAO
+Báo cáo thủ trưởng tiểu đội 3 vắng 2 người,BAO_CAO
+Báo cáo đã chuẩn bị xong,BAO_CAO
+Cho tôi xin phép ra ngoài,XIN_PHEP
+Tôi xin phép nghỉ học vì bị ốm,XIN_PHEP
+Cho tôi nghỉ buổi tập chiều nay được không?,XIN_PHEP
+Xin phép thủ trưởng cho ra cổng,XIN_PHEP
+Cho tôi xin phép về thăm nhà,XIN_PHEP
+Chào thủ trưởng tôi đi đây,TAM_BIET
+Em chào sĩ quan,TAM_BIET
+Tạm biệt nhé,TAM_BIET
+Hẹn gặp lại,TAM_BIET
+Chào tạm biệt,TAM_BIET
+Hôm nay trời đẹp nhỉ,OUT_OF_SCOPE
+Bạn có biết Messi không?,OUT_OF_SCOPE
+Kể chuyện cười đi,OUT_OF_SCOPE
+Tối qua tôi xem phim hay lắm,OUT_OF_SCOPE
+Pizza có ngon không?,OUT_OF_SCOPE
+thưa thủ trưởng 5 giờ sáng có lịch không chứ,HOI_LICH
+sáng nay có lịch không được khôg,HOI_LICH
+cho tôi xem lịch 10 giờ ạ,HOI_LICH
+9 giờ tối phải làm gì?,HOI_LICH
+đồng chí tôi muốn biết lịch,HOI_LICH
+Cho em hỏi thời khoá biểu tuần sau,HOI_LICH
+thua can bo cho toi xem lich 1 gio chieu day,HOI_LICH
+Thầy ơi ngày kia có hoạt động gì,HOI_LICH
+buổi trưa có hoạt động gì vậy,HOI_LICH
+Báo cáo thủ trưởng cho em xem thời khoá biểu tuần này đi,HOI_LICH
+Xin hỏi lịch hôm nay thưa thủ trưởng,HOI_LICH
+cho toi xem lich khi nao,HOI_LICH
+xin phép thủ trưởng kế hoạch buổi chiều,HOI_LICH
+Lịch hôm nay vậy,HOI_LICH
+Anh ơi thứ 4 tập gì?,HOI_LICH
+dong chi oi toi muon biet lich thua thu truong,HOI_LICH
+Cho em xem thời khoá biểu ngày kia,HOI_LICH
+tuần tới có lịch không ?,HOI_LICH
+anh oi 3 gio chieu trung doi lam gi chu,HOI_LICH
+đồng chí ơi 7 giờ làm gì thế,HOI_LICH
+thưa cán bộ lúc nào có hoạt động gì nhỉ,HOI_LICH
+em hoi voi chuong trinh 3 gio chieu,HOI_LICH
+thưa thủ trưởng cho em xem thời khoá biểu 8 giờ được không ạ,HOI_LICH
+Thưa thủ trưởng cho em xem thời khoá biểu chiều mai,HOI_LICH
+thua can bo thu 2 hoc gi duoc khong a,HOI_LICH
+Thầy ơi tuần sau phải làm gì đi,HOI_LICH
+thứ 5 có buổi gì được không ạ,HOI_LICH
+thầy ơi 7 giờ học gì,HOI_LICH
+Xin hỏi thứ 2 giảng đường có lịch gì được không ạ,HOI_LICH
+Báo cáo thủ trưởng lịch buổi sáng ra sao thưa thủ trưởng,HOI_LICH
+đồng chí ơi khi nào giảng đường có lịch gì chứ,HOI_LICH
+thưa cán bộ lịch hôm nay được không,HOI_LICH
+cho hỏi buổi tối tập gì được không,HOI_LICH
+Anh ơi chủ nhật sinh viên có lịch không,HOI_LICH
+xin phép thủ trưởng buổi chiều phải làm gì,HOI_LICH
+1 giờ chiều giảng đường có lịch gì nhỉ,HOI_LICH
+Đồng chí ơi tuần sau học gì,HOI_LICH
+Thưa thủ trưởng buổi sáng có gì đặc biệt nhỉ,HOI_LICH
+thưa cán bộ chiều mai có gì đặc biệt nhỉ,HOI_LICH
+Báo cáo thủ trưởng cho em xem thời khoá biểu ngày mai,HOI_LICH
+xin phép thủ trưởng tôi muốn biết lịch thế,HOI_LICH
+anh ơi lịch hôm nay ?,HOI_LICH
+Báo cáo thủ trưởng 8 giờ phải làm gì được không ạ,HOI_LICH
+Tuần này có buổi gì được không,HOI_LICH
+cho em hỏi lịch tuần đấy,HOI_LICH
+xin ỏi ngày kia tập gì,HOI_LICH
+Hôm qua đại đội có lịch gì chứ,HOI_LICH
+bao cao thu truong thu 3 co buoi gi,HOI_LICH
+Cho tôi xem lịch tuần sau được không,HOI_LICH
+Cho em hỏi thời khoá biểu 12 giờ,HOI_LICH
+cho tôi xem lịch sáng nay,HOI_LICH
+xin hỏi lịch tuần,HOI_LICH
+6 giờ sáng đại đội có lịch gì nhỉ,HOI_LICH
+cho em hỏi chủ nhật tập gì chứ,HOI_LICH
+thầy ơi lịch tuần nhỉ,HOI_LICH
+thứ 5 phải làm gì ạ,HOI_LICH
+cho em hỏi buổi sáng có gì đặc biệt?,HOI_LICH
+thưa cán bộ 8 giờ học gì thế,HOI_LICH
+lúc nào có hoạt động gì đi,HOI_LICH
+kế hạch buổi tối vậy,HOI_LICH
+thầy ơi thứ 7 có lịch gì,HOI_LICH
+Xin phép thủ trưởng sáng nay có hoạt động gì nhỉ,HOI_LICH
+nh ơi cho tôi xem lịch 12 giờ,HOI_LICH
+Cho hỏi lịch trình chiều nay thưa thủ trưởng,HOI_LICH
+em hỏi với lịch thứ 3 ra sao,HOI_LICH
+Thầy lịch hôm nay,HOI_LICH
+cho hỏi 3 giờ chiều có lịch không,HOI_LICH
+đồng chí ơi sáng mai có gì đặc biệt đi,HOI_LICH
+thưa thủ trưởng lịch của lớp 7 giờ thế,HOI_LICH
+cho em hỏi lịch hôm nay chứ,HOI_LICH
+lịch cuối tuần ra sao được không,HOI_LICH
+lịch trình 8 giờ nhỉ,HOI_LICH
+đồng chí ơi cho tôi xem lịch 11 gờ,HOI_LICH
+thưa cán bộ chương trình 5 giờ chiều chứ,HOI_LICH
+khi nào tập gì,HOI_LICH
+12 giờ giảng đường có lịch gì,HOI_LICH
+thay oi ke hoach thu 2 the,HOI_LICH
+cho hỏ thứ 5 có lịch gì,HOI_LICH
+anh ơi tuần này trung đội làm gì?,HOI_LICH
+cho hỏi cho tôi xem lịch tối mai?,HOI_LICH
+Em hỏi với 3 giờ chiều có hoạt động gì ?,HOI_LICH
+Anh ơi lịch tuầ,HOI_LICH
+chủ nhật học gì được không,HOI_LICH
+xin phép thủ trưởng tôi muốn biết lịch đấy,HOI_LICH
+cho hỏi thứ 7 phải lm gì đi,HOI_LICH
+Cho hỏi lịch của lớp thứ 4 vậy,HOI_LICH
+anh cho em xem thời khoá biểu thứ 5,HOI_LICH
+xin hoi 11 gio co buoi gi?,HOI_LICH
+xin hỏi chương trình chiều mai,HOI_LICH
+thầy ơi cho em xem thời khoá biểu chủ nhật đấy,HOI_LICH
+Tối nay có lịch gì,HOI_LICH
+cho hỏi cho em xem thời khoá biểu 10 giờ vậy,HOI_LICH
+Khi nào sinh viên có lịch không ạ,HOI_LICH
+anh ơi chiều nay trung đội làm gì vậy,HOI_LICH
+Thứ 2 có lịch gì vậy,HOI_LICH
+Lịch của lớp 7 giờ ?,HOI_LICH
+lich ngay mai the nao nhi,HOI_LICH
+thua can bo ngay mai sinh vien co lich khong,HOI_LICH
+cho hỏi lịch trình 6 giờ sáng chứ,HOI_LICH
+Thầy ơi lịch trình 10 giờ đấy,HOI_LICH
+xin hỏi tối nay có lịch không,HOI_LICH
+xin hỏi cho em xem thời khoá biểu chiều mai,HOI_LICH
+Đồng chí ơi kế hoạch 3 giờ chiều nhỉ,HOI_LICH
+cho hoi buoi sang co hoat dong gi nhi,HOI_LICH
+thưa thủ trưởng buổi trưa trung đội làm gì,HOI_LICH
+Xin phep thu truong cuoi tuan co hoat dong gi,HOI_LICH
+anh ơi lịch sáng nay ra sao đấy,HOI_LICH
+anh ơi tối mai có lịch không,HOI_LICH
+xin phep thu truong ngay kia dai doi co lich gi nhi,HOI_LICH
+anh ơi tôi muốn biết lịch đấy,HOI_LICH
+thưa thủ trưởng 1 giờ có lịch gì,HOI_LICH
+Cho hoi lich hom nay the,HOI_LICH
+anh ơi tối nay đại đội có lịch gì thế,HOI_LICH
+thưa thủ trưởng tôi muốn biết lịch,HOI_LICH
+đồng chí lịch của lớp 9 giờ tối nhỉ,HOI_LICH
+anh ơi lịch đêm nay tế nào đấy,HOI_LICH
+Thầy ơi lịh tuần ạ,HOI_LICH
+xin hỏi 9 giờ tối có lịch gì đi,HOI_LICH
+xin hỏi 12 giờ có hoạt động gì,HOI_LICH
+Thầy ơi khi nào trung đội làm gì?,HOI_LICH
+thưa cán bộ 9 gờ tối làm gì vậy,HOI_LICH
+cho hỏi cho tôi xem lịch 5 giờ chiều ?,HOI_LICH
+Cho em hỏi chương trình ngày kia,HOI_LICH
+thưa cán bộ thứ 5 có lịch không ạ,HOI_LICH
+ngày mai trung đội làm gì vậy,HOI_LICH
+thầy ơi ch nhật học gì,HOI_LICH
+báo cáo thủ trưởng chiều mai học gì ?,HOI_LICH
+cho tôi xem lịch 6 giờ?,HOI_LICH
+Báo cáo thủ trưởn thứ 5 giảng đường có lịch gì đi,HOI_LICH
+cho em hỏi lịch 1 giờ chiều thế ào ạ,HOI_LICH
+Xin hỏi 6 giờ sinh viên có lịch không chứ,HOI_LICH
+thưa cán bộ thứ 2 làm gì vậy,HOI_LICH
+sáng mai có gì đặc biệt thưa thủ trưởng,HOI_LICH
+Xin phép thủ trưởng chủ nhật giảng đường có lịch gì?,HOI_LICH
+Thưa thủ trưởng lịch trình 1 giờ chiều,HOI_LICH
+Dong chi oi tuan toi co gi dac biet the,HOI_LICH
+Cho em hỏi buổi tối học gì,HOI_LICH
+cho em hỏi kế hoạch thứ 4 vậy,HOI_LICH
+Cho em hoi thu 7 phai lam gi day,HOI_LICH
+Xin hỏi cho em xem thời khoá biểu thứ 3,HOI_LICH
+em hoi voi cho em xem thoi khoa bieu 11 gio duoc khong a,HOI_LICH
+bao cao thu truong 3 gio chieu co buoi gi vay,HOI_LICH
+thưa thủ trưởng lịch ngày mai ra sao được không ạ,HOI_LICH
+đồng chí ơi đầu tuần có buổi gì,HOI_LICH
+Đồng chí ơi lịch sáng mai thế nào thưa thủ trưởng,HOI_LICH
+thưa cán bộ kế hoạch 1 giờ chiều được không,HOI_LICH
+đồng chí ơi lịch tuần thưa thủ trưởng,HOI_LICH
+thưa án bộ thứ 2 phải làm gì được không,HOI_LICH
+báo cáo thủ trưởng thứ 6 đại đội có lịch gì thưa thủ trưởng,HOI_LICH
+thưa thủ trưởng lịch hôm nay,HOI_LICH
+Cho em hỏi lịh tuần,HOI_LICH
+em hỏi với buổi sáng học gì chứ,HOI_LICH
+xin hỏi tối mai đại đội có lịch gì?,HOI_LICH
+Cho hỏi 7 giờ tối có hoạt động gì vậy,HOI_LICH
+cho hỏi lịch hôm nay,HOI_LICH
+Thua thu truong chieu mai co lich gi the,HOI_LICH
+Thưa thủ trưởng chương trình 5 giờ sáng ạ,HOI_LICH
+Thưa thủ trưởng chiều mai có gì đặc biệt ạ,HOI_LICH
+lịch 10 giờ ra sao thế,HOI_LICH
+Em hỏi với 3 giờ chiều có buổi gì vậy,HOI_LICH
+Cho hỏi sáng nay trung đội làm gì thế,HOI_LICH
+đồng chí ơi hôm qua đại đội có lịch gì chứ,HOI_LICH
+ah ơi đêm nay làm gì,HOI_LICH
+thua thu truong thu 4 co buoi gi thua thu truong,HOI_LICH
+cho hỏi chủ nhật có hoạt động gì đi,HOI_LICH
+thầy ơi khi nào có hoạt động gì được không,HOI_LICH
+tuần này có lịch không đi,HOI_LICH
+thưa thủ trưởng 5 giờ sáng học gì nhỉ,HOI_LICH
+Thưa cán bộ thứ 7 có lịch không ?,HOI_LICH
+xin hỏi tuần sau giảng đường có lịch gì chứ,HOI_LICH
+Hom nay trung doi lam gi nhi,HOI_LICH
+báo cáo thủ trưởng cho tôi xem lịch lúc nào ?,HOI_LICH
+Đồng chí ơi cho tôi xem lịch thứ 6 thưa thủ trưởng,HOI_LICH
+Anh ơi thời khoá biểu thứ 6 đi,HOI_LICH
+báo cáo thủ trưởng lịch chủ nhật thế nào,HOI_LICH
+Báo cáo thủ trưởng tối nay có gì đặc biệt được không ạ,HOI_LICH
+Cho em hoi buoi sang phai lam gi di,HOI_LICH
+xin hỏi lịch hôm nay đi,HOI_LICH
+Lich hom nay day,HOI_LICH
+thưa cán bộ 10 giờ có hoạt động gì thưa thủ trưởng,HOI_LICH
+cho em hỏi lịch trình 5 giờ chiều ?,HOI_LICH
+Xin hỏi tối mai đại đội có lịch gì ?,HOI_LICH
+Cho em hỏi chương trình 12 giờ đi,HOI_LICH
+Cho em hỏi sáng mai trung đội làm gì?,HOI_LICH
+xin hỏi lịch trình thứ 4?,HOI_LICH
+em hỏi với 6 giờ sáng giảng đường có lịch gì,HOI_LICH
+Báo cáo thủ trưởng lịch buổi sáng thế nào,HOI_LICH
+đồng chí ơi tứ 5 có buổi gì,HOI_LICH
+dong chi oi 3 gio chieu co lich gi a,HOI_LICH
+chương trình 1 giờ chiều,HOI_LICH
+Thưa thủ trưởng 6 giờ sinh viên có lịch không,HOI_LICH
+Thay oi ngay kia lam gi a,HOI_LICH
+cho em hỏi thứ 5 trung đội làm gì,HOI_LICH
+cho em hoi buoi toi co lich gi day,HOI_LICH
+em hỏi với chiều mai trung đội làm gì ?,HOI_LICH
+cho em hỏi buổi chiều có hoạt động gì,HOI_LICH
+ngày mai tập gì ạ,HOI_LICH
+Xin phep thu truong ke hoach dem nay a,HOI_LICH
+thầy ơi lịch tuần này thế nào thưa thủ trưởng,HOI_LICH
+thưa thủ trưởng lịch của lớp thứ 2,HOI_LICH
+thưa cán bộ đầu tuần trung đội làm gì được không ạ,HOI_LICH
+thầy ơi 10 giờ có buổi gì ạ,HOI_LICH
+thay oi ngay mai co lich khong,HOI_LICH
+thầy lịch của lớp tối mai,HOI_LICH
+Thứ 6 có buổi gì ?,HOI_LICH
+thầy chiều nay sinh viên có lịch không đi,HOI_LICH
+Cho em hỏi cho em xem thời khoá biểu tuần này chứ,HOI_LICH
+chiều nay trung đội làm gì thưa thủ trưởng,HOI_LICH
+cho em hỏi chiều nay có lịch không thế,HOI_LICH
+Xin hoi thu 6 co hoat dong gi?,HOI_LICH
+1 giờ chiều có gì đặc biệt được không,HOI_LICH
+chủ nhật giảng đường có lch gì?,HOI_LICH
+đồng chí ơi lịch của lớp 1 giờ chiều nhỉ,HOI_LICH
+Kế hoạch khi nào nhỉ,HOI_LICH
+thưa cán bộ 7 giờ giảng đường có lịch gì,HOI_LICH
+Em hỏi với lịch trình 12 giờ?,HOI_LICH
+Cho hỏi lịch tuần?,HOI_LICH
+Đồng chí ơi 10 giờ có lịch gì,HOI_LICH
+dong chi oi buoi toi co lich khong the,HOI_LICH
+thưa thủ trưởng 1 giờ chiều sinh viên có lịch không ?,HOI_LICH
+đồng chí ơi lịch hôm nay?,HOI_LICH
+Em hỏi với chương trình 1 giờ chiều vậy,HOI_LICH
+cho em hỏi thứ 7 làm gì,HOI_LICH
+anh ơi lịch gày mai thế nào,HOI_LICH
+Thầy ơi cho em xem thời khoá biểu thứ 4 được không ạ,HOI_LICH
+Thưa thủ trưởng tôi muốn biết lịch thưa thủ trưởng,HOI_LICH
+cho hỏi thứ 3 có hoạt động gì,HOI_LICH
+lịch trình đầu tuần đi,HOI_LICH
+Thu 7 co lich khong a,HOI_LICH
+xin hỏi lịch của lớp tối mai ạ,HOI_LICH
+5 gio chieu co buoi gi ?,HOI_LICH
+thưa thủ trưởng tuần sau có lịch không nhỉ,HOI_LICH
+lịch trình đêm nay ậy,HOI_LICH
+Xin phép thủ trưởng cho em xem thời khoá biểu 3 giờ chiều,HOI_LICH
+đồng chí ơi lịch tuần sau ra so?,HOI_LICH
+cho hỏi tuần này giảng đường có lịch gì thưa thủ trưởng,HOI_LICH
+Xin phép thủ trưởng thời khoá biểu thứ 6,HOI_LICH
+anh ơi lịch 11 giờ thế nào thế,HOI_LICH
+ch em hỏi lịch của lớp thứ 6 thế,HOI_LICH
+6 giờ có bui gì?,HOI_LICH
+Thầy ơi lịch hôm nay được không,HOI_LICH
+thưa cán bộ sáng mai trung đội làm gì được không,HOI_LICH
+anh ơi 8 giờ học gì đi,HOI_LICH
+báo cáo thủ trưởng lịch 5 giờ chiều thế nào được không ạ,HOI_LICH
+thầy ơi buổi sáng tập gì thưa thủ trưởng,HOI_LICH
+đồng chí ơi cho em xem hời khoá biểu 5 giờ chiều,HOI_LICH
+Em hỏi với thứ 2 đại đội có lịch gì,HOI_LICH
+Lịch chiều nay ra sao?,HOI_LICH
+thưa cán bộ buổi tối có lịch gì ấy,HOI_LICH
+cho em hỏi lịch của lớp tuần này,HOI_LICH
+xin hỏi lịch tuần thưa thủ trưởng,HOI_LICH
+Báo cáo thủ trưởng kế hoạch 1 giờ chiều nhỉ,HOI_LICH
+thưa thủ trưởng thời khoá biểu 11 giờ thưa thủ trưởng,HOI_LICH
+thu 4 hoc gi,HOI_LICH
+thay oi cho toi xem lich 7 gio day,HOI_LICH
+cho tôi xem lịch 3 gờ chiều vậy,HOI_LICH
+Xin hỏi lịch thứ 7 thế nào ạ,HOI_LICH
+cho hỏi tuần này có hoạt động gì,HOI_LICH
+em hỏi với 5 giờ chiều có buổi gì ạ,HOI_LICH
+Thầy ơi chiều nay giảng đường có lịch gì,HOI_LICH
+Lịch ngày kia ra sao chứ,HOI_LICH
+Em hỏi với lịch buổi tối thế nào đấy,HOI_LICH
+Thứ 6 có gì đặc biệt,HOI_LICH
+thưa cán bộ 10 giờ có lịch gì?,HOI_LICH
+thưa thủ trưởng 9 giờ tối có lịch gì được không ạ,HOI_LICH
+thưa thủ trưởng 6 giờ sáng phải làm gì vậy,HOI_LICH
+đầu tuần có gì đặc biệt nhỉ,HOI_LICH
+báo co thủ trưởng buổi chiều có gì đặc biệt ạ,HOI_LICH
+anh ơi lịch chủ nhật thế nào ạ,HOI_LICH
+thầy ơi tối mai phải làm gì vậy,HOI_LICH
+xin hỏi buổi trưa có buổi gì chứ,HOI_LICH
+cho hoi lich cua lop 5 gio chieu chu,HOI_LICH
+đồng chí ơi 5 giờ chiều trung đội làm gì thưa thủ trưởng,HOI_LICH
+Thưa cán bộ cho tôi xem lịch 3 giờ chiều được không,HOI_LICH
+chiều mai sinh viên có lịch không vậy,HOI_LICH
+thưa cán bộ lịch hôm nay ạ,HOI_LICH
+thầy ơi cho em xem thời khoá biểu tối mai?,HOI_LICH
+lịch 5 giờ chiều ra sao chứ,HOI_LICH
+anh ơi lịch hôm nay đưc không,HOI_LICH
+thua thu truong lich buoi sang ra sao thua thu truong,HOI_LICH
+thưa cán bộ hôm qua học gì ạ,HOI_LICH
+sáng nay phải làm gì đi,HOI_LICH
+Thầy ơi 5 giờ chiều làm gì ạ,HOI_LICH
+Thứ 4 có gì đặc biệt ạ,HOI_LICH
+tuần tới trung đội làm gì,HOI_LICH
+xin hỏi cho em xem thời khoá biểu 7 giờ ?,HOI_LICH
+Anh ơi cho tôi xem lịch tuần sau đi,HOI_LICH
+em hoi voi cho em xem thoi khoa bieu chieu nay,HOI_LICH
+xin phép thủ trưởng lịch thứ 2 thế nào được không ạ,HOI_LICH
+em hỏi với thời khoá biểu hôm qua vậy,HOI_LICH
+thưa cán bộ thời khoá biểu sáng mai được không,HOI_LICH
+thầy ơi tuần sau phải làm gì nhỉ,HOI_LICH
+anh ơi ngày kia đại đội có lịch gì đấy,HOI_LICH
+xin phep thu truong lich cua lop thu 2 duoc khong,HOI_LICH
+Xin hỏi khi nào phải làm gì,HOI_LICH
+Em hỏi với bao giờ có cơm,HOI_GIO_AN
+cho hỏi đến bữa chưa vậy,HOI_GIO_AN
+cho em hỏi đến bữa chưa được không,HOI_GIO_AN
+Xin hỏi khi nào n ?,HOI_GIO_AN
+mấy giờ phát cơm thế,HOI_GIO_AN
+cơm trưa lúc mấy giờ thế,HOI_GIO_AN
+xin hỏi bao giờ tới giờ cơm ?,HOI_GIO_AN
+thầy ăn trưa lúc mấy giờ,HOI_GIO_AN
+Báo cáo thủ trưởng tối nay ăn lúc mấy giờ,HOI_GIO_AN
+thưa thủ trưởng có cơm mấy giờ được không ạ,HOI_GIO_AN
+cho hỏi đói quá khi nào ăn,HOI_GIO_AN
+bao giờ tới giờ cơm vậy,HOI_GIO_AN
+xin hỏi ba giờ nấu cơm,HOI_GIO_AN
+Ăn trưa mấy giờ ạ,HOI_GIO_AN
+Em hỏi với tôi đói rồi ăn tối chưa ạ,HOI_GIO_AN
+Bao giờ cơm sáng ?,HOI_GIO_AN
+Báo cáo thủ trưởng giờ dọn cơm là khi nào thưa thủ trưởng,HOI_GIO_AN
+bao cao thu truong trua nay may gio an nhi,HOI_GIO_AN
+cho hoi den gio an trua chua ?,HOI_GIO_AN
+cho hỏi trưa nay mấy giờ ăn thưa thủ trưởng,HOI_GIO_AN
+mấy giờ ăn cơm,HOI_GIO_AN
+xin hoi thu 7 may gio com trua,HOI_GIO_AN
+anh ơi ăn tối mấy giờ đưc không,HOI_GIO_AN
+xin phép thủ trưởng khi nào nhà ăn mở vậy,HOI_GIO_AN
+cho hỏi mấy giờ cơm sáng thưa thủ trưởng,HOI_GIO_AN
+bao giờ có cơm vậy,HOI_GIO_AN
+thưa cán bộ tôi đói rồi ăn tối chưa đi,HOI_GIO_AN
+Thua can bo khi nao nha an mo,HOI_GIO_AN
+9 giờ tối mấy giờ ăn sáng được không ạ,HOI_GIO_AN
+Báo cáo thủ trưởng đói quá khi nào ăn ?,HOI_GIO_AN
+báo cáo thủ trưởng lúc nào dọn cơm đi,HOI_GIO_AN
+Đồng chí ơi ăn tối giờ nào đi,HOI_GIO_AN
+Lúc nào ăn tối vậy,HOI_GIO_AN
+đế bữa chưa,HOI_GIO_AN
+cho hỏi giờ ăn sáng được không,HOI_GIO_AN
+báo cáo thủ trưởng trưa nay mấy giờ ăn ạ,HOI_GIO_AN
+cho em hoi khi nao an ?,HOI_GIO_AN
+thưa cán bộ bao giờ tới giờ cơm vậy,HOI_GIO_AN
+Có cơm mấy giờ,HOI_GIO_AN
+khi nào nhà ăn mở ạ,HOI_GIO_AN
+Cho hỏi đến giờ nấu cơm chưa,HOI_GIO_AN
+báo cáo thủ trưởng ăn tối mấy giờ nhỉ,HOI_GIO_AN
+cơm trưa lúc mấy giờ ạ,HOI_GIO_AN
+Thầy ơi giờ phát cơm là khi nào nhỉ,HOI_GIO_AN
+Thầy ơi tôi đói rồi ăn cơm chưa,HOI_GIO_AN
+đến bữa chưa được không ạ,HOI_GIO_AN
+Thưa cán bộ ăn tối giờ nào thưa thủ trưởng,HOI_GIO_AN
+xin hỏi khi nào cơm chiều được không,HOI_GIO_AN
+thầy trưa nay mấy giờ ăn đấy,HOI_GIO_AN
+bao cao thu truong bao gio co com vay,HOI_GIO_AN
+thưa thủ trưởng lúc nào ăn sáng thưa thủ trưởng,HOI_GIO_AN
+đồng chí ơi giờ nấu cơm,HOI_GIO_AN
+Đồng chí ơi cơm chiều mấy giờ,HOI_GIO_AN
+tuần sau mấy giờ cơm chiều đấy,HOI_GIO_AN
+bao giờ tới giờ cơm được không ạ,HOI_GIO_AN
+Thầy ơi lúc nào ăn sáng,HOI_GIO_AN
+xin phép thủ trưởng dọn cơm lúc mấy giờ ạ,HOI_GIO_AN
+Cho em hỏi tối nay ăn úc mấy giờ,HOI_GIO_AN
+Anh ơi mấy giờ ăn tối vậy,HOI_GIO_AN
+thưa cán bộ có gì ăn không,HOI_GIO_AN
+cho hoi com trua may gio,HOI_GIO_AN
+xin phép thủ trưởng hiều mai mấy giờ phát cơm nhỉ,HOI_GIO_AN
+mấy giờ ăn cơm thưa thủ trưởng,HOI_GIO_AN
+thua thu truong luc nao com trua,HOI_GIO_AN
+thưa thủ trưởng giờ ăn trưa là khi nào?,HOI_GIO_AN
+Đồng chí ơi khi nào nhà ăn mở nhỉ,HOI_GIO_AN
+anh ơi bao giờ có cơm,HOI_GIO_AN
+anh ơi bao giờ ăn cơm?,HOI_GIO_AN
+thưa thủ trưởng mấy giờ cơm sáng chứ,HOI_GIO_AN
+Anh ơi giờ phát cơm,HOI_GIO_AN
+Ăn cơm lúc mấy giờ,HOI_GIO_AN
+Thầy ơi khi nào nhà ăn mở thế,HOI_GIO_AN
+bao giờ có bữa?,HOI_GIO_AN
+báo cáo thủ trưởng khi nào nấu cơm?,HOI_GIO_AN
+Thưa thủ trưởng tôi đói rồi cơm trưa chưa,HOI_GIO_AN
+Trưa nay mấy giờ ăn được không,HOI_GIO_AN
+thưa thủ trưởng giờ ăn sáng?,HOI_GIO_AN
+Nhà ăn mở mấy giờ được hông ạ,HOI_GIO_AN
+Đồng chí ơi đến giờ có bữa chưa được không ạ,HOI_GIO_AN
+cho hỏi bao giờ cơm chiều ?,HOI_GIO_AN
+Bao giờ tới giờ cm được không,HOI_GIO_AN
+Xin hỏi tôi đói rồi cơm sáng chưa,HOI_GIO_AN
+ăn sáng giờ nào chứ,HOI_GIO_AN
+đồng chí ơi khi nào cơm chiều,HOI_GIO_AN
+Em hỏi với cơm buổi sáng mấy giờ?,HOI_GIO_AN
+em hỏi với bao giờ tới giờ cơm thế,HOI_GIO_AN
+ăn trưa mấy giờ vậy,HOI_GIO_AN
+Thưa thủ trưởng khi nào ăn?,HOI_GIO_AN
+thầy ơi trưa nay mấy giờ ăn,HOI_GIO_AN
+cho hoi doi qua khi nao an,HOI_GIO_AN
+đồng chí ơi khi nào ăn ạ,HOI_GIO_AN
+em hỏi với cơm thứ 4 mấy giờ đi,HOI_GIO_AN
+xin hỏi cơm sáng lúc mấy giờ chứ,HOI_GIO_AN
+xi hỏi đến giờ phát cơm chưa được không,HOI_GIO_AN
+Cho em hỏi trưa nay mấy giờ ăn thưa thủ trưởng,HOI_GIO_AN
+Lúc nào có bữa được không,HOI_GIO_AN
+báo cáo thủ trưởng giờ có bữa là khi nào đấy,HOI_GIO_AN
+báo cáo thủ trưởng bao giờ tới giờ cơm nhỉ,HOI_GIO_AN
+Xin hỏi khi nào có cơm đi,HOI_GIO_AN
+Dong chi oi den bua chua ?,HOI_GIO_AN
+cho em hỏi có cơm mấy giờ thưa thủ trưởng,HOI_GIO_AN
+khi nào cơm sáng nhỉ,HOI_GIO_AN
+Cho em hỏi dọn cơm mấy giờ được không ạ,HOI_GIO_AN
+anh ơi cơm đầu tuần mấy giờ chứ,HOI_GIO_AN
+Thưa thủ trưởng giờ nấu cơm nhỉ,HOI_GIO_AN
+xin phép thủ trưởng tôi đói rồi phát cơm chưa ạ,HOI_GIO_AN
+anh ơi bao giờ tới giờ cơm,HOI_GIO_AN
+giờ ăn tối là khi nào được không,HOI_GIO_AN
+thưa cán bộ bao giờ có cơm thế,HOI_GIO_AN
+báo cáo thủ trưởng giờ cơm sáng là khi nào thưa thủ trưởng,HOI_GIO_AN
+tôi đói rồi có bữa chưa đấy,HOI_GIO_AN
+Đồng chí ơi giờ dọn cơm là khi nào được không,HOI_GIO_AN
+Dong chi oi com cuoi tuan may gio?,HOI_GIO_AN
+em hoi voi co gi an khong chu,HOI_GIO_AN
+xin hỏi bao giờ có cơm được không,HOI_GIO_AN
+Xin phép thủ trưởng cơm chiều giờ nào đấy,HOI_GIO_AN
+thưa thủ trưởng cơm ngày mai mấy giờ được không,HOI_GIO_AN
+dong chi oi com chieu may gio the,HOI_GIO_AN
+đến bữa chưa thế,HOI_GIO_AN
+dong chi oi den gio co bua chua,HOI_GIO_AN
+thưa cán bộ bao giờ tới giờ cơm?,HOI_GIO_AN
+Thưa thủ trưởng ăn sáng giờ nào ạ,HOI_GIO_AN
+cho hỏi khi nào nấu cơm chứ,HOI_GIO_AN
+thưa cán bộ tối nay ăn lúc mấy giờ được không ạ,HOI_GIO_AN
+báo cáo thủ trưởng lúc nào ăn sáng đấy,HOI_GIO_AN
+cho hỏi bao giờ tới giờ cơm được không,HOI_GIO_AN
+Thưa cán bộ giờ phát cơm ạ,HOI_GIO_AN
+xin hỏi nấu cơm mấy giờ?,HOI_GIO_AN
+cơm tuần sau mấy giờ được không ạ,HOI_GIO_AN
+thưa thủ trưởng đến bữa chưa,HOI_GIO_AN
+thưa thủ trưởng mấy giờ dọn cơm?,HOI_GIO_AN
+Thứ 7 mấy giờ cơm trưa,HOI_GIO_AN
+Em hoi voi gio an trua,HOI_GIO_AN
+nhà ăn mở mấy giờ được không ạ,HOI_GIO_AN
+Báo cáo thủ trưởng ăn sáng lúc mấy giờ ạ,HOI_GIO_AN
+cho hoi den gio nau com chua di,HOI_GIO_AN
+cho em hỏi khi nào ăn trưa chứ,HOI_GIO_AN
+bao giờ có cơm thưa thủ trưởng,HOI_GIO_AN
+Sáng mai mấy giờ cơm trưa đi,HOI_GIO_AN
+Báo cáo thủ trưởng khi nào cơm chiều được không ạ,HOI_GIO_AN
+giờ cơm trưa,HOI_GIO_AN
+cho em hỏi đến giờ cơm chiều chưa thưa thủ trưởng,HOI_GIO_AN
+xin hỏi tối nay ăn lúc mấy giờ?,HOI_GIO_AN
+xin hỏi ăn sáng lúc mấy giờ,HOI_GIO_AN
+anh ơi cơm chiều lúc mấy giờ thưa thủ trưởng,HOI_GIO_AN
+khi nào nhà ăn mở được không,HOI_GIO_AN
+thưa cán bộ ăn sáng giờ nào chứ,HOI_GIO_AN
+mấy giờ phát cơm được không,HOI_GIO_AN
+Báo cáo thủ trưởng tôi đói rồi cơm trưa chưa thưa thủ trưởng,HOI_GIO_AN
+Cho em hỏi bao giờ có cơm,HOI_GIO_AN
+Đồng chí ơi có gì ăn không,HOI_GIO_AN
+anh oi toi doi roi phat com chua vay,HOI_GIO_AN
+thưa cán bộ có bữa lúc mấy giờ được khng,HOI_GIO_AN
+cho hỏi khi nào có cơm,HOI_GIO_AN
+em hỏi với giờ n tối là khi nào đi,HOI_GIO_AN
+xin phép thủ trưởng đói quá khi nào ăn,HOI_GIO_AN
+anh ơi nấu cơm lúc mấy giờ vậy,HOI_GIO_AN
+xin phép thủ trưởng bao giờ ăn trưa vậy,HOI_GIO_AN
+xin phép thủ trưởng bao giờ tới giờ cơm vậy,HOI_GIO_AN
+thua can bo khi nao nha an mo vay,HOI_GIO_AN
+nấu cơm mấy giờ chứ,HOI_GIO_AN
+thu 2 may gio com sang?,HOI_GIO_AN
+cho hỏi tôi đói rồi cơm sáng chưa nhỉ,HOI_GIO_AN
+xin phép thủ trưởng có bữa mấy giờ được không,HOI_GIO_AN
+cho hoi may gio com trua,HOI_GIO_AN
+thưa thủ trưởng ăn trưa lúc mấy giờ đấy,HOI_GIO_AN
+thưa cán bộ khi nào cơm sáng,HOI_GIO_AN
+ăn tối giờ nào thế,HOI_GIO_AN
+báo cáo thủ trưởng khi nào ăn đấy,HOI_GIO_AN
+Thưa thủ trưởng 6 giờ mấy giờ có bữa được không,HOI_GIO_AN
+xin phép thủ trưởng giờ cơm sáng ạ,HOI_GIO_AN
+Mấy giờ nấu cơm đi,HOI_GIO_AN
+giờ cơm trưa thế,HOI_GIO_AN
+em hỏi với bao giờ tới giờ cơm đợc không,HOI_GIO_AN
+Khi nào có bữa ạ,HOI_GIO_AN
+đồng chí đói quá khi nào ăn được không,HOI_GIO_AN
+nhà ăn mở mấy giờ,HOI_GIO_AN
+đến bữa chưa,HOI_GIO_AN
+mấy giờ ăn cơm ?,HOI_GIO_AN
+Đồng chí ơi khi nào ăn ?,HOI_GIO_AN
+em hỏi với cơm 8 giờ mấy giờ,HOI_GIO_AN
+thầy khi nào ăn,HOI_GIO_AN
+Thưa cán bộ khi nào có bữa đấy,HOI_GIO_AN
+thưa cán bộ giờ cơm chiều thế,HOI_GIO_AN
+khi nào cơm sáng vậy,HOI_GIO_AN
+xin hoi may gio an sang vay,HOI_GIO_AN
+xin phép thủ trưởng trưa nay mấy giờ ăn đi,HOI_GIO_AN
+Tối nay ăn lúc mấy giờ nhỉ,HOI_GIO_AN
+thưa thủ trưởng nhà ăn mở mấy giờ nhỉ,HOI_GIO_AN
+đồng chí ơi tối nay ăn lúc mấy giờ?,HOI_GIO_AN
+anh ơi tối nay ăn lúc mấy giờ,HOI_GIO_AN
+Xin hỏi cơm chủ nhật mấy giờ được không,HOI_GIO_AN
+thầy ơi mấy giờ ăn trưa,HOI_GIO_AN
+Phát cơm lúc mấy giờ được không ạ,HOI_GIO_AN
+Khi nào phát cơm nhỉ,HOI_GIO_AN
+thưa thủ trưởng cơm chiều nay mấy giờ chứ,HOI_GIO_AN
+Thưa thủ trưởng cơm buổi tối mấy giờ đấy,HOI_GIO_AN
+anh ơi lúc nào ăn sng đi,HOI_GIO_AN
+Thua can bo den bua chua day,HOI_GIO_AN
+đến giờ nấu cơm chưa chứ,HOI_GIO_AN
+thầy ơi tuần này mấy giờ có bữa được không,HOI_GIO_AN
+Cho hỏi đến bữa chưa vậy,HOI_GIO_AN
+Thư thủ trưởng giờ dọn cơm là khi nào được không,HOI_GIO_AN
+báo cáo thủ trưởng đến bữa chưa đấy,HOI_GIO_AN
+Em hỏi với mấy giờ ăn tối thế,HOI_GIO_AN
+bao gi có cơm thưa thủ trưởng,HOI_GIO_AN
+Báo cáo thủ trưởng giờ dọn cơm,HOI_GIO_AN
+anh ơi ăn sáng lúc mấy giờ thế,HOI_GIO_AN
+xin hỏi lúc nào cơm sáng được không,HOI_GIO_AN
+7 giờ tối mấy giờ cơm sáng?,HOI_GIO_AN
+Báo cáo thủ trưởng trưa nay mấy giờ ăn,HOI_GIO_AN
+cho em hỏi bao giờ tới giờ cơm,HOI_GIO_AN
+Thầy ơi có gì ăn không?,HOI_GIO_AN
+Cho em hoi toi nay an luc may gio,HOI_GIO_AN
+buổi tối mấy giờ nấu cơm,HOI_GIO_AN
+có gì ăn không thế,HOI_GIO_AN
+Em hỏi với bao giờ có cơm thưa thủ trưởng,HOI_GIO_AN
+thầy ơi phát cơm mấy giờ,HOI_GIO_AN
+đồng chí ơi giờ ăn sáng là khi nào,HOI_GIO_AN
+anh ơi khi nào nhà ăn mở,HOI_GIO_AN
+Thưa cán bộ đến giờ dọn cơm chưa được không,HOI_GIO_AN
+xin phép thủ trưởng đến giờ dọn cơm chưa chứ,HOI_GIO_AN
+đồng chí ơi khi nào nhà ăn mở ?,HOI_GIO_AN
+bao giờ có cơm thế,HOI_GIO_AN
+Thầy mấy giờ cơm sáng,HOI_GIO_AN
+đồng chí ơi đến giờ có cơm chưa ạ,HOI_GIO_AN
+Thua thu truong khi nao an,HOI_GIO_AN
+cho hoi khi nao an day,HOI_GIO_AN
+anh ơi lúc nào nấu cơm chứ,HOI_GIO_AN
+Anh ơi cơm hôm qua mấy giờ đi,HOI_GIO_AN
+cho hỏi khi nào nhà ăn mở chứ,HOI_GIO_AN
+Xin phép thủ trưởng bao giờ có cơm,HOI_GIO_AN
+cho hoi toi nay an luc may gio,HOI_GIO_AN
+Em hỏi với bao giờ có cơm ?,HOI_GIO_AN
+anh ơi mấy giờ ăn cơm thưa thủ trưởng,HOI_GIO_AN
+thầy ơi bao giờ có cơm?,HOI_GIO_AN
+Cho hỏi ăn trưa giờ nào ?,HOI_GIO_AN
+Báo cáo thủ trưởng có gì ăn không được không ạ,HOI_GIO_AN
+Thưa thủ trưởng mấy giờ có cơm vậy,HOI_GIO_AN
+xin hỏi khi nào nhà ăn m vậy,HOI_GIO_AN
+cho em hỏi cơm sáng mấy giờ đi,HOI_GIO_AN
+đói uá khi nào ăn,HOI_GIO_AN
+thưa cán bộ bao giờ nấu cơm,HOI_GIO_AN
+có gì n không vậy,HOI_GIO_AN
+lúc nào ăn sáng vậy,HOI_GIO_AN
+Xin phép thủ trưởng phát cơm lúc mấy giờ đi,HOI_GIO_AN
+thưa cán bộ tôi đói rồi ăn cơm chưa đi,HOI_GIO_AN
+don com gio nao nhi,HOI_GIO_AN
+xin hỏi tối nay ăn úc mấy giờ,HOI_GIO_AN
+Xin hỏi bao giờ có cơm vậy,HOI_GIO_AN
+toi nay an luc may gio duoc khong a,HOI_GIO_AN
+Cho em hỏi khi nào nhà ăn mở?,HOI_GIO_AN
+Xin hỏi đói quá khi nào ăn?,HOI_GIO_AN
+Đồng chí ơi khi nào dọn cơm vậy,HOI_GIO_AN
+thầy ơi tôi đi rồi ăn cơm chưa thế,HOI_GIO_AN
+giờ cơm chiều khi nào,HOI_GIO_AN
+dong chi oi den gio com chieu chua vay,HOI_GIO_AN
+Cho em hỏi khi nào nh ăn mở đi,HOI_GIO_AN
+cho em hỏi có bữa giờ nào?,HOI_GIO_AN
+cho hoi doi qua khi nao an duoc khong a,HOI_GIO_AN
+cho em hỏi mấy giờ phát cơm đi,HOI_GIO_AN
+Bao giờ phát cơm,HOI_GIO_AN
+thua can bo toi doi roi co com chua nhi,HOI_GIO_AN
+cho hỏi giờ cơm sng là khi nào đấy,HOI_GIO_AN
+anh ơi đến bữa chưa ?,HOI_GIO_AN
+Tôi đói rồi cơm chiều chưa thưa thủ trưởng,HOI_GIO_AN
+xin hỏi có gì ăn không được không,HOI_GIO_AN
+thưa thủ trưng mấy giờ có bữa,HOI_GIO_AN
+xin phép thủ trưởng trưa nay mấy giờ ăn được không,HOI_GIO_AN
+thầy ơi giờ có bữa đi,HOI_GIO_AN
+Bao giờ có cơm đi,HOI_GIO_AN
+An com luc may gio thua thu truong,HOI_GIO_AN
+đồng chí ơi bao giờ có cơm đấy,HOI_GIO_AN
+Thưa thủ trưởng bao giờ tới giờ cơm được không ạ,HOI_GIO_AN
+thưa thủ trưởng thứ 4 mấy giờ cơm trưa chứ,HOI_GIO_AN
+Đồng chí ơi mấy giờ dọn cơm được không ạ,HOI_GIO_AN
+mấy giờ ăn sáng ạ,HOI_GIO_AN
+Báo co thủ trưởng mấy giờ có cơm được không,HOI_GIO_AN
+đồng chí ơi tối nay ăn lúc mấy giờ được không ạ,HOI_GIO_AN
+đồng chí ơi giờ cơm trưa là khi nào thế,HOI_GIO_AN
+anh ơi khi nào nhà ăn mở được không,HOI_GIO_AN
+bao cao thu truong don com may gio thua thu truong,HOI_GIO_AN
+có gì ăn không nhỉ,HOI_GIO_AN
+Xin hỏi lúc nào ăn trưa,HOI_GIO_AN
+thưa cán bộ nhà ăn mở mấy giờ thế,HOI_GIO_AN
+Anh ơi lúc nào ăn cơm ạ,HOI_GIO_AN
+thưa cán bộ bao giờ tới giờ cơm được không,HOI_GIO_AN
+bao gio co com di,HOI_GIO_AN
+thầy ơi lúc nào cơ sáng được không ạ,HOI_GIO_AN
+báo cáo thủ trưởng ăn trưa mấy giờ?,HOI_GIO_AN
+anh đến giờ có cơm chưa được không,HOI_GIO_AN
+thưa thủ trưởng dọn cơm giờ nào?,HOI_GIO_AN
+Thưa cán bộ đến bữa chưa chứ,HOI_GIO_AN
+cho em hỏi tối nay ăn lúc mấy giờ vậy,HOI_GIO_AN
+Thưa thủ trưởng nhà ăn mở mấy giờ được không,HOI_GIO_AN
+thưa thủ trưởng bãi bắn cách đây bao xa được không ạ,HOI_VI_TRI
+đi đến tiểu đội mất bao lâu được không ạ,HOI_VI_TRI
+cho hỏi phòng thí nghiệm ở chỗ nào,HOI_VI_TRI
+anh tìm ký túc xá ở đâu đấy,HOI_VI_TRI
+em hỏi với đi đến khu B mất bao lâu?,HOI_VI_TRI
+cho hỏi đi đến doanh trại mất bao lâu?,HOI_VI_TRI
+thưa cán bộ tôi không biết phòng máy tính ở đâu đi,HOI_VI_TRI
+thưa cán bộ đi đến kho súng mất bao lâu thế,HOI_VI_TRI
+thưa thủ trưởng bãi bắn chỗ nào,HOI_VI_TRI
+đi đến cổng phụ mất bao lâu nhỉ,HOI_VI_TRI
+Xin phép thủ trưởng chỉ giúp tôi căng tin chứ,HOI_VI_TRI
+Báo cáo thủ tưởng vị trí của lớp học ?,HOI_VI_TRI
+cho em hỏi căng tin ở đâu được không ạ,HOI_VI_TRI
+Đi tới phòng học thế nào được không ạ,HOI_VI_TRI
+em hỏi với chỉ giúp tôi tòa B5 ?,HOI_VI_TRI
+Thưa thủ trưởng phòng 305 nằm ở đâu được không,HOI_VI_TRI
+cho hỏi đi đến trung tâm thể thao mất bao lâu vậy,HOI_VI_TRI
+đồng chí nhà ăn ở đâu nhỉ,HOI_VI_TRI
+đi tới trung đội thế nào vậy,HOI_VI_TRI
+làm sao tới kho súng đi,HOI_VI_TRI
+xin phép thủ trưởng trung tâm thể thao có xa không ?,HOI_VI_TRI
+bao cao thu truong toi khong biet phong may tinh o dau thua thu truong,HOI_VI_TRI
+Thầy ơi đi đến sân điều lệnh mất bao lâu,HOI_VI_TRI
+thưa cán bộ vị trí của đại đội thế,HOI_VI_TRI
+Tôi không biết khu B ở đâu được không ạ,HOI_VI_TRI
+em hỏi với trung đội ở khu B hay khu A ạ,HOI_VI_TRI
+đồng chí ơi trung tâm thể thao cách đây bao xa ạ,HOI_VI_TRI
+cho hỏi chỉ giúp tôi căng tin đấy,HOI_VI_TRI
+cho hỏi cổng chính ở chỗ nào nhỉ,HOI_VI_TRI
+xin hoi toi khong biet giang duong lon o dau?,HOI_VI_TRI
+em hỏi với bãi bắn đi lối nào ?,HOI_VI_TRI
+em hỏi với tôi không biết phòng họp ở đâu ?,HOI_VI_TRI
+có ai biết đại đội không,HOI_VI_TRI
+cho em hỏi nhà ăn nằm ở đâu,HOI_VI_TRI
+đồng chí phòng tập có xa không chứ,HOI_VI_TRI
+em hỏi với cho tôi đường tới nhà sinh hoạt chung nhỉ,HOI_VI_TRI
+xin hỏi trung đội ở chỗ nào,HOI_VI_TRI
+Xin phép thủ trưởng đại đội nằm ở đâu thưa thủ trưởng,HOI_VI_TRI
+em hỏi với trung tâm thể thao chỗ nào đi,HOI_VI_TRI
+chỉ gúp tôi bãi bắn,HOI_VI_TRI
+cho hỏi ai biết nhà sinh hoạt chung ở đâu không vậy,HOI_VI_TRI
+Xin phép thủ trưởng thư viện nằm ở đâu được không,HOI_VI_TRI
+đi tới kho súng thế nào thế,HOI_VI_TRI
+có ai biết bãi bắn không thưa thủ trưởng,HOI_VI_TRI
+anh ơi đi tới trung đội thế nào đấy,HOI_VI_TRI
+phòng họp ở khu B hay khu A thế,HOI_VI_TRI
+Thưa thủ trưởng có ai biết khu hành chính không vậy,HOI_VI_TRI
+thưa cán bộ phòng tập cách đây bao xa?,HOI_VI_TRI
+Thầy ơi có ai biết nhà sinh hoạt chung không,HOI_VI_TRI
+cho em hỏi tìm trung tâm thể thao ở đâu ?,HOI_VI_TRI
+Thưa thủ trưởn phòng thí nghiệm ở đâu,HOI_VI_TRI
+cổng chính chỗ nào thưa thủ trưởng,HOI_VI_TRI
+anh ơi đến phòng giảng đường đi đường nào nhỉ,HOI_VI_TRI
+bãi bắn hướng nào chứ,HOI_VI_TRI
+thầy ơi tìm doanh trại ở đâu,HOI_VI_TRI
+Xin phép thủ trưởng làm sao tới đại đội vậy,HOI_VI_TRI
+thầy ơi kho súng ở đâu,HOI_VI_TRI
+thưa cán bộ có ai biết phòng thí nghiệm không,HOI_VI_TRI
+Đồng chí ơi phòng tập nằm ở đâu?,HOI_VI_TRI
+cho hỏi lớp học có xa không vậy,HOI_VI_TRI
+khu hành chính ở chỗ nào đấy,HOI_VI_TRI
+đồng chí ơi bãi tập hướng nào?,HOI_VI_TRI
+phòng tập ở chỗ nào,HOI_VI_TRI
+phòng A1 có xa không,HOI_VI_TRI
+thưa cán bộ đường tới nhà ăn đi sao thế,HOI_VI_TRI
+Xin hỏi đến nhà chỉ huy đi đường nào đấy,HOI_VI_TRI
+Đồng chí ơi sân điều lệnh ở chỗ nào,HOI_VI_TRI
+Bao cao thu truong vi tri cua phong thi nghiem duoc khong,HOI_VI_TRI
+ai biết phòng họp ở đâu không,HOI_VI_TRI
+Thầy ơi nhà chỉ huy ở đâu đi,HOI_VI_TRI
+đến phòng học đi đường nào,HOI_VI_TRI
+Báo cáo thủ trưởng ai biết phòng họp ở đâu không đi,HOI_VI_TRI
+Lam sao toi khu B chu,HOI_VI_TRI
+xin hỏi làm sao tới thư viện,HOI_VI_TRI
+Cho em hỏi muốn đi phòng thí nghiệm thì đi đâu nhỉ,HOI_VI_TRI
+báo cáo thủ trưởng đường tới nhà sinh hoạt chung đi sao ?,HOI_VI_TRI
+xin phép thủ trưởng đến tòa B5 đi đường nào nhỉ,HOI_VI_TRI
+Xin phép thủ trưởng căng tin nằm ở đâu thế,HOI_VI_TRI
+Đại đội có xa không đấy,HOI_VI_TRI
+Cho hoi phong may tinh o cho nao,HOI_VI_TRI
+lam sao toi ky tuc xa chu,HOI_VI_TRI
+thưa cán bộ tôi không biết lớp học ở đâu đi,HOI_VI_TRI
+tìm phòng y tế ở đâu nhỉ,HOI_VI_TRI
+phòng học hướng nào vậy,HOI_VI_TRI
+xin hỏi cổng chính đi lối nào ạ,HOI_VI_TRI
+cho hỏi chỉ giúp tôi phòng 305 ?,HOI_VI_TRI
+cho hỏi làm sao tới bãi tập,HOI_VI_TRI
+phòng tập cách đây bao xa đấy,HOI_VI_TRI
+Thua thu truong ai biet dai doi o dau khong,HOI_VI_TRI
+đồng chí ơi đi tới bãi bắn thế nào vậy,HOI_VI_TRI
+co ai biet thu vien khong duoc khong,HOI_VI_TRI
+Xin hỏi muốn đi phòng A1 thì đi đâu ược không,HOI_VI_TRI
+thưa cán bộ đến cổng phụ đi đường nào ạ,HOI_VI_TRI
+Bao cao thu truong chi giup toi nha sinh hoat chung thua thu truong,HOI_VI_TRI
+Báo cáo thủ trưởng bãi tập ở khu nào vậy,HOI_VI_TRI
+có ai biết phòng họp không,HOI_VI_TRI
+xin phép thủ trưởng giảng đường lớn có xa không?,HOI_VI_TRI
+cho em hỏi đến trung tâm thể thao đi đường nào được không,HOI_VI_TRI
+Thưa thủ trưởng vị trí của bãi bắn,HOI_VI_TRI
+tìm nhà kho ở đâu,HOI_VI_TRI
+xin phép thủ trưởng làm sao tới kho súng,HOI_VI_TRI
+Ai biết phòng 305 ở đâu không đi,HOI_VI_TRI
+xin hỏi phòng thí nghiệm nằm ở đâu đấy,HOI_VI_TRI
+đồng chí ơi làm sao tới lớp học ạ,HOI_VI_TRI
+cho em hỏi căng tin ở khu nào được không,HOI_VI_TRI
+Cho em hỏi làm sao tới cổng phụ thế,HOI_VI_TRI
+báo cáo thủ trưởng vị trí của phòng tập đi,HOI_VI_TRI
+đồng chí ơi muốn đi tòa B5 thì đi đâu nhỉ,HOI_VI_TRI
+Có ai biết phòng máy tính không,HOI_VI_TRI
+thưa thủ trưởng vị trí của trung tâm thể thao nhỉ,HOI_VI_TRI
+xin phép thủ trưởng có ai biết nhà kho không vậy,HOI_VI_TRI
+em hỏi với đến phòng A1 đi đường nào,HOI_VI_TRI
+Cho em hỏi căng tin đi lối nào thế,HOI_VI_TRI
+cho hỏi phòng y tế chỗ nào,HOI_VI_TRI
+thưa cán bộ lớp học ở khu nào,HOI_VI_TRI
+đi tới phòng họp thế nào ạ,HOI_VI_TRI
+khu B đi lối nào chứ,HOI_VI_TRI
+xin hỏi có ai biết căng tin không,HOI_VI_TRI
+anh oi cho toi duong toi trung doi duoc khong a,HOI_VI_TRI
+Anh phòng học hướng nào chứ,HOI_VI_TRI
+cho tôi đường tới bãi tập?,HOI_VI_TRI
+cho em hỏi có ai biết kho súng không thế,HOI_VI_TRI
+xin phép thủ trưởng ai biết trung tâm thể thao ở đâu kông được không,HOI_VI_TRI
+hưa cán bộ cho tôi đường tới sân điều lệnh?,HOI_VI_TRI
+xin phép thủ trưởng có ai biết khu hành chính không,HOI_VI_TRI
+xin hỏi tôi không biết bãi tập ở đâu thưa thủ trưởng,HOI_VI_TRI
+Đồng chí ơi cho tôi đường tới khu B ?,HOI_VI_TRI
+em hỏi vớ chỉ giúp tôi cổng chính vậy,HOI_VI_TRI
+anh ơi đi đến phòng tập mất bao lâu đấy,HOI_VI_TRI
+đến nhà sinh hoạt chung đi đường nào?,HOI_VI_TRI
+khu hanh chinh o khu nao a,HOI_VI_TRI
+thầy phòng họp hướng nào,HOI_VI_TRI
+Thầy ơi làm sao tới kho súng,HOI_VI_TRI
+đồng ch ơi đi tới ký túc xá thế nào được không ạ,HOI_VI_TRI
+xin phép thủ trưởng cho tôi đường tới phòng giảng đường đi,HOI_VI_TRI
+Tiểu ội cách đây bao xa,HOI_VI_TRI
+Em hoi voi tim nha chi huy o dau,HOI_VI_TRI
+xin hỏi tôi không biết sân tập ở đâu nhỉ,HOI_VI_TRI
+xin phép thủ trưởng bãi tập chỗ nào nhỉ,HOI_VI_TRI
+lớp học ở khu B hay khu A ?,HOI_VI_TRI
+em hỏi với vị trí ủa trung đội,HOI_VI_TRI
+Tim nha chi huy o dau,HOI_VI_TRI
+xin phép thủ trưởng muốn đi phòng tập thì đi đâu vậy,HOI_VI_TRI
+thưa cán bộ khu hành chính ở khu B hay khu A,HOI_VI_TRI
+Thưa cán bộ khu B có xa không đấy,HOI_VI_TRI
+giảng đường lớn nằm ở đâu được không ạ,HOI_VI_TRI
+Cho hỏi sân tập nằm ở đâu,HOI_VI_TRI
+cho hỏi tôi không biết sân điều lệnh ở đâu nhỉ,HOI_VI_TRI
+Đồng chí ơi trung đội có xa không đi,HOI_VI_TRI
+Muốn đi phòng giảng đường đi đâu,HOI_VI_TRI
+Báo cáo thủ trưởng phòng họp hướng nào ?,HOI_VI_TRI
+Cho em hỏi nhà chỉ huy ở khu B hay khu A đi,HOI_VI_TRI
+xin hỏi cho tôi đường tới bãi bắn thế,HOI_VI_TRI
+cho hỏi đại đội cách đây bao xa chứ,HOI_VI_TRI
+tìm kho súng ở đâu ạ,HOI_VI_TRI
+vị trí của bãi bắn,HOI_VI_TRI
+Cho hỏi muốn đi căng tin thì đi đâu,HOI_VI_TRI
+xin hỏi ai biết bãi bắn ở đâu không vậy,HOI_VI_TRI
+Báo cáo thủ trưởng đến kho súng đi đường nào thưa thủ trưởng,HOI_VI_TRI
+Thua can bo lop hoc o khu nao ?,HOI_VI_TRI
+chỉ giúp tôi phòng 305 thế,HOI_VI_TRI
+thưa cán bộ phòng máy tính đi lối nào,HOI_VI_TRI
+Cho tôi đường tới nhà chỉ huy được không ạ,HOI_VI_TRI
+xin hỏi chỉ giúp tôi phòng 305 nhỉ,HOI_VI_TRI
+Thưa thủ trưởng tôi không biết phòng học ở đâu ạ,HOI_VI_TRI
+Báo cáo thủ trưởng tìm nhà chỉ huy ở đâu nhỉ,HOI_VI_TRI
+Báo cáo thủ trưởng tôi không biết nhà kho ở đâu thưa thủ trưởng,HOI_VI_TRI
+Ai biết khu B ở đâu không đi,HOI_VI_TRI
+xin phép thủ trưởng đến khu hành chính đi đường nào được không ạ,HOI_VI_TRI
+em hoi voi toi khong biet phong A1 o dau day,HOI_VI_TRI
+xin phép thủ trưởng tôi không biết sân điều lệnh ở đâu,HOI_VI_TRI
+xin hỏi làm sao tới trung đội?,HOI_VI_TRI
+Đồng chí ơi đến doanh trại đi đường nào vậy,HOI_VI_TRI
+tiểu đội chỗ nào thế,HOI_VI_TRI
+báo cáo thủ trưởng muốn đi ký túc xá thì đi đâu chứ,HOI_VI_TRI
+đồng chí ơi làm sao tới khu hành chính,HOI_VI_TRI
+Báo cáo thủ trưởng đi đến phòng máy tính mất bao lâu thưa thủ trưởng,HOI_VI_TRI
+Xin phép thủ trưởng căng tin nằm ở đâu được không ạ,HOI_VI_TRI
+Em hoi voi lam sao toi cang tin?,HOI_VI_TRI
+thưa thủ trưởng đến phòng giảng đường đi đường nào vậy,HOI_VI_TRI
+thưa thủ trưởng phòng thí nghiệm ở chỗ nào được không ạ,HOI_VI_TRI
+khu hành chính nằm ở đâu,HOI_VI_TRI
+Em hỏi với muốn đi phòng tập thì đi đâu thưa thủ trưởng,HOI_VI_TRI
+xin phép thủ trưởng đến nhà kho đi đường nào thưa thủ trưởng,HOI_VI_TRI
+bao cao thu truong di den nha sinh hoat chung mat bao lau the,HOI_VI_TRI
+thưa cán bộ tôi không biết khu hành chính ở đâu chứ,HOI_VI_TRI
+cho em hỏi có ai biết khu hành chính không ạ,HOI_VI_TRI
+Cho hỏi nhà chỉ huy chỗ nào đấy,HOI_VI_TRI
+Xin hỏi ký túc xá ở khu nào,HOI_VI_TRI
+cho hỏi giảng đường lớn ở khu nào được không,HOI_VI_TRI
+đồng chí ơi trung tâm thể thao ở đâu chứ,HOI_VI_TRI
+xin hỏi ai biết thư viện ở đâu không chứ,HOI_VI_TRI
+Em hoi voi cho toi duong toi bai tap thua thu truong,HOI_VI_TRI
+cho em hỏi ai biết phòng 305 ở đâu không ?,HOI_VI_TRI
+Báo cáo thủ trưởng bãi tập ở chỗ nào chứ,HOI_VI_TRI
+Phòng y tế ở khu B hay khu A thưa thủ trưởng,HOI_VI_TRI
+em hỏi với tôi không biết ký túc xá ở đâu?,HOI_VI_TRI
+đi tới phòng máy tính thế nào đi,HOI_VI_TRI
+cho em hỏi đi tới lớp học thế nào đấy,HOI_VI_TRI
+báo áo thủ trưởng khu hành chính nằm ở đâu đấy,HOI_VI_TRI
+Thưa cán bộ phòng học có xa không được không,HOI_VI_TRI
+anh oi nha chi huy o cho nao?,HOI_VI_TRI
+chỉ giúp tôi lớp học,HOI_VI_TRI
+Em hỏi với sân tập ở khu nào được không,HOI_VI_TRI
+Xin phép thủ trưởng tìm thư viện ở đâu nhỉ,HOI_VI_TRI
+Em hỏi với khu hành chính có xa không đi,HOI_VI_TRI
+em hỏi với tôi không biết trung đội ở đâu thế,HOI_VI_TRI
+bãi bắn nằm ở đâu đấy,HOI_VI_TRI
+cho tôi đường tới nhà sinh hoạt chung nhỉ,HOI_VI_TRI
+Nhà kho ở khu nào nhỉ,HOI_VI_TRI
+Em hỏi với bãi bắn chỗ nào ?,HOI_VI_TRI
+Thưa cán bộ lớp học có xa không?,HOI_VI_TRI
+thưa thủ trưởng thư viện nằm ở đâu ạ,HOI_VI_TRI
+thưa thủ trưởng phòng A1 ở chỗ nào,HOI_VI_TRI
+đi tới phòng máy tính thế nào,HOI_VI_TRI
+xin hỏi đi đến doanh trại mất bao lâu đấy,HOI_VI_TRI
+báo cáo thủ trưởng chỉ giúp tôi nhà chỉ huy,HOI_VI_TRI
+tìm phòng thí nghiệm ở đâu chứ,HOI_VI_TRI
+san dieu lenh o cho nao day,HOI_VI_TRI
+Bao cao thu truong toi khong biet kho sung o dau chu,HOI_VI_TRI
+xin phép thủ trưởng làm sao tới phòng giảng đường đấy,HOI_VI_TRI
+em hỏi với phòng A1 ở chỗ nào thế,HOI_VI_TRI
+làm sao tới phòng họp thế,HOI_VI_TRI
+Đi đến cổng phụ mất bao lâu ?,HOI_VI_TRI
+Đồng chí ơi vị trí của trung đội,HOI_VI_TRI
+xin phép thủ trưởng đến phòng tập đi đường nào thế,HOI_VI_TRI
+đường tới phòng A1 đi sao,HOI_VI_TRI
+anh nhà ăn ở đâu,HOI_VI_TRI
+Tìm phòng thí nghiệm ở đâu thế,HOI_VI_TRI
+Thưa thủ trưởng vị trí của phòng A1 nhỉ,HOI_VI_TRI
+dong chi oi phong hop o cho nao vay,HOI_VI_TRI
+đồng chí ơi phòng học đi lối nào,HOI_VI_TRI
+anh ơi đi tới lớp học thế nào,HOI_VI_TRI
+Thầy ơi doanh trại ở chỗ nào?,HOI_VI_TRI
+Xin phép thủ trưởng nhà ăn chỗ nào ?,HOI_VI_TRI
+đồng chí ơi chỉ giúp tôi khu hành chính thế,HOI_VI_TRI
+xin phep thu truong khu hanh chinh huong nao a,HOI_VI_TRI
+xin phép thủ trưởng tôi không biết trung tâm thể thao ở đâu thế,HOI_VI_TRI
+xin phép thủ trưởng sân tập ở chỗ nào đi,HOI_VI_TRI
+thưa thủ trưởng tìm kho súng ở đâu vậy,HOI_VI_TRI
+thầy ơi có ai biết ký túc xá không chứ,HOI_VI_TRI
+lớp học có xa không,HOI_VI_TRI
+thưa thủ trưởng phòng tập ở khu B hay khu A,HOI_VI_TRI
+cho hỏi tìm bãi tập ở đâu đi,HOI_VI_TRI
+đi đến tiểu đội mất bao lâu,HOI_VI_TRI
+thầy chỉ giúp tôi phòng A1 được không,HOI_VI_TRI
+xin hỏi tôi không biết nhà ăn ở đâu được không ạ,HOI_VI_TRI
+thưa thủ trưởng phòng A1 ở đâu?,HOI_VI_TRI
+thưa cán bộ đường tới nhà ăn đi sao đi,HOI_VI_TRI
+đến sân điều lệnh đi đường nào,HOI_VI_TRI
+anh ơi tôi không biết tiểu đội ở đâu được không ạ,HOI_VI_TRI
+Em hoi voi toi khong biet phong thi nghiem o dau ?,HOI_VI_TRI
+Đồng chí ơi vị trí của cng tin đấy,HOI_VI_TRI
+thầy ơi đến nhà sinh hoạt chung đi đường nào,HOI_VI_TRI
+em hỏi với làm sao tới giảng đường lớn nhỉ,HOI_VI_TRI
+thưa cán bộ tìm nhà sinh hoạt chung ở đâu,HOI_VI_TRI
+Thầy ơi phòng giảng đường ở khu B hay khu A đấy,HOI_VI_TRI
+Thầy ơi cho tôi đường tới phòng A1,HOI_VI_TRI
+Xin phép thủ trưởng trung đội ở đâu,HOI_VI_TRI
+đồng chí ơi đường tới phòng thí nghiệm đi sao nhỉ,HOI_VI_TRI
+Kho súng ở khu B hay khu A được không,HOI_VI_TRI
+đồng chí đi đến khu hành chính mất bao lâu ?,HOI_VI_TRI
+xin phép thủ trưởng khu hành chính ở khu nào đấy,HOI_VI_TRI
+thưa thủ trưởng muốn đi nhà kho thì đi đâu đấy,HOI_VI_TRI
+doanh trại ở khu B hay khu A đi,HOI_VI_TRI
+phong y te o khu B hay khu A nhi,HOI_VI_TRI
+xin hỏi chỉ giúp tôi ký túc xá được không,HOI_VI_TRI
+Cho em hỏi tôi không biết phòng y tế ở đâu ạ,HOI_VI_TRI
+Xin phép thủ trưởng ai biết phòng họp ở đâu không thế,HOI_VI_TRI
+khu hành chính có xa không chứ,HOI_VI_TRI
+Phòng A1 chỗ nào thưa thủ trưởng,HOI_VI_TRI
+thưa thủ trưởng vị trí của lớp học?,HOI_VI_TRI
+xin hỏi đường tới phòng họp đi sao được không,HOI_VI_TRI
+Xin phép thủ trưởng đi tới nhà chỉ huy thế nào,HOI_VI_TRI
+cổng chính đi lối nào vậy,HOI_VI_TRI
+thầy đường tới tòa B5 đi sao,HOI_VI_TRI
+chỉ giúp tôi trung đội,HOI_VI_TRI
+em hoi voi muon di khu B thi di dau vay,HOI_VI_TRI
+em hỏi với phòng tập chỗ nào,HOI_VI_TRI
+báo cáo thủ trưởng chỉ giúp tôi phòng A1,HOI_VI_TRI
+Anh nhà sinh hoạt chung ở khu B hay khu A được không,HOI_VI_TRI
+Xin phép thủ trưởng đi đến nhà chỉ huy mất bao lâu vậy,HOI_VI_TRI
+Báo cáo thủ trưởng muốn đi cổng phụ thì đi đâu,HOI_VI_TRI
+cho em hỏi căng tin cách đây bao xa ạ,HOI_VI_TRI
+thưa thủ trưởng phòng 305 đi lối nào,HOI_VI_TRI
+xin phép thủ trưởng tôi không biết đại đội ở đâu ?,HOI_VI_TRI
+thưa cán bộ bãi tập ở khu B hay khu A,HOI_VI_TRI
+thưa thủ trưởng muốn đi thư viện thì đi đâu?,HOI_VI_TRI
+thưa cán bộ ai biết nhà kho ở đâu không,HOI_VI_TRI
+Thưa thủ trưởng chỉ giúp tôi kho súng thế,HOI_VI_TRI
+Thưa thủ trưởng sân tập cách đây bao xa thế,HOI_VI_TRI
+anh ơi đi tới nhà chỉ huy thế nào ?,HOI_VI_TRI
+xin phep thu truong tim khu B o dau a,HOI_VI_TRI
+thầy ơi làm sao tới thư viện được không ạ,HOI_VI_TRI
+thầy ơi đại đội ở khu nào ?,HOI_VI_TRI
+Bài tập thể lực là gì,HOI_KIEN_THUC
+đồng chí ơi phân tích đội hình hàng dọc được không,HOI_KIEN_THUC
+thầy ơi quy chế học viện áp dụng khi nào,HOI_KIEN_THUC
+Thưa thủ trưởng đội hình hàng ngang áp dụng khi nào,HOI_KIEN_THUC
+Hầy ơi lịch sử của kỹ thuật bộ binh được không ạ,HOI_KIEN_THUC
+Khi nào dùng đội hình hàng dọc ạ,HOI_KIEN_THUC
+anh ơi khi nào dùng tư thế ằm bắn thưa thủ trưởng,HOI_KIEN_THUC
+Thưa thủ trưởng phân tích đội hình hàng dọc nhỉ,HOI_KIEN_THUC
+cho hỏi tìm hiểu về đi nghiêm?,HOI_KIEN_THUC
+thưa cán bộ tài liệu về súng AK ở đâu được không ạ,HOI_KIEN_THUC
+Thưa thủ trưởng ai có thể dạy trực ban ạ,HOI_KIEN_THUC
+thưa cán bộ phân tích lễ chào cờ,HOI_KIEN_THUC
+đồng chí ơi bài tập thể lực dùng thế nào đấy,HOI_KIEN_THUC
+xin hỏi ý nghĩa của kỹ thuật chiến đấu đấy,HOI_KIEN_THUC
+xin hỏi mật mã quân sự dùng thế nào ?,HOI_KIEN_THUC
+thầy ơi phân tích kiểm tra quân tư trang thưa thủ trưởng,HOI_KIEN_THUC
+cho em hỏi quy tắc bắn có nguy hiểm không đấy,HOI_KIEN_THUC
+thưa cán bộ kể về vượt vật cản?,HOI_KIEN_THUC
+cho em hỏi đặc điểm của quay phải ?,HOI_KIEN_THUC
+thua thu truong RSA kho khong,HOI_KIEN_THUC
+Cho hỏi súng AK47 có những bước gì,HOI_KIEN_THUC
+đồng chí ơi quy chế học viện có nguy hiểm không chứ,HOI_KIEN_THUC
+thua can bo cach thuc hien chay 3000m ra sao di,HOI_KIEN_THUC
+thưa thủ trưởng kể về tháo lắp súng nhỉ,HOI_KIEN_THUC
+xin phép thủ trởng đi nghiêm hoạt động ra sao ?,HOI_KIEN_THUC
+cho hỏi quay trái áp dụng khi nào,HOI_KIEN_THUC
+anh ơi quy tắc bắn có những bước gì được không ạ,HOI_KIEN_THUC
+xin hoi quy che hoc vien co nhung buoc gi,HOI_KIEN_THUC
+thầy ơi giải thích chào điề lệnh cho tôi đi,HOI_KIEN_THUC
+đồng chí ơi thủ trưởng dạy về mật mã quân sự được không ạ,HOI_KIEN_THUC
+cho em hỏi kỹ thuật chiến đấu là gì vậy,HOI_KIEN_THUC
+anh ơi đặc điểm của đội hình hàng dọc ạ,HOI_KIEN_THUC
+Cho em hỏi khi nào dùng quân hàm ạ,HOI_KIEN_THUC
+anh ơi mật mã đối xứng có nguy hiểm không,HOI_KIEN_THUC
+thưa thủ trưởng giải thích súng AK cho tôi thưa thủ trưởng,HOI_KIEN_THUC
+lịch sử của lựu đạn,HOI_KIEN_THUC
+Cho em hỏi lịch sử của 10 lời thề thưa thủ trưởng,HOI_KIEN_THUC
+Thủ trưởng dạy về tháo lắp súng ạ,HOI_KIEN_THUC
+em hỏi với đội hình hàng ngang làm thế nào đấy,HOI_KIEN_THUC
+Thưa cán bộ chào điều lệnh là gì nhỉ,HOI_KIEN_THUC
+anh ơi thủ trưởng dạy về kỷ luật quân đội,HOI_KIEN_THUC
+báo cáo thủ trưởng nguyên lý của quay trái đi,HOI_KIEN_THUC
+thưa cán bộ tôi muốn học về vượt vật cản được không,HOI_KIEN_THUC
+Thưa cán bộ kỹ thuật chiến đấu có nguy hiểm không,HOI_KIEN_THUC
+quy tac ban co nguy hiem khong?,HOI_KIEN_THUC
+Em hỏi với ai có thể dạy kỹ thuật chiến đấu được không ạ,HOI_KIEN_THUC
+thưa thủ trưởng giải thích xếp hàng cho tôi đi,HOI_KIEN_THUC
+Thầy ơi thủ trưởng dạy về mật mã đối xứng vậy,HOI_KIEN_THUC
+Cho em hỏi tài liệu về 12 điều ở đâu,HOI_KIEN_THUC
+điều lệnh đội ngũ có quy tắc gì,HOI_KIEN_THUC
+xin hỏi thủ trưởng dạy về tư thế nằm bắn được không ạ,HOI_KIEN_THUC
+Đồng chí ơi đi nghiêm có nguy hiểm không được không ạ,HOI_KIEN_THUC
+em hỏi với vượt vật cản dùng để làm gì được không,HOI_KIEN_THUC
+thưa thủ trưởng giải thích kỹ thuật chiến đấu cho tôi,HOI_KIEN_THUC
+Xin phép thủ trưởng tìm hiểu về chào điều lệnh thế,HOI_KIEN_THUC
+An toàn thông tin dùng để làm gì?,HOI_KIEN_THUC
+kể về đội hình hàng ngang ?,HOI_KIEN_THUC
+Thưa thủ trưởng phân tích quy tắc bắn đấy,HOI_KIEN_THUC
+xin phép thủ trưởng tìm hiểu về đi nghỉ chứ,HOI_KIEN_THUC
+Xin phép thủ trưởng kỷ luật quân đội có những bước gì thưa thủ trưởng,HOI_KIEN_THUC
+ke ve 10 loi the day,HOI_KIEN_THUC
+Cho hỏi ý nghĩa của kỷ luật quân đội ạ,HOI_KIEN_THUC
+thầy ơi khi nào dùng đi đều bước đấy,HOI_KIEN_THUC
+Xin hỏi khi nào dùng quân hàm vậy,HOI_KIEN_THUC
+anh ơi ý nghĩa của 12 điều,HOI_KIEN_THUC
+cho em hỏi 10 lời thề là gì,HOI_KIEN_THUC
+thưa cán bộ tài liệu về chạy 3000m ở đâu vậy,HOI_KIEN_THUC
+em hỏi với ý nghĩa của mật mã đối xứng ?,HOI_KIEN_THUC
+em hỏi với thủ trưởng dạy về RSA vậy,HOI_KIEN_THUC
+Xin hoi giai thich luu dan cho toi,HOI_KIEN_THUC
+kể về kiểm tra quân tư trang được không ạ,HOI_KIEN_THUC
+xin hỏi đi đều bước có quy tắc gì?,HOI_KIEN_THUC
+báo cáo thủ trưởng kỷ luật quân đội khó không thưa thủ trưởng,HOI_KIEN_THUC
+thưa cán bộ lễ chào cờ áp dụng khi nào,HOI_KIEN_THUC
+thu truong day ve chao dieu lenh a,HOI_KIEN_THUC
+đồng chí ơi tôi muốn học về trực ban thế,HOI_KIEN_THUC
+tài liệu về tư nằm bắn ở đâu được không,HOI_KIEN_THUC
+thầy ơi phân tích điều lệnh đội ngũ,HOI_KIEN_THUC
+thầy đi nghỉ làm nào đấy,HOI_KIEN_THUC
+cho em hi thủ trưởng dạy về súng AK47 được không,HOI_KIEN_THUC
+Cho em hỏi đi nghiêm làm thế nào thế,HOI_KIEN_THUC
+Quân hàm có những bước gì đi,HOI_KIEN_THUC
+cho hỏi mật mã đối xứng hoạt động ra sao đấy,HOI_KIEN_THUC
+em hỏi với vượt vật cản làm thế nào đi,HOI_KIEN_THUC
+cho em hỏi thủ trưởng dạy về đội hình hàng dọc được không ạ,HOI_KIEN_THUC
+anh ơi khi nào dùng tư thế nằm bắn được không,HOI_KIEN_THUC
+Xin hỏi tìm hiểu về lựu đạn,HOI_KIEN_THUC
+cách thực hiện chạy 3000m ra sao thế,HOI_KIEN_THUC
+thầy ơi cách thực hiện chào điều lệnh ra sao được không ạ,HOI_KIEN_THUC
+anh ơi lịch sử của lễ chào cờ,HOI_KIEN_THUC
+anh ơi điều lệnh đội ngũ là gì đi,HOI_KIEN_THUC
+xin phép thủ trưởng lịch sử của 10 lời thề?,HOI_KIEN_THUC
+thưa thủ trưởng RSA làm thế nào,HOI_KIEN_THUC
+thầy ơi kỷ luật quân đội có nguy hiểm không,HOI_KIEN_THUC
+ý nghĩa của mật mã đối xứng,HOI_KIEN_THUC
+vượt vật cản có quy tắc gì đi,HOI_KIEN_THUC
+thầy ơi ai có thể dạy mật mã đối xứng ?,HOI_KIEN_THUC
+em hỏi với RSA là gì chứ,HOI_KIEN_THUC
+đi nghỉ có quy tắc gì được không,HOI_KIEN_THUC
+xin hỏi kể về đi nghỉ được không,HOI_KIEN_THUC
+Xin hỏi đội hình hàng dọc có quy tắc gì,HOI_KIEN_THUC
+anh ơi nguyên lý của quân hàm chứ,HOI_KIEN_THUC
+xin hoi tim hieu ve dieu lenh doi ngu thua thu truong,HOI_KIEN_THUC
+báo cáo thủ trưởng khi nào dùng kiểm tra quân tư trang ạ,HOI_KIEN_THUC
+cho em hỏi nguên lý của quay trái,HOI_KIEN_THUC
+thưa thủ trưởng quy chế học viện khó không chứ,HOI_KIEN_THUC
+cho em hỏi khi nào dùng trực nhật ?,HOI_KIEN_THUC
+thưa thủ trưởng khi nào dùng điều lệnh đội ngũ thưa thủ trưởng,HOI_KIEN_THUC
+cho em hỏi súng AK47 có quy tắc gì ?,HOI_KIEN_THUC
+xin hoi dac diem cua xep hang nhi,HOI_KIEN_THUC
+thưa thủ trưởng tìm hiểu về quy tắc bắn ạ,HOI_KIEN_THUC
+cho em hỏi thủ trưởng dạy về tư thế quỳ bắn,HOI_KIEN_THUC
+thầy ơi tài liệu về trực ban ở đâu,HOI_KIEN_THUC
+anh ơi kỹ thuật chiến đấu là gì vậy,HOI_KIEN_THUC
+Thầy ơi nguyên lý của mật mã quân sự,HOI_KIEN_THUC
+anh ơi tìm hiểu về mật mã đối xứng thưa thủ trưởng,HOI_KIEN_THUC
+toi muon hoc ve di nghi,HOI_KIEN_THUC
+thưa thủ trưởng kể về súng AK47 được không,HOI_KIEN_THUC
+Đồng chí ơi tôi muốn học về 12 điều,HOI_KIEN_THUC
+kỷ luật quân đội có nguy hiểm không,HOI_KIEN_THUC
+Cho em hỏi phân tích quay trái,HOI_KIEN_THUC
+quay phải áp dụng khi nào nhỉ,HOI_KIEN_THUC
+báo cáo thủ trưởng đội hình hàng dọc khó không,HOI_KIEN_THUC
+Em hỏi với thủ trưởng dạy về 12 điều thưa thủ trưởng,HOI_KIEN_THUC
+kể về súng AK vậy,HOI_KIEN_THUC
+Cho hỏi lễ cào cờ áp dụng khi nào,HOI_KIEN_THUC
+cho em hỏi kể về RSA?,HOI_KIEN_THUC
+cho em hỏi kỷ luật quân đội hoạt động ra sao thư thủ trưởng,HOI_KIEN_THUC
+thưa thủ trưởng lễ chào cờ là gì,HOI_KIEN_THUC
+Cho em hỏi xếp hàng áp dụng khi nào đấy,HOI_KIEN_THUC
+xin hỏi giải thích lựu đạn cho tôi ?,HOI_KIEN_THUC
+cho em hỏi đi đều bước làm thế nào?,HOI_KIEN_THUC
+xin hỏi quy tắc bắn dùng thế nào nhỉ,HOI_KIEN_THUC
+thưa thủ trưởng kể về kỹ thuật bộ binh được không,HOI_KIEN_THUC
+xin hỏi kể về đi nghỉ thưa thủ trưởng,HOI_KIEN_THUC
+Em hỏi với quân hàm có những bước gì ạ,HOI_KIEN_THUC
+kiem tra quan tu trang la gi,HOI_KIEN_THUC
+xin hỏi RSA có quy tắc gì vậy,HOI_KIEN_THUC
+thưa cán bộ quân hàm có nhữn bước gì,HOI_KIEN_THUC
+cho hỏi tìm hiểu về vượt vật cản ?,HOI_KIEN_THUC
+thưa thủ trưởng tài liệu về chào điều lnh ở đâu?,HOI_KIEN_THUC
+em hỏi với 12 điều dùng để làm gì thế,HOI_KIEN_THUC
+Khi nào dùng RSA đấy,HOI_KIEN_THUC
+thầy ơi ai có thể dạy kỹ thuật bộ binh vậy,HOI_KIEN_THUC
+Thầy ơi bài tập thể lực dùng thế nào vậy,HOI_KIEN_THUC
+xin hỏi xếp hàng làm thế nào đợc không ạ,HOI_KIEN_THUC
+em hỏi với phân tích đi nghiêm đi,HOI_KIEN_THUC
+thầy ơi quân hàm làm thế nào,HOI_KIEN_THUC
+thưa cán bộ kể về quy chế học viện đấy,HOI_KIEN_THUC
+em hỏi với khi nào dùng bài tập thể lực,HOI_KIEN_THUC
+Anh ơi đặc điểm của bài tập thể lực đấy,HOI_KIEN_THUC
+Thưa cán bộ đi nghiêm có nguy hiểm không,HOI_KIEN_THUC
+em hỏi với khi nào dùng đi nghỉ?,HOI_KIEN_THUC
+báo cáo thủ trưởng khi nào dùng tư thế uỳ bắn thưa thủ trưởng,HOI_KIEN_THUC
+thưa thủ trưởng tìm hiểu về chào điều lệnh vậy,HOI_KIEN_THUC
+Em hỏi với xếp hàng áp dụng khi nào,HOI_KIEN_THUC
+xin hỏi kỹ thuật chiến đấu có nguy hiểm không?,HOI_KIEN_THUC
+cho hỏi trực ban dùng thế nào chứ,HOI_KIEN_THUC
+y nghia cua xep hang duoc khong a,HOI_KIEN_THUC
+mật mã đối xứng làm thế nào được không,HOI_KIEN_THUC
+cho hỏi tìm hiểu về xếp hàng nhỉ,HOI_KIEN_THUC
+cho em hỏi giải thích trực ban cho tôi được không,HOI_KIEN_THUC
+súng AK47 hoạt động ra sao vậy,HOI_KIEN_THUC
+em hỏi với ý nghĩa của quân hàm đi,HOI_KIEN_THUC
+Xin hỏi tôi muốn học về súng AK47 được không,HOI_KIEN_THUC
+thua thu truong sung AK lam the nao the,HOI_KIEN_THUC
+Báo cáo thủ trưởng tư thế nằm bắn khó không ?,HOI_KIEN_THUC
+thưa cán bộ nguyên lý của kỷ luật quân đội,HOI_KIEN_THUC
+Kỹ thuật bộ binh khó không ?,HOI_KIEN_THUC
+Cho em hỏi ai có thể dạy an toàn thông tin,HOI_KIEN_THUC
+cho hỏi đặc điểm của súng AK,HOI_KIEN_THUC
+ý nghĩa của đội hình hàng ngang đấy,HOI_KIEN_THUC
+báo cáo thủ trưởng tôi muốn học về kỹ thuật bộ bin đấy,HOI_KIEN_THUC
+Lịch sử của mật mã đối xứng,HOI_KIEN_THUC
+nguyên lý của xếp hàng ?,HOI_KIEN_THUC
+đồng chí ơi gii thích súng AK47 cho tôi,HOI_KIEN_THUC
+Cho hỏi mật mã đối xứng khó không,HOI_KIEN_THUC
+Em hỏi với tìm hiểu về quay phải đấy,HOI_KIEN_THUC
+cho hỏi tài liệu về vượt vật cản ở đâu,HOI_KIEN_THUC
+Điều lệnh đội ngũ có quy tắc gì đấy,HOI_KIEN_THUC
+cho em hỏi RSA áp dụng khi nào đấy,HOI_KIEN_THUC
+Em hỏi với kể về vượt vật cản được không,HOI_KIEN_THUC
+xin phép thủ trưởng súng AK47 làm thế nào vậy,HOI_KIEN_THUC
+xin hỏi đặc điểm của lựu đạn thưa thủ trưởng,HOI_KIEN_THUC
+cho hỏi quy chế học viện có quy tắc gì thưa thủ trưởng,HOI_KIEN_THUC
+báo cáo thủ trưởng úng AK47 làm thế nào ?,HOI_KIEN_THUC
+em hoi voi cach thuc hien RSA ra sao the,HOI_KIEN_THUC
+cho hỏi cách thực hiện 12 điều ra sao vậy,HOI_KIEN_THUC
+xin phep thu truong mat ma quan su dung de lam gi,HOI_KIEN_THUC
+xin phép thủ trưởng giải thích tháo lắp súng cho tôi được không,HOI_KIEN_THUC
+Thưa thủ trưởng tài liệu về xếp hàng ở đâu thưa thủ trưởng,HOI_KIEN_THUC
+tìm hiểu về súng AK,HOI_KIEN_THUC
+cho hỏi giải thích chạy 3000m cho tôi,HOI_KIEN_THUC
+Thầy ơi giải thích súng AK47 cho tôi nhỉ,HOI_KIEN_THUC
+Cho hỏi chào điều lệnh làm thế nào chứ,HOI_KIEN_THUC
+cho hỏi kể về đi đều bước đi,HOI_KIEN_THUC
+thưa thủ trưởng trực ban làm thế nào,HOI_KIEN_THUC
+cách thực hiện đội hình hàng ngang ra sao,HOI_KIEN_THUC
+anh ơi tìm hiểu về đi nghỉ,HOI_KIEN_THUC
+Thưa thủ trưởng tư quỳ bắn khó không?,HOI_KIEN_THUC
+ky thuat bo binh co quy tac gi,HOI_KIEN_THUC
+xin hỏi ai có thể dạy tư thế nằm bắn đi,HOI_KIEN_THUC
+em hỏi với kỹ thuật chiến đấu hoạt động ra sao,HOI_KIEN_THUC
+báo cáo thủ trưởng giải thích đội hình hàng dọc cho tôi thế,HOI_KIEN_THUC
+Tìm hiểu về bài tập thể lực,HOI_KIEN_THUC
+Em hỏi với RSA làm thế nào đấy,HOI_KIEN_THUC
+cho em hỏi tìm hiểu về kỹ thuật bộ binh được không,HOI_KIEN_THUC
+cho em hỏi nguyên lý của đi nghỉ được không ạ,HOI_KIEN_THUC
+Anh ơi khi nào dùng đi nghiêm thế,HOI_KIEN_THUC
+thưa thủ trưởng cách thực hiện quy tắc bắn ra so thế,HOI_KIEN_THUC
+Xin phép thủ trưởng chào điều lệnh khó không vậy,HOI_KIEN_THUC
+cách thực hiện vượt vật cản ra sao,HOI_KIEN_THUC
+đội hình hàng dọc là gì được không,HOI_KIEN_THUC
+cách thực hiện lễ chào cờ ra sao được không,HOI_KIEN_THUC
+cach thuc hien quy tac ban ra sao?,HOI_KIEN_THUC
+xin hoi kiem tra quan tu trang lam the nao chu,HOI_KIEN_THUC
+xin hỏi thủ trưởng dạy về đi nghỉ được không,HOI_KIEN_THUC
+xin hỏi kể về 12 điều đi,HOI_KIEN_THUC
+xin hỏi kiểm tra quân tư trang hoạt động ra sao,HOI_KIEN_THUC
+cho hỏi đặc điểm của vượt vật cản,HOI_KIEN_THUC
+báo cáo thủ trưởng phân tích quân hàm vậy,HOI_KIEN_THUC
+Co em hỏi 10 lời thề dùng để làm gì vậy,HOI_KIEN_THUC
+em hỏi với ý nghĩa của tháo lắp súng ?,HOI_KIEN_THUC
+thưa thủ trưởng khi nào dùng đi đều bưc ạ,HOI_KIEN_THUC
+thầy ơi ai có thể dạy kỷ luật quân đội,HOI_KIEN_THUC
+tư thế quỳ bắn dùng để làm gì được không ạ,HOI_KIEN_THUC
+ý nghĩa của quân hàm,HOI_KIEN_THUC
+thưa thủ trưởng điều lệnh đội ngũ khó không,HOI_KIEN_THUC
+xin phép thủ trưởng nguyên lý của lễ chào cờ vậy,HOI_KIEN_THUC
+thầy ơi lễ chào cờ có những bước gì chứ,HOI_KIEN_THUC
+anh ơi RSA hoạt động ra sao nhỉ,HOI_KIEN_THUC
+thưa thủ trưởng cách thực hiện xếp hàng ra sao chứ,HOI_KIEN_THUC
+em hỏi với tôi muốn học về lựu đạn th,HOI_KIEN_THUC
+Xin phép thủ trưởng đặc điểm của súng AK,HOI_KIEN_THUC
+cho hỏi tôi muốn học về chạy 3000m ạ,HOI_KIEN_THUC
+đồng chí ơi tư thế quỳ bắn dùng thế nào đấy,HOI_KIEN_THUC
+Cho em hỏi tài liệu về vượt vật cản ở đâu,HOI_KIEN_THUC
+Cho em hỏi đặc điểm của mật mã đối xứng chứ,HOI_KIEN_THUC
+cho hỏi trực ban có quy tắc gì,HOI_KIEN_THUC
+tài liệu về quay phải ở đâu chứ,HOI_KIEN_THUC
+thưa cán bộ súng AK làm thế nào đi,HOI_KIEN_THUC
+thưa cán bộ lịch sử của quay phải,HOI_KIEN_THUC
+cho hỏi tư nằm bắn áp dụng khi nào,HOI_KIEN_THUC
+anh oi khi nao dung tu the quy ban,HOI_KIEN_THUC
+thầy ơi điều lệnh đội ngũ hoạt động ra sao đấy,HOI_KIEN_THUC
+cách thực hiện quay phải ra sao,HOI_KIEN_THUC
+cho hỏi cách thực hiện kỹ thuật chiến đấu ra sao thế,HOI_KIEN_THUC
+xin phép thủ trưởng quy tắc bắn có nguy hiểm không,HOI_KIEN_THUC
+Cho hỏi chạy 3000m hoạt động ra sao được không,HOI_KIEN_THUC
+Thầy ơi an toàn thông tin có những bước gì nhỉ,HOI_KIEN_THUC
+anh oi lich su cua tu the nam ban,HOI_KIEN_THUC
+khi nào dùng mật mã quân sự,HOI_KIEN_THUC
+thủ trưởng dạy về RSA,HOI_KIEN_THUC
+thưa thủ trưởng vượt vật cản dùng để làm gì vậy,HOI_KIEN_THUC
+đồng chí ơi đặc điểm của chào điều lệnh,HOI_KIEN_THUC
+Đồng chí ơi tư thế quỳ bắn là gì ạ,HOI_KIEN_THUC
+Đồng chí ơi trực ban dùng thế nào ?,HOI_KIEN_THUC
+Cho hỏi đi đều bước dùng thế nào thế,HOI_KIEN_THUC
+anh ơi tháo lắp súng có nguy hiểm không,HOI_KIEN_THUC
+báo cáo thủ trưởng nguyên lý của kỹ thuật chến đấu chứ,HOI_KIEN_THUC
+anh ơi lịch sử của quy tắc bắn thế,HOI_KIEN_THUC
+thầy ơi mật mã đối xứng là gì,HOI_KIEN_THUC
+Cho hỏi ý nghĩa của đội hình hàng dọc đấy,HOI_KIEN_THUC
+Báo cáo thủ trưởng tìm hiểu về 10 lời thề,HOI_KIEN_THUC
+thưa cán bộ RSA dùng để làm gì,HOI_KIEN_THUC
+thưa cán bộ lịch sử của đội hình hàng dọc ạ,HOI_KIEN_THUC
+thủ trưởng dạy về quay trái ?,HOI_KIEN_THUC
+Di nghi hoat dong ra sao day,HOI_KIEN_THUC
+tôi muốn học về 10 lời thề,HOI_KIEN_THUC
+Dong chi oi tai lieu ve di nghiem o dau a,HOI_KIEN_THUC
+cho em hỏi súng AK khó không vậy,HOI_KIEN_THUC
+thầy ơi RSA là gì chứ,HOI_KIEN_THUC
+thưa thủ trưởng kể về mật mã đối xứng ?,HOI_KIEN_THUC
+báo cáo thủ trưởng mật mã quân sự có những bước gì đấy,HOI_KIEN_THUC
+hưa thủ trưởng tôi muốn học về lễ chào cờ ?,HOI_KIEN_THUC
+Báo cáo thủ trưởng vượt vật cản dùng để làm gì,HOI_KIEN_THUC
+thưa thủ trưởng tôi muốn học về tư thế nằm bắn ?,HOI_KIEN_THUC
+kể về quân hàm nhỉ,HOI_KIEN_THUC
+anh oi sung AK dung the nao day,HOI_KIEN_THUC
+anh oi thao lap sung ap dung khi nao di,HOI_KIEN_THUC
+đồng chí ơi giải thích RSA cho tôi ?,HOI_KIEN_THUC
+đội hình hàng dọc có quy tắc gì thưa thủ trưởng,HOI_KIEN_THUC
+cách thực hiện đội hình hàng ngang ra sao đấy,HOI_KIEN_THUC
+Báo cáo thủ trưởng cách thực hiện kiểm tra quân tư trang ra sao được không ạ,HOI_KIEN_THUC
+em hỏi với kể về trực nhật vậy,HOI_KIEN_THUC
+xn phép thủ trưởng giải thích kỷ luật quân đội cho tôi chứ,HOI_KIEN_THUC
+báo cáo thủ trưởng thủ trưởng dạy về trực nhật,HOI_KIEN_THUC
+anh oi 12 dieu co quy tac gi the,HOI_KIEN_THUC
+Lịch sử của bài tập thể lực,HOI_KIEN_THUC
+Tìm hiểu về lễ chào cờ ạ,HOI_KIEN_THUC
+cho em hoi nguyen ly cua ky thuat bo binh nhi,HOI_KIEN_THUC
+cho hỏi an toàn thông tin có nguy hiểm không đi,HOI_KIEN_THUC
+nguyên lý của mật mã uân sự?,HOI_KIEN_THUC
+Em hỏi với giải thích mật mã quân sự cho tôi,HOI_KIEN_THUC
+thưa thủ trưởng nguên lý của kiểm tra quân tư trang,HOI_KIEN_THUC
+Anh ơi đã hoàn thành xin báo cáo thủ trưởng,BAO_CAO
+báo cáo hoàn tất nhiệm vụ?,BAO_CAO
+bao cao thu truong bao cao to truc nhat da an com xong the,BAO_CAO
+thưa cán bộ báo cáo phân đội đã có mặt đầy đủ được không ạ,BAO_CAO
+thầy ơi báo cáo điểm danh xong,BAO_CAO
+Đồng chí báo cáo tổ trực nhật đã có mặt đầy đủ,BAO_CAO
+xin hỏi đội hình báo cáo đầy đủ thế,BAO_CAO
+báo cáo tổ trực nhật đã trực ban xong thưa thủ trưởng,BAO_CAO
+cho hỏi báo cáo đã hoàn thành nhiệ vụ được không ạ,BAO_CAO
+Tổ trực ban đã làm xong nhiệm vụ?,BAO_CAO
+thưa thủ trưởng tôi báo cáo đã hoàn thành ?,BAO_CAO
+xin hỏi tôi báo cáo đã hoàn thành thưa thủ trưởng,BAO_CAO
+tôi xin báo cá 12 giờ đã chuẩn bị xong được không,BAO_CAO
+báo cáo đã hoàn thành nhiệm vụ chứ,BAO_CAO
+em hỏi với tôi báo cáo đã hoàn thành được không ạ,BAO_CAO
+thua thu truong dai doi da lam xong nhiem vu di,BAO_CAO
+xin phép thủ trưởng báo cáo trung đội thiếu một người đấy,BAO_CAO
+Báo cáo đầy đủ ?,BAO_CAO
+Thưa cán bộ báo cáo thủ trưởng lớp đã sẵn sàng,BAO_CAO
+anh ơi báo cáo đội hình đã trực ban xong ?,BAO_CAO
+báo cáo lớp đã đến vị trí,BAO_CAO
+đồng chí ơi áo cáo hoàn tất nhiệm vụ ạ,BAO_CAO
+thưa thủ trưởng đã thực hiện xong xin báo cáo chứ,BAO_CAO
+anh ơi tôi báo cáo lên cấp trên chứ,BAO_CAO
+thưa cán bộ báo cáo công việc được không ạ,BAO_CAO
+da thuc hien xong xin bao cao chu,BAO_CAO
+em hỏi với báo cáo phân đội vắng hai người?,BAO_CAO
+Báo cáo phân đội đã ăn cơm xong thưa thủ trưởng,BAO_CAO
+xin hỏi tôi xin báo cáo 1 giờ chiều đã chuẩn bị xong thế,BAO_CAO
+xin báo cáo đã xong,BAO_CAO
+Đồng chí ơi báo cáo trung đội đã có mặt đầy đủ nhỉ,BAO_CAO
+Thưa cán bộ tổ trực báo cáo có mặt được không ạ,BAO_CAO
+Cho em hỏi báo cáo đại đội đã ăn cơm xong,BAO_CAO
+bao cao thu truong bao cao dai doi da truc ban xong nhi,BAO_CAO
+báo cáo tiểu đội đã đến vị trí ạ,BAO_CAO
+báo cáo có người ốm,BAO_CAO
+xin phép thủ trưởng báo cáo nhóm 2 vắng hai người nhỉ,BAO_CAO
+đồng chí ơi báo cáo tổ trc ban đã đến vị trí,BAO_CAO
+em hỏi với báo cáo đã hoàn thành nhiệm vụ nhỉ,BAO_CAO
+cho hoi bao cao diem danh xong,BAO_CAO
+đồng chí ơi báo cáo công việc vậy,BAO_CAO
+báo cáo phân đội đã trực ban xong,BAO_CAO
+Thầy báo cáo đội hình đã đến vị trí,BAO_CAO
+cho em ỏi báo cáo đội mẫu đã có mặt đầy đủ vậy,BAO_CAO
+em hỏi với báo cáo điểm danh xong ?,BAO_CAO
+xin hỏi lớp báo cáo đầy đủ thế,BAO_CAO
+thưa cán bộ tôi xin báo cáo buổi tối đã chuẩn bị xong được không,BAO_CAO
+Anh ơi báo cáo hoàn tất nhiệm vụ vậy,BAO_CAO
+em hỏi với báo cáo đã hoàn thành nhiệm vụ được không ạ,BAO_CAO
+báo cáo thủ trưởng tổ trc báo cáo có mặt thế,BAO_CAO
+Anh ơi tôi xin báo cáo buổi sáng đã chuẩn bị xong,BAO_CAO
+Thầy ơi đội mẫu báo cáo đầy đủ đi,BAO_CAO
+Cho em hỏi tôi xin báo cáo thứ 4 đã chuẩn bị xong,BAO_CAO
+Cho em hỏi báo cáo thủ trưởng phân đội đã sẵn sàng?,BAO_CAO
+bo cáo công việc nhỉ,BAO_CAO
+báo cáo nhóm 1 thiếu một người,BAO_CAO
+đồng chí ơi báo cáo đội hình đã tập hợp chứ,BAO_CAO
+Thưa cán bộ báo cáo nhóm 1 đã tập ợp được không,BAO_CAO
+Báo cáo thủ trưởng xin báo cáo đã xong được không,BAO_CAO
+cho em hỏi xin báo cáo đã xong thưa thủ trưởng,BAO_CAO
+Đồng chí ơi báo cáo phân đội đã ăn cơm xong được không,BAO_CAO
+xin phép thủ trưởng báo cáo có người ốm,BAO_CAO
+Đồng chí ơi tôi xin báo cáo 5 giờ chiều đã chuẩn bị xong?,BAO_CAO
+báo cáo tổ trực ban thiếu một người đi,BAO_CAO
+Xin hỏi tôi báo cáo đã hoàn thành,BAO_CAO
+báo cáo thủ trưởng đã thực hiện xong xin báo cáo đi,BAO_CAO
+cho em hỏi báo cáo trung đội thiếu một người vậy,BAO_CAO
+anh ơi báo cáo nhóm 1 đủ quân nhỉ,BAO_CAO
+thầy ơi báo cáo đội mẫu đã ăn cơm xong được không ạ,BAO_CAO
+bao cao thu truong bao cao lop da den vi tri vay,BAO_CAO
+cho em hỏi báo cáo đội hình đã tập hợp được không,BAO_CAO
+báo cáo thủ trưởng tiểu đội đã sẵn sàng thưa thủ trưởng,BAO_CAO
+bao cao nhom 1 da den vi tri duoc khong,BAO_CAO
+thưa cán bộ báo cáo thủ trưởng tiểu đội đã sẵn sàng,BAO_CAO
+tổ trực báo cáo có mặt thế,BAO_CAO
+Tổ trực báo cáo có mặt được không ạ,BAO_CAO
+cho hoi bao cao trung doi thieu mot nguoi di,BAO_CAO
+thầy ơi báo cáo có người ốm vậy,BAO_CAO
+Báo cáo lớp đã trực ban xong chứ,BAO_CAO
+em hỏi với báo cáo tổ trực ban đủ quân ?,BAO_CAO
+xin phép thủ trưởng báo cáo nhóm 1 đã ăn cơm xong,BAO_CAO
+em hỏi với báo cáo tổ trực ban đã ăn cơm xong đấy,BAO_CAO
+Báo cáo tiểu đội đã có mặt đầy đủ được không,BAO_CAO
+báo cáo tổ trực nhật đã đến vị trí ạ,BAO_CAO
+Đã thực hiện xong xin báo cáo,BAO_CAO
+Xin hi nhóm 1 đã làm xong nhiệm vụ,BAO_CAO
+Báo cáo trung đội đã trực ban xong vậy,BAO_CAO
+đồng chí ơi xin báo cáo đã xong được không ạ,BAO_CAO
+thưa cán bộ đội hình đã làm xong nhiệm vụ,BAO_CAO
+Cho hỏi báo cáo thủ trưởng đội hình đã sẵn sàng,BAO_CAO
+trung đội báo cáo đầy đủ ?,BAO_CAO
+Thầy ơi báo cáo thủ trưởng phân đội đã sẵn sàng vậy,BAO_CAO
+báo cáo thủ trưởng báo cáo đại đội đủ quân đấy,BAO_CAO
+Em hoi voi bao cao co nguoi om a,BAO_CAO
+cho hỏi báo cáo đại đội đủ quân,BAO_CAO
+báo cáo có người ốm được không ạ,BAO_CAO
+xin hỏi trung đội đã làm xong nhiệm vụ nhỉ,BAO_CAO
+Báo cáo tổ trực nhật đủ quân,BAO_CAO
+báo cáo công việc,BAO_CAO
+đồng chí ơi tôi báo cáo đã hoàn thành nhỉ,BAO_CAO
+Báo cáo đầy đủ chứ,BAO_CAO
+đã thực hiện xong xin báo cáo đi,BAO_CAO
+đồng chí ơi tôi xin báo cáo tuần sau đã chuẩn bị xong,BAO_CAO
+Báo cáo thủ trưởng báo cáo nhóm 2 đã trực ban xong,BAO_CAO
+thầy ơi báo cáo tổ trực ban thiếu một người,BAO_CAO
+thay oi bao cao to truc nhat da an com xong ?,BAO_CAO
+báo cáo thủ trưởng đã thực hiện xong xin báo cáo vậy,BAO_CAO
+Cho hỏi báo cáo công vic,BAO_CAO
+Thua thu truong to truc bao cao co mat nhi,BAO_CAO
+anh ơi báo cáo có người ốm?,BAO_CAO
+thưa cán bộ tổ trực báo cáo có mặt nhỉ,BAO_CAO
+Cho em hỏi báo cáo nhóm 2 đã trực ban xong,BAO_CAO
+đã hoàn thành xin báo cáo thủ trưởng,BAO_CAO
+thưa cán bộ báo cáo tiểu đội đã có mặt đầy đủ thế,BAO_CAO
+cho em hoi bao cao diem danh xong nhi,BAO_CAO
+Cho hỏi báo cáo trung đội đã trc ban xong thế,BAO_CAO
+Cho em hỏi tôi báo cáo đã hoàn thành ạ,BAO_CAO
+đồng chí ơi báo cáo đã hoàn thành nhiệm ụ,BAO_CAO
+xin hỏi tôi báo cáo đã hoàn thành ?,BAO_CAO
+anh ơi báo cáo trung đội vắng hai người,BAO_CAO
+anh ơi nhóm 2 đã làm xong nhiệm vụ,BAO_CAO
+em hỏi với báo cáo nhóm 1 đủ quân vậy,BAO_CAO
+báo cáo điểm danh xong được không ạ,BAO_CAO
+Tiểu đội báo cáo đầy đủ chứ,BAO_CAO
+thay oi bao cao nhom 2 du quan ?,BAO_CAO
+Xin hỏi báo cáo tiểu đội đã ăn cơm xong đấy,BAO_CAO
+Thưa thủ trưởng báo cáo điểm danh xong đấy,BAO_CAO
+báo cáo hân đội đã đến vị trí?,BAO_CAO
+báo cáo đại đội thiếu một người?,BAO_CAO
+thưa thủ trưởng báo cáo nhóm 1 đã tập hợp đi,BAO_CAO
+Thưa thủ trưởng báo cáo đầy đủ ?,BAO_CAO
+anh ơi báo cáo tổ trực nhật vắng hai người chứ,BAO_CAO
+báo cáo thủ trưởn báo cáo có người ốm ạ,BAO_CAO
+Cho em hỏi báo cáo tiểu đội đủ quân đấy,BAO_CAO
+báo cáo thủ trưởng báo cáo điểm danh xong thế,BAO_CAO
+xin bao cao da xong nhi,BAO_CAO
+Cho hỏi báo cáo có người ốm ạ,BAO_CAO
+tổ trực báo cáo có mặt thưa thủ trưởng,BAO_CAO
+cho em hoi bao cao co nguoi om thua thu truong,BAO_CAO
+Đồng chí ơi báo cáo nhóm 1 đã tập hợp?,BAO_CAO
+Anh ơi báo cáo độ mẫu đủ quân?,BAO_CAO
+Thua thu truong bao cao day du,BAO_CAO
+báo cáo thủ trưởng tôi báo cáo lên cấp trên đi,BAO_CAO
+Thầy ơi báo cáo đội hình đã có mặt đầy đủ thế,BAO_CAO
+Thưa cán bộ báo cáo có người ốm ?,BAO_CAO
+báo cáo thủ trưởng báo cáo đội hình vắng hai người thưa thủ trưởng,BAO_CAO
+Cho em hỏi báo cáo lớp đã ăn cơm xong ?,BAO_CAO
+thưa thủ trưởng báo cáo đầy đủ thưa thủ trưởng,BAO_CAO
+cho hỏi tôi xin báo cáo thứ 2 đã chuẩn bị xong vậy,BAO_CAO
+xin phép thủ trưởng t trực báo cáo có mặt thưa thủ trưởng,BAO_CAO
+Thầy báo cáo thủ trưởng đội mẫu đã sẵn sàng,BAO_CAO
+tổ trực báo cáo có mặt ?,BAO_CAO
+anh ơi báo cáo nhóm 1 đủ quân?,BAO_CAO
+báo cáo hoàn tất nhiệm vụ thưa thủ trưởng,BAO_CAO
+em hỏi với tôi báo cáo đã hoàn thành chứ,BAO_CAO
+báo cáo đã hoàn thàn nhiệm vụ ạ,BAO_CAO
+Thay oi bao cao diem danh xong,BAO_CAO
+thưa thủ trưởng đại đội báo cáo đầy đủ đấy,BAO_CAO
+Tổ trực báo cáo có mặt được không,BAO_CAO
+Em hi với báo cáo tiểu đội đã ăn cơm xong ạ,BAO_CAO
+thưa cán bộ báo cáo đã hoàn thành nhiệm vụ đi,BAO_CAO
+báo cáo tổ trực ban đã ăn cơm xong nhỉ,BAO_CAO
+Xin hỏi báo cáo phân đội đã có mặt đầy đủ,BAO_CAO
+Em hỏi với báo cáo nhóm 2 đã có mặt đầy đủ đi,BAO_CAO
+Báo cáo thủ trưởng lớp báo cáo đầy đủ,BAO_CAO
+báo cáo thủ trưởng đội hình báo cáo đầy đủ,BAO_CAO
+báo cáo thủ trưởng báo cáo đầy đủ,BAO_CAO
+thưa cán bộ tiểu đội đã làm xong nhiệm vụ đấy,BAO_CAO
+đồng chí ơi báo cáo điểm danh xong,BAO_CAO
+Cho hỏi báo cáo công việc,BAO_CAO
+Thưa cán bộ báo cáo nhóm 2 thiếu một người thưa thủ trưởng,BAO_CAO
+thưa cán bộ đã thực hiện xong xin báo cáo,BAO_CAO
+thưa cán bộ đội hình đã làm xong nhiệm vụ đi,BAO_CAO
+xin phép thủ trưởng báo cáo tổ trực ban đã ăn cơm xong ?,BAO_CAO
+xin phép thủ trưởng báo cáo thủ trưởng trung đội đã sẵn sàng,BAO_CAO
+Thầy ơi báo cáo tổ trực nhật đã trực ban xong ?,BAO_CAO
+xin báo cáo đã xong đi,BAO_CAO
+Cho hỏi báo cáo đội hình thiếu một người thế,BAO_CAO
+Cho em hỏi báo cáo nhóm 1 đủ quân chứ,BAO_CAO
+đồng chí ơi báo cáo phân đội đã ăn cơm xong,BAO_CAO
+Da thuc hien xong xin bao cao,BAO_CAO
+báo cáo đại đội vắng hai người,BAO_CAO
+bao cao thu truong to truc bao cao co mat a,BAO_CAO
+báo cáo lớp đã có mặt đầy đủ thế,BAO_CAO
+thưa cán bộ báo cáo công việc vậy,BAO_CAO
+đồng chí lớp đã làm xong nhiệm vụ,BAO_CAO
+xin hoi bao cao tieu doi thieu mot nguoi ?,BAO_CAO
+xin phep thu truong bao cao dai doi da co mat day du vay,BAO_CAO
+đồng chí ơi báo cáo đại đội đã trực ban xong?,BAO_CAO
+xin hỏi báo cáo đã hoàn thành nhiệm vụ?,BAO_CAO
+xin phép thủ trưởng báo cáo thủ trưởng đội hình đã sẵn sàng được không,BAO_CAO
+thưa cán bộ xin báo cáo đã xong?,BAO_CAO
+báo cáo có người ốm được không,BAO_CAO
+Thưa cán bộ báo cáo nhóm 1 thiếu một người được không,BAO_CAO
+dong chi oi toi bao cao da hoan thanh vay,BAO_CAO
+đồng chí ơi báo cáo lớp đã ăn cơm xong?,BAO_CAO
+Cho em hỏi báo cáo hoàn tất nhiệm vụ được không ạ,BAO_CAO
+Em hỏi với báo cáo đã hoàn thành nhiệm vụ đi,BAO_CAO
+anh ơi báo cáo đầy đủ nhỉ,BAO_CAO
+báo cáo phân đội đã ăn cơm xong đấy,BAO_CAO
+Báo cáo tiểu đội đã có mặt đầy đủ thưa thủ trưởng,BAO_CAO
+cho em hỏi đã hoàn thành in báo cáo thủ trưởng,BAO_CAO
+cho em hỏi báo cáo điểm danh xong,BAO_CAO
+thầy ơi bo cáo có người ốm được không ạ,BAO_CAO
+thưa cán bộ tôi báo cáo lên cấp trên,BAO_CAO
+xin phép thủ trưởng đã hoàn thành xin báo cáo thủ trưởng được không ạ,BAO_CAO
+báo cáo đầy đủ,BAO_CAO
+Thay oi bao cao nhom 1 vang hai nguoi ?,BAO_CAO
+em hỏi với tôi báo cáo đã hoàn thành nhỉ,BAO_CAO
+xin hỏi nhóm 2 đã làm xong nhiệm vụ ?,BAO_CAO
+Em hỏi với đã hoàn thành xin báo cáo thủ trưởng,BAO_CAO
+thưa thủ trưởng báo cáo hoàn tất nhiệm vụ thưa thủ trưởng,BAO_CAO
+Đồng chí ơi báo cáo lớp đủ quân đi,BAO_CAO
+báo cáo tổ trực ban đã trực ban xong?,BAO_CAO
+Xin phép thủ trưởng báo cáo thủ trưởng trung đội đã sẵn sàng,BAO_CAO
+thưa thủ trưởng tôi xin báo cáo ngày kia đã chuẩn bị xong?,BAO_CAO
+xin phép thủ trưởng báo cáo công việc nhỉ,BAO_CAO
+anh ơi xin báo cáo đã xong,BAO_CAO
+anh ơi tôi báo cáo đã hoàn thành ạ,BAO_CAO
+thưa thủ trưởng tôi xin báo cáo sáng nay đã chuẩn bị xong,BAO_CAO
+báo cáo thủ trưởng báo cáo hoàn tất nhiệm vụ thế,BAO_CAO
+thưa thủ trưởng báo cáo công việc thế,BAO_CAO
+đồng chí ơi báo cáo thủ trưởng tổ trực nhật ã sẵn sàng ?,BAO_CAO
+xin hỏi tôi báo cáo đã hoàn thành,BAO_CAO
+bao cao da hoan thanh nhiem vu,BAO_CAO
+Đồng chí ơi xin báo cáo đã xong ?,BAO_CAO
+cho em hỏi tổ trực báo cáo có mặt được không,BAO_CAO
+đồng chí ơi tổ trực báo cáo có mặt,BAO_CAO
+thưa thủ trưởng báo cáo trung đội đã ăn cơm xong nhỉ,BAO_CAO
+Báo cáo trung đội đủ quân vậy,BAO_CAO
+báo cáo nhóm 2 đã ăn cơm xong chứ,BAO_CAO
+đã hoàn thành xin báo cáo thủ trưởng chứ,BAO_CAO
+Em hoi voi tieu doi bao cao day du duoc khong a,BAO_CAO
+thưa cán bộ xin báo cáo đã xong,BAO_CAO
+Cho hỏi đã hoàn thành xin báo cáo thủ trưởng ?,BAO_CAO
+thưa cán bộ báo cáo điểm danh xong,BAO_CAO
+cho em hỏi báo cáo hoàn tất nhiệm vụ,BAO_CAO
+báo cáo có người ốm vậy,BAO_CAO
+báo co thủ trưởng tôi báo cáo lên cấp trên ?,BAO_CAO
+Thưa cán bộ báo cáo điểm danh xong ạ,BAO_CAO
+Thưa thủ trưởng báo cáo công việc nhỉ,BAO_CAO
+Thưa thủ trưởng báo cáo tiểu đội đã ăn cơm xong được không,BAO_CAO
+Báo cáo nhóm 2 đã tập hợp,BAO_CAO
+Báo cáo thủ trưởng tổ trực nhật đã sẵn sàng đấy,BAO_CAO
+đồng chí ơi đã thực hiện xong xin báo cáo?,BAO_CAO
+báo cáo thủ trưởng báo cáo công việc được không ạ,BAO_CAO
+báo cáo phân đội đã đến vị trí vậy,BAO_CAO
+lớp báo cáo đầy đủ chứ,BAO_CAO
+Anh ơi trung đội báo cáo đầy đủ,BAO_CAO
+anh tổ trực nhật báo cáo đầy đủ nhỉ,BAO_CAO
+báo cáo đã hoàn thành nhiệm vụ,BAO_CAO
+báo cá nhóm 2 đã tập hợp,BAO_CAO
+Xin phép thủ trưởng báo cáo nhóm 1 đã có mặt đầy đủ thưa thủ trưởng,BAO_CAO
+thưa thủ trưởng báo cáo đội mẫu vắng hai người?,BAO_CAO
+Thưa cán bộ tôi xin báo cáo 5 giờ chiều đã chuẩn bị xong,BAO_CAO
+cho hỏi báo cáo nhóm 1 đủ quân đấy,BAO_CAO
+thưa thủ trưởng báo cáo đội mẫu đã trực ban xong được không ạ,BAO_CAO
+tôi báo cáo đã hoàn thành được không,BAO_CAO
+đồng chí ơi tổ trực báo cáo có mặt vậy,BAO_CAO
+thầy ơi báo cáo có người ốm ạ,BAO_CAO
+bao cao thu truong bao cao day du ?,BAO_CAO
+tổ trực ban báo cáo đầy đủ ạ,BAO_CAO
+thầy ơi báo cáo điểm danh xong chứ,BAO_CAO
+thầy báo cáo lớp đã ăn cơm xong,BAO_CAO
+thầy ơi báo cáo đầy đủ chứ,BAO_CAO
+thưa thủ trưởng xin báo cáo đã xong thưa thủ trưởng,BAO_CAO
+Báo cáo đi mẫu vắng hai người thế,BAO_CAO
+Em hỏi với báo cáo nhóm 1 đã ăn cơm xong chứ,BAO_CAO
+báo cáo thủ trưởng báo cáo có người ốm?,BAO_CAO
+anh ơi báo cáo nhóm 1 đã có mặt đầy đủ chứ,BAO_CAO
+Báo cáo đầy đủ,BAO_CAO
+em hỏi ới tôi báo cáo đã hoàn thành thưa thủ trưởng,BAO_CAO
+xin hỏi tôi báo cáo lên cấp trên,BAO_CAO
+báo cáo thủ trưởng tôi báo cáo lên cấ trên được không,BAO_CAO
+thưa thủ trưởng nhóm 2 báo cáo đầy đủ nhỉ,BAO_CAO
+Đồng chí ơi báo cáo tiểu đội đã đến vị trí nhỉ,BAO_CAO
+thầy ơi tôi báo cáo lên cấp trên,BAO_CAO
+đã thực hiện xong xin báo cáo,BAO_CAO
+xin phép thủ trưởng tổ trực báo cáo có mặt?,BAO_CAO
+Đồng chí ơi báo cáo đầy đủ,BAO_CAO
+xin phép thủ trưởng xin báo cáo đã xong,BAO_CAO
+Báo cáo thủ trưởng báo cáo đại đội vắng hai ngưi được không ạ,BAO_CAO
+thưa cán bộ xin báo cáo đã xong ạ,BAO_CAO
+Thua can bo toi bao cao len cap tren,BAO_CAO
+Đồng chí ơi báo cáo tổ trực ban vắng hai người?,BAO_CAO
+tầy ơi báo cáo đội mẫu đã đến vị trí đấy,BAO_CAO
+báo cáo thủ trưởng xin báo cáo đã xong,BAO_CAO
+đại đội báo cáo đầy đủ thế,BAO_CAO
+Thưa thủ trưởng lớp báo cáo đầy đủ vậy,BAO_CAO
+xin hỏi báo cáo điểm danh xong ạ,BAO_CAO
+báo cáo thủ trưởng tôi xin báo cáo khi nào đã chuẩn bị xong?,BAO_CAO
+em hỏi với báo cáo tổ trực nhật thiếu một người nhỉ,BAO_CAO
+em hỏi với báo cáo nhóm 2 đã đến vị trí,BAO_CAO
+báo cáo thủ trưởng xin báo cáo đã xong?,BAO_CAO
+em hỏi với đã hoàn thành xin báo cáo th trưởng ?,BAO_CAO
+Anh cho em ra ngoài chút đi,XIN_PHEP
+xin hỏi cho em xin nghỉ 12 giờ chứ,XIN_PHEP
+xin hỏi cho em xin nghỉ ngày mai ?,XIN_PHEP
+anh ơi xin phép đi khám bệnh chứ,XIN_PHEP
+Xin hỏi em xin phép vắng vì có việc gia đình vậy,XIN_PHEP
+báo cáo thủ trưởng cho em xin phép về sớm,XIN_PHEP
+xin hỏi cho tôi nghỉ vì có giỗ ?,XIN_PHEP
+Xin hỏi cho em xin phép thưa thủ trưởng vậy,XIN_PHEP
+xin phép thủ trưởng em muốn xin phép vắng,XIN_PHEP
+Xin phep xuong nha an truoc vay,XIN_PHEP
+xin phép đi khám bệnh,XIN_PHEP
+thầy xin nghỉ tập,XIN_PHEP
+Xin phép thủ trưởng cho tôi nghỉ vì bị sốt nhỉ,XIN_PHEP
+Đồng chí ơi xin nghỉ tập được không ạ,XIN_PHEP
+xin hoi cho toi nghi buoi toi nay thua thu truong,XIN_PHEP
+Thủ trưởng cho em xin nghỉ đau bụng thưa thủ trưởng,XIN_PHEP
+cho hỏi tôi xin phép vì có việc gấp thưa thủ trưởng,XIN_PHEP
+em hỏi với em xin phép vắng vì phải về quê,XIN_PHEP
+xin hỏi anh cho em ra ngoài chút thưa thủ trưởng,XIN_PHEP
+thưa cán bộ xin nghỉ tập ?,XIN_PHEP
+Thưa cán bộ xin nghỉ tập chứ,XIN_PHEP
+thầy ơi cho em xin phép thưa thủ trưởng ?,XIN_PHEP
+thầy ơi cho tôi nghỉ buổi buổi trưa được không,XIN_PHEP
+cho em hỏi anh cho em ra ngoài chút được không,XIN_PHEP
+Xin phép thủ trưởng anh cho em ra ngoài chút thế,XIN_PHEP
+cho hỏi xin phép không tham gia buổi lúc nào,XIN_PHEP
+Cho toi nghi buoi 5 gio chieu nhi,XIN_PHEP
+đồng chí ơi anh cho em ra ngoài chút ?,XIN_PHEP
+Đồng chí ơi tôi xin phép nghỉ tuần sau ạ,XIN_PHEP
+Thầy ơi em xin phép ra ngoài một chút,XIN_PHEP
+xin phép thủ trưởng em xin phép đi gặp gia đình đấy,XIN_PHEP
+cho em xin nghỉ thứ 3,XIN_PHEP
+xin phép thủ trưởng tôi xin phép vì đi khám bệnh,XIN_PHEP
+Báo cáo thủ trưởng tôi xin phép nghỉ 5 giờ sáng được không,XIN_PHEP
+xin phép thủ trưởng cho em xin nghỉ buổi tối ?,XIN_PHEP
+xin hỏi xin phép không tham gia buổi tuần tới,XIN_PHEP
+Báo cáo thủ trưởng cho em xin phép về sớm đấy,XIN_PHEP
+đồng chí ơi cho em xin phép thưa thủ trưởng thế,XIN_PHEP
+Tôi xin phép nghỉ 8 giờ được không,XIN_PHEP
+Thưa thủ trưởng xin phép không tham gia buổi hôm nay,XIN_PHEP
+xin phép thủ trưởng xin phép vắng mặt buổi ngày kia đi,XIN_PHEP
+em hoi voi xin phep di kham benh,XIN_PHEP
+xin phép thủ trưởng xin phép vắng mặt buổi ngày mai thế,XIN_PHEP
+Cho em hỏi xin phép đi khám bệnh đi,XIN_PHEP
+thầy ơi em xin phép ra ngoài một chút?,XIN_PHEP
+đồng chí ơi xin phép đi khám bệnh ạ,XIN_PHEP
+báo cáo thủ trưởng tôi xin phép nghỉ 3 giờ chiều ạ,XIN_PHEP
+Anh ơi thủ trưởng cho em xin ngỉ ốm được không ạ,XIN_PHEP
+thưa thủ trưởng xin phép đi viện đi,XIN_PHEP
+anh ơi cho tôi xin phép về thăm nhà,XIN_PHEP
+thưa thủ trưởng in phép đi viện,XIN_PHEP
+xin phép không tham gia buổi 7 giờ tối,XIN_PHEP
+Thưa cán bộ xin phép nghỉ học 8 giờ đi,XIN_PHEP
+xin phép thủ trưởng xin phép nghỉ học đầu tuần được không ạ,XIN_PHEP
+xin phép thủ trưởng cho ra cổng ?,XIN_PHEP
+đồng chí ơi em xin phép vắng vì mệt,XIN_PHEP
+thầy ơi em xin phép đi gặp gia đình nhỉ,XIN_PHEP
+xin phép nghỉ học chủ nhật ?,XIN_PHEP
+thầy ơi xin phép vắng mặt buổi sáng mai ạ,XIN_PHEP
+đồng chí ơi cho tôi xin phép ra ngoài đi,XIN_PHEP
+em xin phép ra ngoài một chút thưa thủ trưởng,XIN_PHEP
+cho hỏi cho em xin nghỉ buổi sáng nay,XIN_PHEP
+cho em hỏi thủ trưởng cho em xin nghỉ việc đột xuất nhỉ,XIN_PHEP
+anh ơi cho em xn nghỉ tuần tới ?,XIN_PHEP
+thầy em xin phép đi gặp gia đình được không,XIN_PHEP
+thưa cán bộ thủ trưởng cho em xin nghỉ có lịch khám nhỉ,XIN_PHEP
+thầy ơi em muốn xin phép vắng nhỉ,XIN_PHEP
+thầy ơi xin phép xuống nhà ăn trước đấy,XIN_PHEP
+Thầy ơi xin nghỉ tập nhỉ,XIN_PHEP
+Thay oi toi xin phep nghi cuoi tuan di,XIN_PHEP
+Cho tôi xin phép về thăm nhà chứ,XIN_PHEP
+thưa thủ trưởng tôi xin phép vì ốm,XIN_PHEP
+em hỏi với em xin phép ra ngoài một chút chứ,XIN_PHEP
+báo cáo thủ trưởng xin phép thủ trưởng cho ra cổng đi,XIN_PHEP
+cho toi nghi vi phai ve que vay,XIN_PHEP
+Xin hỏi xin phép thủ trưởng cho ra cổng thưa thủ trưởng,XIN_PHEP
+Xin nghỉ tập được không ạ,XIN_PHEP
+anh ơi xin phép thủ trưởng cho ra cổng?,XIN_PHEP
+đồng chí ơi cho em xin phép thưa thủ trưởng,XIN_PHEP
+em hỏi với anh cho em ra ngoài chút vậy,XIN_PHEP
+thầy ơi xin phép đi khám bệnh chứ,XIN_PHEP
+xin hỏi xin phép đi viện được không,XIN_PHEP
+thủ trưởng cho em xin nghỉ đi khám bệnh chứ,XIN_PHEP
+Xin phép thủ trưởng cho ra cổng được không,XIN_PHEP
+cho em hỏi em xin phép vắng vì đi viện đấy,XIN_PHEP
+xin phép thủ trưởng cho em xin nghỉ tuần sau vậy,XIN_PHEP
+xin phép nghỉ học thứ 2?,XIN_PHEP
+em hỏi với cho em xin phép thưa thủ trưởng thưa thủ trưởng,XIN_PHEP
+xin phép đi viện ạ,XIN_PHEP
+cho hỏi xin phép thủ trưởng cho ra cổng thưa thủ trưởng,XIN_PHEP
+anh ơi cho em xin phép về sớm thế,XIN_PHEP
+báo cáo thủ trưởng tôi xin phép nghỉ tuần này,XIN_PHEP
+Thầy ơi em xin phép ra ngoài một chút đấy,XIN_PHEP
+Thầy ơi em xin phép vắng vì đau đầu đi,XIN_PHEP
+Thưa thủ trưởng em xin phép vắng vì việc đột xuất đấy,XIN_PHEP
+cho hỏi em xin phép ra ngoài một chút nhỉ,XIN_PHEP
+Em hỏi với cho tôi xin phép ra ngoài thế,XIN_PHEP
+Cho em hỏi xin phép đi khám bệnh vậy,XIN_PHEP
+cho tôi xin phép về thăm nhà đi,XIN_PHEP
+Cho tôi nghỉ vì có giỗ được không ạ,XIN_PHEP
+xin hỏi thủ trưởng cho em xin nghỉ đau đầu được không ạ,XIN_PHEP
+xin phep thu truong em xin phep ra ngoai mot chut nhi,XIN_PHEP
+xin phép thủ trưởng tôi xin phép vì có lịch khám,XIN_PHEP
+tôi xin phép vì đi khám bệnh ?,XIN_PHEP
+Cho hỏ cho tôi nghỉ buổi tuần sau ạ,XIN_PHEP
+bao cao thu truong thu truong cho em xin nghi dau dau,XIN_PHEP
+cho tôi nghỉ buổi buổi sáng đấy,XIN_PHEP
+em hỏi với tôi xin phép đi vệ sinh,XIN_PHEP
+Thưa cán bộ cho em xin phép thưa thủ trưởng,XIN_PHEP
+báo cáo thủ trưởng em xin phép vắng vì đau đầu nhỉ,XIN_PHEP
+anh oi xin nghi tap vay,XIN_PHEP
+đồng chí ơi cho em xin phép về sớm vậy,XIN_PHEP
+thầy ơi anh cho em ra ngoài chút vậy,XIN_PHEP
+xin hỏi xin phép vắng mặt buổi thứ 7,XIN_PHEP
+cho hoi cho em xin phep ve som di,XIN_PHEP
+xin nghỉ tập,XIN_PHEP
+thưa thủ trưởng xin phép đi khám bệnh được không ạ,XIN_PHEP
+Em hỏi với em xin phép ra ngoài một chút đấy,XIN_PHEP
+em xin phép ra ngoài một chút ạ,XIN_PHEP
+Tôi xin phép vì mệt,XIN_PHEP
+cho hỏi cho tôi xin phép ra ngoài thưa thủ trưởng,XIN_PHEP
+cho em hỏi xin phép nghỉ học lúc nào đấy,XIN_PHEP
+em hỏi với xin phép không tham gia buổi tối nay được không,XIN_PHEP
+cho em hỏi xin phép đi khám bệnh nhỉ,XIN_PHEP
+Xin hỏi anh cho em ra ngoài chút vậy,XIN_PHEP
+thưa thủ trưởng xin phép không tham gia buổi lúc nào nhỉ,XIN_PHEP
+xin phép thủ trưởng xin phép đi viện thưa thủ trưởng,XIN_PHEP
+anh ơi xin phép đi khám bệnh ạ,XIN_PHEP
+Xin hỏi em xin phép vắng vì mệt được khng,XIN_PHEP
+xin hỏi cho em xin phép về sớm vậy,XIN_PHEP
+em hỏi với em muốn xin phép vắng,XIN_PHEP
+Thầy ơi cho em xin phép về sớm nhỉ,XIN_PHEP
+in hỏi xin nghỉ tập,XIN_PHEP
+em hỏi với cho em xin phép thưa thủ trưởng được không ạ,XIN_PHEP
+Xin hỏi xin nghỉ tập đấy,XIN_PHEP
+cho hỏi thủ trưởng cho em xin nghỉ đi khám bệnh chứ,XIN_PHEP
+Thủ trưởng cho em xin nghỉ phải về quê ạ,XIN_PHEP
+thưa thủ trưởng cho em xin php thưa thủ trưởng đấy,XIN_PHEP
+anh ơi em xin phép vắng vì bị sốt,XIN_PHEP
+Thầy ơi xin phép không tham gia buổi 5 giờ sáng đi,XIN_PHEP
+thầy ơi xin nghỉ tập ?,XIN_PHEP
+Cho em hỏi thủ trưởng cho em xin nghỉ có việc gia đình?,XIN_PHEP
+báo cáo thủ trưởng tôi xin phép đi vệ sinh đi,XIN_PHEP
+xin phép không tham gia buổi tuần sau thưa thủ trưởng,XIN_PHEP
+thưa cán bộ tôi xin phép vì đi khám bệnh,XIN_PHEP
+xin hỏi xin phép xuống nhà ăn trước ?,XIN_PHEP
+đồng chí ơi em xin phép vắng vì mệt?,XIN_PHEP
+anh ơi em xin phép đi gặp gia đình nhỉ,XIN_PHEP
+thưa thủ trưởng xin nghỉ tập ạ,XIN_PHEP
+thưa cán bộ cho tôi nghỉ buổi thứ 4 chứ,XIN_PHEP
+xin phép thủ trưởng tôi xin phép đi vệ sinh đi,XIN_PHEP
+Xin hỏi cho em xin nghỉ thứ 6,XIN_PHEP
+Thầy ơi cho em xin nghỉ buổi sáng vậy,XIN_PHEP
+xin phép xuống nhà ăn trước thưa thủ trưởng,XIN_PHEP
+thầy ơi anh cho em ra ngoài chút nhỉ,XIN_PHEP
+xin hỏi cho tôi nghỉ vì có việc gấp đi,XIN_PHEP
+anh ơi cho em xin phép thưa thủ trưởng được không ạ,XIN_PHEP
+anh ơi em xin phép vắng vì đau đầu,XIN_PHEP
+Thưa cán bộ cho tôi xin phép về thăm nhà được không,XIN_PHEP
+cho hỏi cho tôi xin phép về thăm nhà thưa thủ trưởng,XIN_PHEP
+em hỏi với xin phép nghỉ học 9 giờ tối,XIN_PHEP
+thưa thủ trưởng cho em xin phép thưa thủ trưởng chứ,XIN_PHEP
+đồng chí ơi xin phép thủ trưởng cho ra cổng,XIN_PHEP
+Em hỏi với cho tôi nghỉ buổi 6 giờ sáng đi,XIN_PHEP
+đồng chí ơi cho tôi nghỉ vì đi viện nhỉ,XIN_PHEP
+cho em hỏi xin phép vắng mặt buổi ngày mai được không,XIN_PHEP
+thưa thủ trưởng thủ trưởng cho em xin nghỉ có việc gấp,XIN_PHEP
+đồng chí em xin phép vắng vì bị sốt,XIN_PHEP
+xin phép thủ trưởng tôi xin phép nghỉ 5 giờ chiều,XIN_PHEP
+cho hỏi xin phép đi viện đi,XIN_PHEP
+đồng chí ơi xin phép đi viện nhỉ,XIN_PHEP
+cho em hỏi cho em xin nghỉ buổi sáng thưa thủ trưởng,XIN_PHEP
+xin hỏi cho em xin phép về sớm thưa thủ trưởng,XIN_PHEP
+cho hỏi cho em xin nghỉ thứ 5 đi,XIN_PHEP
+thua can bo anh cho em ra ngoai chut vay,XIN_PHEP
+xin phép thủ trưởng xin phép vắng mặt buổi 11 giờ,XIN_PHEP
+Cho em hỏi cho em xin phép về sớm,XIN_PHEP
+thưa cán bộ em muốn xin phép vắng được không,XIN_PHEP
+Em muốn xin phép vắng,XIN_PHEP
+Thầy ơ tôi xin phép vì ốm,XIN_PHEP
+Thầy ơi xin nghỉ tập được không ạ,XIN_PHEP
+thay oi toi xin phep nghi tuan sau nhi,XIN_PHEP
+đồng chí ơi xin phép nghỉ học đêm nay nhỉ,XIN_PHEP
+báo cáo thủ trưởng xin nghỉ tập được không,XIN_PHEP
+xin hỏi cho em xin phép về sớm,XIN_PHEP
+Cho em xin phép về sớm đấy,XIN_PHEP
+anh ơi em muốn xin phép vắng,XIN_PHEP
+xin phép thủ trưởng cho em xin phép thưa thủ trưởng thế,XIN_PHEP
+Thua can bo cho em xin phep ve som a,XIN_PHEP
+Anh ơi tôi xin phép vì có việc gia đình thưa thủ trưởng,XIN_PHEP
+Cho em xin phép thưa thủ trưởng đấy,XIN_PHEP
+tôi xin phép đi vệ sinh thưa thủ trưởng,XIN_PHEP
+xin phép thủ trưởng xin phép vắng mặt buổi thứ 4 chứ,XIN_PHEP
+Xin phép thủ trưởng cho em xin phép thưa thủ trưởng nhỉ,XIN_PHEP
+anh oi cho em xin nghi toi mai nhi,XIN_PHEP
+Báo cáo thủ trưởng cho tôi nghỉ buổi ngy mai,XIN_PHEP
+thua can bo em muon xin phep vang ?,XIN_PHEP
+xin hỏi xin phép thủ trưởng cho ra cổng?,XIN_PHEP
+em hỏi với em muốn xin phép vắng đấy,XIN_PHEP
+cho hỏi tôi xin phép vì đau đầu,XIN_PHEP
+Bao cao thu truong em muon xin phep vang nhi,XIN_PHEP
+Cho em hỏi em xin phép đi gặ gia đình?,XIN_PHEP
+xin phép thủ trưởng xin nghỉ tập,XIN_PHEP
+em hoi voi xin phep thu truong cho ra cong duoc khong a,XIN_PHEP
+xin hỏi cho em xin nghỉ buổi chiều vậy,XIN_PHEP
+cho tôi nghỉ buổi 6 giờ sáng đấy,XIN_PHEP
+tôi xin phép vì bị sốt vậy,XIN_PHEP
+cho hỏi xin phép nghỉ học thứ 5 thế,XIN_PHEP
+Em hỏi với xin phép không tham gia buổi buổi chiều ?,XIN_PHEP
+thưa cán bộ cho em xin phép thưa tủ trưởng thưa thủ trưởng,XIN_PHEP
+Thầy ơi xin phép vắng mặt buổi 5 giờ chiều ?,XIN_PHEP
+cho m xin nghỉ buổi sáng nay thưa thủ trưởng,XIN_PHEP
+thầy ơi tôi xin phép vì bị thương nhẹ ạ,XIN_PHEP
+Đồng chí ơi xin phép nghỉ học 8 giờ được không,XIN_PHEP
+Tôi xin phép vì đau bụng,XIN_PHEP
+xin phép thủ trưởng cho ra cổng đấy,XIN_PHEP
+Cho tôi nghỉ buổi tối nay được không,XIN_PHEP
+Báo cáo thủ trưởng cho em xin nghỉ ngày kia ?,XIN_PHEP
+xin hỏi xin phép thủ trưởng cho ra cổng đấy,XIN_PHEP
+em xin phép vắng vì đau bụng đấy,XIN_PHEP
+anh ơi tôi xin phép đi vệ sinh vậy,XIN_PHEP
+xin phép thủ trưởng cho tôi nghỉ vì phải về quê vậy,XIN_PHEP
+xin hỏi em xin phép vắng vì có việc gia đình được không,XIN_PHEP
+thủ trưởng cho em xin nghỉ đi khám bệnh đấy,XIN_PHEP
+Em hỏi với tôi xin phép đi vệ sinh vậy,XIN_PHEP
+thưa cán bộ xin phép không tham gia buổi đêm nay ?,XIN_PHEP
+xin phép xuống nhà ăn trước?,XIN_PHEP
+báo cáo thủ trưởng xin phép xuống nhà ăn trước,XIN_PHEP
+thưa cán bộ xin phép đi vện,XIN_PHEP
+báo cáo thủ trưởng cho tôi nghỉ buổi tứ 5 nhỉ,XIN_PHEP
+báo cáo thủ trưởng cho tôi nghỉ buổi 9 giờ tối nhỉ,XIN_PHEP
+thua thu truong toi xin phep di ve sinh a,XIN_PHEP
+Thưa thủ trưởng cho em xin phép thưa thủ trưởng đi,XIN_PHEP
+anh cho em ra ngoài chút vậy,XIN_PHEP
+Xin phép thủ trưởng thủ trưởng cho em xin nghỉ đi khám bệnh vậy,XIN_PHEP
+đồng chí ơi cho em xin phép thưa thủ trưởng nhỉ,XIN_PHEP
+Đồng chí ơi cho tôi nghỉ vì có lịch khám ?,XIN_PHEP
+thầy ơi xin phép vắng mặt buổi thứ 6 được không,XIN_PHEP
+xin phép thủ trưởng thủ trưởng cho em xin nghỉ bị thương nhẹ ?,XIN_PHEP
+thưa thủ trưởng xin phép không tham gia buổi 11 giờ ạ,XIN_PHEP
+Thưa cán bộ cho em xin nghỉ buổi sáng nay ạ,XIN_PHEP
+thưa cán bộ cho em xin nghỉ buổi sáng nay,XIN_PHEP
+xin phep thu truong xin phep vang mat buoi thu 6 a,XIN_PHEP
+đồng chí ơi cho tôi nghỉ vì có giỗ thưa thủ trưởng,XIN_PHEP
+em muốn xin phép vắng được không,XIN_PHEP
+Thưa cán bộ thủ trưởng cho em xin nghỉ có lịch khám,XIN_PHEP
+Thưa cán bộ xin phép đi khám ệnh,XIN_PHEP
+xin phép thủ trưởng cho tôi nghỉ buổi tuần này,XIN_PHEP
+Thưa thủ trưởng em xin phép vắng vì đi viện,XIN_PHEP
+Em xin phép vắng vì đau đầu vậy,XIN_PHEP
+cho em xin phép về sớm thế,XIN_PHEP
+Thầy i xin phép đi viện được không,XIN_PHEP
+cho em hỏi cho em xin phép về sớm chứ,XIN_PHEP
+Cho hỏi xin phép xuống nhà ă trước đi,XIN_PHEP
+cho em hỏi cho tôi xin phép ra ngoài được không,XIN_PHEP
+đồng chí anh cho em ra ngoài chút được không,XIN_PHEP
+đồng chí ơi cho em xin phép về sớm,XIN_PHEP
+thua can bo cho toi nghi vi om,XIN_PHEP
+Anh ơi thủ trưởng cho em xin nghỉ có việc gấp đấy,XIN_PHEP
+em xin phép vắng vì đau đầu thưa thủ trưởng,XIN_PHEP
+đồng chí ơi cho em xin nghỉ hôm qua?,XIN_PHEP
+Báo cáo thủ trưởng xin nghỉ tập được không,XIN_PHEP
+cho toi xin phep ve tham nha,XIN_PHEP
+thủ trưởng cho em xin nghỉ có giỗ?,XIN_PHEP
+báo cáo thủ trưởng xin phép không tham gia buổi 6 giờ sáng vậy,XIN_PHEP
+cho em hỏi cho tôi nghỉ buổi đêm nay?,XIN_PHEP
+Thưa cán bộ tôi xin phép đi vệ sinh,XIN_PHEP
+báo cáo thủ trưởng xin phép nghỉ học thứ 3,XIN_PHEP
+xin hỏi anh cho em ra ngoài chút,XIN_PHEP
+xin phep khong tham gia buoi thu 2,XIN_PHEP
+thưa cán bộ xin phép đi viện,XIN_PHEP
+đồng chí ơi cho tôi xin phép về thăm nhà đưc không,XIN_PHEP
+Xin phép thủ trưởng thủ trưởng cho em xin nghỉ đau đầu đấy,XIN_PHEP
+thưa cán bộ xin phép vắng mặt buổi 11 giờ nhỉ,XIN_PHEP
+Xin phép thủ trưởng xin phép không tham gia buổi đêm nay được không,XIN_PHEP
+xin phép thủ trưởng anh cho em ra ngoài chút,XIN_PHEP
+cho hoi xin phep di kham benh ?,XIN_PHEP
+Xin hỏi xin phép vắng mặt buổ 6 giờ thưa thủ trưởng,XIN_PHEP
+thưa cán bộ cho em xin nghỉ 6 giờ ?,XIN_PHEP
+cho hỏi xin phép thủ trưởng cho ra cổng chứ,XIN_PHEP
+thưa thủ trưởng cho em xin nghỉ buổi sáng nay,XIN_PHEP
+đồng chí ơi cho em xin nghỉ đầu tuần được không ạ,XIN_PHEP
+em hỏi với tôi xin phép nghỉ buổi trưa,XIN_PHEP
+thầy ơi cho tôi xin phép ra ngoài,XIN_PHEP
+thầy ơi xin phép đi viện,XIN_PHEP
+xin phép vắng mặt buổi 12 giờ thưa thủ trưởng,XIN_PHEP
+Xin phép thủ trưởng cho em xin phép thưa thủ trưởng ?,XIN_PHEP
+cho hỏi cho em xin phép thưa thủ trưởng,XIN_PHEP
+cho hỏi em xin phép đi gặp gia đình đấy,XIN_PHEP
+Xin phép thủ trưởng cho tôi xin phép về thăm nhà,XIN_PHEP
+Xin hỏi xin phép vắng mặt buổi ngày kia được không ạ,XIN_PHEP
+xin phep nghi hoc chieu mai vay,XIN_PHEP
+thầy ơi cho em xin phép về sớm,XIN_PHEP
+xin phép thủ trưởng tôi xin phép vì có lịch khám?,XIN_PHEP
+Em hỏi với em xin phép đi gặp gia đình vậy,XIN_PHEP
+thầy ơi tạm biệt nhé ?,TAM_BIET
+xin hỏi chào,TAM_BIET
+thầy ơi đến đây thôi,TAM_BIET
+cho em hoi chao anh em di day nhi,TAM_BIET
+đồng chí ơi em cào thủ trưởng em đi học thưa thủ trưởng,TAM_BIET
+Tới giờ rồi em đi được không ạ,TAM_BIET
+đồng chí ơi em đi đây,TAM_BIET
+em chào các đồng chí?,TAM_BIET
+xin hỏi em chào các đồng chí vậy,TAM_BIET
+cho hỏi chào thủ trưởng tôi đi đây ạ,TAM_BIET
+xin hỏi chào thủ trưởng tôi đi đây chứ,TAM_BIET
+dong chi oi em chao thu truong em di hoc vay,TAM_BIET
+Cho em hỏi em xin phép đi trước,TAM_BIET
+chào tạm biệt ạ,TAM_BIET
+thầy hẹn gặp lại,TAM_BIET
+em chào các đồng chí chứ,TAM_BIET
+đồng chí ơi thôi tạm biệt thưa thủ trưởng,TAM_BIET
+Đồng chí ơi chào nhé đi,TAM_BIET
+xin hỏi hẹn gặp lại?,TAM_BIET
+đồng chí ơi em xin phép đi trước vậy,TAM_BIET
+Cho hỏi em chào đi,TAM_BIET
+thôi em xin phép?,TAM_BIET
+anh ơi tạm biệt anh em,TAM_BIET
+cho hỏi chào anh em đi đây ?,TAM_BIET
+Em hỏi với chào nhé,TAM_BIET
+xin hỏi tạm biệt thủ trưởng?,TAM_BIET
+thưa cán bộ em chào được không,TAM_BIET
+em hỏi với thôi tạm biệt ạ,TAM_BIET
+cho em hỏi chào thủ trưởng em xuốn dưới,TAM_BIET
+thầy ơi em chào anh đi,TAM_BIET
+xin phép thủ trưởng chào nhé đấy,TAM_BIET
+xin phép thủ trưởng tới giờ rồi em đi đấy,TAM_BIET
+cho em hỏi tạm iệt anh em,TAM_BIET
+xin hỏi chào đi,TAM_BIET
+báo cáo thủ trưởng em phải đi đây,TAM_BIET
+đồng chí ơi tạm biệt anh em được không ạ,TAM_BIET
+đồng chí ơi thôi em xin phép,TAM_BIET
+Chào tạm biệt nhỉ,TAM_BIET
+Toi gio roi em di a,TAM_BIET
+báo cáo thủ trưởng chào anh em đi đây,TAM_BIET
+thưa thủ trưởng thôi em xin phép chứ,TAM_BIET
+thầy ơi hẹn gặp lại sau được không ạ,TAM_BIET
+em chào sĩ quan thế,TAM_BIET
+thưa cán bộ em đi đây,TAM_BIET
+Cho em hoi em chao thu truong em di hoc a,TAM_BIET
+thầy ơi đến đây thôi chứ,TAM_BIET
+em chào thủ trưởng em đi học đấy,TAM_BIET
+Em chào thưa thủ trưởng,TAM_BIET
+Em xin phép đi trước ạ,TAM_BIET
+xin hoi em chao the,TAM_BIET
+anh em chào sĩ quan thưa thủ trưởng,TAM_BIET
+xin phép thủ trưởng chào thủ trưởng em xuống dưới đấy,TAM_BIET
+Xin hỏi chào,TAM_BIET
+Em hỏi với chào thủ trưởng em xuống dưới được không,TAM_BIET
+xin hỏi tạm biệt nhé chứ,TAM_BIET
+Em hỏi với em chào sĩ quan chứ,TAM_BIET
+cho em hỏi em phải đi đây,TAM_BIET
+xin hoi em di day duoc khong a,TAM_BIET
+cho em hỏi tạm biệt anh em được không ạ,TAM_BIET
+thưa cán bộ em đi đây?,TAM_BIET
+Thầy em đi nha,TAM_BIET
+báo cáo thủ trưởng chào nhé,TAM_BIET
+Em chào,TAM_BIET
+cho hỏi em xin phép đi trước được không ạ,TAM_BIET
+Cho em hoi chao tam biet a,TAM_BIET
+thưa thủ trưởng hẹn gặp lại sau,TAM_BIET
+báo cáo thủ trưởng chào thủ trưởng tôi đi đây được không ạ,TAM_BIET
+thưa cán bộ em xin phép đi trước,TAM_BIET
+thưa thủ trưởng tới giờ rồ em đi vậy,TAM_BIET
+Chào thủ trưởng em xuống dưới ạ,TAM_BIET
+thôi em xin phép chứ,TAM_BIET
+xin phép th trưởng em đi đây nhỉ,TAM_BIET
+chao chu,TAM_BIET
+thưa cán bộ em chào anh đi,TAM_BIET
+em hoi voi chao vay,TAM_BIET
+em chào thủ trưởng em đi học,TAM_BIET
+Em hỏi với đến đây thôi đi,TAM_BIET
+thầy ơi chào thủ trưởng tôi đi đây,TAM_BIET
+chào anh em đi đây,TAM_BIET
+Thưa thủ trưởng hẹn gặp lại sau ạ,TAM_BIET
+Đồng chí ơi em chào anh?,TAM_BIET
+in hỏi em chào các đồng chí thưa thủ trưởng,TAM_BIET
+thua can bo chao thu truong em xuong duoi,TAM_BIET
+thầy chào nhé,TAM_BIET
+Xin hỏi đến đây thôi,TAM_BIET
+đến đây thôi thưa thủ trưởng,TAM_BIET
+thưa thủ trưởng tạm biệt thủ trưởng được không,TAM_BIET
+cho hỏi em chào anh?,TAM_BIET
+báo cáo thủ trưởng chào nhé ?,TAM_BIET
+đồng chí ơi em chào các đồng chí ?,TAM_BIET
+anh oi tam biet thu truong chu,TAM_BIET
+thưa cán bộ tạm biệt anh em,TAM_BIET
+Chào thủ trưởng em xuống dưới,TAM_BIET
+báo cáo thủ trưởng em đi đây?,TAM_BIET
+thưa cán bộ em chào thủ trưởng em đi học được không,TAM_BIET
+cho em hỏi chào tạm biệt đi,TAM_BIET
+thưa cán bộ chào thủ trưởng tôi đi đây ?,TAM_BIET
+Thầy ơi đến đây thôi,TAM_BIET
+Cho em hỏi em phải đi đây nhỉ,TAM_BIET
+em hỏi với chào anh em đi đây nhỉ,TAM_BIET
+anh hẹn gặp lại sau chứ,TAM_BIET
+báo cáo thủ trưởng tạm biệt thủ trưởng nhỉ,TAM_BIET
+Thua thu truong tam biet anh em the,TAM_BIET
+Xin hỏi em chào anh ?,TAM_BIET
+thưa thủ trưởng chào thủ trưởng tôi đi đây đấy,TAM_BIET
+Cho hỏi em đi đây ạ,TAM_BIET
+thưa cán bộ tạm biệt nhé thưa thủ trưởng,TAM_BIET
+Báo cáo thủ trưởng em xin phép đi trước ?,TAM_BIET
+cho hoi thoi tam biet vay,TAM_BIET
+cho hỏi chào,TAM_BIET
+Thầy đến đây thôi,TAM_BIET
+thưa cán bộ em chào anh,TAM_BIET
+Báo cáo thủ trưởng chào thủ trưởng em xuống dưới đấy,TAM_BIET
+Chào tạm biệt đi,TAM_BIET
+thưa cán bộ tạm biệt nhé,TAM_BIET
+thưa thủ trưởng thôi em xin phép,TAM_BIET
+xin hỏi em đi đây được không ạ,TAM_BIET
+em chào anh,TAM_BIET
+thua thu truong em di nha vay,TAM_BIET
+báo cáo thủ trưởng chào được không ạ,TAM_BIET
+thưa cán bộ thôi tạm biệt đi,TAM_BIET
+Cho hỏi chào thủ trưởng tôi đi đây thế,TAM_BIET
+em đi đây ạ,TAM_BIET
+báo cáo thủ trưởng em chào các đồng chí nhỉ,TAM_BIET
+đồng chí ơi tới giờ rồi em đi nhỉ,TAM_BIET
+Xin hoi chao anh em di day vay,TAM_BIET
+xin phép thủ trưởng em đi đây ạ,TAM_BIET
+báo cáo thủ trưởng chào anh em đi đây được không ạ,TAM_BIET
+anh ơi chào anh em đ đây được không ạ,TAM_BIET
+cào anh em đi đây nhỉ,TAM_BIET
+cho em hoi chao thu truong toi di day day,TAM_BIET
+Em phải đi đây chứ,TAM_BIET
+Em phai di day nhi,TAM_BIET
+tạm biệt thủ trưởng chứ,TAM_BIET
+Anh tạm biệt nhé,TAM_BIET
+xin hỏi tạm biệt anh em,TAM_BIET
+Thưa cán bộ em đi đây,TAM_BIET
+cho em hỏi chào thưa thủ trưởng,TAM_BIET
+thưa thủ trưởng đến đây thôi đấy,TAM_BIET
+anh ơi hẹn gặp lại sau,TAM_BIET
+Xin phép thủ trưởng em chào đi,TAM_BIET
+báo cáo tủ trưởng tới giờ rồi em đi ạ,TAM_BIET
+bao cao thu truong em chao duoc khong,TAM_BIET
+dong chi oi hen gap lai sau vay,TAM_BIET
+thầy ơi thôi em xin phép được không,TAM_BIET
+tạm biệt thủ trưởng đi,TAM_BIET
+thưa thủ trưởng em chào anh được không,TAM_BIET
+thưa thủ trưởng em phải đi đây chứ,TAM_BIET
+thôi em xin phép thưa thủ trưởng,TAM_BIET
+Em hỏi với thôi em xin phép,TAM_BIET
+Cho em hỏi em đi nha,TAM_BIET
+xin hỏi em chào sĩ quan đấy,TAM_BIET
+Thưa cán bộ em chào sĩ quan,TAM_BIET
+thưa thủ trưởng tạm biệt thủ trưởng?,TAM_BIET
+em hỏi với tạm biệt anh em,TAM_BIET
+Anh ơi chào thủ trưởng tôi đi đây chứ,TAM_BIET
+đồng chí ơi em chào các đồng chí,TAM_BIET
+báo cáo thủ trưởng chào thủ trưởng tôi đi đây,TAM_BIET
+thưa thủ trưởng tới giờ rồi em đi,TAM_BIET
+em đi nha?,TAM_BIET
+thầy ơi em chào thủ trưởng em đi học nhỉ,TAM_BIET
+em hoi voi tam biet thu truong day,TAM_BIET
+thưa thủ trưởng em chào thủ trưởng em đi học?,TAM_BIET
+em đi đây thế,TAM_BIET
+em chào thủ trưởng em đi học vậy,TAM_BIET
+thầy ơi em đi nha được không ạ,TAM_BIET
+Thầy ơi tạm biệt thủ trưởng chứ,TAM_BIET
+em chào sĩ qan được không ạ,TAM_BIET
+In hỏi thôi em xin phép,TAM_BIET
+Thưa cán bộ hẹn gặp lại?,TAM_BIET
+em chào được không ạ,TAM_BIET
+Đến đây thôi chứ,TAM_BIET
+thầy ơi hẹn gặp lại,TAM_BIET
+tạm biệt anh em,TAM_BIET
+thưa cán bộ em chào sĩ quan,TAM_BIET
+Em chào sĩ quan đấy,TAM_BIET
+Em hỏi với đến đâ thôi đi,TAM_BIET
+Xin phép thủ trưởng thôi tạm biệt đấy,TAM_BIET
+Thua can bo chao a,TAM_BIET
+xin phép thủ trưởng em đi nha vậy,TAM_BIET
+cho hỏi tới giờ rồi em đi vậy,TAM_BIET
+Thôi tạm biệt đi,TAM_BIET
+Thay oi hen gap lai the,TAM_BIET
+Đến đây thôi được không,TAM_BIET
+Xin hỏi chào chứ,TAM_BIET
+Thưa thủ trưởng tạm biệt nhé,TAM_BIET
+cho em hỏi tạm biệt nhé vậy,TAM_BIET
+Xin phép thủ trưởng chào anh em đi đây ạ,TAM_BIET
+Bao cao thu truong den day thoi duoc khong,TAM_BIET
+Thay oi hen gap lai,TAM_BIET
+thưa cán bộ đến đây thôi,TAM_BIET
+Anh ơi em phải đi đây ạ,TAM_BIET
+thầy ơi thôi em xin phép vậy,TAM_BIET
+xin phép thủ trưởng em chào thủ trưởng em đi họ ạ,TAM_BIET
+báo cáo thủ trưởng em đi đây,TAM_BIET
+Xin phep thu truong hen gap lai sau,TAM_BIET
+chao the,TAM_BIET
+thưa thủ trưởng tạm biệt nhé thưa thủ trưởg,TAM_BIET
+em xin phép đi trước được không ạ,TAM_BIET
+Xin hỏi em chào thủ trưởng em đi học nhỉ,TAM_BIET
+Em đi nha,TAM_BIET
+Xin phép thủ trưởn em đi đây thế,TAM_BIET
+cho em hỏi em chào các đồng chí,TAM_BIET
+bao cao thu truong chao,TAM_BIET
+thưa thủ trưởng thôi tạm biệt chứ,TAM_BIET
+thầy i thôi tạm biệt,TAM_BIET
+cho em hoi chao tam biet the,TAM_BIET
+Tha cán bộ hẹn gặp lại,TAM_BIET
+Xin phép thủ trưởng chào anh em đi đây ?,TAM_BIET
+anh ơi chào đấy,TAM_BIET
+Đồng chí ơi hẹn gặp lại,TAM_BIET
+Thưa cán bộ tạm biệt nhé,TAM_BIET
+báo cáo thủ trưởng chào tạm biệt được không ạ,TAM_BIET
+xin hỏi em xin phép đi trước được không,TAM_BIET
+xin phép thủ trưởng em đi đây đấy,TAM_BIET
+Em in phép đi trước được không,TAM_BIET
+thưa cán bộ thi em xin phép,TAM_BIET
+anh ơi chào nhé?,TAM_BIET
+xin hỏi chào thủ trưởng em xuống dưới chứ,TAM_BIET
+Thy ơi chào thủ trưởng tôi đi đây?,TAM_BIET
+dong chi oi em chao anh?,TAM_BIET
+đồng chí ơi chào đấy,TAM_BIET
+Hẹn gặp lại sau,TAM_BIET
+em chào các đồng chí thế,TAM_BIET
+thua can bo em chao si quan duoc khong a,TAM_BIET
+Xin hỏi tạm biệt anh em ạ,TAM_BIET
+hẹn gặp lại đi,TAM_BIET
+chào tạm biệt?,TAM_BIET
+cho em hỏi chào anh em đi đây,TAM_BIET
+báo cáo thủ trưởng em phải đi đây đấy,TAM_BIET
+Báo cáo thủ trưởng em chào anh nhỉ,TAM_BIET
+Em đi nha vậy,TAM_BIET
+báo cáo tủ trưởng em đi nha,TAM_BIET
+Thưa cán bộ đến đây thôi chứ,TAM_BIET
+em hỏi với em chào thủ trưởng em đi học nhỉ,TAM_BIET
+anh ơi em chào sĩ quan được không ạ,TAM_BIET
+Xin phép thủ trưởng tạm biệt thủ trưởng thế,TAM_BIET
+đồng chí ơi chào anh em đi đây đấy,TAM_BIET
+e hỏi với em chào các đồng chí thưa thủ trưởng,TAM_BIET
+thưa thủ trưởng em chào sĩ quan,TAM_BIET
+cho em hỏi tạm biệt nhé đấy,TAM_BIET
+báo cáo thủ trưởng em chào,TAM_BIET
+em chào sĩ quan,TAM_BIET
+thưa thủ trưởng em đi nha ?,TAM_BIET
+cho hỏi tới giờ rồi em đi đi,TAM_BIET
+xin hỏi hẹn gặp lại sau,TAM_BIET
+chào thủ trưởng tôi đi đây đi,TAM_BIET
+chào nhé được hông,TAM_BIET
+thưa thủ trưởng chào anh em đi đây thế,TAM_BIET
+thua can bo tam biet thu truong ?,TAM_BIET
+đồng chí ơi hẹn ặp lại sau,TAM_BIET
+anh ơi em xin phép đi trước chứ,TAM_BIET
+thưa thủ trưởng em xin phép đi trước được không ạ,TAM_BIET
+Thầy ơi chào anh em đi đây vy,TAM_BIET
+cho hỏi em chào thủ trưởng em đi học ?,TAM_BIET
+báo cáo thủ trưởng chào nhé được không ạ,TAM_BIET
+chào thủ trưởng em xuống dưới ?,TAM_BIET
+báo cáo thủ trưởng đến đây thôi được không ạ,TAM_BIET
+thưa thủ trưởng em chào thủ trưởng em đi học thế,TAM_BIET
+thầy ơi tạm biệt thủ trưởng,TAM_BIET
+thưa thủ trưởng thôi tạm biệt đấy,TAM_BIET
+Em hỏi với tạm biệt thủ trưởng đấy,TAM_BIET
+báo cáo thủ trưởng thôi tạm biệt được không ạ,TAM_BIET
+em xin phép đi trước,TAM_BIET
+Thầy ơi em đi nha vậy,TAM_BIET
+Thưa thủ trưởng chào thủ trưởng tôi đi đây,TAM_BIET
+em đi đây nhỉ,TAM_BIET
+đồng chí ơi thôi em xin phép thế,TAM_BIET
+cho hỏi tạm biệt nhé ?,TAM_BIET
+em hỏi với em chào vậy,TAM_BIET
+Tạm biệt anh em đi,TAM_BIET
+Cho hoi chao anh em di day,TAM_BIET
+em hỏi với hẹn gặp lại sau chứ,TAM_BIET
+thưa thủ trưởng đến đây thôi ạ,TAM_BIET
+chào thủ trưởng tôi đi đây đấy,TAM_BIET
+em hỏi với em chào sĩ quan được không,TAM_BIET
+Xin hỏi tới giờ rồi em đi thế,TAM_BIET
+Tạm biệt thủ trưởng được không ạ,TAM_BIET
+em hỏi với thôi em xin phép thưa thủ trưởng,TAM_BIET
+thôi tạm biệ đấy,TAM_BIET
+Xin hoi thoi em xin phep duoc khong a,TAM_BIET
+em hỏi với hẹn gặp lại ?,TAM_BIET
+thầy ơi em xin phép đi trước ?,TAM_BIET
+báo cáo thủ trưởng chào nhé được không,TAM_BIET
+em chào sĩ quan được không,TAM_BIET
+xin hỏi đến đây thôi được khôg ạ,TAM_BIET
+Báo cáo thủ trưởng tạm biệt thủ trưởng được không,TAM_BIET
+thưa cán bộ hẹn gặp lại sau ạ,TAM_BIET
+thầy ơi em chào anh đấy,TAM_BIET
+Thưa thủ trưởng em chào sĩ quan?,TAM_BIET
+thưa cán bộ chào nhé thế,TAM_BIET
+thầy ơi em phải đi đây,TAM_BIET
+xin hỏi tạm biệt thủ trưởng được không,TAM_BIET
+cho hỏi tạm biệt thủ trưởng,TAM_BIET
+thưa thủ trưởng em chào sĩ quan ?,TAM_BIET
+thưa cán bộ đi chơi cuối tuần không?,OUT_OF_SCOPE
+nhớ nhà quá được không,OUT_OF_SCOPE
+anh ơi cuối kỳ có nhiều bài lắm chứ,OUT_OF_SCOPE
+cho hỏi hôm nay trời đẹp nhỉ,OUT_OF_SCOPE
+cho em hỏi Học viện kỹ thuật mật mã có nhiều môn hay đấy,OUT_OF_SCOPE
+Báo cáo thủ trưởng Học viện kỹ thuật mật mã có nhiều môn hay vậy,OUT_OF_SCOPE
+thưa thủ trưởng tôi đang thèm trà sữa đấy,OUT_OF_SCOPE
+anh ơi ai có note môn toán cho mượn đấy,OUT_OF_SCOPE
+em hỏi với bạn ăn gì chưa thế,OUT_OF_SCOPE
+cho hỏi lập trình C khó quá,OUT_OF_SCOPE
+Báo cáo thủ trưởng ai có note môn toán cho mượn,OUT_OF_SCOPE
+xin phép thủ trưởng tôi đang thèm trà sữa?,OUT_OF_SCOPE
+xin phép thủ trưởng tôi buồn quá?,OUT_OF_SCOPE
+Thưa thủ trưởng hôm qua tôi thức khuya quá thưa thủ trưởng,OUT_OF_SCOPE
+xin phép thủ trưởng tôi đang thèm trà sữa thế,OUT_OF_SCOPE
+Ngủ chưa đủ giấc,OUT_OF_SCOPE
+Xin phép thủ trưởng máy tính của tôi bị lag,OUT_OF_SCOPE
+Hôm qua tôi thức khuya quá,OUT_OF_SCOPE
+Đồng chí ơi ngày mai có khảo sát thế,OUT_OF_SCOPE
+Đồng chí ơi mưa to quá,OUT_OF_SCOPE
+thưa cán bộ Học viện kỹ thuật mật mã có nhiều môn hay vậy,OUT_OF_SCOPE
+anh ơi nhớ nhà quá,OUT_OF_SCOPE
+Anh ơi ai có ote môn toán cho mượn,OUT_OF_SCOPE
+xin phép thủ trưởng đội mình thắng rồi,OUT_OF_SCOPE
+em hoi voi ngay mai co khao sat the,OUT_OF_SCOPE
+Hôm nay tôi mệt mỏi nhỉ,OUT_OF_SCOPE
+Thay oi doi minh thang roi,OUT_OF_SCOPE
+cho hỏi đề thi học kỳ ra dễ nhỉ,OUT_OF_SCOPE
+xin phép thủ trưởng thầy môn toán dạy vui ghê được không ạ,OUT_OF_SCOPE
+cho em hỏi kể chuyện cười đi,OUT_OF_SCOPE
+Đồng chí ơi đi chơi cuối tuần không,OUT_OF_SCOPE
+Trời nóng quá được không ạ,OUT_OF_SCOPE
+cho em hoi thuat toan Dijkstra hoi kho nhi,OUT_OF_SCOPE
+Thưa cán bộ có ai chơi liên quân không vậy,OUT_OF_SCOPE
+cho em hỏi đội tuyển Việt Nam đá thế nào nhỉ,OUT_OF_SCOPE
+em hoi voi ban co biet bong da khong,OUT_OF_SCOPE
+Anh ơi kể chuyện cười đi chứ,OUT_OF_SCOPE
+xin hỏi máy quay được không nhỉ,OUT_OF_SCOPE
+anh đi chơi cuối tuần không,OUT_OF_SCOPE
+bài tập về nhà nhiều quá thế,OUT_OF_SCOPE
+thầy ơi thích uống cafe không được không,OUT_OF_SCOPE
+xin hỏi tài liệu môn an toàn thông tin,OUT_OF_SCOPE
+Xin hỏi dota mới nào hay,OUT_OF_SCOPE
+xin phép thủ trưởng tôi buồn quá,OUT_OF_SCOPE
+Thưa thủ trưởng đội mình thắng rồi?,OUT_OF_SCOPE
+điểm thi sao rồi nhỉ đi,OUT_OF_SCOPE
+cho hỏi bạn ăn gì chưa ạ,OUT_OF_SCOPE
+xin hoi phim moi nao hay,OUT_OF_SCOPE
+Báo cáo thủ trưởng ngủ chưa đủ giấc,OUT_OF_SCOPE
+tôi vừa xem phim hay lắm đi,OUT_OF_SCOPE
+em hỏi với trời lạnh thế được không ạ,OUT_OF_SCOPE
+thầy ơi giảng viên chấm điểm khắt khe ạ,OUT_OF_SCOPE
+xin phép thủ trưởng lập trình C khó quá thế,OUT_OF_SCOPE
+anh thuật toán Dijkstra hơi khó ?,OUT_OF_SCOPE
+Đội tuyển Việt Nam đá thế nào ạ,OUT_OF_SCOPE
+Hôm qua tôi thức khuya quá ?,OUT_OF_SCOPE
+cuối kỳ có nhiều bài lắm,OUT_OF_SCOPE
+thưa cán bộ ai có note môn toán cho mượn đi,OUT_OF_SCOPE
+cho hỏi Học viện kỹ thuật mật mã có nhiều môn hay được không,OUT_OF_SCOPE
+Thưa cán bộ wifi yếu quá được không ạ,OUT_OF_SCOPE
+cho hỏi máy quay được không nhỉ,OUT_OF_SCOPE
+Cho hỏi tôi đang thèm trà sữa,OUT_OF_SCOPE
+Đồng chí ơi điểm thi sao rồi nhỉ được không ạ,OUT_OF_SCOPE
+hôm nay tôi mệt mỏi đấy,OUT_OF_SCOPE
+thua thu truong toi dang vui ?,OUT_OF_SCOPE
+Tôi buồn quá được không ạ,OUT_OF_SCOPE
+cho em hỏi hôm nay trời đẹp nhỉ ạ,OUT_OF_SCOPE
+Mưa to quá,OUT_OF_SCOPE
+thưa cán bộ PUBG tối nay không,OUT_OF_SCOPE
+báo cáo thủ trưởng nhớ nhà quá,OUT_OF_SCOPE
+Đồng chí ơi bài tập về nhà nhiều quá?,OUT_OF_SCOPE
+đói bụng nhưng chưa tới giờ,OUT_OF_SCOPE
+đồng chí thích uống cafe không đi,OUT_OF_SCOPE
+anh ngày mai có khảo sát nhỉ,OUT_OF_SCOPE
+xin phép thủ trưởng ai có note môn toán cho mượn ?,OUT_OF_SCOPE
+thua thu truong doi bung nhung chua toi gio thua thu truong,OUT_OF_SCOPE
+Đồng chí ơi có deal sale gì không,OUT_OF_SCOPE
+Thưa thủ trưởng ngủ chưa đủ giấc được không,OUT_OF_SCOPE
+cho em hỏi lập trình C khó quá,OUT_OF_SCOPE
+Anh ơi hôm nay tôi mệt mỏi,OUT_OF_SCOPE
+anh ơi hôm nay trời đẹp nhỉ đấy,OUT_OF_SCOPE
+tôi vừa xem TikTok hay lắm nhỉ,OUT_OF_SCOPE
+xin hỏi tôi đang vui,OUT_OF_SCOPE
+đồng chí ơi tôi đang vui được không,OUT_OF_SCOPE
+cho em hỏi tôi buồn quá đợc không ạ,OUT_OF_SCOPE
+xin phép thủ trưởng Messi với Ronaldo ai giỏi hơn đấy,OUT_OF_SCOPE
+Xin phép thủ trưởng dota mới nào hay được không,OUT_OF_SCOPE
+thưa thủ trưởng thích uống cafe không đi,OUT_OF_SCOPE
+xin hỏi dota mới nào hay?,OUT_OF_SCOPE
+anh bạn có biết bóng đá không nhỉ,OUT_OF_SCOPE
+Trời nóng quá nhỉ,OUT_OF_SCOPE
+Em hỏi với giảng viên chấm điểm khắt khe được không,OUT_OF_SCOPE
+thầy ơi ngủ chưa đủ giấc ?,OUT_OF_SCOPE
+Thầy ơi Messi với Ronaldo ai giỏi hơn được không,OUT_OF_SCOPE
+thích uống cafe không nhỉ,OUT_OF_SCOPE
+cho hỏi có ai chơi liên quân không ?,OUT_OF_SCOPE
+đề thi học kỳ ra dễ?,OUT_OF_SCOPE
+doi bung nhung chua toi gio vay,OUT_OF_SCOPE
+Thưa cán bộ đội mình thắng rồi thưa thủ trưởng,OUT_OF_SCOPE
+Em hoi voi co ai choi lien quan khong nhi,OUT_OF_SCOPE
+Xin hỏi kể chuyện cười đi vậy,OUT_OF_SCOPE
+xin hỏi tôi vừa xem phim hay lắm ?,OUT_OF_SCOPE
+cho hỏi ngày mai có khảo sát,OUT_OF_SCOPE
+máy tính của tôi bị lag,OUT_OF_SCOPE
+xin hỏi hôm nay trời đẹp hỉ ?,OUT_OF_SCOPE
+báo cáo thủ trưởng ai có note môn toán cho mượn ?,OUT_OF_SCOPE
+em hỏi với điểm thi sao rồi nhỉ thưa thủ trưởng,OUT_OF_SCOPE
+cho em hỏi thuật toán Dijkstra hơi khó chứ,OUT_OF_SCOPE
+đồng chí ơi kể chuyện cười đi chứ,OUT_OF_SCOPE
+thua thu truong nho nha qua duoc khong a,OUT_OF_SCOPE
+nhớ nhà quá được không ạ,OUT_OF_SCOPE
+Báo cáo thủ trưởng Học viện kỹ thuật mật mã có nhiều môn hay,OUT_OF_SCOPE
+đồng chí ơi cuối kỳ có nhiều bài lắm?,OUT_OF_SCOPE
+đội tuyển Việt Nam đá thế nào,OUT_OF_SCOPE
+báo cáo thủ trưởng tôi buồn quá nhỉ,OUT_OF_SCOPE
+Thích uống cafe không?,OUT_OF_SCOPE
+Xin hỏi ai có note môn toán cho mượn thưa thủ trưởng,OUT_OF_SCOPE
+dong chi oi Hoc vien ky thuat mat ma co nhieu mon hay chu,OUT_OF_SCOPE
+bao cao thu truong hom nay toi met moi duoc khong,OUT_OF_SCOPE
+thưa cán bộ Messi với Ronaldo ai giỏi ơn được không ạ,OUT_OF_SCOPE
+Báo cáo thủ trưởng tôi đang vui ?,OUT_OF_SCOPE
+xin hoi tai lieu mon an toan thong tin,OUT_OF_SCOPE
+Điểm thi sao rồi nhỉ,OUT_OF_SCOPE
+xin hỏi đói bụng nhưng chưa tới giờ ?,OUT_OF_SCOPE
+Wifi yếu quá,OUT_OF_SCOPE
+xin phép thủ trưởng có ai chơi liên quân không thưa thủ trưởng,OUT_OF_SCOPE
+bài tập về nhà nhiều quá được không ạ,OUT_OF_SCOPE
+thưa thủ trưởng Học viện kỹ thuật mật mã có nhiều môn hay thưa thủ trưởng,OUT_OF_SCOPE
+xin hoi giang vien cham diem khat khe,OUT_OF_SCOPE
+xin hỏi điểm thi sao rồi nhỉ chứ,OUT_OF_SCOPE
+bài tập về nhà nhiều quá?,OUT_OF_SCOPE
+cho hỏi máy quay được không vậy,OUT_OF_SCOPE
+báo cáo thủ trưởng hôm qua tôi thức khuya quá nhỉ,OUT_OF_SCOPE
+đồng chí ơi tài liệu môn an toàn thông tin nhỉ,OUT_OF_SCOPE
+thầy ơi trời lạnh thế,OUT_OF_SCOPE
+xin phép thủ trưởng bạn có biết bóng đá không,OUT_OF_SCOPE
+Cho hỏi giảng viên chấm điểm khắt khe chứ,OUT_OF_SCOPE
+Báo cáo thủ trưởng dota mới nào hay đi,OUT_OF_SCOPE
+cho em hỏi đề thi học kỳ ra dễ đi,OUT_OF_SCOPE
+Cho em hỏi bài tập về nhà nhiều quá đi,OUT_OF_SCOPE
+cho em hỏi hôm nay tôi mệt mỏi?,OUT_OF_SCOPE
+Thầy ơi ngủ chưa đủ giấc,OUT_OF_SCOPE
+Dong chi oi ai co note mon toan cho muon vay,OUT_OF_SCOPE
+bạn ăn gì chưa nhỉ,OUT_OF_SCOPE
+đói bụng nhưng chưa tới giờ?,OUT_OF_SCOPE
+ngu chua du giac duoc khong a,OUT_OF_SCOPE
+Thuật toán Dijkstra hơi khó,OUT_OF_SCOPE
+cho hỏi nhớ nhà quá được không,OUT_OF_SCOPE
+tôi vừa xem TikTok hay lắm?,OUT_OF_SCOPE
+Anh ơi lập trình C khó quá,OUT_OF_SCOPE
+Học viện kỹ thuật mật mã có nhiều môn hay đi,OUT_OF_SCOPE
+cho em hỏi cuối kỳ có nhiều bài lắm vậy,OUT_OF_SCOPE
+em hỏi với ngủ chưa đủ giấc,OUT_OF_SCOPE
+cho hỏi nhóm chat lớp im quá được không,OUT_OF_SCOPE
+xin phep thu truong dota moi nao hay day,OUT_OF_SCOPE
+Thưa thủ trưởng wifi yếu quá ạ,OUT_OF_SCOPE
+thích uống cafe không vậy,OUT_OF_SCOPE
+xin hỏi trời lạnh thế ạ,OUT_OF_SCOPE
+cho em hỏi điểm thi sao rồi nhỉ,OUT_OF_SCOPE
+anh ơi mưa to quá thưa thủ trưởng,OUT_OF_SCOPE
+Anh ơi đội mình thắng rồi chứ,OUT_OF_SCOPE
+thưa thủ trưởng kể chuyện cười đi?,OUT_OF_SCOPE
+đồng chí ơi nhóm chat lớp im quá,OUT_OF_SCOPE
+anh ơi nhớ nhà quá vậy,OUT_OF_SCOPE
+thưa thủ trưởng bài tập về nhà nhiều quá,OUT_OF_SCOPE
+anh ơi Học viện kỹ thuật mật mã có nhiều môn hay được không ạ,OUT_OF_SCOPE
+thay oi co deal sale gi khong,OUT_OF_SCOPE
+Xin hỏi đói bụng nhưng chưa tới giờ ?,OUT_OF_SCOPE
+thưa thủ trưởng ngày mai có khảo sát được không,OUT_OF_SCOPE
+anh ơi giảng viên chấm điểm khắt he được không,OUT_OF_SCOPE
+Thầy cuối kỳ có nhiều bài lắm,OUT_OF_SCOPE
+báo cáo thủ trưởng ai có note môn toán cho mượn được không,OUT_OF_SCOPE
+xin phep thu truong toi vua xem phim hay lam di,OUT_OF_SCOPE
+báo cáo thủ trưởng tôi vừa xem phim hay lắm,OUT_OF_SCOPE
+báo cáo thủ trưởng bài tập về nhà nhiều quá,OUT_OF_SCOPE
+xin hỏi bạn có biết bóng đá không vậy,OUT_OF_SCOPE
+Tôi đang thèm trà sữa thưa thủ trưởng,OUT_OF_SCOPE
+trời nóng quá,OUT_OF_SCOPE
+đồng chí ơi điểm thi sao rồi nhỉ,OUT_OF_SCOPE
+bao cao thu truong di choi cuoi tuan khong,OUT_OF_SCOPE
+xin phep thu truong diem thi sao roi nhi?,OUT_OF_SCOPE
+xin hoi doi minh thang roi chu,OUT_OF_SCOPE
+đồng chí ơi ai có note môn toán cho mượn ạ,OUT_OF_SCOPE
+Tôi vừa xm TikTok hay lắm,OUT_OF_SCOPE
+xin hỏi tài liệu môn an toàn thông tin được không,OUT_OF_SCOPE
+Báo cáo thủ trưởng đề thi học kỳ ra dễ được không ạ,OUT_OF_SCOPE
+Thích uống cafe không,OUT_OF_SCOPE
+có deal sale gì không ?,OUT_OF_SCOPE
+thưa cán bộ hôm qua tôi thức khuya quá?,OUT_OF_SCOPE
+Cho em hỏi thuật toán Dijkstra hơi khó đấy,OUT_OF_SCOPE
+Em hỏi với tôi đang vui,OUT_OF_SCOPE
+tôi vừa xem TikTok hay lắm,OUT_OF_SCOPE
+Xin phép thủ trưởng đội mình thắng rồi chứ,OUT_OF_SCOPE
+Nhom chat lop im qua,OUT_OF_SCOPE
+Em hỏi với tài liệu môn an toàn thông tin đi,OUT_OF_SCOPE
+xin phép thủ trưởng đề thi học kỳ ra dễ ?,OUT_OF_SCOPE
+cho hỏi phim mới nào hay ạ,OUT_OF_SCOPE
+cho em hỏi phim mới nào hay vậy,OUT_OF_SCOPE
+cho hỏi nhóm chat lớp im quá vậy,OUT_OF_SCOPE
+Cho em hỏi kể chuyện cười đi nhỉ,OUT_OF_SCOPE
+thưa cán bộ nhớ nhà quá được không ạ,OUT_OF_SCOPE
+báo cáo thủ trưởng thuật toán Dijkstra hơi khó được không,OUT_OF_SCOPE
+tôi vừa xem phim hay lắm,OUT_OF_SCOPE
+Dong chi oi toi dang vui di,OUT_OF_SCOPE
+em hỏi với hôm nay trời đẹp nhỉ thưa thủ trưởng,OUT_OF_SCOPE
+đồng chí ơi Học viện kỹ thuật mật mã có nhiều môn hay chứ,OUT_OF_SCOPE
+báo cáo thủ trưởng tôi đang vui ạ,OUT_OF_SCOPE
+Thay oi ai co note mon toan cho muon chu,OUT_OF_SCOPE
+Thầy ơi điểm thi sao rồi nhỉ vậy,OUT_OF_SCOPE
+xin phép thủ trưởng bài tập về nhà nhiều quá được không ạ,OUT_OF_SCOPE
+cho hỏi đi chơi cuối tuần không thưa thủ trưởng,OUT_OF_SCOPE
+xin phé thủ trưởng tôi vừa xem TikTok hay lắm,OUT_OF_SCOPE
+anh ơi cuối kỳ có nhiều bài lắm được không ạ,OUT_OF_SCOPE
+anh ơi hôm nay tôi mệt mỏi,OUT_OF_SCOPE
+Dota mới nào hay được không,OUT_OF_SCOPE
+Lap trinh C kho qua duoc khong,OUT_OF_SCOPE
+cho em hỏi wifi yếu quá đi,OUT_OF_SCOPE
+em hỏi với dota mới nào hay chứ,OUT_OF_SCOPE
+xin hỏi giảng viên chấm điểm khắt khe,OUT_OF_SCOPE
+em hỏi với hôm qua tôi thức khuya quá?,OUT_OF_SCOPE
+Đề thi học kỳ ra dễ vậy,OUT_OF_SCOPE
+thầy môn toán dạy vui ghê đấy,OUT_OF_SCOPE
+báo cáo thủ trưởng kể chyện cười đi được không,OUT_OF_SCOPE
+anh ơi tôi đang thèm trà sữa thế,OUT_OF_SCOPE
+Anh oi nho nha qua duoc khong a,OUT_OF_SCOPE
+Xin hỏi hích uống cafe không ạ,OUT_OF_SCOPE
+Em hỏi với hôm nay trời đẹp nhỉ,OUT_OF_SCOPE
+thưa thủ trưởng mưa to quá đấy,OUT_OF_SCOPE
+Messi với Ronaldo ai giỏi hơn,OUT_OF_SCOPE
+em hỏi với đói bụng nhưng chưa tới giờ nhỉ,OUT_OF_SCOPE
+Thưa cán bộ kể chuyện cười đi được không,OUT_OF_SCOPE
+báo cáo thủ trưởng hôm nay trời đẹp nhỉ,OUT_OF_SCOPE
+em hỏi với nhớ nhà quá nhỉ,OUT_OF_SCOPE
+Cho em hỏi ngủ chưa đủ giấc,OUT_OF_SCOPE
+thầy ơi phim mới nào hay thưa thủ trưởng,OUT_OF_SCOPE
+trời lạnh thế thưa thủ trưởng,OUT_OF_SCOPE
+báo cáo thủ trưởng đề thi học kỳ ra dễ thế,OUT_OF_SCOPE
+em hỏi với trời nóng quá được không,OUT_OF_SCOPE
+xin hỏi đề thi học kỳ ra dễ ạ,OUT_OF_SCOPE
+Cho hỏi ai có note môn toán cho mượn thưa thủ trưởng,OUT_OF_SCOPE
+xin phép thủ trưởng wifi yếu quá vậy,OUT_OF_SCOPE
+thưa thủ trưởng điểm thi sao rồi nhỉ?,OUT_OF_SCOPE
+đồng chí ơi Messi với Ronaldo ai giỏi hơn thế,OUT_OF_SCOPE
+Thầy ơi máy quay được không vậy,OUT_OF_SCOPE
+Thay mon toan day vui ghe,OUT_OF_SCOPE
+thưa cán bộ đi chơi cuối tuần không chứ,OUT_OF_SCOPE
+anh máy tính của tôi bị lag,OUT_OF_SCOPE
+xin hỏi thích uống cafe không được không ạ,OUT_OF_SCOPE
+Bạn có biết bóng đá không thưa thủ trưởng,OUT_OF_SCOPE
+thưa cán bộ máy tính của tôi bị lag chứ,OUT_OF_SCOPE
+PUBG tối nay không đấy,OUT_OF_SCOPE
+Cho hỏi ngày mai có khảo sát ?,OUT_OF_SCOPE
+Đồng chí ơi bài tập về nhà nhiều quá thế,OUT_OF_SCOPE
+thưa thủ trưởng có ai chơi liên quân không thế,OUT_OF_SCOPE
+Cho em hỏi đói bụng nhưng chưa tới giờ được không,OUT_OF_SCOPE
+Em hỏi với bài tập về nhà nhiều quá,OUT_OF_SCOPE
+thầy ơi nhóm chat lớp im quá vậy,OUT_OF_SCOPE
+Ngủ chưa đủ giấc đi,OUT_OF_SCOPE
+thầy môn toán dạy vui ghê nhỉ,OUT_OF_SCOPE
+bao cao thu truong Hoc vien ky thuat mat ma co nhieu mon hay ?,OUT_OF_SCOPE
+anh ơi máy quay được không vậy,OUT_OF_SCOPE
+hom nay troi dep nhi,OUT_OF_SCOPE
+thưa thủ trưởng cuối kỳ có nhiều bài lắm ạ,OUT_OF_SCOPE
+cho hỏi đội mình thắng rồi ạ,OUT_OF_SCOPE
+cho em hỏi tôi đang thèm trà sữa thưa thủ trưởng,OUT_OF_SCOPE
+Thua can bo ngu chua du giac duoc khong,OUT_OF_SCOPE
+Em hỏi với tôi buồn quá ?,OUT_OF_SCOPE
+Tôi đang thèm trà sữa nhỉ,OUT_OF_SCOPE
+ngủ chưa đủ giấc được không,OUT_OF_SCOPE
+đồng chí ơi máy tính của tôi bị ag đi,OUT_OF_SCOPE
+di choi cuoi tuan khong the,OUT_OF_SCOPE
+anh ơi máy quay được không thế,OUT_OF_SCOPE
+Xin phép thủ trưởng đói bụng nhưng chưa tới giờ ?,OUT_OF_SCOPE
+đồng chí ơi ai có note môn toán cho mượn,OUT_OF_SCOPE
+thầy ơi lập trình C khó quá,OUT_OF_SCOPE
+cho hỏi bài tập về nhà nhiều quá đi,OUT_OF_SCOPE
+báo cáo thủ trưởng đi chơi cuối tuần không ?,OUT_OF_SCOPE
+đội mình thắng rồi?,OUT_OF_SCOPE
+Báo cáo thủ trưởng có ai chơi liên quân không,OUT_OF_SCOPE
+đồng chí ơi có ai chơi liên quân không thưa thủ trưởng,OUT_OF_SCOPE
+Báo cáo thủ trưởng bạn có biết bóng đá không,OUT_OF_SCOPE
+có ai chơi liên quân không,OUT_OF_SCOPE
+cho hỏi máy quay được không được không ạ,OUT_OF_SCOPE
+em hỏi với máy quay được không chứ,OUT_OF_SCOPE
+Xin hỏi Messi với Ronaldo ai giỏi hơn thưa thủ trưởng,OUT_OF_SCOPE
+dota mới nào hay,OUT_OF_SCOPE
+nhóm chat lớp im quá thế,OUT_OF_SCOPE
+xin phép thủ trưởng nhóm chat lớp im quá,OUT_OF_SCOPE
+hôm nay tôi mệt mỏi vậy,OUT_OF_SCOPE
+Thua can bo toi dang them tra sua duoc khong,OUT_OF_SCOPE
+Đồng chí ơi thầy môn toán dạy vui ghê ạ,OUT_OF_SCOPE
+đồng chí ơi thầy môn toán dạy vui ghê ?,OUT_OF_SCOPE
+thưa cán bộ đội tuyển Việt Nam đá nào được không,OUT_OF_SCOPE
+đồng chí ơi thầy môn toán dạy vui ghê,OUT_OF_SCOPE
+báo cáo thủ trưởng nhóm chat lớp im quá,OUT_OF_SCOPE

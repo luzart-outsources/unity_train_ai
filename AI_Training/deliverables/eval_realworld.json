@@ -1,0 +1,362 @@
+{
+  "fasttext": {
+    "arch": "fasttext",
+    "accuracy": 1.0,
+    "correct": 16,
+    "total": 16,
+    "rows": [
+      {
+        "text": "Hôm nay có lịch gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 1.0,
+        "ok": true
+      },
+      {
+        "text": "Mấy giờ thì ăn cơm",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 1.0,
+        "ok": true
+      },
+      {
+        "text": "Nhà ăn nằm đâu",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9893100261688232,
+        "ok": true
+      },
+      {
+        "text": "Quy tắc bắn 3 điểm là gì",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999949932098389,
+        "ok": true
+      },
+      {
+        "text": "Báo cáo đầy đủ",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 1.0,
+        "ok": true
+      },
+      {
+        "text": "Cho em xin nghỉ",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 1.0,
+        "ok": true
+      },
+      {
+        "text": "Chào thủ trưởng",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999998807907104,
+        "ok": true
+      },
+      {
+        "text": "Messi đá hay không",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 1.0,
+        "ok": true
+      },
+      {
+        "text": "Tuần sau có hoạt động gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9999346733093262,
+        "ok": true
+      },
+      {
+        "text": "Bao giờ phát cơm",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 1.0,
+        "ok": true
+      },
+      {
+        "text": "Phòng học ở đâu vậy",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999998807907104,
+        "ok": true
+      },
+      {
+        "text": "Súng AK47 dùng thế nào",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.999997615814209,
+        "ok": true
+      },
+      {
+        "text": "Tôi xin báo cáo đã hoàn thành",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 1.0,
+        "ok": true
+      },
+      {
+        "text": "Em xin phép về quê",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9991204142570496,
+        "ok": true
+      },
+      {
+        "text": "Em chào thủ trưởng em đi đây",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 1.0,
+        "ok": true
+      },
+      {
+        "text": "Wifi yếu quá",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999978542327881,
+        "ok": true
+      }
+    ]
+  },
+  "lstm": {
+    "arch": "lstm",
+    "accuracy": 0.9375,
+    "correct": 15,
+    "total": 16,
+    "rows": [
+      {
+        "text": "Hôm nay có lịch gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9820507764816284,
+        "ok": true
+      },
+      {
+        "text": "Mấy giờ thì ăn cơm",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9959860444068909,
+        "ok": true
+      },
+      {
+        "text": "Nhà ăn nằm đâu",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.8888207674026489,
+        "ok": true
+      },
+      {
+        "text": "Quy tắc bắn 3 điểm là gì",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9758390188217163,
+        "ok": true
+      },
+      {
+        "text": "Báo cáo đầy đủ",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.7244079113006592,
+        "ok": true
+      },
+      {
+        "text": "Cho em xin nghỉ",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9973995685577393,
+        "ok": true
+      },
+      {
+        "text": "Chào thủ trưởng",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.6887653470039368,
+        "ok": true
+      },
+      {
+        "text": "Messi đá hay không",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9400362372398376,
+        "ok": true
+      },
+      {
+        "text": "Tuần sau có hoạt động gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9715697169303894,
+        "ok": true
+      },
+      {
+        "text": "Bao giờ phát cơm",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.986201822757721,
+        "ok": true
+      },
+      {
+        "text": "Phòng học ở đâu vậy",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9836002588272095,
+        "ok": true
+      },
+      {
+        "text": "Súng AK47 dùng thế nào",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9305419921875,
+        "ok": true
+      },
+      {
+        "text": "Tôi xin báo cáo đã hoàn thành",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9727238416671753,
+        "ok": true
+      },
+      {
+        "text": "Em xin phép về quê",
+        "expected": "XIN_PHEP",
+        "pred": "TAM_BIET",
+        "conf": 0.4535355567932129,
+        "ok": false
+      },
+      {
+        "text": "Em chào thủ trưởng em đi đây",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9975892305374146,
+        "ok": true
+      },
+      {
+        "text": "Wifi yếu quá",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.7927398085594177,
+        "ok": true
+      }
+    ]
+  },
+  "transformer": {
+    "arch": "transformer",
+    "accuracy": 0.875,
+    "correct": 14,
+    "total": 16,
+    "rows": [
+      {
+        "text": "Hôm nay có lịch gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9999251365661621,
+        "ok": true
+      },
+      {
+        "text": "Mấy giờ thì ăn cơm",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999899864196777,
+        "ok": true
+      },
+      {
+        "text": "Nhà ăn nằm đâu",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.982415497303009,
+        "ok": false
+      },
+      {
+        "text": "Quy tắc bắn 3 điểm là gì",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9998089671134949,
+        "ok": true
+      },
+      {
+        "text": "Báo cáo đầy đủ",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9998581409454346,
+        "ok": true
+      },
+      {
+        "text": "Cho em xin nghỉ",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999927282333374,
+        "ok": true
+      },
+      {
+        "text": "Chào thủ trưởng",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999949932098389,
+        "ok": true
+      },
+      {
+        "text": "Messi đá hay không",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999948740005493,
+        "ok": true
+      },
+      {
+        "text": "Tuần sau có hoạt động gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9376223683357239,
+        "ok": true
+      },
+      {
+        "text": "Bao giờ phát cơm",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999897480010986,
+        "ok": true
+      },
+      {
+        "text": "Phòng học ở đâu vậy",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.999951958656311,
+        "ok": true
+      },
+      {
+        "text": "Súng AK47 dùng thế nào",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9998970031738281,
+        "ok": true
+      },
+      {
+        "text": "Tôi xin báo cáo đã hoàn thành",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999935626983643,
+        "ok": true
+      },
+      {
+        "text": "Em xin phép về quê",
+        "expected": "XIN_PHEP",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9953796863555908,
+        "ok": false
+      },
+      {
+        "text": "Em chào thủ trưởng em đi đây",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999966621398926,
+        "ok": true
+      },
+      {
+        "text": "Wifi yếu quá",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999849796295166,
+        "ok": true
+      }
+    ]
+  }
+}

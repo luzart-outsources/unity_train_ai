@@ -1,0 +1,10 @@
+[09:00:00] === overnight v3 loop started — DEADLINE 2026-05-07T19:00:00 ===
+[09:00:00]      time left: 600.0 min
+[09:00:00]      Phase A: 5000/intent, archs cycle ['lstm', 'fasttext', 'transformer']
+[09:00:00]      Phase B: 1,000,000 steps/iter, net 128,128, env randomized
+[09:00:00] --- iter 1 (600.0 min left) ---
+[09:00:00] [A] iter — seed=1000 arch=lstm target=5000/intent
+[09:06:35] [A] lstm real-world acc = 98.4% (63/64)
+[09:06:39] [A] lstm new BEST -> deliverables/lstm_intent.onnx
+[09:06:39] [A] OVERALL new BEST = lstm 98.4% — canonical updated
+[09:06:39] [B] iter — tag=v3_iter1_s2000 steps=1,000,000 net=128,128

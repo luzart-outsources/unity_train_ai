@@ -1,0 +1,86 @@
+---
+title: Claims Ledger
+category: meta
+created: 2026-05-07
+updated: 2026-05-07
+---
+
+# Claims — Cross-page facts với citation
+
+Mỗi claim có ID stable `c-YYYYMMDD-NN`. Khi GDD revision sửa giá trị → KHÔNG xóa, append vào [[contradictions]].
+
+## Active claims
+
+### c-20260507-01 — Unity engine version
+- **Claim**: Project dùng Unity 6 (`6000.2.8f1`), KHÔNG phải Unity 2022.3.62f2 như v2 context dự kiến.
+- **Sources**: `D:\OutSources\Unity_AI\TrainAI_Unity\ProjectSettings\ProjectVersion.txt`
+- **Used by**: [[overview]], [[technical/unity-integration]], [[systems/sentis-chat]], [[systems/movement-ai]]
+- **Status**: active
+
+### c-20260507-02 — Sentis package renamed
+- **Claim**: Sentis trong Unity 6 = `com.unity.ai.inference 2.6.1`, namespace `Unity.InferenceEngine` (KHÔNG còn `Unity.Sentis`).
+- **Sources**: `Packages/manifest.json`
+- **Used by**: [[technical/unity-integration]], [[entities/commander-npc]], [[entities/soldier-npc]]
+- **Status**: active
+
+### c-20260507-03 — Phase A baseline overfit
+- **Claim**: V2 baseline FastText train 30 epochs → val_acc 1.00 nhưng real-world test 1/8 = 12.5%.
+- **Sources**: [[analysis/evolution-v1-to-v3.1]], `raw/gdd/context_v2.md` mục 6
+- **Used by**: [[bugs/fasttext-overfit-narrow-test]], [[decisions/eval-set-must-be-real]]
+- **Status**: active (historical)
+
+### c-20260507-04 — Phase A 8 intent (chưa Quyền duyệt)
+- **Claim**: 8 intent đang dùng: HOI_LICH, HOI_GIO_AN, HOI_VI_TRI, HOI_KIEN_THUC, BAO_CAO, XIN_PHEP, TAM_BIET, OUT_OF_SCOPE.
+- **Sources**: `raw/gdd/context_v2.md` mục 5; `phase_a_sentis/data/intents.csv`
+- **Used by**: [[systems/sentis-chat]], [[entities/commander-npc]]
+- **Status**: ⚠️ chờ Quyền confirm. Xem [[open-questions]].
+
+### c-20260507-05 — FastText 25%, LSTM 95.3%, Transformer 18.8% trên test 64 câu
+- **Claim**: Trên eval set 64 câu (slang/telex/compound/OOD), FastText fail (25%), LSTM thắng (95.3%), Transformer cũng fail (18.8%).
+- **Sources**: Eval run 09:08 7/5/2026, `phase_a_sentis/models/eval_realworld.json`
+- **Used by**: [[technical/architecture-comparison]], [[decisions/lstm-canonical-not-fasttext]], [[bugs/fasttext-overfit-narrow-test]]
+- **Status**: active
+
+### c-20260507-06 — LSTM 98.4% với 40k samples (v3.1 iter 1)
+- **Claim**: Phase A LSTM train trên dataset v3.1 (40,000 samples, 5000/intent) đạt 63/64 = 98.4% trên 64-câu test.
+- **Sources**: `overnight_v3.log` iter 1 09:06:35, `phase_a_sentis/models/eval_iter1_lstm.json`
+- **Used by**: [[overview]], [[systems/sentis-chat]], [[analysis/evolution-v1-to-v3.1]]
+- **Status**: active (best so far)
+
+### c-20260507-07 — Phase B v2 best 6.126 (fixed env)
+- **Claim**: V2 PPO best mean_reward = 6.126 ở iter 8 (200k steps, fixed 6 obstacles, net [64,64]).
+- **Sources**: `phase_b_movement/logs/training_runs.csv` row `iter8_s207`
+- **Used by**: [[systems/movement-ai]], [[analysis/evolution-v1-to-v3.1]]
+- **Status**: active (legacy benchmark — env khác v3 nên không thể so sánh trực tiếp)
+
+### c-20260507-08 — Phase B obs contract 21 floats
+- **Claim**: Phase B observation = 21 floats, layout cố định trong `deliverables/soldier.meta.json`. Bất kỳ thay đổi obs nào trong Python phải retrain + cập nhật meta.
+- **Sources**: `phase_b_movement/scripts/nav_env.py::_obs()`, `phase_b_movement/scripts/export_onnx.py::main()`
+- **Used by**: [[systems/movement-ai]], [[entities/soldier-npc]], [[technical/unity-integration]]
+- **Status**: active
+
+### c-20260507-09 — Loop spin bug v2
+- **Claim**: V2 overnight loop spin 493,895 iter trong 1 phút cuối deadline do thiếu sleep guard.
+- **Sources**: `raw/technical/overnight_v2.log`
+- **Used by**: [[bugs/loop-spin-near-deadline]]
+- **Status**: fixed in v3.1 loop (`SPIN_GUARD_SLEEP = 30`)
+
+### c-20260507-10 — Cached pre-tokenize 8.7× speedup
+- **Claim**: Optimize `dataset.py::IntentDataset.__init__` pre-encode toàn bộ texts → train time giảm từ 558s → 64s với 16k samples × 30 epochs FastText.
+- **Sources**: Smoke runs trước/sau optimize ở 07:42 vs 07:36 (overnight session)
+- **Used by**: [[technical/training-pipeline]]
+- **Status**: active
+
+### c-20260507-11 — FastText với 40k data leo lên 95.3%
+- **Claim**: FastText train trên dataset v3.1 (40k samples, 5000/intent) đạt 61/64 = 95.31% trên 64-câu test, **huge jump từ 25% với 16k data**. Vẫn dưới LSTM 98.4% nhưng không còn "broken".
+- **Sources**: `overnight_v3.log` iter 2 09:42:49, `phase_a_sentis/models/eval_iter2_fasttext.json`
+- **Used by**: [[technical/architecture-comparison]], [[bugs/fasttext-overfit-narrow-test]]
+- **Status**: active
+- **Notes**: Bài học — FastText không "fundamentally broken", chỉ cần đủ vocab diversity. Mean-pool có ceiling vì mất thứ tự, nhưng ceiling không phải 25%.
+
+### c-20260507-12 — File name collision `fasttext_intent.onnx`
+- **Claim**: 2 chỗ trong loop ghi vào `deliverables/fasttext_intent.onnx`: per-arch fasttext block (FastText weights) và OVERALL block khi LSTM win (LSTM weights via legacy alias). File flip-flop giữa 2 nội dung.
+- **Sources**: `overnight_loop.py::phase_a_iter()` block per-arch (line ~165) và OVERALL block (line ~180)
+- **Used by**: [[live-status]]
+- **Mitigation**: dùng `intent_classifier.onnx` (canonical name, không bị conflict)
+- **Status**: known issue, low priority — fix sau v3.1 done

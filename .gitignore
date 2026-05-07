@@ -1,0 +1,63 @@
+# ───────────────────────────────────────────────────────────────────────────
+# Unity-generated (always rebuilt locally)
+# ───────────────────────────────────────────────────────────────────────────
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+[Uu]serSettings/
+[Aa]ssets/AssetStoreTools*
+
+# IDE / OS / Visual Studio scaffolding
+*.csproj
+*.unityproj
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+.vs/
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ───────────────────────────────────────────────────────────────────────────
+# AI Training — Python virtual env (~5 GB) + heavyweights
+# ───────────────────────────────────────────────────────────────────────────
+AI_Training/phase_a_sentis/.venv/
+AI_Training/phase_b_movement/.venv/
+AI_Training/**/__pycache__/
+AI_Training/**/*.pyc
+AI_Training/**/.ipynb_checkpoints/
+
+# Per-iter checkpoints (accumulate fast — keep only "best_model.zip" we care about)
+AI_Training/phase_b_movement/checkpoints/v3_*/
+AI_Training/phase_b_movement/checkpoints/iter*/
+AI_Training/phase_b_movement/checkpoints/ppo_*_last.zip
+
+# High-churn files written by overnight_loop — snapshot is volatile
+AI_Training/overnight_v3.log
+AI_Training/overnight_v3_state.json
+AI_Training/overnight_v3_console.out
+AI_Training/overnight.log
+AI_Training/overnight_state.json
+AI_Training/err.log
+AI_Training/phase_a_sentis/err.log
+
+# Per-iter generated artifacts (regenerable)
+AI_Training/phase_a_sentis/data/intents_v3.csv
+AI_Training/phase_a_sentis/data/intents_expanded.csv
+AI_Training/phase_a_sentis/models/eval_iter*.json
+AI_Training/phase_a_sentis/models/training_log_*.json
+AI_Training/phase_a_sentis/models/eval_realworld.json

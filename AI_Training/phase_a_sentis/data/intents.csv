@@ -1,0 +1,41 @@
+text,intent
+"Hôm nay có lịch gì?",HOI_LICH
+"Lịch ngày mai thế nào?",HOI_LICH
+"Thứ 2 phải làm gì?",HOI_LICH
+"Cho tôi xem thời khoá biểu",HOI_LICH
+"Lịch tuần này có gì?",HOI_LICH
+"Mấy giờ ăn cơm?",HOI_GIO_AN
+"Bao giờ có cơm?",HOI_GIO_AN
+"Khi nào ăn trưa?",HOI_GIO_AN
+"Giờ ăn tối là khi nào?",HOI_GIO_AN
+"Chiều mấy giờ ăn?",HOI_GIO_AN
+"Nhà ăn ở đâu?",HOI_VI_TRI
+"Phòng tập thể dục ở chỗ nào?",HOI_VI_TRI
+"Sân tập ở đâu vậy?",HOI_VI_TRI
+"Lớp học ở khu nào?",HOI_VI_TRI
+"Cho tôi đường tới phòng y tế",HOI_VI_TRI
+"Lựu đạn được phát mấy quả?",HOI_KIEN_THUC
+"Súng AK có trọng lượng bao nhiêu?",HOI_KIEN_THUC
+"Quy tắc bắn 3 điểm là gì?",HOI_KIEN_THUC
+"Đội hình hàng dọc đứng thế nào?",HOI_KIEN_THUC
+"Cách chào điều lệnh ra sao?",HOI_KIEN_THUC
+"Báo cáo đại đội đã có mặt đầy đủ",BAO_CAO
+"Báo cáo trung đội 1 đủ quân",BAO_CAO
+"Tôi xin báo cáo đã hoàn thành nhiệm vụ",BAO_CAO
+"Báo cáo thủ trưởng tiểu đội 3 vắng 2 người",BAO_CAO
+"Báo cáo đã chuẩn bị xong",BAO_CAO
+"Cho tôi xin phép ra ngoài",XIN_PHEP
+"Tôi xin phép nghỉ học vì bị ốm",XIN_PHEP
+"Cho tôi nghỉ buổi tập chiều nay được không?",XIN_PHEP
+"Xin phép thủ trưởng cho ra cổng",XIN_PHEP
+"Cho tôi xin phép về thăm nhà",XIN_PHEP
+"Chào thủ trưởng tôi đi đây",TAM_BIET
+"Em chào sĩ quan",TAM_BIET
+"Tạm biệt nhé",TAM_BIET
+"Hẹn gặp lại",TAM_BIET
+"Chào tạm biệt",TAM_BIET
+"Hôm nay trời đẹp nhỉ",OUT_OF_SCOPE
+"Bạn có biết Messi không?",OUT_OF_SCOPE
+"Kể chuyện cười đi",OUT_OF_SCOPE
+"Tối qua tôi xem phim hay lắm",OUT_OF_SCOPE
+"Pizza có ngon không?",OUT_OF_SCOPE

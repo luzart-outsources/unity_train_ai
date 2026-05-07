@@ -1,0 +1,59 @@
+{
+  "_README": "Phase A intent → response mapping. Picked randomly by NPCDialogueBrain.cs. Quyền có thể tự điền thêm phản hồi. Câu được phép có placeholder {time}, {place}, {topic} — Unity-side dialogue logic phải tra ngữ cảnh game (lịch hôm nay, vị trí gần nhất...) rồi điền.",
+
+  "HOI_LICH": [
+    "Hôm nay đại đội ta có {scheduled_today}. Đồng chí chú ý nhé.",
+    "Lịch của đồng chí: {scheduled_today}. Sai giờ là phạt đó.",
+    "Theo thời khóa biểu, {scheduled_today}. Chuẩn bị sẵn nhé.",
+    "Hôm nay có {scheduled_today}. Có gì khác lên hỏi tôi sau."
+  ],
+
+  "HOI_GIO_AN": [
+    "Sáng 6h, trưa 11h30, tối 18h. Đến nhà ăn trước 5 phút nhé đồng chí.",
+    "Đến giờ là có cơm. Chiều nay {meal_time}. Đừng đi đâu xa giờ đó.",
+    "Đại đội ta ăn cơm theo giờ chung của trường. Hôm nay {meal_time}.",
+    "Còn {minutes_to_meal} phút nữa là tới giờ ăn. Cố lên đồng chí."
+  ],
+
+  "HOI_VI_TRI": [
+    "{place} ở phía {direction} doanh trại, đi thẳng khoảng {distance}m là tới.",
+    "Đồng chí đi qua sân điều lệnh, rẽ {direction} là thấy {place}.",
+    "{place} nằm ở khu {block}. Có biển chỉ dẫn rồi đó.",
+    "Tôi không nhớ chính xác {place} ở đâu. Hỏi trực ban đi."
+  ],
+
+  "HOI_KIEN_THUC": [
+    "Về {topic}, đồng chí xem trong giáo trình bài {chapter}. Tôi không tóm tắt được hết đâu.",
+    "{topic} là kiến thức quan trọng. Tối nay tôi sẽ giảng kỹ ở giảng đường.",
+    "Câu hỏi hay đó. Cứ lên trực ban hỏi tôi vào giờ tự học, tôi sẽ nói chi tiết.",
+    "Chính xác thì {topic} có 3 phần: {summary}. Đọc tài liệu để hiểu sâu nhé."
+  ],
+
+  "BAO_CAO": [
+    "Tốt. Tôi đã ghi nhận. Tiếp tục giữ kỷ luật nhé đồng chí.",
+    "Báo cáo rõ ràng. Cảm ơn đồng chí. Triển khai tiếp nhiệm vụ kế.",
+    "Đồng chí báo cáo rõ. Tôi sẽ chuyển lên cấp trên ngay.",
+    "Đã rõ. Đồng chí đứng nghỉ chờ chỉ thị tiếp theo."
+  ],
+
+  "XIN_PHEP": [
+    "Lý do của đồng chí có chính đáng không? Báo cáo cụ thể đi rồi tôi xét.",
+    "Đồng chí điền vào sổ đăng ký vắng mặt rồi mang lên đây tôi ký.",
+    "Hôm nay có lịch quan trọng nên tôi không duyệt được. Mai xin lại nhé.",
+    "Được rồi. Đồng chí đi cẩn thận, đúng giờ phải có mặt lại."
+  ],
+
+  "TAM_BIET": [
+    "Thôi đồng chí đi đi. Nhớ đúng giờ trở về nhé.",
+    "Đi đường cẩn thận. Hẹn gặp lại buổi tới.",
+    "OK đồng chí. Đừng quên báo cáo lúc về.",
+    "Chào đồng chí. Tự giữ gìn kỷ luật nhé."
+  ],
+
+  "OUT_OF_SCOPE": [
+    "Tôi là chỉ huy quân sự, không nắm được câu hỏi này đâu đồng chí.",
+    "Cái đó không thuộc nhiệm vụ của tôi. Hỏi việc khác đi.",
+    "Đồng chí tập trung vào nhiệm vụ trước đã. Chuyện đó để sau nhé.",
+    "Không liên quan tới quân đội đâu. Đồng chí có câu hỏi về lịch hay nhiệm vụ không?"
+  ]
+}

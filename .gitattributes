@@ -1,0 +1,36 @@
+# Use LFS for binary AI artifacts so the repo stays light when re-trained
+*.onnx           filter=lfs diff=lfs merge=lfs -text
+*.pt             filter=lfs diff=lfs merge=lfs -text
+*.zip            filter=lfs diff=lfs merge=lfs -text
+# Normalize line endings on text files (Windows authors)
+*.cs             text eol=lf
+*.py             text eol=lf
+*.md             text eol=lf
+*.json           text eol=lf
+*.csv            text eol=lf
+*.yml            text eol=lf
+*.png !text !filter !merge !diff
+*.jpg !text !filter !merge !diff
+*.tga !text !filter !merge !diff
+*.exr !text !filter !merge !diff
+*.psd !text !filter !merge !diff
+*.tif !text !filter !merge !diff
+*.tiff !text !filter !merge !diff
+*.hdr !text !filter !merge !diff
+*.wav !text !filter !merge !diff
+*.WAV !text !filter !merge !diff
+*.mp3 !text !filter !merge !diff
+*.ogg !text !filter !merge !diff
+*.aif !text !filter !merge !diff
+*.aiff !text !filter !merge !diff
+*.obj !text !filter !merge !diff
+*.blend !text !filter !merge !diff
+*.dae !text !filter !merge !diff
+*.3ds !text !filter !merge !diff
+*.vrmesh !text !filter !merge !diff
+*.unitypackage !text !filter !merge !diff
+*.anim !text !filter !merge !diff
+*.asset !text !filter !merge !diff
+*.pdf !text !filter !merge !diff
+*.prefab !text !filter !merge !diff
+*.unity !text !filter !merge !diff
