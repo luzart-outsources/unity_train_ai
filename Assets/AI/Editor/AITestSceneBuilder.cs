@@ -13,6 +13,9 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.InferenceEngine;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem.UI;
+#endif
 
 public static class AITestSceneBuilder
 {
@@ -157,12 +160,15 @@ public static class AITestSceneBuilder
         btnText.alignment = TextAnchor.MiddleCenter;
         btnText.text = "Gửi";
 
-        // EventSystem (cần cho UI input hoạt động)
+        // EventSystem — Unity 6 Input System dùng InputSystemUIInputModule
         if (GameObject.FindFirstObjectByType<UnityEngine.EventSystems.EventSystem>() == null)
         {
-            var es = new GameObject("EventSystem",
-                typeof(UnityEngine.EventSystems.EventSystem),
-                typeof(UnityEngine.EventSystems.StandaloneInputModule));
+            var es = new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem));
+#if ENABLE_INPUT_SYSTEM
+            es.AddComponent<InputSystemUIInputModule>();
+#else
+            es.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+#endif
         }
 
         // Wire references vào ChatUI

@@ -8,6 +8,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 [RequireComponent(typeof(NPCDialogueBrain))]
 public class PhaseAChatUI : MonoBehaviour
@@ -54,14 +57,8 @@ public class PhaseAChatUI : MonoBehaviour
         }
 
         if (sendButton != null) sendButton.onClick.AddListener(OnSend);
-        if (inputField != null)
-        {
-            inputField.onEndEdit.AddListener(text =>
-            {
-                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-                    OnSend();
-            });
-        }
+        // KHÔNG dùng Input.GetKeyDown — project Unity 6 set activeInputHandler=1
+        // (Input System only). Bắt Enter qua Update() + Keyboard.current.
 
         // Auto sanity
         Debug.Log("┌─ Sanity (5 sample) ─");
@@ -97,6 +94,21 @@ public class PhaseAChatUI : MonoBehaviour
         yield return null;
         yield return null;
         if (scrollRect != null) scrollRect.verticalNormalizedPosition = 0f;
+    }
+
+    void Update()
+    {
+        // Bắt Enter để submit — Unity 6 Input System
+#if ENABLE_INPUT_SYSTEM
+        if (inputField != null && inputField.isFocused
+            && Keyboard.current != null
+            && (Keyboard.current.enterKey.wasPressedThisFrame
+                || Keyboard.current.numpadEnterKey.wasPressedThisFrame))
+        {
+            // Defer 1 frame vì Enter có thể vừa được consume bởi InputField
+            OnSend();
+        }
+#endif
     }
 
     void OnSend()
