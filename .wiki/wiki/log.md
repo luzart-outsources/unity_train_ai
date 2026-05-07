@@ -121,3 +121,41 @@ Updated wiki:
 - Updated: live-status.md (snapshot 19:36 EOD), claims.md (+c-20260507-19, 20, 21), evolution.md (final tables), overview.md (bảng final)
 - Pulled commit `ff5affc` từ máy 2 (skip Phase A decision)
 - Đợi máy 2 push branch `machine-2-results` để chạy merge_machine_results.py
+
+## [2026-05-07 23:00] sync | Phase A v2 deployed (96.8% hard test)
+
+User feedback: "AI ngu, hỏi khác 1 tý dính, hỏi khu A trả lời khu B5". Build
+hard test 216 câu (10 category), v1 LSTM chỉ đạt 38% (vs 98.4% trên test 64
+câu cũ — synthetic-friendly). Triển khai 2-pha cải thiện trong 3h.
+
+**Iteration log**:
+- v4 (iter 1): scale dataset 40k→240k, 200-300 templates/intent, augmentation
+  10%→32%. Hard test → 92.6% (+54.6pp).
+- **v5 (iter 2 — deployed)**: eval-driven gap-filling cho 16 misses của v4
+  (rảnh/bận semantics, "đi đâu", pure-symptom XIN_PHEP, lone-place ellipsis,
+  no-accent place asks). Augmentation 32%→45%. Hard test → 96.8% (+4.2pp).
+- v6 (rejected): thêm 70+ template + augmentation 50%. Hard test 96.3% (-0.5,
+  regression CODE_MIX/SLANG/SYNONYM). Anti-pattern: thêm template ở threshold
+  96%+ có thể harm các category đang OK.
+
+**EntityExtractor (orthogonal to model)**: rule-based slot extraction giải
+fix "khu A → trả lời khu B5". 715 phrases (134 places, 185 times, 188 topics,
+45 meals, 100 reasons, 61 reports) dump từ generator pools. Templates v2
+redesign tránh hardcoded `{block}` self-conflict.
+
+V1 giữ nguyên (`intent_classifier.onnx` + `responses.json` +
+`NPCDialogueBrain.cs`). V2 deploy parallel:
+- `Assets/AI/Models/intent_classifier_v2.onnx` (LSTM v5, 707K params)
+- `Assets/AI/Resources/intent_classifier_v2_meta.json`
+- `Assets/AI/Resources/responses_v2.json` + `slot_vocab.json`
+- `Assets/AI/Scripts/{EntityExtractor,SmartRuntimeContext,PhaseACompareTester}.cs`
+- `Assets/AI/Editor/PhaseACompareSceneBuilder.cs` — menu **AI/4. Phase A — Compare V1 vs V2**
+
+Pages created/updated:
+- New: [[systems/entity-extractor]], [[decisions/phase-a-v2-iteration]],
+  [[sources/phase-a-v2-report]]
+- Updated: [[systems/sentis-chat]] (v4/v5 numbers, v2 stack section),
+  [[index]], [[claims]], [[overview]]
+- Source raw: `raw/technical/phase_a_v2_report.md`
+
+Commits: `811ff6c` (v4 + entity extractor), `0d76d6a` (v5 deployed).

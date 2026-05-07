@@ -33,22 +33,25 @@ User của wiki này phụ trách **TRAIN 2 model AI** (việc của tôi). Quy�
 3. **2 endings**: Pass / Fail dựa trên chỉ số tích lũy
 4. **AI hỗ trợ immersion**: chỉ huy nói tiếng Việt + lính tự di chuyển
 
-## Current state — END OF DAY (2026-05-07 19:00, cả 2 máy completed)
+## Current state — Phase A v2 deployed (2026-05-07 23:00)
 
-AI training v3.1 hoàn tất ở 19:00 — máy 1 stop 18:59, máy 2 stop 18:59 (cùng deadline).
+Sau khi training v3.1 đóng deadline 19:00, user feedback "AI ngu, hỏi khác 1 tý dính,
+hỏi khu A trả lời khu B". Build hard test 216 câu (10 category) → V1 LSTM chỉ 38%
+(vs 98.4% test 64 câu cũ — synthetic-friendly). Triển khai Phase A v2 trong 3h
+buổi tối. Chi tiết: [[decisions/phase-a-v2-iteration]].
 
-### Final winners (combined cả 2 máy)
+### Final winners
 
-| Phase | Winner | Best | At | Source |
-|---|---|---|---|---|
-| **Phase A LSTM** ⭐ | máy 1 | 63/64 = **98.44%** | iter 1, seed 1000 | `lstm_intent.onnx` (= `intent_classifier.onnx` canonical) |
-| **Phase A FastText** ⭐ | máy 1 | 63/64 = **98.44%** | iter 17, seed 1016 | `fasttext_intent.onnx` — match LSTM sau 8× seed |
-| Phase A Transformer | máy 1 | 62/64 = 96.88% | iter 18 | `transformer_intent.onnx` |
-| **Phase B PPO** ⭐⭐ WINNER | máy 2 | reward **6.572** | h3_deepfocus iter 7, seed 7006 | `deliverables_m2/soldier_m2.onnx` ⭐ |
-| Phase B máy 1 runner-up | máy 1 | reward 6.569 | iter 14, seed 2013 | `soldier.onnx` (chỉ thua máy 2 = 0.003!) |
-| Phase B v2 backup | n/a | reward 6.126 | fixed env | `soldier_v2_fixedenv.onnx` |
+| Phase | Model | Hard test 216 / Best | Source |
+|---|---|---|---|
+| **Phase A v1** (giữ để A/B compare) | LSTM v3 (116K params) | 38.0% (98.4% test cũ) | `intent_classifier.onnx` |
+| **Phase A v2** ⭐ (deployed) | LSTM v5 (707K params) | **96.8%** (209/216) | `intent_classifier_v2.onnx` |
+| **Phase A v2 EntityExtractor** | rule-based, 715 phrases | (orthogonal — fix "khu A → khu B5") | `EntityExtractor.cs` + `slot_vocab.json` |
+| **Phase B PPO** ⭐⭐ | máy 2, h3_deepfocus | reward **6.572** | `deliverables_m2/soldier_m2.onnx` |
+| Phase B máy 1 runner-up | máy 1, iter 14 seed 2013 | reward 6.569 | `soldier.onnx` |
+| Phase B v2 backup | fixed env | reward 6.126 | `soldier_v2_fixedenv.onnx` |
 
-→ **Phân vai theo strength**: Máy 1 nhanh → giành Phase A (3 archs cycle 27 iters). Máy 2 HEAVY → giành Phase B (HP cycle 4 configs × 2 seeds, 10M PPO steps tổng).
+→ **V2 stack**: 1 model (LSTM v5, 96.8%) + 1 rule-based slot extractor (715 phrases) + entity-aware response templates. V1 giữ nguyên để compare. Menu Unity: **AI/4. Phase A — Compare V1 vs V2**.
 
 ### Máy 2 HP grid breakdown (Phase B)
 | HP | Net | Ent | LR | Best Reward | Verdict |
@@ -70,6 +73,7 @@ Chi tiết per-system: [[systems/sentis-chat]], [[systems/movement-ai]].
 ## Key systems
 
 - [[systems/sentis-chat]] — NPC chỉ huy: tiếng Việt → 8 intent → response template
+- [[systems/entity-extractor]] — Phase A v2: rule-based slot extraction, fix entity-aware responses
 - [[systems/movement-ai]] — Lính NPC: nav 2D với obstacles, output ONNX cho Unity
 
 ## Key entities
@@ -88,6 +92,7 @@ Chi tiết per-system: [[systems/sentis-chat]], [[systems/movement-ai]].
 - [[decisions/standalone-ppo-not-ml-agents]] — Train Phase B bằng Python thay ML-Agents
 - [[decisions/lstm-canonical-not-fasttext]] — Đổi canonical từ FastText sang LSTM
 - [[decisions/eval-set-must-be-real]] — Test 16 câu cũ misleading, đổi 64 câu khó
+- [[decisions/phase-a-v2-iteration]] — Eval-driven iteration v3→v4→v5 đẩy 38%→96.8%
 
 ## Open questions
 

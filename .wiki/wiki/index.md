@@ -16,7 +16,8 @@ Master catalog. Read first to find relevant pages.
 - [[live-status]] — ⭐ Live snapshot loop + multi-instance protocol (2 máy)
 
 ## Systems
-- [[systems/sentis-chat]] — Phase A NPC chat tiếng Việt: 8 intent classifier, ONNX deploy
+- [[systems/sentis-chat]] — Phase A NPC chat: 8 intent classifier (v1 38% / v2 96.8% trên hard test 216 câu)
+- [[systems/entity-extractor]] — Phase A v2 slot-filling: rule-based, fix "khu A → trả lời khu B5"
 - [[systems/movement-ai]] — Phase B lính tự đi: PPO, env random, ONNX deploy
 
 ## Entities
@@ -36,6 +37,7 @@ Master catalog. Read first to find relevant pages.
 - [[decisions/standalone-ppo-not-ml-agents]] — Train Phase B Python thay ML-Agents Unity
 - [[decisions/lstm-canonical-not-fasttext]] — Đổi canonical Phase A: LSTM thay FastText
 - [[decisions/eval-set-must-be-real]] — Test 16 câu cũ misleading, đổi 64 câu khó
+- [[decisions/phase-a-v2-iteration]] — Eval-driven iteration v3→v4→v5 (38%→96.8%)
 - [[decisions/scope-cuts]] — Cắt 8 mini-game
 - [[decisions/two-machine-parallel]] — Chạy 2 máy song song (config + sync protocol)
 
@@ -47,6 +49,9 @@ Master catalog. Read first to find relevant pages.
 
 ## Analysis
 - [[analysis/evolution-v1-to-v3.1]] — Lịch sử v1→v3.1 (data scale, eval rigor, loop maturity)
+
+## Sources
+- [[sources/phase-a-v2-report]] — báo cáo iteration v3→v4→v5→v6 với numbers cụ thể
 
 ## Provenance (meta)
 - [[claims]] — Cross-page facts với citation

@@ -2,7 +2,7 @@
 title: Sentis Chat (Phase A)
 category: systems
 tags: [phase-a, sentis, intent-classification, vietnamese, nlp, onnx]
-sources: [raw/gdd/context_v2.md, raw/technical/handoff_morning.md]
+sources: [raw/gdd/context_v2.md, raw/technical/handoff_morning.md, raw/technical/phase_a_v2_report.md]
 created: 2026-05-07
 updated: 2026-05-07
 ---
@@ -44,22 +44,48 @@ NPC nói: "Sáng 6h, trưa 11h30, tối 18h..."
 | Arch | Params | val_acc | 64-test acc | Verdict |
 |---|---|---|---|---|
 | FastText | 51K | 99% | **25%** | underfit, ý nghĩa rỗng |
-| **LSTM** ⭐ | 116K | 96% | **98.4%** | **canonical winner** |
+| **LSTM** ⭐ | 116K | 96% | **98.4%** | **canonical winner cho v1** |
 | Transformer | 120K | 95% | 18.8% | confused, cần epochs nhiều hơn |
 
-> [!warning] Bài học
-> Test set 16 câu cũ (chỉ keyword đơn giản) cho cả 3 arch đều 100% — misleading. Phải mở rộng test lên 64 câu (slang, telex typo, compound) mới phân biệt được architecture nào thật sự generalize. Xem [[bugs/fasttext-overfit-narrow-test]].
+> [!warning] Test 64 câu là synthetic-friendly — không expose generalization gap
+> Test set cũ 64 câu cho LSTM 98.4% nhưng khi build hard test 216 câu (10
+> category gồm paraphrase, ellipsis, compound, no-accent, telex, code-mix,
+> slang, synonym, complaint, adversarial) thì LSTM v1 chỉ đạt **38%**. Phải
+> rebuild test set cho mọi cải thiện sau v1. Xem [[decisions/phase-a-v2-iteration]].
 
-## Data evolution
+## Data + model evolution (deployed = v5 = 96.8% hard)
 
-| Version | Samples | Vocab | Real-world acc |
-|---|---|---|---|
-| v1 (template nghèo) | 529 | 165 | 1/8 = 12.5% |
-| v2 (richer template) | 2000 | 769 | 16/16 = 100% (test cũ) |
-| v3 (massive pool) | 16k | 1975 | 16/16 = 100% (test cũ) |
-| **v3.1 (40k)** | 40k | ~3000 (est.) | **63/64 = 98.4%** (test mới) |
+| Iter | Dataset | Vocab | Augment | Hard 216 | Notes |
+|------|--------:|------:|--------:|---------:|-------|
+| v1 (LSTM v3) | 40k | 5k | ~10% | **38.0%** | deployed pre-2026-05-07 |
+| v4 (iter 1) | 240k | 10k | ~32% | **92.6%** (+54.6) | 200-300 tpl/intent, paraphrase |
+| **v5 (iter 2 — deployed v2)** | 240k | 10k | ~45% | **96.8%** (+4.2) | gap-fill v4 misses |
+| v6 (rejected) | 240k | 10k | ~50% | 96.3% (-0.5) | overfit thêm template gây regression |
 
-Generator chi tiết: [[technical/data-generation]].
+Cả v4 và v5 đều cùng arch LSTM (707K params, max_len=40, embed=64, hidden=64
+bidirectional). Lever cải thiện chính là **dataset diversity + augmentation
+rate**, không phải arch. Generator chi tiết: [[technical/data-generation]].
+Lý do iteration: [[decisions/phase-a-v2-iteration]].
+
+## v2 stack — 2 model + slot extractor co-deployed
+
+User trải nghiệm "AI ngu" có 2 root cause khác nhau:
+
+1. **Intent classifier yếu trên paraphrase** → fix bằng v5 model (96.8%)
+2. **Response template không nhận biết entity user vừa hỏi** → fix bằng
+   [[systems/entity-extractor]]
+
+Cả 2 layer chạy song song trong v2. Đường compare trực tiếp với v1:
+**Unity → menu AI → 4. Phase A — Compare V1 (Old) vs V2 (New)**.
+
+| | V1 (cũ) | V2 (mới) |
+|---|---|---|
+| Model | `intent_classifier.onnx` (LSTM v3, 116K params) | `intent_classifier_v2.onnx` (LSTM v5, 707K) |
+| Meta | `intent_classifier_meta.json` (max_len=32, vocab 5k) | `intent_classifier_v2_meta.json` (max_len=40, vocab 10k) |
+| Responses | `responses.json` (4 template/intent) | `responses_v2.json` (5-7 template, slot-aware) |
+| Slot extraction | ❌ | ✅ `slot_vocab.json` + `EntityExtractor.cs` |
+| RuntimeContext | `DummyContext` (hardcoded) | `SmartRuntimeContext` (extracted → fallback) |
+| Hard test 216 | 38.0% | 96.8% |
 
 ## Tokenization — multi-word match (Vietnamese-specific)
 
@@ -109,9 +135,12 @@ C# wrapper code mẫu: [[technical/unity-integration]] hoặc file `deliverables
 
 - [[overview]]
 - [[entities/commander-npc]] — consumer
+- [[systems/entity-extractor]] — v2 slot-filling layer (depends on)
 - [[technical/training-pipeline]] — quy trình huấn luyện
 - [[technical/unity-integration]] — cách load ONNX
 - [[technical/architecture-comparison]] — so sánh 3 arch
-- [[technical/data-generation]] — generator v3
+- [[technical/data-generation]] — generator v4/v5
 - [[decisions/lstm-canonical-not-fasttext]]
 - [[decisions/eval-set-must-be-real]]
+- [[decisions/phase-a-v2-iteration]] — eval-driven iteration v3→v4→v5
+- [[sources/phase-a-v2-report]]

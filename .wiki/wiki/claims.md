@@ -194,3 +194,34 @@ Mỗi claim có ID stable `c-YYYYMMDD-NN`. Khi GDD revision sửa giá trị →
 - **Used by**: [[decisions/two-machine-parallel]]
 - **Status**: active
 - **Notes**: Test thực tế: restart từ state.iter=2 → loop start iter 3 với hp_idx=2 → h3_deepfocus đầu tiên ✓
+
+### c-20260507-28 — V1 hard test 38% vs val 99% (synthetic gap)
+- **Claim**: Phase A v1 LSTM v3 đạt val_acc 99.48% trên synthetic split nhưng chỉ 38.0% (82/216) trên hard test 216 câu. Test 64 câu cũ cho 98.4% là synthetic-friendly, không expose paraphrase weakness.
+- **Sources**: `AI_Training/phase_a_sentis/models/eval_v3_hardset.json`, [[sources/phase-a-v2-report]]
+- **Used by**: [[systems/sentis-chat]], [[decisions/phase-a-v2-iteration]]
+- **Status**: active (motivates v2 iteration)
+
+### c-20260507-29 — V5 deployed Phase A v2: 96.8% hard test
+- **Claim**: Phase A v2 (LSTM v5) đạt 96.8% (209/216) trên hard test 216 câu — +58.8pp so với v1. Train trên `intents_v5.csv` (240k samples, 200-300 templates/intent, augmentation 45%). 707K params, max_len=40, vocab 10k. ONNX 2.8MB.
+- **Sources**: `AI_Training/phase_a_sentis/models/eval_v5_hardset.json`, commit `0d76d6a`
+- **Used by**: [[systems/sentis-chat]], [[decisions/phase-a-v2-iteration]], [[overview]]
+- **Status**: active (deployed)
+
+### c-20260507-30 — V6 reject pattern: thêm template gây regression
+- **Claim**: V6 thêm 70+ template + augmentation 50% → COMPLAINT/NO_ACCENT 100% nhưng CODE_MIX/SLANG/SYNONYM regress -1 case mỗi cái. Net 96.8%→96.3% (-0.5pp). Anti-pattern: thêm template ở threshold 96%+ có thể harm category đang OK do shift decision boundary.
+- **Sources**: `AI_Training/phase_a_sentis/models/eval_v6_hardset.json`, commit `0d76d6a`
+- **Used by**: [[decisions/phase-a-v2-iteration]]
+- **Status**: active (lesson learned, không ship v6)
+
+### c-20260507-31 — EntityExtractor 715 phrases (rule-based)
+- **Claim**: Phase A v2 slot extractor có 715 phrases tổng (134 places + 185 times + 188 topics + 45 meals + 100 reasons + 61 reports), longest-match greedy. Dump tự động từ Python generator pools qua `dump_slot_vocab.py`. SmartRuntimeContext ưu tiên slot extracted trước DummyContext fallback.
+- **Sources**: `Assets/AI/Resources/slot_vocab.json`, `Assets/AI/Scripts/EntityExtractor.cs`
+- **Used by**: [[systems/entity-extractor]], [[systems/sentis-chat]]
+- **Status**: active (deployed)
+- **Notes**: Vocab pools phải sync với generator — modify `generate_dataset_v5.py` PLACES/TIMES → re-run `dump_slot_vocab.py` để refresh.
+
+### c-20260507-32 — V1 self-conflict template "khu A nằm ở khu B5"
+- **Claim**: User pain point "hỏi khu A trả lời khu B" KHÔNG phải intent classifier sai (model classify HOI_VI_TRI đúng), mà là template `{place} nằm ở khu {block}` trong `responses.json` substitute `{place}=khu A` + `{block}=B5` (DummyContext hardcode) → "khu A nằm ở khu B5" (self-conflict). V2 redesign template trong `responses_v2.json` để tránh hardcoded `{block}` khi `{place}` đã extract.
+- **Sources**: `Assets/AI/Resources/responses.json` line 19, `Assets/AI/Scripts/NPCDialogueBrain.cs::DummyContext.Get("block")`
+- **Used by**: [[systems/entity-extractor]], [[decisions/phase-a-v2-iteration]]
+- **Status**: fixed in v2
