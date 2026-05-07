@@ -38,18 +38,24 @@ Bottleneck: **Phase B** (chiếm 80% thời gian, plateau cố định). Phase A
 
 ### Decision
 
-**Option 2** với phân vai cụ thể:
+**Option 2** với phân vai HEAVY rõ ràng — máy 2 dồn lực vào "data factory + HP grid":
 
-| | Máy 1 (overnight_loop.py) | Máy 2 (overnight_loop_machine2.py) |
+| | Máy 1 (overnight_loop.py) | Máy 2 (overnight_loop_machine2.py — HEAVY) |
 |---|---|---|
-| Phase A archs | LSTM, FastText, Transformer cycle | LSTM only (focus) |
-| Phase A samples | 5000/intent | 5000/intent |
+| Vai trò | Iter nhanh, 3 archs cycle | **Heavy lift**: data 5×, HP cycle 4 configs |
+| Phase A target | 5,000/intent (40k total) | **25,000/intent (200k total — 5× máy 1)** |
+| Phase A archs | LSTM/FastText/Transformer cycle | LSTM only (winner — focus) |
+| Phase A epochs | 25 | 35 |
 | Phase A seeds | 1000+ | 5000+ |
-| Phase B steps | 1,000,000 | **2,000,000** (deeper) |
-| Phase B net | [128, 128] | **[256, 128]** (bigger) |
-| Phase B ent_coef | 0.01 | **0.02** (more explore) |
+| Phase B steps | 1M | **2M** |
+| Phase B HP | fixed [128,128] ent=0.01 lr=3e-4 | **cycle 4 configs:** ⬇ |
+| | | h1_baseline: [128,128] ent=0.01 lr=3e-4 |
+| | | h2_bigexplore: [256,128] ent=0.02 lr=3e-4 |
+| | | h3_deepfocus: [128,128,64] ent=0.005 lr=1e-4 |
+| | | h4_bigwide: [256,256] ent=0.05 lr=5e-4 |
 | Phase B seeds | 2000+ | 7000+ |
-| Iter time | ~35 min | ~55 min |
+| Iter time | ~35 min | ~60-70 min (heavy data + 2M PPO) |
+| Iters in 12h | ~15-18 | ~10-12 (cycle 4 HPs) |
 | Deliverables folder | `deliverables/` | `deliverables_m2/` |
 | State / log | `overnight_v3*` | `overnight_v3_m2*` |
 
@@ -83,13 +89,15 @@ git add AI_Training/deliverables_m2/ \
 git commit -m "machine-2: best PPO X.XX reward, LSTM YY.Y%"
 git push origin machine-2-results
 
-# Trên máy 1, merge results:
+# Trên máy 1, merge results + auto-pick winners:
 git fetch origin machine-2-results
-git checkout main
 git merge origin/machine-2-results --no-ff
-# Pick best soldier:
-#   Compare deliverables/soldier.onnx vs deliverables_m2/soldier_m2.onnx by reward
-#   Copy winner to deliverables/soldier.onnx (canonical)
+.venv/Scripts/python AI_Training/merge_machine_results.py
+# Tool sẽ:
+#   - Đọc cả 2 state files
+#   - So sánh best Phase A acc + Phase B reward
+#   - Copy winning ONNX vào deliverables/intent_classifier.onnx + soldier.onnx
+#   - Ghi MERGED_REPORT.md với full breakdown (tất cả HP × machine)
 ```
 
 ### File lock points (CRITICAL)

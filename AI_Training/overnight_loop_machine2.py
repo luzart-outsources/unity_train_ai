@@ -1,30 +1,36 @@
-"""V3.1 — MACHINE 2 variant. Run in parallel with overnight_loop.py on máy 1.
+"""V3.1 — MACHINE 2 HEAVY variant. Run in parallel with overnight_loop.py on máy 1.
 
-Differences from overnight_loop.py:
-  * Different STATE / LOG / DELIVERABLES paths → no file collision
-  * Seed pools shifted (5000+ Phase A, 7000+ Phase B) → independent search
-  * Bigger PPO net [256, 128] + 2M steps → deeper exploration of hard env
-  * Phase A only LSTM (proven winner) — focus on Phase B
-  * Outputs to deliverables_m2/ — máy 1 deliverables stay sacred
+Strategy: máy 2 dồn lực vào "heavy lifting" — data 5× lớn hơn, PPO HP cycle
+qua 4 configs để khám phá HP space rộng. Máy 1 vẫn chạy iter nhanh + diverse
+archs cycle. Cuối ngày dùng `merge_machine_results.py` tổng hợp best của 2 máy.
+
+Phase A (HEAVY DATA):
+  * 25,000 samples per intent = 200,000 total (5× máy 1)
+  * LSTM only — proven winner, focus thay vì cycle waste time
+  * 35 epochs
+
+Phase B (HP CYCLE):
+  * 2M steps per iter (2× máy 1)
+  * Cycle qua 4 HP configs, mỗi iter dùng 1 config khác:
+       Config 1: net [128,128]    ent 0.01  lr 3e-4   (baseline reference)
+       Config 2: net [256,128]    ent 0.02  lr 3e-4   (bigger + more explore)
+       Config 3: net [128,128,64] ent 0.005 lr 1e-4   (deeper + less explore)
+       Config 4: net [256,256]    ent 0.05  lr 5e-4   (much bigger + much more explore)
+
+Output:
+  * `deliverables_m2/` — best ONNX của máy 2 (separate folder)
+  * `overnight_v3_m2.log` + `overnight_v3_m2_state.json`
+  * `phase_b_movement/checkpoints/m2_<tag>/` per-iter checkpoints
 
 Setup máy 2:
   1. git clone https://github.com/luzart-outsources/unity_train_ai.git
   2. cd unity_train_ai
-  3. Recreate venv (máy 2 GPU specs có thể khác → install fresh):
+  3. Recreate venv:
        python -m venv AI_Training/phase_a_sentis/.venv
        AI_Training/phase_a_sentis/.venv/Scripts/pip install -r AI_Training/phase_a_sentis/requirements.txt
        AI_Training/phase_a_sentis/.venv/Scripts/pip install stable-baselines3==2.4.0 gymnasium==0.29.1
-  4. Run:
-       AI_Training/phase_a_sentis/.venv/Scripts/python AI_Training/overnight_loop_machine2.py
-
-Sync với máy 1:
-  - Máy 2 viết vào AI_Training/deliverables_m2/ (separate folder)
-  - Cuối ngày: máy 1 chọn best soldier giữa deliverables/ vs deliverables_m2/
-  - Push máy 2 results lên branch riêng (e.g. `machine-2-results`):
-       git checkout -b machine-2-results
-       git add AI_Training/deliverables_m2/ AI_Training/overnight_v3_m2.log AI_Training/overnight_v3_m2_state.json
-       git commit -m "machine-2: best PPO 8.X reward"
-       git push origin machine-2-results
+  4. Run (background, tách shell):
+       nohup AI_Training/phase_a_sentis/.venv/Scripts/python AI_Training/overnight_loop_machine2.py > m2.out 2>&1 &
 """
 from __future__ import annotations
 import datetime as dt
@@ -36,30 +42,33 @@ import time
 from pathlib import Path
 
 # ────────────────────────────────────────────────────────────────────────────
-# CONFIG — máy 2 specifics
-# ────────────────────────────────────────────────────────────────────────────
-DEADLINE = dt.datetime(2026, 5, 7, 19, 0, 0)   # SAME deadline để cùng dừng
+DEADLINE = dt.datetime(2026, 5, 7, 19, 0, 0)
 
-PHASE_A_EPOCHS = 30
-PHASE_A_TARGET = 5000
-PHASE_A_ARCHS = ["lstm"]              # Máy 2 chỉ LSTM (winner) — tiết kiệm thời gian
+PHASE_A_EPOCHS = 35
+PHASE_A_TARGET = 25_000           # 25k/intent × 8 = 200k total (5× máy 1)
+PHASE_A_ARCHS = ["lstm"]          # winner only, focus
 
-PHASE_B_STEPS = 2_000_000             # 2× máy 1 — explore deeper
+PHASE_B_STEPS = 2_000_000         # 2× máy 1
 PHASE_B_DEVICE = "cpu"
-PHASE_B_NET = "256,128"               # Bigger than máy 1's [128,128]
-PHASE_B_ENT = 0.02                    # Higher entropy → more exploration
+# HP configs cycled per Phase B iter
+PHASE_B_HPS = [
+    {"name": "h1_baseline",   "net": "128,128",    "ent": 0.01,  "lr": 3e-4},
+    {"name": "h2_bigexplore", "net": "256,128",    "ent": 0.02,  "lr": 3e-4},
+    {"name": "h3_deepfocus",  "net": "128,128,64", "ent": 0.005, "lr": 1e-4},
+    {"name": "h4_bigwide",    "net": "256,256",    "ent": 0.05,  "lr": 5e-4},
+]
 
-MIN_TIME_FOR_HEAVY = 60 * 60          # 60 min cushion (2M steps ~ 50 min)
-MIN_TIME_FOR_LIGHT = 8 * 60
+MIN_TIME_FOR_HEAVY = 70 * 60      # 70 min cushion (2M PPO ~ 50-60 min)
+MIN_TIME_FOR_LIGHT = 12 * 60      # 12 min for 200k data + train
 SPIN_GUARD_SLEEP = 30
-PHASE_A_TRAIN_TIMEOUT = 1800
+PHASE_A_TRAIN_TIMEOUT = 2400      # 40 min — generous for 200k data train
 
 # ────────────────────────────────────────────────────────────────────────────
 ROOT = Path(__file__).resolve().parent
 PHASE_A = ROOT / "phase_a_sentis"
 PHASE_B = ROOT / "phase_b_movement"
 PYTHON = PHASE_A / ".venv/Scripts/python.exe"
-DELIVERABLES = ROOT / "deliverables_m2"        # ★ separate folder
+DELIVERABLES = ROOT / "deliverables_m2"
 DELIVERABLES.mkdir(exist_ok=True)
 LOG_PATH = ROOT / "overnight_v3_m2.log"
 STATE_PATH = ROOT / "overnight_v3_m2_state.json"
@@ -99,7 +108,10 @@ def load_state() -> dict:
         "best_phase_a": {"acc": 0.0, "iter": 0, "data_seed": None, "arch": None},
         "best_phase_a_per_arch": {a: {"acc": 0.0, "iter": 0, "data_seed": None}
                                   for a in PHASE_A_ARCHS},
-        "best_phase_b": {"reward": -1e9, "iter": 0, "seed": None, "tag": None},
+        "best_phase_b": {"reward": -1e9, "iter": 0, "seed": None,
+                         "tag": None, "hp": None},
+        "best_phase_b_per_hp": {h["name"]: {"reward": -1e9, "iter": 0, "seed": None}
+                                for h in PHASE_B_HPS},
         "history": [],
     }
 
@@ -119,18 +131,17 @@ def run(cmd: list[str], cwd: Path | None = None, timeout: int | None = None) -> 
 
 
 def phase_a_iter(seed: int, arch: str, state: dict) -> dict:
-    log(f"[A] iter — seed={seed} arch={arch} target={PHASE_A_TARGET}/intent")
+    log(f"[A] iter — seed={seed} arch={arch} HEAVY target={PHASE_A_TARGET}/intent (200k total)")
     rc, _ = run([str(PYTHON), str(PHASE_A / "scripts/generate_dataset_v3.py"),
                  "--seed", str(seed), "--per_intent", str(PHASE_A_TARGET),
                  "--out", "data/intents_v3_m2.csv"],
-                cwd=PHASE_A, timeout=240)
+                cwd=PHASE_A, timeout=600)
     if rc != 0:
         log(f"[A] generate failed rc={rc}")
         return {"ok": False, "stage": "generate"}
 
-    epochs = PHASE_A_EPOCHS if arch == "fasttext" else (35 if arch == "lstm" else 40)
     rc, _ = run([str(PYTHON), str(PHASE_A / "scripts/train.py"),
-                 "--arch", arch, "--epochs", str(epochs),
+                 "--arch", arch, "--epochs", str(PHASE_A_EPOCHS),
                  "--data", "data/intents_v3_m2.csv", "--seed", str(seed)],
                 cwd=PHASE_A, timeout=PHASE_A_TRAIN_TIMEOUT)
     if rc != 0:
@@ -149,7 +160,7 @@ def phase_a_iter(seed: int, arch: str, state: dict) -> dict:
     if arch not in ev:
         return {"ok": False, "stage": "eval_parse"}
     acc = float(ev[arch]["accuracy"])
-    log(f"[A] {arch} real-world acc = {acc*100:.1f}%")
+    log(f"[A] {arch} real-world acc = {acc*100:.2f}% ({ev[arch]['correct']}/{ev[arch]['total']})")
 
     if acc > state["best_phase_a"]["acc"]:
         state["best_phase_a"] = {"acc": acc, "iter": state["iter"],
@@ -162,23 +173,24 @@ def phase_a_iter(seed: int, arch: str, state: dict) -> dict:
                 if src.exists():
                     shutil.copy2(src, DELIVERABLES / fname)
             shutil.copy2(eval_path, DELIVERABLES / "phase_a_eval_m2.json")
-            with open(DELIVERABLES / "intent_classifier_winner.txt", "w", encoding="utf-8") as f:
-                f.write(f"machine=m2\narch={arch}\nacc={acc*100:.2f}%\niter={state['iter']}\nseed={seed}\n")
-            log(f"[A] {arch} new BEST -> deliverables_m2/{arch}_intent.onnx")
+            with open(DELIVERABLES / "intent_classifier_winner_m2.txt", "w", encoding="utf-8") as f:
+                f.write(f"machine=m2\narch={arch}\nacc={acc*100:.2f}%\niter={state['iter']}\nseed={seed}\nsamples=200000\n")
+            log(f"[A] new BEST -> deliverables_m2/{arch}_intent.onnx ({acc*100:.2f}%)")
     return {"ok": True, "acc": acc, "arch": arch}
 
 
-def phase_b_iter(seed: int, state: dict) -> dict:
-    tag = f"m2_iter{state['iter']}_s{seed}"
-    log(f"[B] iter — tag={tag} steps={PHASE_B_STEPS:,} net={PHASE_B_NET} ent={PHASE_B_ENT}")
+def phase_b_iter(seed: int, hp: dict, state: dict) -> dict:
+    tag = f"m2_iter{state['iter']}_{hp['name']}_s{seed}"
+    log(f"[B] iter — tag={tag} steps={PHASE_B_STEPS:,} HP=[{hp['name']}] net={hp['net']} ent={hp['ent']} lr={hp['lr']}")
     rc, tail = run([str(PYTHON), str(PHASE_B / "scripts/train_ppo.py"),
                     "--total_steps", str(PHASE_B_STEPS),
                     "--seed", str(seed),
                     "--tag", tag,
                     "--device", PHASE_B_DEVICE,
                     "--n_envs", "4",
-                    "--net_arch", PHASE_B_NET,
-                    "--ent_coef", str(PHASE_B_ENT)],
+                    "--net_arch", hp["net"],
+                    "--ent_coef", str(hp["ent"]),
+                    "--lr", str(hp["lr"])],
                    cwd=PHASE_B, timeout=PHASE_B_STEPS // 100)
     if rc != 0:
         log(f"[B] train failed rc={rc}\n{tail}")
@@ -195,8 +207,15 @@ def phase_b_iter(seed: int, state: dict) -> dict:
     if mean_r is None:
         log(f"[B] could not parse mean_reward")
         return {"ok": False, "stage": "parse"}
-    log(f"[B] mean_reward = {mean_r:.3f}")
+    log(f"[B] mean_reward = {mean_r:.3f}  (HP={hp['name']})")
 
+    # Per-HP best
+    if mean_r > state["best_phase_b_per_hp"][hp["name"]]["reward"]:
+        state["best_phase_b_per_hp"][hp["name"]] = {
+            "reward": mean_r, "iter": state["iter"], "seed": seed
+        }
+
+    # Overall best
     if mean_r > state["best_phase_b"]["reward"]:
         best_zip = PHASE_B / "checkpoints" / tag / "best_model.zip"
         if not best_zip.exists():
@@ -210,22 +229,24 @@ def phase_b_iter(seed: int, state: dict) -> dict:
                     cwd=PHASE_B, timeout=120)
         if rc == 0:
             state["best_phase_b"] = {"reward": mean_r, "iter": state["iter"],
-                                     "seed": seed, "tag": tag}
-            log(f"[B] new BEST -> deliverables_m2/soldier_m2.onnx")
-    return {"ok": True, "mean_reward": mean_r}
+                                     "seed": seed, "tag": tag, "hp": hp["name"]}
+            log(f"[B] new BEST -> deliverables_m2/soldier_m2.onnx ({mean_r:.3f}, HP={hp['name']})")
+    return {"ok": True, "mean_reward": mean_r, "hp": hp["name"]}
 
 
 def main():
-    log(f"=== overnight v3 M2 loop started — DEADLINE {DEADLINE.isoformat()} ===")
+    log(f"=== overnight v3 M2 HEAVY loop started — DEADLINE {DEADLINE.isoformat()} ===")
     log(f"     time left: {time_left()/60:.1f} min")
-    log(f"     Phase A: {PHASE_A_TARGET}/intent, archs {PHASE_A_ARCHS}")
-    log(f"     Phase B: {PHASE_B_STEPS:,} steps/iter, net {PHASE_B_NET}, ent {PHASE_B_ENT}")
-    log(f"     Deliverables: {DELIVERABLES.name}/")
+    log(f"     Phase A HEAVY: {PHASE_A_TARGET}/intent = 200k samples, archs {PHASE_A_ARCHS}")
+    log(f"     Phase B HEAVY: {PHASE_B_STEPS:,} steps × {len(PHASE_B_HPS)} HP configs cycled")
+    for h in PHASE_B_HPS:
+        log(f"       {h['name']}: net={h['net']} ent={h['ent']} lr={h['lr']}")
     state = load_state()
 
-    seed_a = 5000   # offset từ máy 1 (1000+)
-    seed_b = 7000   # offset từ máy 1 (2000+)
+    seed_a = 5000
+    seed_b = 7000
     arch_idx = 0
+    hp_idx = 0
 
     while True:
         tl = time_left()
@@ -248,9 +269,11 @@ def main():
 
         tl = time_left()
         if tl >= MIN_TIME_FOR_HEAVY:
-            r = phase_b_iter(seed_b, state)
+            hp = PHASE_B_HPS[hp_idx % len(PHASE_B_HPS)]
+            hp_idx += 1
+            r = phase_b_iter(seed_b, hp, state)
             state["history"].append({"iter": state["iter"], "phase": "B",
-                                     "seed": seed_b, **r})
+                                     "seed": seed_b, "hp": hp["name"], **r})
             seed_b += 1
             save_state(state)
             did_anything = True
@@ -263,10 +286,13 @@ def main():
 
     log("=== deadline reached ===")
     log(f"     iterations: {state['iter']}")
-    log(f"     best Phase A: {state['best_phase_a']['acc']*100:.1f}% "
+    log(f"     best Phase A: {state['best_phase_a']['acc']*100:.2f}% "
         f"({state['best_phase_a']['arch']}, iter {state['best_phase_a']['iter']})")
     log(f"     best Phase B reward: {state['best_phase_b']['reward']:.3f}     "
-        f"(iter {state['best_phase_b']['iter']})")
+        f"(iter {state['best_phase_b']['iter']}, HP={state['best_phase_b'].get('hp')})")
+    log(f"     per-HP bests:")
+    for hp_name, b in state["best_phase_b_per_hp"].items():
+        log(f"       {hp_name}: {b['reward']:.3f} (iter {b['iter']}, seed {b['seed']})")
     save_state(state)
 
 
