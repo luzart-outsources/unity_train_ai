@@ -8,12 +8,12 @@
 // trực tiếp xem AI mới có thực sự thông minh hơn không.
 //
 // IMGUI-based để build nhanh, không cần Canvas hierarchy. Chia 2 cột:
-//   ┌──────────────────┬──────────────────┐
-//   │ V1 — AI cũ       │ V2 — AI mới      │
-//   │ (LSTM v3 trained │ (model v4 +      │
-//   │  on intents_v3,  │  slot extractor) │
-//   │  no slot extract)│                  │
-//   └──────────────────┴──────────────────┘
+//   +------------------+------------------+
+//   | V1 — AI cũ       | V2 — AI mới      |
+//   | (LSTM v3 trained | (model v4 +      |
+//   |  on intents_v3,  |  slot extractor) |
+//   |  no slot extract)|                  |
+//   +------------------+------------------+
 //   [User input]                    [Send]
 //
 // Editor builder bind references trong Inspector. Khi Play, script chạy 2 brain
@@ -111,11 +111,11 @@ public class PhaseACompareTester : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("══ Phase A — A/B Compare V1 (Old) vs V2 (New) ══");
+        Debug.Log("== Phase A — A/B Compare V1 (Old) vs V2 (New) ==");
         if (_v1Brain == null || _v2Brain == null) { Debug.LogError("[Compare] brains not initialized"); return; }
 
         _samplesTotal = Samples.Length;
-        Debug.Log("┌─ Sanity samples ─");
+        Debug.Log("+- Sanity samples -");
         foreach (var (text, expected) in Samples)
         {
             // V1
@@ -127,7 +127,7 @@ public class PhaseACompareTester : MonoBehaviour
             _v1History.Add(new Entry
             {
                 isUser = false, text = v1Reply,
-                subInfo = $"{v1Intent} ({v1Conf*100:F0}%) — expect {expected} {(v1Ok ? "✓" : "✗")}",
+                subInfo = $"{v1Intent} ({v1Conf*100:F0}%) — expect {expected} {(v1Ok ? "[OK]" : "[X]")}",
             });
 
             // V2
@@ -142,14 +142,14 @@ public class PhaseACompareTester : MonoBehaviour
             _v2History.Add(new Entry
             {
                 isUser = false, text = v2Reply,
-                subInfo = $"{v2Intent} ({v2Conf*100:F0}%) — expect {expected} {(v2Ok ? "✓" : "✗")}",
+                subInfo = $"{v2Intent} ({v2Conf*100:F0}%) — expect {expected} {(v2Ok ? "[OK]" : "[X]")}",
                 subInfoExtra = slotInfo,
             });
 
-            Debug.Log($"│ \"{text,-30}\" V1={v1Intent} ({v1Conf*100:F0}%) {(v1Ok?"✓":"✗")} | V2={v2Intent} ({v2Conf*100:F0}%) {(v2Ok?"✓":"✗")} slots={slotInfo}");
+            Debug.Log($"| \"{text,-30}\" V1={v1Intent} ({v1Conf*100:F0}%) {(v1Ok?"[OK]":"[X]")} | V2={v2Intent} ({v2Conf*100:F0}%) {(v2Ok?"[OK]":"[X]")} slots={slotInfo}");
         }
-        Debug.Log($"│ V1 score {_v1Pass}/{_samplesTotal}  |  V2 score {_v2Pass}/{_samplesTotal}");
-        Debug.Log("└────");
+        Debug.Log($"| V1 score {_v1Pass}/{_samplesTotal}  |  V2 score {_v2Pass}/{_samplesTotal}");
+        Debug.Log("+----");
         _ready = true;
     }
 
@@ -327,7 +327,7 @@ public class PhaseACompareTester : MonoBehaviour
 
         _scrollV1.y = float.MaxValue;
         _scrollV2.y = float.MaxValue;
-        Debug.Log($"[Compare] \"{text}\"  V1→{v1Intent} ({v1Conf*100:F0}%) | V2→{v2Intent} ({v2Conf*100:F0}%) {slotInfo}");
+        Debug.Log($"[Compare] \"{text}\"  V1->{v1Intent} ({v1Conf*100:F0}%) | V2->{v2Intent} ({v2Conf*100:F0}%) {slotInfo}");
     }
 
     private Dictionary<Color, Texture2D> _texCache = new();

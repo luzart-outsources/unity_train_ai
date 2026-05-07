@@ -1,12 +1,12 @@
 // AITestSceneBuilder.cs — pre-build scenes với GameObjects sẵn trong Hierarchy
 //
-// Click menu → scene mở ra với mọi thứ visible trong Editor (chưa Play).
+// Click menu -> scene mở ra với mọi thứ visible trong Editor (chưa Play).
 // User có thể inspect, di chuyển obstacle, đổi position trước khi Play.
 //
 // Menu items:
-//   AI / 1. Phase A — Chat Test       → scene với Commander (brain + chat UI)
-//   AI / 2. Phase B — Movement Test    → scene với Floor + Agent + Target + 6 Obstacles + Camera
-//   AI / 3. Both — Combined            → scene với cả 2
+//   AI / 1. Phase A — Chat Test       -> scene với Commander (brain + chat UI)
+//   AI / 2. Phase B — Movement Test    -> scene với Floor + Agent + Target + 6 Obstacles + Camera
+//   AI / 3. Both — Combined            -> scene với cả 2
 
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -32,15 +32,15 @@ public static class AITestSceneBuilder
         // Commander với brain V2 + ChatUI script + V2 stack (EntityExtractor + SmartContext)
         var commander = new GameObject("Commander");
         var brain = commander.AddComponent<NPCDialogueBrain>();
-        brain.modelAsset = assets.intentV2Model;        // ⭐ V2 model (LSTM v5, 707K params, 96.8% hard test)
-        brain.metaJson = assets.intentV2Meta;            // ⭐ V2 meta (vocab 10k, max_len=40)
-        brain.responsesJson = assets.responsesV2Json;    // ⭐ V2 responses (5-7 templates, slot-aware)
+        brain.modelAsset = assets.intentV2Model;        // * V2 model (LSTM v5, 707K params, 96.8% hard test)
+        brain.metaJson = assets.intentV2Meta;            // * V2 meta (vocab 10k, max_len=40)
+        brain.responsesJson = assets.responsesV2Json;    // * V2 responses (5-7 templates, slot-aware)
         brain.backend = BackendType.CPU;
         brain.minConfidence = 0.40f;
         var chatUI = commander.AddComponent<PhaseAChatUI>();
-        chatUI.slotVocabJson = assets.slotVocabJson;     // ⭐ EntityExtractor input
+        chatUI.slotVocabJson = assets.slotVocabJson;     // * EntityExtractor input
 
-        // ─── Canvas hierarchy ───────────────────────────────────────────
+        // --- Canvas hierarchy -------------------------------------------
         var canvasGo = new GameObject("ChatCanvas", typeof(RectTransform));
         var canvas = canvasGo.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
@@ -188,9 +188,9 @@ public static class AITestSceneBuilder
         Debug.Log("[AISetup] Phase A scene built — Hierarchy có Canvas + Background + Header + ScrollView + InputRow + Commander. Click Play.");
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // UI helpers
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     static RectTransform MakeUIChild(Transform parent, string name)
     {
         var go = new GameObject(name, typeof(RectTransform));
@@ -348,9 +348,9 @@ public static class AITestSceneBuilder
         // Phase A: Commander dùng V2 (PhaseAChatTester IMGUI fallback, không Canvas vì 3D scene chiếm view)
         var commander = new GameObject("Commander");
         var brain = commander.AddComponent<NPCDialogueBrain>();
-        brain.modelAsset = assets.intentV2Model;          // ⭐ V2
-        brain.metaJson = assets.intentV2Meta;              // ⭐ V2
-        brain.responsesJson = assets.responsesV2Json;      // ⭐ V2
+        brain.modelAsset = assets.intentV2Model;          // * V2
+        brain.metaJson = assets.intentV2Meta;              // * V2
+        brain.responsesJson = assets.responsesV2Json;      // * V2
         brain.backend = BackendType.CPU;
         // Wire EntityExtractor + SmartContext qua direct field access (cần component
         // PhaseAChatTester bị deprecated, nên dùng helper bằng cách init context
@@ -422,9 +422,9 @@ public static class AITestSceneBuilder
         Debug.Log("[AISetup] Combined scene built. Click Play.");
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // Helpers
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     static bool CheckNotPlaying()
     {
         if (EditorApplication.isPlaying)
@@ -492,9 +492,9 @@ public static class AITestSceneBuilder
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // Layer + Tag setup
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     static void EnsureLayersAndTags()
     {
         var tagAssets = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset");

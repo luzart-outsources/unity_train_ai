@@ -39,7 +39,7 @@ public class PhaseAChatTester : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("══ PHASE A — Intent Classifier Chat Test ══");
+        Debug.Log("== PHASE A — Intent Classifier Chat Test ==");
         if (_brain == null || !_brain.enabled)
         {
             Debug.LogError("[PhaseA] NPCDialogueBrain not ready");
@@ -47,7 +47,7 @@ public class PhaseAChatTester : MonoBehaviour
         }
 
         // Auto sanity test
-        Debug.Log("┌─ Auto sanity (5 sample) ─");
+        Debug.Log("+- Auto sanity (5 sample) -");
         _totalSamples = Samples.Length;
         foreach (var (text, expected) in Samples)
         {
@@ -60,12 +60,12 @@ public class PhaseAChatTester : MonoBehaviour
             {
                 isUser = false,
                 content = reply,
-                subInfo = $"{intent} ({conf*100:F0}%) — expect {expected} {(ok ? "✓" : "✗")}"
+                subInfo = $"{intent} ({conf*100:F0}%) — expect {expected} {(ok ? "[OK]" : "[X]")}"
             });
-            Debug.Log($"│ {(ok ? "✓" : "✗")} \"{text}\" → {intent} ({conf*100:F1}%, expect {expected})");
+            Debug.Log($"| {(ok ? "[OK]" : "[X]")} \"{text}\" -> {intent} ({conf*100:F1}%, expect {expected})");
         }
-        Debug.Log($"│ Score: {_passCount}/{_totalSamples}");
-        Debug.Log("└────────────────────────────────");
+        Debug.Log($"| Score: {_passCount}/{_totalSamples}");
+        Debug.Log("+--------------------------------");
         _ready = true;
     }
 
@@ -168,7 +168,7 @@ public class PhaseAChatTester : MonoBehaviour
         });
         // Auto-scroll to bottom
         _scroll.y = float.MaxValue;
-        Debug.Log($"[PhaseA] \"{text}\" → {intent} ({conf*100:F1}%) | {reply}");
+        Debug.Log($"[PhaseA] \"{text}\" -> {intent} ({conf*100:F1}%) | {reply}");
     }
 
     float EstimateContentHeight(float bubbleMaxW, GUIStyle u, GUIStyle n, GUIStyle s)

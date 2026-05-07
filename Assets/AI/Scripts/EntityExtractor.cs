@@ -5,7 +5,7 @@
 // Vấn đề con AI cũ giải: model classify intent rất tốt (HOI_VI_TRI khi user hỏi
 // về địa điểm), nhưng response template dùng placeholder {place} luôn được fill
 // bằng giá trị HARDCODED trong DummyContext (vd: "khu B"). Kết quả: user hỏi
-// "khu A ở đâu" → AI vẫn nhả "khu A nằm ở khu B5". Trông như AI ngu — nhưng thực
+// "khu A ở đâu" -> AI vẫn nhả "khu A nằm ở khu B5". Trông như AI ngu — nhưng thực
 // ra là tầng response không nhận biết user vừa hỏi cái gì.
 //
 // EntityExtractor đọc câu user, scan qua vocabulary slot (đồng bộ với
@@ -63,9 +63,9 @@ public class EntityExtractor
         return result;
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // Matching helpers
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     private static string Normalize(string s)
     {
         // Lowercase and pad with spaces so word-boundary check at edges is uniform.
@@ -112,11 +112,11 @@ public class EntityExtractor
         return hay.IndexOf(padded, StringComparison.Ordinal) >= 0;
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // Tiny JSON parser (slot_vocab.json shape)
     //   { "_README": "...", "place": ["a", "b"], "time": ["..."], ... }
     // We only need top-level keys mapping to string arrays.
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     private void ParseVocab(string json)
     {
         int idx = 0;

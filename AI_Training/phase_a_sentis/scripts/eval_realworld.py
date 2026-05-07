@@ -24,7 +24,7 @@ MODEL_DIR = ROOT / "models"
 # malformed grammar, OOD vocabulary, and adversarial near-confusions.
 # Scoring this is the actual signal — synthetic val_acc is misleading.
 TEST_CASES = [
-    # ── HOI_LICH (8) ──
+    # -- HOI_LICH (8) --
     ("Hôm nay có lịch gì", "HOI_LICH"),
     ("Tuần sau có hoạt động gì", "HOI_LICH"),
     ("Cho hỏi mai tập trung lúc mấy giờ và làm gì ạ", "HOI_LICH"),
@@ -34,7 +34,7 @@ TEST_CASES = [
     ("Chiều nay đại đội ta bố trí gì không", "HOI_LICH"),
     ("Schedule hôm nay sao rồi", "HOI_LICH"),                         # English mix
 
-    # ── HOI_GIO_AN (8) ──
+    # -- HOI_GIO_AN (8) --
     ("Mấy giờ thì ăn cơm", "HOI_GIO_AN"),
     ("Bao giờ phát cơm", "HOI_GIO_AN"),
     ("May gio thi an", "HOI_GIO_AN"),                                  # no accent
@@ -44,7 +44,7 @@ TEST_CASES = [
     ("Có gì ăn không em đói", "HOI_GIO_AN"),
     ("Nhà ăn mở mấy giờ vậy", "HOI_GIO_AN"),
 
-    # ── HOI_VI_TRI (8) ──
+    # -- HOI_VI_TRI (8) --
     ("Nhà ăn nằm đâu", "HOI_VI_TRI"),
     ("Phòng học ở đâu vậy", "HOI_VI_TRI"),
     ("Cho em hỏi giảng đường B5 ở chỗ nào ạ", "HOI_VI_TRI"),
@@ -54,7 +54,7 @@ TEST_CASES = [
     ("Cổng số 2 cách đây bao xa", "HOI_VI_TRI"),
     ("Em mới đến không biết khu KTX nằm ở đâu", "HOI_VI_TRI"),
 
-    # ── HOI_KIEN_THUC (8) ──
+    # -- HOI_KIEN_THUC (8) --
     ("Quy tắc bắn 3 điểm là gì", "HOI_KIEN_THUC"),
     ("Súng AK47 dùng thế nào", "HOI_KIEN_THUC"),
     ("Em chưa hiểu RSA hoạt động ra sao", "HOI_KIEN_THUC"),
@@ -64,7 +64,7 @@ TEST_CASES = [
     ("Hàm băm SHA-256 dùng để làm gì", "HOI_KIEN_THUC"),
     ("Tư thế nằm bắn quy tắc thế nào", "HOI_KIEN_THUC"),
 
-    # ── BAO_CAO (8) ──
+    # -- BAO_CAO (8) --
     ("Báo cáo đầy đủ", "BAO_CAO"),
     ("Tôi xin báo cáo đã hoàn thành", "BAO_CAO"),
     ("Báo cáo thủ trưởng đại đội 1 đủ quân", "BAO_CAO"),
@@ -74,7 +74,7 @@ TEST_CASES = [
     ("Báo cáo bài bắn đạt yêu cầu", "BAO_CAO"),
     ("Đã hoàn thành nhiệm vụ xin báo cáo", "BAO_CAO"),
 
-    # ── XIN_PHEP (8) ──
+    # -- XIN_PHEP (8) --
     ("Cho em xin nghỉ", "XIN_PHEP"),
     ("Em xin phép về quê", "XIN_PHEP"),
     ("Thưa thủ trưởng cho em nghỉ vì sốt cao ạ", "XIN_PHEP"),
@@ -84,7 +84,7 @@ TEST_CASES = [
     ("Thầy ơi cho em nghỉ tập thể dục sáng mai", "XIN_PHEP"),
     ("Em đề nghị duyệt cho em nghỉ phép", "XIN_PHEP"),
 
-    # ── TAM_BIET (8) ──
+    # -- TAM_BIET (8) --
     ("Chào thủ trưởng", "TAM_BIET"),
     ("Em chào thủ trưởng em đi đây", "TAM_BIET"),
     ("Em chào em đi học đây ạ", "TAM_BIET"),
@@ -94,7 +94,7 @@ TEST_CASES = [
     ("Em xuống ăn cơm đã chào thủ trưởng", "TAM_BIET"),
     ("Em phải về phòng đây tạm biệt", "TAM_BIET"),
 
-    # ── OUT_OF_SCOPE (8) — student small talk that should NOT match commands ──
+    # -- OUT_OF_SCOPE (8) — student small talk that should NOT match commands --
     ("Messi đá hay không", "OUT_OF_SCOPE"),
     ("Wifi yếu quá", "OUT_OF_SCOPE"),
     ("Hôm nay tớ thèm trà sữa quá", "OUT_OF_SCOPE"),

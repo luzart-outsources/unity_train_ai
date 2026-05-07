@@ -3,7 +3,7 @@
 // Status monitor cho Phase B test scene. KHÔNG spawn objects — Editor đã
 // pre-build scene với Floor + Agent (MovementAgent đã configure) + Target +
 // 6 Obstacles + Camera. Component này chỉ:
-//   - Track distance agent → target
+//   - Track distance agent -> target
 //   - Hiển thị status UI (timer, dist, success count)
 //   - Nút "Reset Episode" teleport agent về start position
 //   - Log Console khi reach hoặc timeout
@@ -30,13 +30,13 @@ public class PhaseBMovementTester : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("══════════════════════════════════════════════");
+        Debug.Log("==============================================");
         Debug.Log(" PHASE B — Movement Test (scene đã pre-build)");
-        Debug.Log("══════════════════════════════════════════════");
+        Debug.Log("==============================================");
         if (agent == null || target == null)
         {
             Debug.LogError("[PhaseB] agent/target chưa assign. Rebuild scene qua menu AI.");
-            _status = "❌ Scene không có agent/target. Rebuild scene.";
+            _status = "[FAIL] Scene không có agent/target. Rebuild scene.";
             return;
         }
         StartEpisode();
@@ -66,16 +66,16 @@ public class PhaseBMovementTester : MonoBehaviour
         {
             _running = false;
             _successCount++;
-            _status = $"✅ REACHED sau {elapsed:F1}s, dist={dist:F2}";
-            Debug.Log($"[PhaseB] Episode #{_episodeCount} ✅ REACHED at {elapsed:F1}s");
+            _status = $"[PASS] REACHED sau {elapsed:F1}s, dist={dist:F2}";
+            Debug.Log($"[PhaseB] Episode #{_episodeCount} [PASS] REACHED at {elapsed:F1}s");
             return;
         }
 
         if (elapsed >= timeoutSeconds)
         {
             _running = false;
-            _status = $"⚠️ TIMEOUT sau {elapsed:F1}s, dist={dist:F2}";
-            Debug.LogWarning($"[PhaseB] Episode #{_episodeCount} ⚠️ TIMEOUT");
+            _status = $"[!] TIMEOUT sau {elapsed:F1}s, dist={dist:F2}";
+            Debug.LogWarning($"[PhaseB] Episode #{_episodeCount} [!] TIMEOUT");
         }
     }
 

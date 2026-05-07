@@ -10,7 +10,7 @@
 //
 // Khi Play, scene chạy IMGUI 2 cột so sánh trực tiếp old vs new responses.
 // Nếu V2 model chưa có (chưa train xong), V2 column sẽ fall back về V1 model
-// (vẫn khác V1 vì dùng SmartContext + EntityExtractor → response template
+// (vẫn khác V1 vì dùng SmartContext + EntityExtractor -> response template
 // được fill bằng slot trích thật từ câu user).
 
 using UnityEditor;

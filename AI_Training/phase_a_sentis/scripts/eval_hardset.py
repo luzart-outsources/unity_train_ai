@@ -39,7 +39,7 @@ MODEL_DIR = ROOT / "models"
 
 # 200+ hard test cases. Format: (text, expected_intent, category).
 TEST_CASES = [
-    # ── HOI_LICH (28) ──
+    # -- HOI_LICH (28) --
     ("Hôm nay có lịch gì", "HOI_LICH", "CLEAN"),
     ("Tuần sau có hoạt động gì", "HOI_LICH", "CLEAN"),
     ("Chiều mai đại đội tập trung không", "HOI_LICH", "CLEAN"),
@@ -69,7 +69,7 @@ TEST_CASES = [
     ("Đồng chí ơi thứ 4 lớp mình học môn gì", "HOI_LICH", "CLEAN"),
     ("Mai đi đâu vậy thầy", "HOI_LICH", "SLANG"),
 
-    # ── HOI_GIO_AN (26) ──
+    # -- HOI_GIO_AN (26) --
     ("Mấy giờ thì ăn cơm", "HOI_GIO_AN", "CLEAN"),
     ("Bao giờ phát cơm", "HOI_GIO_AN", "CLEAN"),
     ("Trưa nay ăn lúc mấy giờ", "HOI_GIO_AN", "CLEAN"),
@@ -97,7 +97,7 @@ TEST_CASES = [
     ("ăn cơm chưa thầy ơi đói lắm", "HOI_GIO_AN", "SLANG"),
     ("nay đói meo khi nào ăn z", "HOI_GIO_AN", "SLANG"),
 
-    # ── HOI_VI_TRI (28) ──
+    # -- HOI_VI_TRI (28) --
     ("Nhà ăn nằm đâu", "HOI_VI_TRI", "CLEAN"),
     ("Phòng học ở đâu vậy", "HOI_VI_TRI", "CLEAN"),
     ("Cho em hỏi giảng đường B5 ở chỗ nào ạ", "HOI_VI_TRI", "CLEAN"),
@@ -127,7 +127,7 @@ TEST_CASES = [
     ("nhà ăn đâu z", "HOI_VI_TRI", "SLANG"),
     ("phòng 401 chỗ nào v", "HOI_VI_TRI", "SLANG"),
 
-    # ── HOI_KIEN_THUC (26) ──
+    # -- HOI_KIEN_THUC (26) --
     ("Quy tắc bắn 3 điểm là gì", "HOI_KIEN_THUC", "CLEAN"),
     ("Súng AK47 dùng thế nào", "HOI_KIEN_THUC", "CLEAN"),
     ("Hàm băm SHA-256 dùng để làm gì", "HOI_KIEN_THUC", "CLEAN"),
@@ -155,7 +155,7 @@ TEST_CASES = [
     ("RSA hoạt động ra sao", "HOI_KIEN_THUC", "CLEAN"),
     ("dijkstra hoạt động sao thầy", "HOI_KIEN_THUC", "SLANG"),
 
-    # ── BAO_CAO (26) ──
+    # -- BAO_CAO (26) --
     ("Báo cáo đầy đủ", "BAO_CAO", "CLEAN"),
     ("Tôi xin báo cáo đã hoàn thành", "BAO_CAO", "CLEAN"),
     ("Báo cáo thủ trưởng đại đội 1 đủ quân", "BAO_CAO", "CLEAN"),
@@ -183,7 +183,7 @@ TEST_CASES = [
     ("xong nhiệm vụ rồi anh ơi", "BAO_CAO", "SLANG"),
     ("báo cáo team 1 done", "BAO_CAO", "CODE_MIX"),
 
-    # ── XIN_PHEP (28) ──
+    # -- XIN_PHEP (28) --
     ("Cho em xin nghỉ", "XIN_PHEP", "CLEAN"),
     ("Em xin phép về quê", "XIN_PHEP", "CLEAN"),
     ("Thưa thủ trưởng cho em nghỉ vì sốt cao ạ", "XIN_PHEP", "CLEAN"),
@@ -213,7 +213,7 @@ TEST_CASES = [
     ("anh ơi em xin off chiều nay được hum", "XIN_PHEP", "SLANG"),
     ("cho em nghỉ học mai ạ", "XIN_PHEP", "SLANG"),
 
-    # ── TAM_BIET (26) ──
+    # -- TAM_BIET (26) --
     ("Chào thủ trưởng", "TAM_BIET", "CLEAN"),
     ("Em chào thủ trưởng em đi đây", "TAM_BIET", "CLEAN"),
     ("Em chào em đi học đây ạ", "TAM_BIET", "CLEAN"),
@@ -241,7 +241,7 @@ TEST_CASES = [
     ("ok em đi đây", "TAM_BIET", "SLANG"),
     ("hẹn mai gặp lại nha", "TAM_BIET", "CLEAN"),
 
-    # ── OUT_OF_SCOPE (28) - student small talk that should NOT match commands ──
+    # -- OUT_OF_SCOPE (28) - student small talk that should NOT match commands --
     ("Messi đá hay không", "OUT_OF_SCOPE", "CLEAN"),
     ("Wifi yếu quá", "OUT_OF_SCOPE", "CLEAN"),
     ("Hôm nay tớ thèm trà sữa quá", "OUT_OF_SCOPE", "CLEAN"),

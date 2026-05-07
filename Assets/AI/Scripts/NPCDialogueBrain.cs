@@ -150,9 +150,9 @@ public class NPCDialogueBrain : MonoBehaviour
         return (_id2label[bestId], bestProb);
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // Tokenization — greedy multi-word match (mimics underthesea behavior)
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     private int _maxMultiWordLen = 1;  // max word count of any vocab key
 
     int[] Encode(string text)
@@ -173,7 +173,7 @@ public class NPCDialogueBrain : MonoBehaviour
         // Greedy longest-match: tại mỗi vị trí, thử ghép N..1 word liên tiếp,
         // lấy match dài nhất có trong vocab. Cách này mimic underthesea behavior
         // đủ để vocab keys như "ăn cơm", "thủ trưởng", "báo cáo" được match
-        // thay vì split thành tokens riêng → UNK → model fail.
+        // thay vì split thành tokens riêng -> UNK -> model fail.
         int wi = 0;
         int idIdx = 0;
         while (wi < words.Length && idIdx < _maxLen)
@@ -193,7 +193,7 @@ public class NPCDialogueBrain : MonoBehaviour
             }
             if (matchedSpan == 0)
             {
-                // No match → 1 word as UNK
+                // No match -> 1 word as UNK
                 ids[idIdx++] = _unkId;
                 wi += 1;
             }
@@ -206,9 +206,9 @@ public class NPCDialogueBrain : MonoBehaviour
         return ids;
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // Response lookup with placeholder substitution
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     string PickReply(string intent)
     {
         if (!_responses.TryGetValue(intent, out var pool) || pool.Count == 0)
@@ -237,11 +237,11 @@ public class NPCDialogueBrain : MonoBehaviour
         return sb.ToString();
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // JSON parsing — tiny custom parser to avoid extra dependencies.
     // The meta + responses files are small and well-formed enough that
     // splitting on quotes works. For robustness, drop in Newtonsoft.Json.
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     void ParseMeta(string json)
     {
         _vocab = new Dictionary<string, int>();
@@ -395,9 +395,9 @@ public class NPCDialogueBrain : MonoBehaviour
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────
+// -------------------------------------------------------------------------
 // Runtime context interface — Quyen implements this with real game data.
-// ─────────────────────────────────────────────────────────────────────────
+// -------------------------------------------------------------------------
 public interface IRuntimeContext
 {
     /// <summary>Return the substitution for {key}, or null if unknown.</summary>

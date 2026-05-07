@@ -150,9 +150,9 @@ public class NPCDialogueBrain : MonoBehaviour
         return (_id2label[bestId], bestProb);
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // Tokenization
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     int[] Encode(string text)
     {
         // Whitespace tokenize on lowercased text. Multi-word vocab entries (e.g.
@@ -178,9 +178,9 @@ public class NPCDialogueBrain : MonoBehaviour
         return ids;
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // Response lookup with placeholder substitution
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     string PickReply(string intent)
     {
         if (!_responses.TryGetValue(intent, out var pool) || pool.Count == 0)
@@ -209,11 +209,11 @@ public class NPCDialogueBrain : MonoBehaviour
         return sb.ToString();
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // JSON parsing — tiny custom parser to avoid extra dependencies.
     // The meta + responses files are small and well-formed enough that
     // splitting on quotes works. For robustness, drop in Newtonsoft.Json.
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     void ParseMeta(string json)
     {
         _vocab = new Dictionary<string, int>();
@@ -356,9 +356,9 @@ public class NPCDialogueBrain : MonoBehaviour
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────
+// -------------------------------------------------------------------------
 // Runtime context interface — Quyen implements this with real game data.
-// ─────────────────────────────────────────────────────────────────────────
+// -------------------------------------------------------------------------
 public interface IRuntimeContext
 {
     /// <summary>Return the substitution for {key}, or null if unknown.</summary>

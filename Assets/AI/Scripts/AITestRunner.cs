@@ -50,9 +50,9 @@ public class AITestRunner : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("══════════════════════════════════════════════");
+        Debug.Log("==============================================");
         Debug.Log(" AI TEST RUNNER — auto test cả 2 phase");
-        Debug.Log("══════════════════════════════════════════════");
+        Debug.Log("==============================================");
         StartCoroutine(RunAllTests());
     }
 
@@ -69,27 +69,27 @@ public class AITestRunner : MonoBehaviour
             yield return RunPhaseBTest();
         }
 
-        Debug.Log("══════════════════════════════════════════════");
+        Debug.Log("==============================================");
         Debug.Log(" ALL TESTS DONE — đọc Console phía trên");
-        Debug.Log("══════════════════════════════════════════════");
+        Debug.Log("==============================================");
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // Phase A
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     IEnumerator RunPhaseATest()
     {
-        Debug.Log("┌─ PHASE A: Intent Classifier (5 câu test) ─");
+        Debug.Log("+- PHASE A: Intent Classifier (5 câu test) -");
         if (intentModel == null || intentMeta == null || responsesJson == null)
         {
-            Debug.LogError("│ ❌ Phase A assets thiếu — check Inspector của AITestRunner");
-            Debug.Log("└────────────────────────────────────────────");
+            Debug.LogError("| [FAIL] Phase A assets thiếu — check Inspector của AITestRunner");
+            Debug.Log("+--------------------------------------------");
             yield break;
         }
 
         // Tạo Commander GameObject với NPCDialogueBrain
         // CRITICAL: SetActive(false) trước AddComponent vì Awake() chạy ngay
-        // khi component được add → fields chưa kịp assign → fail "missing assets"
+        // khi component được add -> fields chưa kịp assign -> fail "missing assets"
         var commander = new GameObject("Commander");
         commander.SetActive(false);
         _brain = commander.AddComponent<NPCDialogueBrain>();
@@ -109,24 +109,24 @@ public class AITestRunner : MonoBehaviour
             var (intent, conf) = _brain.Classify(text);
             bool ok = intent == expected;
             if (ok) correct++;
-            string mark = ok ? "✓" : "✗";
-            Debug.Log($"│ {mark} \"{text}\" → {intent} ({conf*100:F1}%, expect {expected})");
+            string mark = ok ? "[OK]" : "[X]";
+            Debug.Log($"| {mark} \"{text}\" -> {intent} ({conf*100:F1}%, expect {expected})");
         }
         float acc = (float)correct / PhaseATests.Length;
-        Debug.Log($"│ → Score: {correct}/{PhaseATests.Length} = {acc*100:F0}%");
+        Debug.Log($"| -> Score: {correct}/{PhaseATests.Length} = {acc*100:F0}%");
         if (acc >= 0.8f)
-            Debug.Log($"│ ✅ PASS — Phase A model OK");
+            Debug.Log($"| [PASS] PASS — Phase A model OK");
         else
-            Debug.LogWarning($"│ ⚠️ FAIL — accuracy thấp, check tokenization");
-        Debug.Log("└────────────────────────────────────────────");
+            Debug.LogWarning($"| [!] FAIL — accuracy thấp, check tokenization");
+        Debug.Log("+--------------------------------------------");
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // Phase B — build scene + run episode
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     void BuildPhaseBScene()
     {
-        Debug.Log("┌─ PHASE B: Movement (build scene + 1 episode) ─");
+        Debug.Log("+- PHASE B: Movement (build scene + 1 episode) -");
 
         // Floor
         var floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
@@ -179,7 +179,7 @@ public class AITestRunner : MonoBehaviour
         if (obstacleLayerId >= 0) _moveAgent.obstacleLayer = 1 << obstacleLayerId;
         if (targetLayerId >= 0) _moveAgent.targetLayer = 1 << targetLayerId;
 
-        // Bây giờ activate → Awake() sẽ chạy với fields đầy đủ
+        // Bây giờ activate -> Awake() sẽ chạy với fields đầy đủ
         _agent.SetActive(true);
 
         // Camera — đặt ở góc trên nhìn xuống
@@ -189,15 +189,15 @@ public class AITestRunner : MonoBehaviour
             Camera.main.transform.rotation = Quaternion.Euler(60, 0, 0);
         }
 
-        Debug.Log("│ Scene built: 1 plane, 1 agent, 1 target, 6 obstacles");
+        Debug.Log("| Scene built: 1 plane, 1 agent, 1 target, 6 obstacles");
     }
 
     IEnumerator RunPhaseBTest()
     {
         if (movementModel == null)
         {
-            Debug.LogError("│ ❌ Phase B model thiếu");
-            Debug.Log("└────────────────────────────────────────────");
+            Debug.LogError("| [FAIL] Phase B model thiếu");
+            Debug.Log("+--------------------------------------------");
             yield break;
         }
 
@@ -216,8 +216,8 @@ public class AITestRunner : MonoBehaviour
             if (dist < 1.2f)  // agent radius 0.5 + target 0.7
             {
                 float elapsed = Time.time - startTime;
-                Debug.Log($"│ ✅ REACHED target sau {elapsed:F1}s, dist={dist:F2}");
-                Debug.Log("└────────────────────────────────────────────");
+                Debug.Log($"| [PASS] REACHED target sau {elapsed:F1}s, dist={dist:F2}");
+                Debug.Log("+--------------------------------------------");
                 yield break;
             }
 
@@ -233,10 +233,10 @@ public class AITestRunner : MonoBehaviour
 
             // Periodic progress
             if (Mathf.FloorToInt(Time.time - startTime) % 5 == 0 && ticksSinceImprove == 0)
-                Debug.Log($"│   ... {Time.time-startTime:F0}s, dist={dist:F2}");
+                Debug.Log($"|   ... {Time.time-startTime:F0}s, dist={dist:F2}");
         }
 
-        Debug.LogWarning($"│ ⚠️ TIMEOUT sau {phaseBTimeout}s, agent không đến đích");
-        Debug.Log("└────────────────────────────────────────────");
+        Debug.LogWarning($"| [!] TIMEOUT sau {phaseBTimeout}s, agent không đến đích");
+        Debug.Log("+--------------------------------------------");
     }
 }

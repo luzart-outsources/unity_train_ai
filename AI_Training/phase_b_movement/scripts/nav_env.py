@@ -89,9 +89,9 @@ class NavCubeEnv(gym.Env):
         # obstacles: list of (cx, cy, half) tuples
         self.obstacles: list[tuple[float, float, float]] = []
 
-    # ────────────────────────────────────────────────────────────────────
+    # --------------------------------------------------------------------
     # Sampling helpers
-    # ────────────────────────────────────────────────────────────────────
+    # --------------------------------------------------------------------
     def _sample_free_point(self, min_clearance: float) -> np.ndarray:
         """Sample point not overlapping any obstacle (with margin)."""
         for _ in range(60):
@@ -111,9 +111,9 @@ class NavCubeEnv(gym.Env):
             d = min(d, math.hypot(dx, dy))
         return d
 
-    # ────────────────────────────────────────────────────────────────────
+    # --------------------------------------------------------------------
     # Gym API
-    # ────────────────────────────────────────────────────────────────────
+    # --------------------------------------------------------------------
     def reset(self, *, seed: int | None = None, options=None):
         if seed is not None:
             self._rng = np.random.default_rng(seed)
@@ -182,7 +182,7 @@ class NavCubeEnv(gym.Env):
         terminated = False
         truncated = False
 
-        # Out of arena → fail
+        # Out of arena -> fail
         if (new_pos[0] < 0 or new_pos[0] > self.arena_size or
                 new_pos[1] < 0 or new_pos[1] > self.arena_size):
             reward += -1.0
@@ -208,7 +208,7 @@ class NavCubeEnv(gym.Env):
         self.agent_pos = new_pos.astype(np.float32)
         dist = float(np.linalg.norm(self.target_pos - self.agent_pos))
 
-        # Reaching target → big reward, end episode
+        # Reaching target -> big reward, end episode
         if dist < (self.agent_radius + self.target_radius):
             reward += 1.0
             terminated = True
@@ -227,9 +227,9 @@ class NavCubeEnv(gym.Env):
 
         return self._obs(), reward, terminated, truncated, {}
 
-    # ────────────────────────────────────────────────────────────────────
+    # --------------------------------------------------------------------
     # Observation construction (mirrors what Unity raycast would give)
-    # ────────────────────────────────────────────────────────────────────
+    # --------------------------------------------------------------------
     def _obs(self) -> np.ndarray:
         # Rays in agent frame, evenly spaced 360°
         ray_dists = np.zeros(self.num_rays, dtype=np.float32)

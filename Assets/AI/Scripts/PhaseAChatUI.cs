@@ -60,18 +60,18 @@ public class PhaseAChatUI : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[PhaseA] slotVocabJson chưa assign → V2 không có entity extraction (fallback DummyContext only)");
+            Debug.LogWarning("[PhaseA] slotVocabJson chưa assign -> V2 không có entity extraction (fallback DummyContext only)");
         }
     }
 
     void Start()
     {
-        Debug.Log("══ PHASE A — Intent Classifier Chat (Canvas UI) ══");
+        Debug.Log("== PHASE A — Intent Classifier Chat (Canvas UI) ==");
 
         if (_brain == null || !_brain.enabled)
         {
             Debug.LogError("[PhaseA] NPCDialogueBrain not ready");
-            if (statusText != null) statusText.text = "❌ Brain not ready — check Inspector";
+            if (statusText != null) statusText.text = "[FAIL] Brain not ready — check Inspector";
             return;
         }
 
@@ -80,7 +80,7 @@ public class PhaseAChatUI : MonoBehaviour
         // (Input System only). Bắt Enter qua Update() + Keyboard.current.
 
         // Auto sanity
-        Debug.Log("┌─ Sanity (5 sample) ─");
+        Debug.Log("+- Sanity (5 sample) -");
         foreach (var (text, expected) in Samples)
         {
             // V2: extract slots cho mỗi sample để response chính xác
@@ -94,11 +94,11 @@ public class PhaseAChatUI : MonoBehaviour
             if (ok) _passCount++;
             AddBubble(text, isUser: true, subInfo: null);
             AddBubble(reply, isUser: false,
-                      subInfo: $"{intent} ({conf * 100:F0}%) — expect {expected} {(ok ? "✓" : "✗")}",
+                      subInfo: $"{intent} ({conf * 100:F0}%) — expect {expected} {(ok ? "[OK]" : "[X]")}",
                       subColor: ok ? new Color(0.55f, 0.85f, 0.55f) : new Color(0.95f, 0.45f, 0.45f));
-            Debug.Log($"│ {(ok ? "✓" : "✗")} \"{text}\" → {intent} ({conf * 100:F1}%)");
+            Debug.Log($"| {(ok ? "[OK]" : "[X]")} \"{text}\" -> {intent} ({conf * 100:F1}%)");
         }
-        Debug.Log($"│ Score {_passCount}/{Samples.Length}");
+        Debug.Log($"| Score {_passCount}/{Samples.Length}");
 
         if (statusText != null)
             statusText.text = $"Sanity: {_passCount}/{Samples.Length} đúng. Gõ tiếng Việt vào ô dưới để test thêm.";
@@ -158,14 +158,14 @@ public class PhaseAChatUI : MonoBehaviour
         inputField.text = "";
         inputField.Select();
         inputField.ActivateInputField();
-        Debug.Log($"[PhaseA] \"{text}\" → {intent} ({conf * 100:F1}%) | {reply}");
+        Debug.Log($"[PhaseA] \"{text}\" -> {intent} ({conf * 100:F1}%) | {reply}");
 
         StartCoroutine(ScrollToBottomNextFrame());
     }
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     // Tạo chat bubble runtime với Image + Text(s) + ContentSizeFitter
-    // ─────────────────────────────────────────────────────────────────────
+    // ---------------------------------------------------------------------
     void AddBubble(string content, bool isUser, string subInfo, Color? subColor = null)
     {
         if (contentParent == null) return;

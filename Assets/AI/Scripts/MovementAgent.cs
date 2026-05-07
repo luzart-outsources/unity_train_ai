@@ -105,7 +105,7 @@ public class MovementAgent : MonoBehaviour
         // 3) Apply action — same kinematics as Python env
         // CRITICAL: Python rotation positive = CCW (right-hand math: heading += turn).
         // Unity positive Y rotation = CW from above (left-handed coords).
-        // → Negate để khớp Python: turn>0 từ model nghĩa là CCW (rẽ trái), Unity phải
+        // -> Negate để khớp Python: turn>0 từ model nghĩa là CCW (rẽ trái), Unity phải
         //   xoay -turn để cũng ra CCW.
         transform.Rotate(0f, -turn * maxTurnRadPerSec * dt * Mathf.Rad2Deg, 0f, Space.World);
         float speed = thrust > 0 ? thrust * maxSpeed : thrust * maxSpeed * 0.5f;
