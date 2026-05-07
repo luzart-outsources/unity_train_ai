@@ -88,16 +88,19 @@ public class AITestRunner : MonoBehaviour
         }
 
         // Tạo Commander GameObject với NPCDialogueBrain
+        // CRITICAL: SetActive(false) trước AddComponent vì Awake() chạy ngay
+        // khi component được add → fields chưa kịp assign → fail "missing assets"
         var commander = new GameObject("Commander");
+        commander.SetActive(false);
         _brain = commander.AddComponent<NPCDialogueBrain>();
         _brain.modelAsset = intentModel;
         _brain.metaJson = intentMeta;
         _brain.responsesJson = responsesJson;
         _brain.backend = BackendType.CPU;  // CPU stable cho test
         _brain.minConfidence = 0.40f;
+        commander.SetActive(true);  // bây giờ Awake() chạy với fields đầy đủ
 
-        // Trigger Awake manually không được — đợi Unity tự gọi
-        yield return null;
+        yield return null;  // đợi 1 frame cho Awake hoàn tất
 
         int correct = 0;
         for (int i = 0; i < PhaseATests.Length; i++)
@@ -142,9 +145,10 @@ public class AITestRunner : MonoBehaviour
         _target.transform.position = new Vector3(8, 0.5f, 8);
         _target.GetComponent<Renderer>().material.color = Color.red;
 
-        // Agent — màu xanh
+        // Agent — màu xanh, SetActive(false) trước để Awake không fail
         _agent = GameObject.CreatePrimitive(PrimitiveType.Cube);
         _agent.name = "Agent";
+        _agent.SetActive(false);  // ngăn Awake chạy trước khi assign properties
         _agent.transform.position = new Vector3(-8, 0.5f, -8);
         _agent.GetComponent<Renderer>().material.color = Color.blue;
         // Remove collider — agent là kinematic, không cần collide
@@ -167,13 +171,16 @@ public class AITestRunner : MonoBehaviour
             ob.GetComponent<Renderer>().material.color = new Color(0.3f, 0.2f, 0.1f);
         }
 
-        // Add MovementAgent component
+        // Add MovementAgent component (agent đang inactive nên Awake chưa chạy)
         _moveAgent = _agent.AddComponent<MovementAgent>();
         _moveAgent.modelAsset = movementModel;
         _moveAgent.target = _target.transform;
         _moveAgent.backend = BackendType.CPU;
         if (obstacleLayerId >= 0) _moveAgent.obstacleLayer = 1 << obstacleLayerId;
         if (targetLayerId >= 0) _moveAgent.targetLayer = 1 << targetLayerId;
+
+        // Bây giờ activate → Awake() sẽ chạy với fields đầy đủ
+        _agent.SetActive(true);
 
         // Camera — đặt ở góc trên nhìn xuống
         if (Camera.main != null)
