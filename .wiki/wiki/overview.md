@@ -33,33 +33,39 @@ User của wiki này phụ trách **TRAIN 2 model AI** (việc của tôi). Quy�
 3. **2 endings**: Pass / Fail dựa trên chỉ số tích lũy
 4. **AI hỗ trợ immersion**: chỉ huy nói tiếng Việt + lính tự di chuyển
 
-## Current state — END OF DAY MÁY 1 (2026-05-07 19:36)
+## Current state — END OF DAY (2026-05-07 19:00, cả 2 máy completed)
 
-Loop `overnight_loop.py` máy 1 kết thúc tự nhiên ở 18:59 (deadline reached). 27 iters total, ~10h training.
+AI training v3.1 hoàn tất ở 19:00 — máy 1 stop 18:59, máy 2 stop 18:59 (cùng deadline).
 
-### Final bests máy 1
+### Final winners (combined cả 2 máy)
 
-| Phase | Best | Iter | File |
-|---|---|---|---|
-| **Phase A LSTM** ⭐ | 63/64 = **98.44%** | 1 | `intent_classifier.onnx` (canonical) + `lstm_intent.onnx` |
-| **Phase A FastText** ⭐ | 63/64 = **98.44%** | **17** | `fasttext_intent.onnx` — match LSTM sau 8× seed |
-| Phase A Transformer | 62/64 = 96.88% | 18 | `transformer_intent.onnx` |
-| **Phase B PPO** ⭐ | reward **6.569** | **14** | `soldier.onnx` — break plateau 6.0! |
-| Phase B v2 backup | reward 6.126 | (fixed env) | `soldier_v2_fixedenv.onnx` |
+| Phase | Winner | Best | At | Source |
+|---|---|---|---|---|
+| **Phase A LSTM** ⭐ | máy 1 | 63/64 = **98.44%** | iter 1, seed 1000 | `lstm_intent.onnx` (= `intent_classifier.onnx` canonical) |
+| **Phase A FastText** ⭐ | máy 1 | 63/64 = **98.44%** | iter 17, seed 1016 | `fasttext_intent.onnx` — match LSTM sau 8× seed |
+| Phase A Transformer | máy 1 | 62/64 = 96.88% | iter 18 | `transformer_intent.onnx` |
+| **Phase B PPO** ⭐⭐ WINNER | máy 2 | reward **6.572** | h3_deepfocus iter 7, seed 7006 | `deliverables_m2/soldier_m2.onnx` ⭐ |
+| Phase B máy 1 runner-up | máy 1 | reward 6.569 | iter 14, seed 2013 | `soldier.onnx` (chỉ thua máy 2 = 0.003!) |
+| Phase B v2 backup | n/a | reward 6.126 | fixed env | `soldier_v2_fixedenv.onnx` |
 
-→ **Cả 3 archs Phase A đều ≥96.9%**, LSTM/FastText ngang nhau 98.44%. Confirm "data scale > arch given enough seed".
+→ **Phân vai theo strength**: Máy 1 nhanh → giành Phase A (3 archs cycle 27 iters). Máy 2 HEAVY → giành Phase B (HP cycle 4 configs × 2 seeds, 10M PPO steps tổng).
 
-### Máy 2 — last known từ commit `ff5affc` (14:05)
-- Decision: skip Phase A (timeout 40 min). Focus 100% Phase B HP cycle.
-- Best Phase B máy 2: **6.236** (iter 1 h1_baseline, 12:41)
-- Status sau 14:05 không rõ — đợi push branch.
+### Máy 2 HP grid breakdown (Phase B)
+| HP | Net | Ent | LR | Best Reward | Verdict |
+|---|---|---|---|---|---|
+| **h3_deepfocus** ⭐ | [128,128,64] | 0.005 | 1e-4 | **6.572** | conservative thắng |
+| h2_bigexplore | [256,128] | 0.02 | 3e-4 | 6.263 | tốt vừa |
+| h1_baseline | [128,128] | 0.01 | 3e-4 | 6.236 | baseline |
+| h4_bigwide | [256,256] | 0.05 | 5e-4 | 5.252 | flop — bigger net + high ent hurt |
+
+→ **Bài học HP**: conservative beats brute. Deeper net + low ent + low lr > bigger net + high ent.
 
 Chi tiết tức thời: [[live-status]].
 
 Chi tiết per-system: [[systems/sentis-chat]], [[systems/movement-ai]].
 
-> [!info] Bước tiếp theo
-> Khi máy 2 push xong branch `machine-2-results`, chạy `merge_machine_results.py` để auto-pick winner cuối cùng giữa 2 máy.
+> [!info] 2-machine parallel — COMPLETED
+> Final canonical sau merge: `intent_classifier.onnx` = LSTM 98.44% (máy 1), `soldier.onnx` cần update từ `soldier_m2.onnx` (máy 2). Chạy `AI_Training/merge_machine_results.py` để auto-pick winner. Setup: [[decisions/two-machine-parallel]].
 
 ## Key systems
 
