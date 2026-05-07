@@ -102,4 +102,10 @@ Mỗi claim có ID stable `c-YYYYMMDD-NN`. Khi GDD revision sửa giá trị →
 - **Claim**: Plan máy 2 chạy HEAVY config: 200k samples (5× máy 1) + 2M PPO × cycle 4 HP configs (h1-h4). Output vào `deliverables_m2/`. End-of-day `merge_machine_results.py` auto-pick winner.
 - **Sources**: `overnight_loop_machine2.py`, `merge_machine_results.py`
 - **Used by**: [[decisions/two-machine-parallel]], [[live-status]]
-- **Status**: code ready, awaiting deploy on máy 2
+- **Status**: ✅ deployed on máy 2 từ 11:19:07 (sau khi setup uv venv + fix generator bug, xem c-20260507-16). Iter 1 đang chạy.
+
+### c-20260507-16 — Generator O(N²) blocker
+- **Claim**: `generate_dataset_v3.py:746` dùng `len([r for r in rows if r["intent"] == intent])` trong while condition → quadratic theo `args.per_intent`. Tại 5000/intent ~30s acceptable; tại 25000/intent (HEAVY máy 2) **30+ min**, vượt timeout 600s. Fix bằng counter `kept` O(1): 200k samples 30+min → 3sec.
+- **Sources**: Smoke test máy 2 11:09 (stall 7+ min) → 11:18 fix → 11:19 verify
+- **Used by**: [[bugs/generator-on2-quadratic]], [[live-status]], [[decisions/two-machine-parallel]]
+- **Status**: fixed (commit pending push). Máy 1 cũng được hưởng sau git pull (giảm vài chục giây/iter).
