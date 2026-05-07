@@ -1,29 +1,26 @@
 // PhaseAChatTester.cs
 //
-// Test Phase A interactive: tự classify 5 sample sentences khi Start, sau đó
-// mở UI chat (IMGUI) để user gõ tay câu bất kỳ và xem kết quả.
+// UI chat IMGUI cho Phase A. KHÔNG spawn Commander — expect được gắn cùng
+// GameObject với NPCDialogueBrain (đã configured bởi editor builder).
 //
-// Không cần TextMeshPro — dùng OnGUI() native.
+// Workflow:
+//   - Awake: tìm NPCDialogueBrain trên cùng GameObject
+//   - Start: classify 5 sample sentences (sanity check) → log Console
+//   - OnGUI: chat UI cho user gõ tay câu bất kỳ
 
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.InferenceEngine;
 
+[RequireComponent(typeof(NPCDialogueBrain))]
 public class PhaseAChatTester : MonoBehaviour
 {
-    [Header("Phase A assets")]
-    public ModelAsset intentModel;
-    public TextAsset intentMeta;
-    public TextAsset responsesJson;
-
     private NPCDialogueBrain _brain;
     private string _inputText = "";
     private List<string> _history = new List<string>();
     private Vector2 _scroll = Vector2.zero;
     private bool _ready = false;
 
-    // Sample sentences for auto-test (sanity check)
-    private static readonly (string text, string expected)[] SamplesA = new[]
+    private static readonly (string text, string expected)[] Samples = new[]
     {
         ("Mấy giờ thì ăn cơm",       "HOI_GIO_AN"),
         ("Phòng học ở đâu vậy",      "HOI_VI_TRI"),
@@ -32,35 +29,26 @@ public class PhaseAChatTester : MonoBehaviour
         ("Súng AK47 dùng thế nào",   "HOI_KIEN_THUC"),
     };
 
+    void Awake()
+    {
+        _brain = GetComponent<NPCDialogueBrain>();
+    }
+
     void Start()
     {
         Debug.Log("══════════════════════════════════════════════");
         Debug.Log(" PHASE A — Intent Classifier Chat Test");
         Debug.Log("══════════════════════════════════════════════");
 
-        if (intentModel == null || intentMeta == null || responsesJson == null)
+        if (_brain == null || !_brain.enabled)
         {
-            Debug.LogError("[PhaseA] Assets missing — assign trong Inspector");
-            enabled = false;
+            Debug.LogError("[PhaseA] NPCDialogueBrain disabled hoặc missing — check Inspector của Commander");
             return;
         }
 
-        // Tạo Commander GameObject với NPCDialogueBrain
-        // SetActive(false) trước AddComponent để Awake không chạy với fields null
-        var commander = new GameObject("Commander");
-        commander.SetActive(false);
-        _brain = commander.AddComponent<NPCDialogueBrain>();
-        _brain.modelAsset = intentModel;
-        _brain.metaJson = intentMeta;
-        _brain.responsesJson = responsesJson;
-        _brain.backend = BackendType.CPU;
-        _brain.minConfidence = 0.40f;
-        commander.SetActive(true);
-
-        // Auto-test sanity check
         Debug.Log("┌─ Auto sanity test (5 sample) ─");
         int correct = 0;
-        foreach (var (text, expected) in SamplesA)
+        foreach (var (text, expected) in Samples)
         {
             var (intent, conf) = _brain.Classify(text);
             bool ok = intent == expected;
@@ -70,66 +58,52 @@ public class PhaseAChatTester : MonoBehaviour
             Debug.Log("│ " + line);
             _history.Add(line);
         }
-        float acc = (float)correct / SamplesA.Length;
-        string scoreLine = $"Score: {correct}/{SamplesA.Length} = {acc*100:F0}%";
-        Debug.Log("│ " + scoreLine);
+        float acc = (float)correct / Samples.Length;
         _history.Add("");
-        _history.Add(scoreLine);
+        _history.Add($"Score: {correct}/{Samples.Length} = {acc*100:F0}%");
         _history.Add(acc >= 0.8f ? "✅ Sanity PASS" : "⚠️ Sanity FAIL");
         _history.Add("");
         _history.Add("→ Gõ câu bên dưới để test thêm:");
         _history.Add("");
 
-        Debug.Log($"│ → Score {correct}/{SamplesA.Length} = {acc*100:F0}%");
+        Debug.Log($"│ → Score {correct}/{Samples.Length} = {acc*100:F0}%");
         Debug.Log("└────────────────────────────────────────────");
-        Debug.Log("");
         Debug.Log("► Chat UI ready — gõ trong Game window để test thêm.");
 
         _ready = true;
     }
 
-    // ─────────────────────────────────────────────────────────────────────
-    // IMGUI chat panel — không cần Canvas/TMP setup
-    // ─────────────────────────────────────────────────────────────────────
     void OnGUI()
     {
         if (!_ready) return;
 
         var skin = GUI.skin;
-        // Larger font for readability
-        var oldSize = skin.label.fontSize;
-        var oldButtonSize = skin.button.fontSize;
-        var oldFieldSize = skin.textField.fontSize;
+        var oldLabel = skin.label.fontSize;
+        var oldButton = skin.button.fontSize;
+        var oldField = skin.textField.fontSize;
         skin.label.fontSize = 16;
         skin.button.fontSize = 16;
         skin.textField.fontSize = 16;
 
-        // Layout: full screen panel
-        GUILayout.BeginArea(new Rect(20, 20, Screen.width - 40, Screen.height - 40),
-                            GUI.skin.box);
+        GUILayout.BeginArea(new Rect(20, 20, Screen.width - 40, Screen.height - 40), GUI.skin.box);
 
         GUILayout.Label("<b>Phase A — NPC Chat Test (gõ tiếng Việt)</b>",
                         new GUIStyle(GUI.skin.label) { richText = true, fontSize = 20 });
         GUILayout.Space(10);
 
-        // History scroll view
         _scroll = GUILayout.BeginScrollView(_scroll, GUILayout.Height(Screen.height - 200));
-        foreach (var line in _history)
-        {
-            GUILayout.Label(line);
-        }
+        var lblStyle = new GUIStyle(GUI.skin.label) { richText = true, fontSize = 15, wordWrap = true };
+        foreach (var line in _history) GUILayout.Label(line, lblStyle);
         GUILayout.EndScrollView();
 
         GUILayout.Space(10);
 
-        // Input row
         GUILayout.BeginHorizontal();
         GUI.SetNextControlName("ChatInput");
         _inputText = GUILayout.TextField(_inputText, GUILayout.Height(35));
         bool clicked = GUILayout.Button("Gửi", GUILayout.Width(80), GUILayout.Height(35));
         GUILayout.EndHorizontal();
 
-        // Submit on Enter or click
         bool enterPressed = Event.current.type == EventType.KeyDown
                             && (Event.current.keyCode == KeyCode.Return
                                 || Event.current.keyCode == KeyCode.KeypadEnter);
@@ -143,10 +117,9 @@ public class PhaseAChatTester : MonoBehaviour
 
         GUILayout.EndArea();
 
-        // Restore old font sizes
-        skin.label.fontSize = oldSize;
-        skin.button.fontSize = oldButtonSize;
-        skin.textField.fontSize = oldFieldSize;
+        skin.label.fontSize = oldLabel;
+        skin.button.fontSize = oldButton;
+        skin.textField.fontSize = oldField;
     }
 
     void Submit(string text)
@@ -157,8 +130,7 @@ public class PhaseAChatTester : MonoBehaviour
         _history.Add($"<b>Intent:</b> {intent} ({conf*100:F1}%)");
         _history.Add($"<b>NPC:</b> {reply}");
         _history.Add("");
-        _scroll.y = float.MaxValue;  // auto-scroll to bottom
-
+        _scroll.y = float.MaxValue;
         Debug.Log($"[PhaseA] \"{text}\" → {intent} ({conf*100:F1}%) | {reply}");
     }
 }

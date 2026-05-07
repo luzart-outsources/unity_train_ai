@@ -55,7 +55,8 @@ public class MovementAgent : MonoBehaviour
     public float maxTurnRadPerSec = Mathf.PI;
     public float rayMaxDist = 10f;
     public int numRays = 8;
-    public float arenaDiagonal = 28.28f;     // 20 * sqrt(2)
+    public float arenaDiagonal = 35.36f;     // 25 * sqrt(2) — match arena_max in v3 random env training
+    public float agentRadius = 0.5f;
 
     [Header("Stepping")]
     [Tooltip("Match the Python env dt (0.1s = 10 Hz). Inference fires this often.")]
@@ -108,11 +109,27 @@ public class MovementAgent : MonoBehaviour
         _velocity = fwd * speed;
         Vector3 next = transform.position + _velocity * dt;
 
-        // Simple collision: don't move into obstacles (let physics also handle it)
-        if (!Physics.CheckSphere(next, 0.5f, obstacleLayer))
+        // 4) Collision response — match Python: slide along nearest face thay vì block
+        // Python code (nav_env.py::step):
+        //   ox, oy = new_pos[0]-cx, new_pos[1]-cy
+        //   if abs(ox) > abs(oy): new_pos[0] = cx + sign(ox)*(h+r+0.01)
+        //   else:                 new_pos[1] = cy + sign(oy)*(h+r+0.01)
+        Collider[] hits = Physics.OverlapSphere(next, agentRadius, obstacleLayer);
+        if (hits != null && hits.Length > 0)
         {
-            transform.position = next;
+            // Slide ra cạnh gần nhất của obstacle đầu tiên
+            var ob = hits[0];
+            Vector3 obCenter = ob.bounds.center;
+            float halfX = ob.bounds.extents.x;
+            float halfZ = ob.bounds.extents.z;
+            float ox = next.x - obCenter.x;
+            float oz = next.z - obCenter.z;
+            if (Mathf.Abs(ox) > Mathf.Abs(oz))
+                next.x = obCenter.x + Mathf.Sign(ox) * (halfX + agentRadius + 0.01f);
+            else
+                next.z = obCenter.z + Mathf.Sign(oz) * (halfZ + agentRadius + 0.01f);
         }
+        transform.position = next;
     }
 
     /// <summary>
