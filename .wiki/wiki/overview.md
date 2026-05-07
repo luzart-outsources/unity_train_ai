@@ -33,24 +33,26 @@ User của wiki này phụ trách **TRAIN 2 model AI** (việc của tôi). Quy�
 3. **2 endings**: Pass / Fail dựa trên chỉ số tích lũy
 4. **AI hỗ trợ immersion**: chỉ huy nói tiếng Việt + lính tự di chuyển
 
-## Current state (live snapshot — last updated 2026-05-07 10:01)
+## Current state (live snapshot — last updated 2026-05-07 10:53)
 
-AI training v3.1 overnight loop running (started 09:00, deadline 19:00 7/5 — còn ~9h):
+AI training v3.1 overnight loop running on máy 1 (started 09:00, deadline 19:00 7/5 — còn ~8h):
 
 | Phase | Best | Status |
 |---|---|---|
-| **Phase A LSTM** ⭐ | 63/64 = 98.4% (iter 1) | canonical `intent_classifier.onnx` |
+| **Phase A LSTM** ⭐ | 63/64 = **98.4%** (iter 1) | canonical `intent_classifier.onnx` |
 | Phase A FastText | 61/64 = 95.3% (iter 2) | per-arch best |
-| Phase A Transformer | not yet trained in v3.1 (next iter 3) | stale 18.8% from pre-loop |
-| **Phase B v3.1** | mean_reward 5.572 (iter 1, 1M steps) | `soldier.onnx` 80KB |
+| Phase A Transformer | 61/64 = 95.3% (iter 3) | per-arch best |
+| **Phase B v3.1** | mean_reward **6.011** (iter 2, 1M steps) | `soldier.onnx` 80KB |
 | Phase B v2 backup | mean_reward 6.126 (fixed env, ref only) | `soldier_v2_fixedenv.onnx` |
 
-Chi tiết tức thời: [[live-status]] (luôn check trang này cho state mới nhất, hoặc đọc `overnight_v3_state.json`).
+Cả 3 archs đạt ~95-98% với 40k data → **data scale > arch complexity**.
+
+Chi tiết tức thời: [[live-status]].
 
 Chi tiết per-system: [[systems/sentis-chat]], [[systems/movement-ai]].
 
-> [!info] Multi-instance
-> User đang chạy 2 máy/2 Claude instance song song. Master = instance đang sở hữu loop process. Reader = instance khác đọc-only. Xem [[live-status#Multi-instance protocol]].
+> [!info] 2-machine parallel
+> Plan chạy 2 máy parallel: máy 1 (đang chạy) iteration nhanh + 3 archs cycle, máy 2 (chưa start) **HEAVY**: 200k data, 2M PPO × 4 HP cycle. Cuối ngày `merge_machine_results.py` auto-pick winner. Setup chi tiết: [[decisions/two-machine-parallel]].
 
 ## Key systems
 

@@ -84,7 +84,33 @@ Mở rộng test lên 64 câu (slang, telex, compound, OOD):
 - Bài học: FastText không "fundamentally broken" — chỉ cần đủ vocab diversity
 - Vẫn dưới LSTM 98.4% nên canonical không đổi
 - File name conflict: `fasttext_intent.onnx` per-arch overwrite legacy alias (xem [[live-status]])
-- Phase B 1M PPO: chạy đến 10:08 (đang run khi sync)
+- Phase B 1M PPO: **mean_reward 6.011** ⭐ (vượt iter 1 = 5.572), canonical `soldier.onnx` updated
+- Time: ~10:08 → 10:15 (1M steps ~ 31 min)
+
+### Iter 3 v3.1 — Transformer
+- Phase A Transformer real-world: **61/64 = 95.3%** ⭐ (huge jump từ 18.8% với 16k data)
+- Confirms hypothesis "data scale > arch complexity": cả 3 archs giờ đều ≥95% với 40k data
+- LSTM nhỉnh hơn 3pp do giữ thứ tự từ; FastText/Transformer ngang nhau
+- Phase B 1M PPO: chạy đến ~10:55 (sắp xong khi sync)
+
+### Trạng thái sau iter 3 (snapshot 10:53)
+| Arch | Real-world acc | Iter |
+|---|---|---|
+| LSTM ⭐ | 98.44% | 1 |
+| FastText | 95.31% | 2 |
+| Transformer | 95.31% | 3 |
+
+| Phase B run | reward | Iter |
+|---|---|---|
+| iter 1 | 5.572 | 1 |
+| **iter 2** ⭐ | **6.011** | 2 |
+| iter 3 | (đang chạy) | 3 |
+
+### Phase 2-machine plan (in progress)
+- Máy 1: tiếp tục loop v3.1 đến 19:00 (~8h nữa, ~13-15 iters)
+- Máy 2 (chưa start): HEAVY config — 200k samples + 2M PPO × 4 HP cycle
+- Cuối ngày `merge_machine_results.py` auto-pick winner cho canonical
+- Chi tiết: [[decisions/two-machine-parallel]]
 
 ## Bài học chính
 

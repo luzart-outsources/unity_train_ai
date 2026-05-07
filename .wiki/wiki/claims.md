@@ -84,3 +84,22 @@ Mỗi claim có ID stable `c-YYYYMMDD-NN`. Khi GDD revision sửa giá trị →
 - **Used by**: [[live-status]]
 - **Mitigation**: dùng `intent_classifier.onnx` (canonical name, không bị conflict)
 - **Status**: known issue, low priority — fix sau v3.1 done
+
+### c-20260507-13 — Transformer cũng đạt 95.3% với 40k data
+- **Claim**: Transformer trained on v3.1 40k data (iter 3) đạt 61/64 = 95.31% — HUGE jump từ 18.8% với 16k. Cùng kết quả với FastText. LSTM vẫn nhỉnh hơn (98.44%).
+- **Sources**: `overnight_v3.log` iter 3 10:30:48, `phase_a_sentis/models/eval_iter3_transformer.json`
+- **Used by**: [[technical/architecture-comparison]], [[analysis/evolution-v1-to-v3.1]]
+- **Status**: active
+- **Notes**: Confirms data-scale-over-arch hypothesis. Cả 3 archs đều benefit ngang nhau từ data scale, chỉ LSTM có +3pp lợi thế architecture (giữ thứ tự từ).
+
+### c-20260507-14 — Phase B PPO break 6.011 (iter 2)
+- **Claim**: Phase B v3.1 iter 2 (1M steps, [128,128] net, random env 3-12 obstacles) đạt mean_reward = 6.011, vượt iter 1 = 5.572.
+- **Sources**: `overnight_v3.log` 10:14:58, `training_runs.csv` row v3_iter2_s2001
+- **Used by**: [[systems/movement-ai]], [[live-status]]
+- **Status**: active (current best)
+
+### c-20260507-15 — 2-machine parallel HEAVY plan
+- **Claim**: Plan máy 2 chạy HEAVY config: 200k samples (5× máy 1) + 2M PPO × cycle 4 HP configs (h1-h4). Output vào `deliverables_m2/`. End-of-day `merge_machine_results.py` auto-pick winner.
+- **Sources**: `overnight_loop_machine2.py`, `merge_machine_results.py`
+- **Used by**: [[decisions/two-machine-parallel]], [[live-status]]
+- **Status**: code ready, awaiting deploy on máy 2

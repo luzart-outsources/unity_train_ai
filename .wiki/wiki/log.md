@@ -51,3 +51,27 @@ Chronological record of all wiki operations.
 - Updated: claims.md (thêm c-20260507-11), analysis/evolution-v1-to-v3.1.md
 - Phát hiện: file name collision `fasttext_intent.onnx` — per-arch fasttext write vs OVERALL legacy alias write cùng filename. Documented in [[live-status]].
 - Recommend Quyền: dùng `deliverables/intent_classifier.onnx` (canonical, đảm bảo LSTM), KHÔNG dùng `fasttext_intent.onnx` (có thể flip).
+
+## [2026-05-07 10:30] note | Iter 3 — Transformer cũng 95.3%
+
+- Iter 2 Phase B PPO: 6.011 ⭐ (vượt iter 1 = 5.572), canonical soldier.onnx updated
+- Iter 3 Phase A Transformer: 95.3% (jump từ 18.8% với 16k → 95.3% với 40k)
+- Cả 3 archs giờ đều ≥95% với 40k data → confirms data > arch
+- claims.md: thêm c-20260507-13, 14
+- evolution.md: thêm iter 2/3 details + snapshot table
+
+## [2026-05-07 10:43] commit | Heavy machine-2 + merge tool
+
+- New: `AI_Training/overnight_loop_machine2.py` HEAVY config (200k samples, 4 HP cycle, 2M PPO)
+- New: `AI_Training/merge_machine_results.py` end-of-day winner picker
+- Wiki: [[decisions/two-machine-parallel]] updated với heavy config table
+- claims.md: thêm c-20260507-15
+- Pushed: commit `1378e9b` lên GitHub. Máy 2 chỉ cần git clone + run.
+
+## [2026-05-07 10:53] sync | Pre-deploy máy 2 wiki refresh
+
+- live-status.md: refresh snapshot iter 3 progress
+- overview.md: bảng best metrics + multi-instance note
+- claims.md: 4 claims mới (c-20260507-13, 14, 15)
+- evolution.md: iter 2/3 detail + snapshot tables
+- Sẵn sàng cho user deploy máy 2 (đợi máy 1 iter 3 PPO xong ~10:55)

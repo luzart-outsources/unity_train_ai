@@ -16,24 +16,34 @@ updated: 2026-05-07
 > cat  "AI_Training/overnight_v3_state.json"
 > ```
 
-## Snapshot lúc 2026-05-07 10:01
+## Snapshot lúc 2026-05-07 10:53
 
-### Loop info
+### Loop info máy 1
 - Master script: `AI_Training/overnight_loop.py`
-- Started: 09:00:00 (deadline 19:00:00 — còn ~9h)
-- Iter hiện tại: **2** (Phase B 1M PPO đang chạy ~25 min)
+- Started: 09:00:00 (deadline 19:00:00 — còn ~8h)
+- Iter hiện tại: **3** (Phase B 1M PPO sắp xong ~10:55)
 - Config: `PHASE_A_TARGET=5000`, `PHASE_B_STEPS=1_000_000`, archs cycle `[lstm, fasttext, transformer]`
 
-### Phase A — current bests
-| Arch | acc | iter | data_seed |
-|---|---|---|---|
-| **LSTM** ⭐ | **98.44%** (63/64) | 1 | 1000 |
-| FastText | 95.31% (61/64) | 2 | 1001 |
-| Transformer | not yet trained in v3.1 | — | — |
+### Loop info máy 2 (HEAVY)
+- Master script: `AI_Training/overnight_loop_machine2.py`
+- Status: **chưa chạy** — đợi user clone repo + setup venv
+- Cấu hình: 200k samples (5× máy 1), 2M PPO × 4 HP cycle
+- Chi tiết: [[decisions/two-machine-parallel]]
+
+### Phase A — current bests (all 3 archs trained on v3.1 40k data)
+| Arch | acc | iter | data_seed | Trạng thái |
+|---|---|---|---|---|
+| **LSTM** ⭐ | **98.44%** (63/64) | 1 | 1000 | canonical |
+| FastText | 95.31% (61/64) | 2 | 1001 | per-arch best |
+| Transformer | 95.31% (61/64) | 3 | 1002 | per-arch best |
+
+> [!info] Phát hiện iter 2-3
+> Cả 3 archs trên 40k data đều đạt ~95-98%. Trên 16k data thì spread rộng (25/95.3/18.8). Kết luận lại: **data scale là yếu tố quyết định, không phải arch**. FastText và Transformer không "broken" — chỉ cần đủ vocab diversity. LSTM nhỉnh hơn 3pp do giữ thứ tự từ.
 
 ### Phase B — current best
-- mean_reward: **5.572** (iter 1, tag v3_iter1_s2000, 1M steps)
+- mean_reward: **6.011** (iter 2, tag v3_iter2_s2001, 1M steps)
 - File: `deliverables/soldier.onnx` (~80KB, net [128,128], random env)
+- Iter 1 = 5.572, iter 2 = 6.011 ⭐, iter 3 = đang chạy
 
 ### Deliverables file map (with filesize sanity check)
 
@@ -87,6 +97,10 @@ Khi 2 máy chạy 2 Claude instances cùng lúc:
 - 2026-05-07 09:06 — iter 1 LSTM 98.4% canonical updated
 - 2026-05-07 09:42 — iter 2 FastText 95.3% (data scale fix), per-arch update gây conflict tên file legacy
 - 2026-05-07 10:01 — wiki sync, page Live Status mới tạo cho multi-instance protocol
+- 2026-05-07 10:30 — iter 3 Transformer 95.3% (data scale cứu Transformer khỏi 18.8% → 95.3%)
+- 2026-05-07 10:14 — Phase B PPO iter 2 = 6.011 (vượt iter 1 = 5.57), canonical soldier.onnx update
+- 2026-05-07 10:43 — push commit `1378e9b`: heavy machine-2 + merge tool
+- 2026-05-07 10:53 — wiki sync với current state cho máy 2 trước khi deploy
 
 ## Backlinks
 
