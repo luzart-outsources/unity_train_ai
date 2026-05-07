@@ -28,9 +28,11 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--arch", default="fasttext", choices=["fasttext", "lstm", "transformer"])
     p.add_argument("--opset", type=int, default=15)
+    p.add_argument("--tag", default="", help="suffix matching train.py --tag")
     args = p.parse_args()
+    suffix = ("_" + args.tag) if args.tag else ""
 
-    ckpt_path = MODEL_DIR / f"{args.arch}_best.pt"
+    ckpt_path = MODEL_DIR / f"{args.arch}{suffix}_best.pt"
     if not ckpt_path.exists():
         raise FileNotFoundError(f"Missing {ckpt_path}. Train first.")
 
@@ -41,7 +43,7 @@ def main():
 
     max_len = ckpt["max_len"]
     dummy = torch.zeros(1, max_len, dtype=torch.long)
-    onnx_path = MODEL_DIR / f"{args.arch}_intent.onnx"
+    onnx_path = MODEL_DIR / f"{args.arch}{suffix}_intent.onnx"
 
     torch.onnx.export(
         model,
@@ -64,9 +66,15 @@ def main():
     print(f"[onnx] verify  : max abs diff vs PyTorch = {diff:.6f}  ({'OK' if diff < 1e-4 else 'WARN'})")
 
     # Bundle metadata for the Unity/C# side
-    with open(MODEL_DIR / "vocab.json", encoding="utf-8") as f:
+    vocab_path = MODEL_DIR / f"vocab{suffix}.json"
+    label_path = MODEL_DIR / f"id2label{suffix}.json"
+    if not vocab_path.exists():
+        vocab_path = MODEL_DIR / "vocab.json"
+    if not label_path.exists():
+        label_path = MODEL_DIR / "id2label.json"
+    with open(vocab_path, encoding="utf-8") as f:
         vocab = json.load(f)
-    with open(MODEL_DIR / "id2label.json", encoding="utf-8") as f:
+    with open(label_path, encoding="utf-8") as f:
         id2label = json.load(f)
 
     meta = {
@@ -78,7 +86,7 @@ def main():
         "id2label": id2label,
         "opset": args.opset,
     }
-    meta_path = MODEL_DIR / f"{args.arch}_intent_meta.json"
+    meta_path = MODEL_DIR / f"{args.arch}{suffix}_intent_meta.json"
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta, f, ensure_ascii=False, indent=2)
     print(f"[meta] saved   : {meta_path}")

@@ -65,6 +65,8 @@ AI_Training/m2.err
 AI_Training/phase_a_sentis/data/intents_v3.csv
 AI_Training/phase_a_sentis/data/intents_v3_m2.csv
 AI_Training/phase_a_sentis/data/intents_expanded.csv
+# v4 training set (~15MB, regenerable in 30s via generate_dataset_v4.py)
+AI_Training/phase_a_sentis/data/intents_v4.csv
 AI_Training/phase_a_sentis/models/eval_iter*.json
 AI_Training/phase_a_sentis/models/eval_m2_iter*.json
 AI_Training/phase_a_sentis/models/training_log_*.json

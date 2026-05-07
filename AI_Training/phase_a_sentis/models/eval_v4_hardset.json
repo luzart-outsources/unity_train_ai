@@ -1,0 +1,1781 @@
+{
+  "lstm": {
+    "arch": "lstm",
+    "tag": "v4",
+    "accuracy": 0.9259259259259259,
+    "correct": 200,
+    "total": 216,
+    "rows": [
+      {
+        "text": "Hôm nay có lịch gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9996404647827148,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Tuần sau có hoạt động gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9999101161956787,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Chiều mai đại đội tập trung không",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9999853372573853,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Lich tuan nay ra sao thu truong",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9999222755432129,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Hom nay co lich gi khong",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9999816417694092,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Ngay mai dai doi minh lam gi",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9998650550842285,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Đoonng chí chiều mai có gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9997898936271667,
+        "cat": "TELEX_TYPOS",
+        "ok": true
+      },
+      {
+        "text": "Thu trưởng oơi maaii có lịch gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9999910593032837,
+        "cat": "TELEX_TYPOS",
+        "ok": true
+      },
+      {
+        "text": "Schedule hôm nay sao rồi",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9991649389266968,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Agenda ngày mai có gì hot",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9369756579399109,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Plan tuần này thế nào",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9989538192749023,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Thầy ơi mai có gì làm và sáng có học không",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 1.0,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Chiều nay đại đội bố trí gì không và mai có thay đổi không",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 1.0,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Còn mai thì sao",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9987165927886963,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Thế còn tuần sau",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9992074370384216,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Lịch",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9874600172042847,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Mai sao đây",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9980453252792358,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Chương trình ngày mai bao gồm gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9977037310600281,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Kế hoạch tuần tới thế nào",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9995458722114563,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Bố trí công việc mai có gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9998371601104736,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Hôm nay rảnh không nhỉ",
+        "expected": "HOI_LICH",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9989733695983887,
+        "cat": "COMPLAINT",
+        "ok": false
+      },
+      {
+        "text": "Tuần này bận hay rảnh thế",
+        "expected": "HOI_LICH",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.999692440032959,
+        "cat": "COMPLAINT",
+        "ok": false
+      },
+      {
+        "text": "z hôm nay làm gì z",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.6133022904396057,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "mai lớp mình học môn gì zậy",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9999563694000244,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "nay lịch sao thầy",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9996986389160156,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "Cho hỏi mai tập trung lúc mấy giờ và làm gì ạ",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9974086880683899,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Đồng chí ơi thứ 4 lớp mình học môn gì",
+        "expected": "HOI_LICH",
+        "pred": "HOI_LICH",
+        "conf": 0.9999996423721313,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Mai đi đâu vậy thầy",
+        "expected": "HOI_LICH",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9967191815376282,
+        "cat": "SLANG",
+        "ok": false
+      },
+      {
+        "text": "Mấy giờ thì ăn cơm",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999971389770508,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Bao giờ phát cơm",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999938011169434,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Trưa nay ăn lúc mấy giờ",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999991655349731,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "May gio thi an",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9994408488273621,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Toi nay an luc may gio",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999946355819702,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "May gio phat com em doi qua",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999873638153076,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Mấyy giờờ ăn cooom",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9998356103897095,
+        "cat": "TELEX_TYPOS",
+        "ok": true
+      },
+      {
+        "text": "Khi nào có cơm vây ạ",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9982415437698364,
+        "cat": "TELEX_TYPOS",
+        "ok": true
+      },
+      {
+        "text": "Lunch mấy giờ",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999635219573975,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Dinner time là khi nào",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.99998939037323,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Breakfast lúc nào nhỉ",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9998936653137207,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Mai mấy giờ ăn sáng và trưa nay ăn lúc nào",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999997615814209,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Đói quá còn lâu mới tới giờ ăn không",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999997615814209,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Đói quá",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9998393058776855,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Bụng tôi cồn cào",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9091457724571228,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Đói lắm rồi",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999061822891235,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Có gì ăn không em đói",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999964237213135,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Tới bữa chưa",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999401569366455,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Cơm chưa",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999672174453735,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Ăn",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9997425675392151,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Khi nào xơi cơm",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999982118606567,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Bữa tối mấy giờ chén",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999986886978149,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Nhà ăn mở mấy giờ vậy",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999570846557617,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Trưa nay 11h30 ăn đúng không",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999966621398926,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "ăn cơm chưa thầy ơi đói lắm",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 1.0,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "nay đói meo khi nào ăn z",
+        "expected": "HOI_GIO_AN",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9999995231628418,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "Nhà ăn nằm đâu",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9994924068450928,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Phòng học ở đâu vậy",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999920129776001,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Cho em hỏi giảng đường B5 ở chỗ nào ạ",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999998807907104,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Khu A ở đâu",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999938011169434,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Khu C nằm chỗ nào",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999961853027344,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Phòng 305 ở tầng mấy ạ",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999984502792358,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Toi muon di toi tram y te di duong nao",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999998807907104,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Em moi den khong biet khu KTX nam o dau",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 1.0,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Cho em hoi sang van dong o dau",
+        "expected": "HOI_VI_TRI",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9774831533432007,
+        "cat": "NO_ACCENT",
+        "ok": false
+      },
+      {
+        "text": "Phoongg học oo đâu",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9476645588874817,
+        "cat": "TELEX_TYPOS",
+        "ok": false
+      },
+      {
+        "text": "Where is the dining hall",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.997057318687439,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Location của phòng 305",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999943971633911,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Library ở đâu thầy",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9996944665908813,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Phòng học ở đâu và mở mấy giờ",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999818801879883,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Nhà ăn cách đây bao xa và đi đường nào",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999998807907104,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Lạc đường rồi",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999737739562988,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Tôi đi lạc rồi nhà ăn ở đâu",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999996423721313,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Mới đến không biết đường",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999970197677612,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Em mới chuyển đến chưa biết phòng học",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999995231628418,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Thư viện đâu",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9998859167098999,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Cổng số 2 đâu",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999680519104004,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Cantin",
+        "expected": "HOI_VI_TRI",
+        "pred": "TAM_BIET",
+        "conf": 0.6294079422950745,
+        "cat": "ELLIPSIS",
+        "ok": false
+      },
+      {
+        "text": "Tọa độ thư viện",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999344348907471,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Vị trí của trạm y tế",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999765157699585,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Sân bóng đá ở phía nào",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999986886978149,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Bể bơi học viện cách đây bao xa",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999997615814209,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "nhà ăn đâu z",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9881324172019958,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "phòng 401 chỗ nào v",
+        "expected": "HOI_VI_TRI",
+        "pred": "HOI_VI_TRI",
+        "conf": 0.9999933242797852,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "Quy tắc bắn 3 điểm là gì",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999840259552002,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Súng AK47 dùng thế nào",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999866485595703,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Hàm băm SHA-256 dùng để làm gì",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999998807907104,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Em chưa hiểu RSA hoạt động ra sao",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999970197677612,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Mat ma doi xung khac mat ma bat doi xung cho nao",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9997202754020691,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Quy tac ban 3 diem la gi",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.999765932559967,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Sung AK thao lap may buoc",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.999995231628418,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Mạtt mãã đối xứng hoạtt động sao",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9984649419784546,
+        "cat": "TELEX_TYPOS",
+        "ok": true
+      },
+      {
+        "text": "AES với DES khác nhau ở đâu",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999961853027344,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "What is RSA encryption",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999442100524902,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Public key cryptography là gì",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9997573494911194,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Cho em hỏi RSA và AES khác sao",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999997615814209,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Tháo lắp súng AK có mấy bước và mất bao lâu",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999890327453613,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Em không hiểu gì về thuật toán Dijkstra",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999996423721313,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Đọc tài liệu mãi không hiểu cây AVL",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 1.0,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "RSA",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.992059588432312,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Giảng AES nha",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9998979568481445,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Cho ví dụ chữ ký số",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999663829803467,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Định nghĩa của entropy là gì",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999890327453613,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Cơ chế hoạt động của firewall",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999611377716064,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Cho em hỏi điều lệnh đội ngũ với",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999446868896484,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Tư thế nằm bắn quy tắc thế nào",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999958276748657,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Em không hiểu mật mã đối xứng",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9999533891677856,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Thế tháo lắp súng AK có mấy bước ạ",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 1.0,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "RSA hoạt động ra sao",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9997777342796326,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "dijkstra hoạt động sao thầy",
+        "expected": "HOI_KIEN_THUC",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.9985438585281372,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "Báo cáo đầy đủ",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999986886978149,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Tôi xin báo cáo đã hoàn thành",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999998807907104,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Báo cáo thủ trưởng đại đội 1 đủ quân",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.999998927116394,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Báo cáo bài bắn đạt yêu cầu",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999951124191284,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Em xin báo cáo đã trực ban xong",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999998807907104,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Bao cao trung doi 2 da co mat day du",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999998807907104,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Bao cao xong nhiem vu",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999986886978149,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Em bao cao da hoan thanh",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999991655349731,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Bááoo cáo đủù quânnn",
+        "expected": "BAO_CAO",
+        "pred": "TAM_BIET",
+        "conf": 0.4130825698375702,
+        "cat": "TELEX_TYPOS",
+        "ok": false
+      },
+      {
+        "text": "Báo cáoo đãã xongg",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999037981033325,
+        "cat": "TELEX_TYPOS",
+        "ok": true
+      },
+      {
+        "text": "Report đại đội đủ quân",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999978542327881,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Task done thưa thủ trưởng",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999964237213135,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Báo cáo đã hoàn thành nhiệm vụ và tổ trực có mặt đủ",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 1.0,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Trung đội 1 đủ quân và bài bắn đã đạt",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999942779541016,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Báo cáo có người ốm xin gọi y tế",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999285936355591,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Có người vắng báo cáo lên",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999984502792358,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Đại đội ta thiếu một người",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9823036789894104,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Đã xong",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999973773956299,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Hoàn thành rồi",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.999992847442627,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Đại đội đầy đủ",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999958276748657,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Em xin trình báo công việc đã hoàn tất",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999985694885254,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Tổ đã thực hiện xong nhiệm vụ",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999996423721313,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Đã hoàn thành nhiệm vụ xin báo cáo",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 1.0,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Báo cáo thủ trưởng tổ trực đã có mặt",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999998807907104,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "xong nhiệm vụ rồi anh ơi",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999375343322754,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "báo cáo team 1 done",
+        "expected": "BAO_CAO",
+        "pred": "BAO_CAO",
+        "conf": 0.9999992847442627,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Cho em xin nghỉ",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999877214431763,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Em xin phép về quê",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9222668409347534,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Thưa thủ trưởng cho em nghỉ vì sốt cao ạ",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999997615814209,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Anh cho em ra ngoài chút được không",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999996423721313,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Cho em xin phép vắng buổi tối ngày mai",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999997615814209,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Em đề nghị duyệt cho em nghỉ phép",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999967813491821,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Em xin phep di kham benh",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9980704188346863,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Cho em xin nghi",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999872446060181,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Em xin phep ve que vi co viec gia dinh",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9998281002044678,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Em xinn phép về quêee",
+        "expected": "XIN_PHEP",
+        "pred": "TAM_BIET",
+        "conf": 0.998916745185852,
+        "cat": "TELEX_TYPOS",
+        "ok": false
+      },
+      {
+        "text": "Cho emm xin nghỉỉ",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9998520612716675,
+        "cat": "TELEX_TYPOS",
+        "ok": true
+      },
+      {
+        "text": "Permission xin nghỉ ngày mai",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9998502731323242,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Request leave ngày 15",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999622106552124,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Ask for leave thầy ơi",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999040365219116,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Em xin nghỉ vì sốt và đau bụng",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999997615814209,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Cho em ra ngoài chút và buổi chiều xin nghỉ luôn",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 1.0,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Em đang sốt 39 độ",
+        "expected": "XIN_PHEP",
+        "pred": "TAM_BIET",
+        "conf": 0.8957756161689758,
+        "cat": "COMPLAINT",
+        "ok": false
+      },
+      {
+        "text": "Em đau bụng quá",
+        "expected": "XIN_PHEP",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9993366599082947,
+        "cat": "COMPLAINT",
+        "ok": false
+      },
+      {
+        "text": "Bố em ốm phải về quê",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.6769238114356995,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Nhà có việc gấp",
+        "expected": "XIN_PHEP",
+        "pred": "HOI_LICH",
+        "conf": 0.7708502411842346,
+        "cat": "COMPLAINT",
+        "ok": false
+      },
+      {
+        "text": "Xin nghỉ",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9990783929824829,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Xin phép",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9864524602890015,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Em vắng được không",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9458614587783813,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Em đề nghị được vắng mặt",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9996007084846497,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Tôi mong muốn xin nghỉ phép một buổi",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999977350234985,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Thầy ơi cho em nghỉ tập thể dục sáng mai",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999970197677612,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "anh ơi em xin off chiều nay được hum",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.999942421913147,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "cho em nghỉ học mai ạ",
+        "expected": "XIN_PHEP",
+        "pred": "XIN_PHEP",
+        "conf": 0.9999004602432251,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "Chào thủ trưởng",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999492168426514,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Em chào thủ trưởng em đi đây",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999996423721313,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Em chào em đi học đây ạ",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999949932098389,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Tạm biệt anh em đi nhiệm vụ",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999951124191284,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Thôi tới giờ rồi em đi",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999997615814209,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Em xuống ăn cơm đã chào thủ trưởng",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999818801879883,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Em phải về phòng đây tạm biệt",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999998807907104,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Em đi truoc nhe",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999397993087769,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Em chao thu truong em di hoc",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999983310699463,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Tam biet a",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9997976422309875,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Emm chào thủủ trưởng emm đii",
+        "expected": "TAM_BIET",
+        "pred": "HOI_KIEN_THUC",
+        "conf": 0.7148029804229736,
+        "cat": "TELEX_TYPOS",
+        "ok": false
+      },
+      {
+        "text": "Bye thủ trưởng",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999717473983765,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "See you tomorrow ạ",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999760389328003,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Bye bye thầy",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999871253967285,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Em chào em đi và mai gặp lại",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999969005584717,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Tạm biệt anh em phải đi học",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999903440475464,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Tới giờ rồi em đi",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999983310699463,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Bye",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999730587005615,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Em chạy đây",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999901056289673,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Hết giờ rồi em đi",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.999995231628418,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Sắp muộn em phải đi",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999898672103882,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Em xin từ biệt thủ trưởng",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9987455606460571,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "em đi nha thầy",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999600648880005,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "thôi em đi z",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999970197677612,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "ok em đi đây",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.999997615814209,
+        "cat": "SLANG",
+        "ok": true
+      },
+      {
+        "text": "hẹn mai gặp lại nha",
+        "expected": "TAM_BIET",
+        "pred": "TAM_BIET",
+        "conf": 0.9999319314956665,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Messi đá hay không",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999285936355591,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Wifi yếu quá",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999208450317383,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Hôm nay tớ thèm trà sữa quá",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999988079071045,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Bài tập về nhà nhiều quá",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999704360961914,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Có ai chơi liên quân không",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999908208847046,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "Nhớ nhà quá đêm nay",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999266862869263,
+        "cat": "CLEAN",
+        "ok": true
+      },
+      {
+        "text": "ChatGPT moi ra phien ban moi rat hay",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999982118606567,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Sai Gon nong qua",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999579191207886,
+        "cat": "NO_ACCENT",
+        "ok": true
+      },
+      {
+        "text": "Bua nay nhom chat im qua",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9991924166679382,
+        "cat": "NO_ACCENT",
+        "ok": false
+      },
+      {
+        "text": "Nhớớ nhàà quá đêmm nay",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.9676071405410767,
+        "cat": "TELEX_TYPOS",
+        "ok": false
+      },
+      {
+        "text": "Tomorrow tớ đi chơi với bạn",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999954700469971,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Game LoL có patch mới hot phết",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999998807907104,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "ChatGPT 4 với Claude ai mạnh hơn",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999990463256836,
+        "cat": "CODE_MIX",
+        "ok": true
+      },
+      {
+        "text": "Hôm nay trời đẹp và tớ đói",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "HOI_GIO_AN",
+        "conf": 0.6928720474243164,
+        "cat": "COMPOUND",
+        "ok": false
+      },
+      {
+        "text": "Trời nóng và Wifi lag",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999988079071045,
+        "cat": "COMPOUND",
+        "ok": true
+      },
+      {
+        "text": "Tớ buồn quá",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999828338623047,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Stress vãi",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9997401833534241,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Đề thi khó vãi",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.999797523021698,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Buồn ngủ quá",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999796152114868,
+        "cat": "COMPLAINT",
+        "ok": true
+      },
+      {
+        "text": "Trời đẹp",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9990633130073547,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Cuối tuần",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "HOI_LICH",
+        "conf": 0.937446653842926,
+        "cat": "ELLIPSIS",
+        "ok": false
+      },
+      {
+        "text": "Stress",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9977015852928162,
+        "cat": "ELLIPSIS",
+        "ok": true
+      },
+      {
+        "text": "Vũ Hán đang dịch",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9986793398857117,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Tâm trạng tớ không tốt",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999326467514038,
+        "cat": "SYNONYM",
+        "ok": true
+      },
+      {
+        "text": "Tớ vừa xem phim hay lắm hôm nay",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999998807907104,
+        "cat": "ADVERSARIAL",
+        "ok": true
+      },
+      {
+        "text": "Hôm nay tớ vừa xem TikTok hay lắm",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9999998807907104,
+        "cat": "ADVERSARIAL",
+        "ok": true
+      },
+      {
+        "text": "Lập trình C khó quá",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.9998881816864014,
+        "cat": "ADVERSARIAL",
+        "ok": true
+      },
+      {
+        "text": "Python dễ ghê",
+        "expected": "OUT_OF_SCOPE",
+        "pred": "OUT_OF_SCOPE",
+        "conf": 0.999932050704956,
+        "cat": "ADVERSARIAL",
+        "ok": true
+      }
+    ],
+    "by_cat": {
+      "CLEAN": {
+        "correct": 55,
+        "total": 55
+      },
+      "NO_ACCENT": {
+        "correct": 22,
+        "total": 24
+      },
+      "TELEX_TYPOS": {
+        "correct": 7,
+        "total": 12
+      },
+      "CODE_MIX": {
+        "correct": 24,
+        "total": 24
+      },
+      "COMPOUND": {
+        "correct": 15,
+        "total": 16
+      },
+      "ELLIPSIS": {
+        "correct": 23,
+        "total": 25
+      },
+      "SYNONYM": {
+        "correct": 18,
+        "total": 18
+      },
+      "COMPLAINT": {
+        "correct": 18,
+        "total": 23
+      },
+      "SLANG": {
+        "correct": 14,
+        "total": 15
+      },
+      "ADVERSARIAL": {
+        "correct": 4,
+        "total": 4
+      }
+    }
+  }
+}

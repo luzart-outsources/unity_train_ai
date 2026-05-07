@@ -1,0 +1,75 @@
+{
+  "_README": "Phase A v2 response templates. Designed to consume slot extractions cleanly: when {place} is filled by EntityExtractor (e.g., 'khu A'), templates avoid hardcoded {block} substitution which would produce nonsense like 'khu A nằm ở khu B5'. Each template uses ONLY the slots that EntityExtractor reliably fills (place, time, topic, meal, reason) plus runtime-context keys ({direction}, {distance}, {scheduled_today}) which fall back to game state.",
+
+  "HOI_LICH": [
+    "{time} đại đội ta có {scheduled_today}. Đồng chí chú ý nhé.",
+    "Lịch {time}: {scheduled_today}. Sai giờ là phạt đó.",
+    "Theo thời khoá biểu, {time} có {scheduled_today}. Chuẩn bị sẵn nhé.",
+    "{time} có {scheduled_today}. Có gì khác lên trực ban hỏi tôi sau.",
+    "Để tôi kiểm tra... {time} ta có {scheduled_today}, đồng chí ghi nhớ nhé.",
+    "Ờ {time} thì là {scheduled_today}. Đồng chí nắm rõ chưa?"
+  ],
+
+  "HOI_GIO_AN": [
+    "Sáng 6h, trưa 11h30, tối 18h. Đến nhà ăn trước 5 phút nhé đồng chí.",
+    "Đến giờ là có cơm. {meal} hôm nay lúc {meal_time}. Đừng đi đâu xa giờ đó.",
+    "Đại đội ta ăn theo giờ chung của trường. Hôm nay {meal_time}.",
+    "Còn {minutes_to_meal} phút nữa là tới giờ ăn. Cố lên đồng chí.",
+    "{meal} thì lúc {meal_time}. Tới sớm 5 phút là vừa.",
+    "Giờ ăn cố định: sáng 6h, trưa 11h30, tối 18h."
+  ],
+
+  "HOI_VI_TRI": [
+    "{place} ở phía {direction} doanh trại, đi thẳng khoảng {distance}m là tới.",
+    "Đồng chí đi qua sân điều lệnh, rẽ {direction} là thấy {place}.",
+    "Muốn tới {place} thì đi theo hướng {direction} doanh trại, có biển chỉ dẫn rồi đó.",
+    "{place} cách đây không xa, đi {direction} chừng {distance}m là tới.",
+    "Đồng chí ra khỏi đây rẽ {direction}, đi thẳng là gặp {place}.",
+    "Tôi không nhớ chính xác {place} ở đâu. Hỏi trực ban sẽ chính xác hơn.",
+    "{place} thì gần thôi — {direction} doanh trại, tầm {distance}m."
+  ],
+
+  "HOI_KIEN_THUC": [
+    "Về {topic}, đồng chí xem trong giáo trình bài {chapter}. Tôi không tóm tắt được hết đâu.",
+    "{topic} là kiến thức quan trọng. Tối nay tôi sẽ giảng kỹ ở giảng đường.",
+    "Câu hỏi hay đó. Cứ lên trực ban hỏi tôi vào giờ tự học, tôi sẽ nói chi tiết về {topic}.",
+    "Chính xác thì {topic} có 3 phần: {summary}. Đọc tài liệu để hiểu sâu nhé.",
+    "{topic} thì đồng chí mở bài {chapter} ra ôn lại đi, tối tôi giảng thêm.",
+    "Để hiểu {topic} đồng chí cần nắm: {summary}. Đọc giáo trình rồi hỏi tôi sau."
+  ],
+
+  "BAO_CAO": [
+    "Tốt. Tôi đã ghi nhận. Tiếp tục giữ kỷ luật nhé đồng chí.",
+    "Báo cáo rõ ràng. Cảm ơn đồng chí. Triển khai tiếp nhiệm vụ kế.",
+    "Đồng chí báo cáo rõ. Tôi sẽ chuyển lên cấp trên ngay.",
+    "Đã rõ. Đồng chí đứng nghỉ chờ chỉ thị tiếp theo.",
+    "Ghi nhận báo cáo của đồng chí. Tiếp tục giữ vững vị trí.",
+    "Tôi đã ghi nhận. Đồng chí chuẩn bị nhận lệnh tiếp theo nhé."
+  ],
+
+  "XIN_PHEP": [
+    "Lý do của đồng chí có chính đáng không? Báo cáo cụ thể đi rồi tôi xét.",
+    "Đồng chí điền vào sổ đăng ký vắng mặt rồi mang lên đây tôi ký.",
+    "Hôm nay có lịch quan trọng nên tôi không duyệt được. Mai xin lại nhé.",
+    "Được rồi. Đồng chí đi cẩn thận, đúng giờ phải có mặt lại.",
+    "Lý do {reason} thì OK. Đồng chí điền sổ đăng ký vắng mặt rồi tôi ký.",
+    "Vắng mặt {time} hả? Đồng chí báo cáo cụ thể rồi tôi xét."
+  ],
+
+  "TAM_BIET": [
+    "Thôi đồng chí đi đi. Nhớ đúng giờ trở về nhé.",
+    "Đi đường cẩn thận. Hẹn gặp lại buổi tới.",
+    "OK đồng chí. Đừng quên báo cáo lúc về.",
+    "Chào đồng chí. Tự giữ gìn kỷ luật nhé.",
+    "Đi nhé. Hẹn gặp lại buổi học sau.",
+    "Ờ thôi đồng chí đi, nhớ về đúng giờ."
+  ],
+
+  "OUT_OF_SCOPE": [
+    "Tôi là chỉ huy quân sự, không nắm được câu hỏi này đâu đồng chí.",
+    "Cái đó không thuộc nhiệm vụ của tôi. Hỏi việc khác đi.",
+    "Đồng chí tập trung vào nhiệm vụ trước đã. Chuyện đó để sau nhé.",
+    "Không liên quan tới quân đội đâu. Đồng chí có câu hỏi về lịch hay nhiệm vụ không?",
+    "Tôi không biết về cái đó. Đồng chí hỏi việc đơn vị thì tôi giúp được."
+  ]
+}

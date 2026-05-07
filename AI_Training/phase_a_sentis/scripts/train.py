@@ -57,7 +57,10 @@ def main():
     p.add_argument("--max_len", type=int, default=32)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--data", default=str(DATA_PATH))
+    p.add_argument("--tag", default="", help="suffix for output filenames (e.g. 'v4' -> lstm_v4_best.pt)")
+    p.add_argument("--vocab_size", type=int, default=10000)
     args = p.parse_args()
+    tag = ("_" + args.tag) if args.tag else ""
 
     torch.manual_seed(args.seed)
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -68,7 +71,7 @@ def main():
     print(f"[data ] per intent  : {df['intent'].value_counts().to_dict()}")
 
     train_df, val_df = train_test_split(df, test_size=0.2, stratify=df["intent"], random_state=args.seed)
-    vocab = build_vocab(train_df["text"].tolist())
+    vocab = build_vocab(train_df["text"].tolist(), max_size=args.vocab_size)
     labels = sorted(df["intent"].unique())
     label2id = {l: i for i, l in enumerate(labels)}
     id2label = {i: l for l, i in label2id.items()}
@@ -87,9 +90,9 @@ def main():
     crit = nn.CrossEntropyLoss()
 
     MODEL_DIR.mkdir(parents=True, exist_ok=True)
-    save_json(vocab, MODEL_DIR / "vocab.json")
-    save_json(label2id, MODEL_DIR / "label2id.json")
-    save_json(id2label, MODEL_DIR / "id2label.json")
+    save_json(vocab, MODEL_DIR / f"vocab{tag}.json")
+    save_json(label2id, MODEL_DIR / f"label2id{tag}.json")
+    save_json(id2label, MODEL_DIR / f"id2label{tag}.json")
 
     best_acc, log = 0.0, []
     t0 = time.time()
@@ -115,13 +118,13 @@ def main():
                 "vocab_size": len(vocab),
                 "num_classes": len(labels),
                 "max_len": args.max_len,
-            }, MODEL_DIR / f"{args.arch}_best.pt")
+            }, MODEL_DIR / f"{args.arch}{tag}_best.pt")
             flag = "  [SAVED]"
         print(f"[epoch {epoch:>3}] train_loss={train_loss:.4f}  val_loss={val_loss:.4f}  val_acc={val_acc:.4f}{flag}")
 
-    save_json({"log": log, "best_val_acc": best_acc, "elapsed_sec": time.time() - t0}, MODEL_DIR / "training_log.json")
+    save_json({"log": log, "best_val_acc": best_acc, "elapsed_sec": time.time() - t0}, MODEL_DIR / f"training_log{tag}.json")
     print(f"\n[done] best val_acc = {best_acc:.4f}  elapsed = {time.time()-t0:.1f}s")
-    print(f"[done] checkpoint   : {MODEL_DIR / f'{args.arch}_best.pt'}")
+    print(f"[done] checkpoint   : {MODEL_DIR / f'{args.arch}{tag}_best.pt'}")
 
 
 if __name__ == "__main__":
