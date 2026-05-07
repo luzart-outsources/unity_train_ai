@@ -151,29 +151,57 @@ public class NPCDialogueBrain : MonoBehaviour
     }
 
     // ─────────────────────────────────────────────────────────────────────
-    // Tokenization
+    // Tokenization — greedy multi-word match (mimics underthesea behavior)
     // ─────────────────────────────────────────────────────────────────────
+    private int _maxMultiWordLen = 1;  // max word count of any vocab key
+
     int[] Encode(string text)
     {
-        // Whitespace tokenize on lowercased text. Multi-word vocab entries (e.g.
-        // "thủ trưởng") that exist after underthesea segmentation will fall
-        // through to UNK if the user types them as separate words. For higher
-        // accuracy, segment with a Vietnamese tokenizer port.
         text = text.ToLowerInvariant().Trim();
-        // Strip basic punctuation
+        // Strip punctuation, normalize whitespace
         var sb = new StringBuilder(text.Length);
         foreach (var c in text)
         {
             if (char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)) sb.Append(c);
             else sb.Append(' ');
         }
-        var tokens = sb.ToString().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        var words = sb.ToString().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
         var ids = new int[_maxLen];
         for (int i = 0; i < _maxLen; i++) ids[i] = _padId;
-        for (int i = 0; i < tokens.Length && i < _maxLen; i++)
+
+        // Greedy longest-match: tại mỗi vị trí, thử ghép N..1 word liên tiếp,
+        // lấy match dài nhất có trong vocab. Cách này mimic underthesea behavior
+        // đủ để vocab keys như "ăn cơm", "thủ trưởng", "báo cáo" được match
+        // thay vì split thành tokens riêng → UNK → model fail.
+        int wi = 0;
+        int idIdx = 0;
+        while (wi < words.Length && idIdx < _maxLen)
         {
-            ids[i] = _vocab.TryGetValue(tokens[i], out int id) ? id : _unkId;
+            int matchedSpan = 0;
+            int matchedId = _unkId;
+            int maxSpan = Math.Min(_maxMultiWordLen, words.Length - wi);
+            for (int span = maxSpan; span >= 1; span--)
+            {
+                string candidate = span == 1 ? words[wi] : string.Join(" ", words, wi, span);
+                if (_vocab.TryGetValue(candidate, out int id))
+                {
+                    matchedSpan = span;
+                    matchedId = id;
+                    break;
+                }
+            }
+            if (matchedSpan == 0)
+            {
+                // No match → 1 word as UNK
+                ids[idIdx++] = _unkId;
+                wi += 1;
+            }
+            else
+            {
+                ids[idIdx++] = matchedId;
+                wi += matchedSpan;
+            }
         }
         return ids;
     }
@@ -224,6 +252,17 @@ public class NPCDialogueBrain : MonoBehaviour
 
         // vocab block: "vocab": { "tok": id, ... }
         ParseStringIntDict(json, "vocab", _vocab);
+
+        // Tính max word count của vocab key — cần cho greedy multi-word match
+        _maxMultiWordLen = 1;
+        foreach (var key in _vocab.Keys)
+        {
+            int spaceCount = 0;
+            for (int i = 0; i < key.Length; i++)
+                if (key[i] == ' ') spaceCount++;
+            if (spaceCount + 1 > _maxMultiWordLen)
+                _maxMultiWordLen = spaceCount + 1;
+        }
 
         // id2label block: "id2label": { "0": "BAO_CAO", ... }
         var tmp = new Dictionary<string, string>();

@@ -1,12 +1,7 @@
 // PhaseAChatTester.cs
 //
-// UI chat IMGUI cho Phase A. KHÔNG spawn Commander — expect được gắn cùng
-// GameObject với NPCDialogueBrain (đã configured bởi editor builder).
-//
-// Workflow:
-//   - Awake: tìm NPCDialogueBrain trên cùng GameObject
-//   - Start: classify 5 sample sentences (sanity check) → log Console
-//   - OnGUI: chat UI cho user gõ tay câu bất kỳ
+// UI chat IMGUI với layout đẹp + auto-focus input + auto-scroll history.
+// Yêu cầu NPCDialogueBrain trên cùng GameObject (set bởi editor builder).
 
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,10 +10,21 @@ using UnityEngine;
 public class PhaseAChatTester : MonoBehaviour
 {
     private NPCDialogueBrain _brain;
+
+    private struct ChatEntry
+    {
+        public bool isUser;       // true = user input, false = NPC reply / system
+        public string content;
+        public string subInfo;    // intent + confidence (cho NPC reply)
+    }
+
+    private List<ChatEntry> _entries = new List<ChatEntry>();
     private string _inputText = "";
-    private List<string> _history = new List<string>();
     private Vector2 _scroll = Vector2.zero;
+    private bool _focusOnNextRepaint = true;
     private bool _ready = false;
+    private int _passCount = 0;
+    private int _totalSamples = 0;
 
     private static readonly (string text, string expected)[] Samples = new[]
     {
@@ -29,47 +35,37 @@ public class PhaseAChatTester : MonoBehaviour
         ("Súng AK47 dùng thế nào",   "HOI_KIEN_THUC"),
     };
 
-    void Awake()
-    {
-        _brain = GetComponent<NPCDialogueBrain>();
-    }
+    void Awake() => _brain = GetComponent<NPCDialogueBrain>();
 
     void Start()
     {
-        Debug.Log("══════════════════════════════════════════════");
-        Debug.Log(" PHASE A — Intent Classifier Chat Test");
-        Debug.Log("══════════════════════════════════════════════");
-
+        Debug.Log("══ PHASE A — Intent Classifier Chat Test ══");
         if (_brain == null || !_brain.enabled)
         {
-            Debug.LogError("[PhaseA] NPCDialogueBrain disabled hoặc missing — check Inspector của Commander");
+            Debug.LogError("[PhaseA] NPCDialogueBrain not ready");
             return;
         }
 
-        Debug.Log("┌─ Auto sanity test (5 sample) ─");
-        int correct = 0;
+        // Auto sanity test
+        Debug.Log("┌─ Auto sanity (5 sample) ─");
+        _totalSamples = Samples.Length;
         foreach (var (text, expected) in Samples)
         {
             var (intent, conf) = _brain.Classify(text);
+            string reply = _brain.Respond(text);
             bool ok = intent == expected;
-            if (ok) correct++;
-            string mark = ok ? "✓" : "✗";
-            string line = $"{mark} \"{text}\" → {intent} ({conf*100:F1}%, expect {expected})";
-            Debug.Log("│ " + line);
-            _history.Add(line);
+            if (ok) _passCount++;
+            _entries.Add(new ChatEntry { isUser = true, content = text });
+            _entries.Add(new ChatEntry
+            {
+                isUser = false,
+                content = reply,
+                subInfo = $"{intent} ({conf*100:F0}%) — expect {expected} {(ok ? "✓" : "✗")}"
+            });
+            Debug.Log($"│ {(ok ? "✓" : "✗")} \"{text}\" → {intent} ({conf*100:F1}%, expect {expected})");
         }
-        float acc = (float)correct / Samples.Length;
-        _history.Add("");
-        _history.Add($"Score: {correct}/{Samples.Length} = {acc*100:F0}%");
-        _history.Add(acc >= 0.8f ? "✅ Sanity PASS" : "⚠️ Sanity FAIL");
-        _history.Add("");
-        _history.Add("→ Gõ câu bên dưới để test thêm:");
-        _history.Add("");
-
-        Debug.Log($"│ → Score {correct}/{Samples.Length} = {acc*100:F0}%");
-        Debug.Log("└────────────────────────────────────────────");
-        Debug.Log("► Chat UI ready — gõ trong Game window để test thêm.");
-
+        Debug.Log($"│ Score: {_passCount}/{_totalSamples}");
+        Debug.Log("└────────────────────────────────");
         _ready = true;
     }
 
@@ -77,60 +73,128 @@ public class PhaseAChatTester : MonoBehaviour
     {
         if (!_ready) return;
 
-        var skin = GUI.skin;
-        var oldLabel = skin.label.fontSize;
-        var oldButton = skin.button.fontSize;
-        var oldField = skin.textField.fontSize;
-        skin.label.fontSize = 16;
-        skin.button.fontSize = 16;
-        skin.textField.fontSize = 16;
+        // Big bold title bar
+        var titleStyle = new GUIStyle(GUI.skin.label) { fontSize = 24, fontStyle = FontStyle.Bold, normal = { textColor = Color.white } };
+        var subStyle = new GUIStyle(GUI.skin.label) { fontSize = 14, normal = { textColor = new Color(0.8f, 0.8f, 0.8f) } };
+        var userStyle = new GUIStyle(GUI.skin.box) { fontSize = 16, alignment = TextAnchor.MiddleLeft, padding = new RectOffset(12, 12, 8, 8), wordWrap = true, normal = { textColor = Color.white, background = MakeTex(new Color(0.2f, 0.4f, 0.7f)) } };
+        var npcStyle = new GUIStyle(GUI.skin.box) { fontSize = 16, alignment = TextAnchor.MiddleLeft, padding = new RectOffset(12, 12, 8, 8), wordWrap = true, normal = { textColor = Color.white, background = MakeTex(new Color(0.25f, 0.25f, 0.3f)) } };
+        var subInfoStyle = new GUIStyle(GUI.skin.label) { fontSize = 12, normal = { textColor = new Color(0.6f, 0.8f, 0.6f) }, padding = new RectOffset(12, 0, 0, 4) };
+        var inputStyle = new GUIStyle(GUI.skin.textField) { fontSize = 18, padding = new RectOffset(10, 10, 8, 8) };
+        var sendStyle = new GUIStyle(GUI.skin.button) { fontSize = 18, fontStyle = FontStyle.Bold };
 
-        GUILayout.BeginArea(new Rect(20, 20, Screen.width - 40, Screen.height - 40), GUI.skin.box);
+        float w = Screen.width;
+        float h = Screen.height;
+        float padding = 30f;
 
-        GUILayout.Label("<b>Phase A — NPC Chat Test (gõ tiếng Việt)</b>",
-                        new GUIStyle(GUI.skin.label) { richText = true, fontSize = 20 });
-        GUILayout.Space(10);
+        GUI.Box(new Rect(0, 0, w, h), GUIContent.none);
 
-        _scroll = GUILayout.BeginScrollView(_scroll, GUILayout.Height(Screen.height - 200));
-        var lblStyle = new GUIStyle(GUI.skin.label) { richText = true, fontSize = 15, wordWrap = true };
-        foreach (var line in _history) GUILayout.Label(line, lblStyle);
-        GUILayout.EndScrollView();
+        // Header
+        var headerRect = new Rect(padding, padding, w - 2 * padding, 70);
+        GUI.Label(headerRect, "Phase A — NPC Chỉ Huy Chat", titleStyle);
+        GUI.Label(new Rect(padding, padding + 35, w - 2 * padding, 30),
+                  $"Sanity test: {_passCount}/{_totalSamples} — Gõ tiếng Việt để chat thêm",
+                  subStyle);
 
-        GUILayout.Space(10);
+        // Chat history scroll
+        var historyHeight = h - 200f;
+        var historyRect = new Rect(padding, 110, w - 2 * padding, historyHeight);
+        GUI.Box(historyRect, GUIContent.none);
 
-        GUILayout.BeginHorizontal();
+        var contentRect = new Rect(0, 0, historyRect.width - 25, EstimateContentHeight(historyRect.width - 50, userStyle, npcStyle, subInfoStyle));
+        _scroll = GUI.BeginScrollView(historyRect, _scroll, contentRect);
+
+        float y = 10;
+        float bubbleMaxW = historyRect.width - 60;
+        foreach (var e in _entries)
+        {
+            var style = e.isUser ? userStyle : npcStyle;
+            var bubbleW = Mathf.Min(bubbleMaxW, style.CalcSize(new GUIContent(e.content)).x + 30);
+            bubbleW = Mathf.Max(bubbleW, 100);
+            var bubbleH = style.CalcHeight(new GUIContent(e.content), bubbleW);
+
+            float x = e.isUser ? historyRect.width - bubbleW - 40 : 20;
+            GUI.Box(new Rect(x, y, bubbleW, bubbleH), e.content, style);
+            y += bubbleH;
+
+            if (!e.isUser && !string.IsNullOrEmpty(e.subInfo))
+            {
+                GUI.Label(new Rect(x, y, bubbleW, 18), e.subInfo, subInfoStyle);
+                y += 22;
+            }
+            y += 8;
+        }
+        GUI.EndScrollView();
+
+        // Input row at bottom
+        float inputY = h - 80f;
+        float buttonW = 120f;
+        var inputRect = new Rect(padding, inputY, w - 2 * padding - buttonW - 10, 50);
+        var sendRect = new Rect(w - padding - buttonW, inputY, buttonW, 50);
+
         GUI.SetNextControlName("ChatInput");
-        _inputText = GUILayout.TextField(_inputText, GUILayout.Height(35));
-        bool clicked = GUILayout.Button("Gửi", GUILayout.Width(80), GUILayout.Height(35));
-        GUILayout.EndHorizontal();
+        _inputText = GUI.TextField(inputRect, _inputText, inputStyle);
 
+        bool sendClicked = GUI.Button(sendRect, "Gửi", sendStyle);
         bool enterPressed = Event.current.type == EventType.KeyDown
                             && (Event.current.keyCode == KeyCode.Return
                                 || Event.current.keyCode == KeyCode.KeypadEnter);
-        if ((clicked || enterPressed) && !string.IsNullOrWhiteSpace(_inputText))
+
+        if ((sendClicked || enterPressed) && !string.IsNullOrWhiteSpace(_inputText))
         {
             Submit(_inputText.Trim());
             _inputText = "";
-            GUI.FocusControl("ChatInput");
+            _focusOnNextRepaint = true;
             if (enterPressed) Event.current.Use();
         }
 
-        GUILayout.EndArea();
-
-        skin.label.fontSize = oldLabel;
-        skin.button.fontSize = oldButton;
-        skin.textField.fontSize = oldField;
+        // Auto-focus input
+        if (_focusOnNextRepaint && Event.current.type == EventType.Repaint)
+        {
+            GUI.FocusControl("ChatInput");
+            _focusOnNextRepaint = false;
+        }
     }
 
     void Submit(string text)
     {
         var (intent, conf) = _brain.Classify(text);
         string reply = _brain.Respond(text);
-        _history.Add($"<b>You:</b> {text}");
-        _history.Add($"<b>Intent:</b> {intent} ({conf*100:F1}%)");
-        _history.Add($"<b>NPC:</b> {reply}");
-        _history.Add("");
+        _entries.Add(new ChatEntry { isUser = true, content = text });
+        _entries.Add(new ChatEntry
+        {
+            isUser = false,
+            content = reply,
+            subInfo = $"{intent} ({conf*100:F0}%)"
+        });
+        // Auto-scroll to bottom
         _scroll.y = float.MaxValue;
         Debug.Log($"[PhaseA] \"{text}\" → {intent} ({conf*100:F1}%) | {reply}");
+    }
+
+    float EstimateContentHeight(float bubbleMaxW, GUIStyle u, GUIStyle n, GUIStyle s)
+    {
+        float total = 20;
+        foreach (var e in _entries)
+        {
+            var style = e.isUser ? u : n;
+            float bw = Mathf.Min(bubbleMaxW, style.CalcSize(new GUIContent(e.content)).x + 30);
+            bw = Mathf.Max(bw, 100);
+            total += style.CalcHeight(new GUIContent(e.content), bw);
+            if (!e.isUser && !string.IsNullOrEmpty(e.subInfo)) total += 22;
+            total += 8;
+        }
+        return total;
+    }
+
+    // Helper — tạo solid color texture cho box backgrounds
+    private Dictionary<Color, Texture2D> _texCache = new Dictionary<Color, Texture2D>();
+    Texture2D MakeTex(Color c)
+    {
+        if (_texCache.TryGetValue(c, out var existing) && existing != null) return existing;
+        var tex = new Texture2D(1, 1);
+        tex.SetPixel(0, 0, c);
+        tex.Apply();
+        _texCache[c] = tex;
+        return tex;
     }
 }
