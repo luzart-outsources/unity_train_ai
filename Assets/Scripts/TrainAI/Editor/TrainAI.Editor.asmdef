@@ -1,0 +1,21 @@
+{
+    "name": "TrainAI.Editor",
+    "rootNamespace": "TrainAI.Editor",
+    "references": [
+        "TrainAI.Runtime",
+        "NinjaUI.Runtime",
+        "Luzart.Attributes",
+        "UniTask"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
