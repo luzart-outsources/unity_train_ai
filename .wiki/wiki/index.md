@@ -35,6 +35,7 @@ Master catalog. Read first to find relevant pages.
 - [[technical/datn-architecture]] — Kiến trúc template farming đã import (legacy reference)
 - [[technical/gdd-ingame-tech-design]] — ⭐ Technical design SO-driven cho GDD học kỳ quân đội (Phần I — gameplay)
 - [[technical/gdd-ingame-luzart-integration]] — ⭐ Phần II — tích hợp NinjaUI + Tween + Select + Attributes
+- [[technical/autonomous-build-spec]] — Specs / plan / test plan đêm autonomous build (2026-05-11)
 
 ## Decisions
 - [[decisions/standalone-ppo-not-ml-agents]] — Train Phase B Python thay ML-Agents Unity
