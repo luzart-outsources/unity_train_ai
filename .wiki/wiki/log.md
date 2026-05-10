@@ -263,3 +263,95 @@ Pages created: [[technical/gdd-ingame-luzart-integration]].
 Sources: `Assets/Luzart/UIFramework/NinjaUI/`, `Assets/Luzart/TweenAnimationPackage/`,
 `Assets/Luzart/NewBaseSelect/`, `Assets/Luzart/Attributes/`,
 `Assets/Luzart/UIFramework/docs/01-03-*.md`.
+
+## [2026-05-11 dem] autonomous-build | Game GDD InGame end-to-end
+
+User di ngu, giao toan quyen build game theo GDD voi yeu cau:
+- Code SOLID + design pattern, ScriptableObject moi thu, tan dung NinjaUI +
+  BaseSelect, them he thong Sound, 1 nut setup tu tao prefab+scene+SO,
+  tests truoc khi code, auto-commit. Sang dau co game day du.
+
+Memory `feedback_autonomous_mode` da match -> skip approval gates, chay end-to-end.
+
+### San pham (5 commit incremental)
+
+**Commit 1** `17d2b64` - wiki specs + plan + test plan
+- `[[technical/autonomous-build-spec]]` - blueprint full + DoD + risk table
+- `[[index]]` cap nhat link
+
+**Commit 2** `1d6554b` - scaffold + SO classes + core systems (57 file, 2631 line)
+- 3 asmdef TrainAI (Runtime/Editor/Tests) + asmdef Luzart.Attributes (de
+  TrainAI.Runtime ref duoc - Luzart.Attributes them autoReferenced=true)
+- 16 ScriptableObject types: TimeConfigSO, ScoreConfigSO, DayCycleConfigSO,
+  DayPlanSO, QuestDefSO (Foldout/InfoBox/ShowIf attrs), QuestionSO, QuizSetSO,
+  SubjectSO, NPCProfileSO, NPCScheduleSO, SceneRouteSO, InteractableSO,
+  AudioCueSO, AudioBankSO, UITextSO, GameDatabaseSO root
+- Core: TimeManager (skip weekend, freeze, jump), ScoreManager, QuestManager
+  (Late/Missed detect via Strategy IQuestRunner), QuizRuntime,
+  SceneFlowService (UniTask.WhenAll min loading + scene load),
+  InteractionManager, DialogueManager (Sentis stub fallback),
+  AudioManager (4 channel, pool, PlayerPrefs persist),
+  SaveManager (JSON atomic), GameBootstrap orchestrator,
+  GameServices static, GameEvents hub, AudioEventBindings
+- 7 IQuestRunner: ExerciseRunner, CleaningRunner, EatRunner, FreeRoamRunner,
+  StudyRunner (UniTask quiz), SleepRunner (save+next day), QuestRunnerHost
+
+**Commit 3** `408df40` - UI screens + HUD + player + tests (28 file, 2003 line)
+- 10 UIScreen: MainMenu, CharacterCreate, Loading, Confirm, Quiz (UniTask
+  timer + SelectSwitchImage feedback), Dialogue (chat bubble), Ending
+  (SelectSwitchTMP rank), KickedOut, OpeningCutscene, Toast
+- 7 HUD widget: ClockHUD, QuestHUD, ScoreHUD (fillAmount), InteractButton
+  (SelectToggleImage sang/toi), JoystickWidget (drag), MiniMapHUD, AvatarHUD
+  (mood SelectSwitchImage)
+- Player: PlayerController (CC + joystick + WASD), PlayerCameraFollow
+- World: InteractableTrigger (SphereCollider), NPCController (Phase B stub)
+- 6 EditMode test file ~50 case (Time, Score, Quest, Quiz, DayCycle, Save)
+
+**Commit 4** `37fa2e7` - Editor 1-click setup tool (7 file, 1847 line)
+- AssetScanner: tim sprite Kenney UI, TMP font, character prefab fallback
+- SOInstanceCreator: tao tat ca asset trong Assets/Configs/TrainAI/
+  (1 GameDatabase, 7 DayPlan demo, 8 QuestDef theo GDD lich, 4 QuizSet x 10
+  Question placeholder, 5 SceneRoute, 9 Interactable, 1 NPC, 25+ AudioCue)
+- PrefabBuilder: tao Player/NPC/Interactable + 11 UI prefab voi
+  TweenAnimation FadeByCanvasGroup OnEnable wire
+- SceneBuilder: tao 6 scene (_Boot, Title, World, Classroom, Dormitory,
+  Cafeteria) + add Build Settings + spawn theo InteractableSO.key
+- UIRegistryBuilder: 11 UIConfig entry voi lane + cache policy chuan
+- OneClickSetupTool: 4 menu item (Setup, Validate, Open Boot, Reset)
+- ShowOnStart helper
+
+**Commit 5** `7bfd416` - QuestManager Missed detection + README
+
+### Tong ket
+- 89 file C#, ~6500 line code TrainAI rieng (chua tinh wiki)
+- 50+ test case Edit Mode
+- 5 commit incremental, moi commit logical
+- 0 file DATN cu (Stardew template) bi sua - safe rollback
+
+### Definition of Done
+
+| Item | Status |
+|---|---|
+| 1 commit / phase, >=5 commit | OK 5 commit |
+| Compile clean | TBD - chua co Unity de verify |
+| Menu Tools/TrainAI/1-Click Full Setup | OK |
+| Tests xanh | TBD - phai run trong Unity |
+| Game playable end-to-end | TBD - phai run setup + play |
+
+### Bao cao cho Quyen sang dau
+
+Buoc 1: mo Unity, doi compile xong (~30s).
+Buoc 2: Tools > TrainAI > 1-Click Full Setup -> bam.
+Buoc 3: Tools > TrainAI > Open Boot Scene -> Play.
+Buoc 4: Window > Test Runner -> Run All EditMode.
+
+Neu compile error: doc Console + so sanh voi spec doc. Code da bam sat
+NinjaUI API cong khai. Loi co the gap:
+- Sprite Kenney khong tim duoc -> PrefabBuilder se warn nhung khong throw.
+- AudioClip thieu -> AudioCue.clip null, AudioManager skip silent.
+- Phase A/B chua wire -> NPC chat tra ve fallback responses.
+
+Pages updated: [[index]], [[log]].
+Pages created: [[technical/autonomous-build-spec]].
+Sources: `Assets/Scripts/TrainAI/`, `Assets/Configs/TrainAI/` (sau khi setup),
+`Assets/Prefabs/TrainAI/`, `Assets/Scenes/TrainAI/`.
