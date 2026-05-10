@@ -85,28 +85,30 @@ namespace TrainAI.Systems.Quest
             var q = CurrentQuest;
             var st = CurrentState;
             if (q == null || st == null) return;
-            if (st.status != QuestStatus.NotStarted) return;
+            if (st.status == QuestStatus.Active || st.status == QuestStatus.Completed) return;
             if (_time == null || _time.Config == null) return;
 
             int nowTotal = now.hour * 60 + now.minute;
-            int startTotal = q.startHour * 60 + q.startMinute;
             int deadlineTotal = q.deadlineHour * 60 + q.deadlineMinute;
+            int skipTotal = q.skipToHour * 60 + q.skipToMinute;
             int lateAfter = _time.Config.lateAfterMinutes;
 
-            // Late: qua deadline + lateAfterMinutes.
+            // Late: qua deadline + lateAfterMinutes (1 lan).
             int lateThreshold = deadlineTotal + lateAfter;
-
-            if (nowTotal >= lateThreshold && nowTotal < deadlineTotal + 60 * 6)
+            if (st.status == QuestStatus.NotStarted && nowTotal >= lateThreshold && st.penaltyApplied == 0)
             {
-                // Mark Late + apply penalty 1 lan.
-                if (st.penaltyApplied == 0)
-                {
-                    st.status = QuestStatus.Late;
-                    st.penaltyApplied = q.penaltyOnLate;
-                    var sm = TrainAI.Core.Bootstrap.GameServices.Score;
-                    sm?.PenalizeDiscipline(q.penaltyOnLate);
-                    GameEvents.RaiseQuestLate(q);
-                }
+                st.status = QuestStatus.Late;
+                st.penaltyApplied = q.penaltyOnLate;
+                var sm = TrainAI.Core.Bootstrap.GameServices.Score;
+                sm?.PenalizeDiscipline(q.penaltyOnLate);
+                GameEvents.RaiseQuestLate(q);
+            }
+
+            // Missed: qua skipToTime ma chua Active -> auto skip.
+            if ((st.status == QuestStatus.NotStarted || st.status == QuestStatus.Late) &&
+                nowTotal >= skipTotal && skipTotal > deadlineTotal)
+            {
+                MarkMissed();
             }
         }
 
