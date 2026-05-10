@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90dae41b259c6f542825d91d5031208b, type: 3}
+  m_Name: Jeff
+  m_EditorClassIdentifier: 
+  portrait: {fileID: 6160822650818915116, guid: c4f6b59ad21af474fa6e242d1aee1583,
+    type: 3}
+  birthday:
+    year: 0
+    season: 0
+    day: 6
+    hour: 0
+    minute: 0
+  likes:
+  - {fileID: 11400000, guid: 7c5d10f9731296d4f995bc32cb72b1fe, type: 2}
+  dislikes: []
+  prefab: {fileID: 4293373722112277805, guid: 0a0ad57d056ea154089214ddefc65872, type: 3}
+  onFirstMeet:
+  - speaker: Jeff
+    message: Are you the new farmer?
+  - speaker: Jeff
+    message: 'Nice to meet you {PlayerName}, I''m Jeff. '
+  defaultDialogue:
+  - speaker: Jeff
+    message: Hi there!
+  likedGiftDialogue:
+  - speaker: Jeff
+    message: Thank you! I really like this!
+  dislikedGiftDialogue:
+  - speaker: Jeff
+    message: 'I dislike this! '
+  neutralGiftDialogue:
+  - speaker: Jeff
+    message: Thank you!
+  birthdayLikedGiftDialogue:
+  - speaker: Jeff
+    message: 'A birthday gift? '
+  - speaker: Jeff
+    message: That's very kind of you. I like it!
+  birthdayDislikedGiftDialogue:
+  - speaker: Jeff
+    message: 'Uh.... This is for my birthday? '
+  - speaker: Jeff
+    message: '...
+
+'
+  - speaker: Jeff
+    message: Thanks.
+  birthdayNeutralGiftDialogue:
+  - speaker: Jeff
+    message: Oh, a birthday gift! Thank you!
+  dialogues:
+  - id: General Morning Greeting
+    conditions:
+    - blackboardEntryData:
+        keyName: Timestamp.hour
+        valueType: 0
+        intValue: 12
+        floatValue: 0
+        boolValue: 0
+        stringValue: 
+        vector3Value: {x: 0, y: 0, z: 0}
+      comparison: 4
+    dialogueLine:
+    - speaker: Jeff
+      message: 'Good morning! '
+  - id: Afternoon Greeting
+    conditions:
+    - blackboardEntryData:
+        keyName: Timestamp.hour
+        valueType: 0
+        intValue: 12
+        floatValue: 0
+        boolValue: 0
+        stringValue: 
+        vector3Value: {x: 0, y: 0, z: 0}
+      comparison: 1
+    - blackboardEntryData:
+        keyName: Timestamp.hour
+        valueType: 0
+        intValue: 18
+        floatValue: 0
+        boolValue: 0
+        stringValue: 
+        vector3Value: {x: 0, y: 0, z: 0}
+      comparison: 4
+    dialogueLine:
+    - speaker: Jeff
+      message: Good afternoon!
+  - id: Evening Greeting
+    conditions:
+    - blackboardEntryData:
+        keyName: Timestamp.hour
+        valueType: 0
+        intValue: 18
+        floatValue: 0
+        boolValue: 0
+        stringValue: 
+        vector3Value: {x: 0, y: 0, z: 0}
+      comparison: 3
+    dialogueLine:
+    - speaker: Jeff
+      message: Good evening!
+  - id: Inn
+    conditions:
+    - blackboardEntryData:
+        keyName: Location
+        valueType: 0
+        intValue: 6
+        floatValue: 0
+        boolValue: 0
+        stringValue: 
+        vector3Value: {x: 0, y: 0, z: 0}
+      comparison: 0
+    dialogueLine:
+    - speaker: Jeff
+      message: 'A little wine after a hard day''s work does great wonders. '

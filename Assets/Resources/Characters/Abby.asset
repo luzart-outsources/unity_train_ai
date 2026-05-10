@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90dae41b259c6f542825d91d5031208b, type: 3}
+  m_Name: Abby
+  m_EditorClassIdentifier: 
+  portrait: {fileID: 21300000, guid: c0bbde92dc239fb4998f2d53ce2edbb7, type: 3}
+  birthday:
+    year: 0
+    season: 0
+    day: 23
+    hour: 0
+    minute: 0
+  likes:
+  - {fileID: 11400000, guid: 6abe74226a59b9944aa054d8f314b29a, type: 2}
+  dislikes:
+  - {fileID: 11400000, guid: cf9fc427e8129774bb161e27e8675c8e, type: 2}
+  prefab: {fileID: 4293373722112277805, guid: 012b4775ad6306c4bb0293283b800272, type: 3}
+  onFirstMeet:
+  - speaker: Abby
+    message: You must be the new farmer! Finally, someone else who knows what hard
+      work means!
+  - speaker: Abby
+    message: Don't be a stranger, okay?
+  defaultDialogue:
+  - speaker: Abby
+    message: The secret to good cooking? Simple! Fresh ingredients and lots of practice!
+  likedGiftDialogue:
+  - speaker: Abby
+    message: Wow! This is perfect! You really know what I like!
+  dislikedGiftDialogue:
+  - speaker: Abby
+    message: Umm... Thanks, but this isn't really my thing.
+  neutralGiftDialogue:
+  - speaker: Abby
+    message: 'Thanks! That''s nice of you! '
+  birthdayLikedGiftDialogue:
+  - speaker: Abby
+    message: 'This is... this is exactly what I''ve been dreaming of!  '
+  - speaker: Abby
+    message: A perfect gift for my birthday!
+  birthdayDislikedGiftDialogue:
+  - speaker: Abby
+    message: Ohh... umm... thanks for remembering my birthday at least...
+  birthdayNeutralGiftDialogue:
+  - speaker: Abby
+    message: 'Thanks for remembering my birthday! '
+  dialogues:
+  - id: Morning
+    conditions:
+    - blackboardEntryData:
+        keyName: Timestamp.hour
+        valueType: 0
+        intValue: 10
+        floatValue: 0
+        boolValue: 0
+        stringValue: 
+        vector3Value: {x: 0, y: 0, z: 0}
+      comparison: 2
+    dialogueLine:
+    - speaker: Abby
+      message: 'Morning {PlayerName}! Nothing better than getting an early start
+        on the day''s work, right? '
+  - id: Morning Forest
+    conditions:
+    - blackboardEntryData:
+        keyName: Timestamp.hour
+        valueType: 0
+        intValue: 8
+        floatValue: 0
+        boolValue: 0
+        stringValue: 
+        vector3Value: {x: 0, y: 0, z: 0}
+      comparison: 2
+    - blackboardEntryData:
+        keyName: Location
+        valueType: 0
+        intValue: 3
+        floatValue: 0
+        boolValue: 0
+        stringValue: 
+        vector3Value: {x: 0, y: 0, z: 0}
+      comparison: 0
+    dialogueLine:
+    - speaker: Abby
+      message: Found some mushrooms that might be from Dad's stories.
+    - speaker: Abby
+      message: Or it might be just mushrooms...
+  - id: Evening
+    conditions:
+    - blackboardEntryData:
+        keyName: Timestamp.hour
+        valueType: 0
+        intValue: 17
+        floatValue: 0
+        boolValue: 0
+        stringValue: 
+        vector3Value: {x: 0, y: 0, z: 0}
+      comparison: 1
+    dialogueLine:
+    - speaker: Abby
+      message: Love hearing Dad's stories, but sometimes I wish I could make my own
+        adventures...
+  - id: 2 Hearts inn dialogue
+    conditions:
+    - blackboardEntryData:
+        keyName: NPCRelationship_Abby.Hearts
+        valueType: 0
+        intValue: 2
+        floatValue: 0
+        boolValue: 0
+        stringValue: 
+        vector3Value: {x: 0, y: 0, z: 0}
+      comparison: 1
+    - blackboardEntryData:
+        keyName: Location
+        valueType: 0
+        intValue: 6
+        floatValue: 0
+        boolValue: 0
+        stringValue: 
+        vector3Value: {x: 0, y: 0, z: 0}
+      comparison: 0
+    dialogueLine:
+    - speaker: Abby
+      message: You know what? Ever since you started visiting, work feels even more
+        fun!

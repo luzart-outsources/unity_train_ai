@@ -1,0 +1,11 @@
+#blackboard-entry-value .unity-base-field {
+    display: none;
+}
+
+#blackboard-entry-value .selected {
+    display: flex;
+}
+
+#blackboard-entry-value, #comparison{
+    width:50%; 
+}

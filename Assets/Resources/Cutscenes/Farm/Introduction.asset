@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8514811935318599230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ef58cc9805edb40b57a49cc5f5e7a5, type: 3}
+  m_Name: Ben Introduction
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: Ben
+    message: 'Hi there. Are you the new guy on the farm? '
+  - speaker: Ben
+    message: 'I''m Ben. Nice to meet you. '
+  - speaker: Ben
+    message: 'What is your name? '
+--- !u!114 &-4093350347958755661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c608a6020a7b8b049887e281cc74641e, type: 3}
+  m_Name: Spawn Player
+  m_EditorClassIdentifier: 
+  actionType: 1
+  actorName: Player
+  position: {x: -4.19, y: 1, z: -1.047}
+--- !u!114 &-3413740012698178001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ef58cc9805edb40b57a49cc5f5e7a5, type: 3}
+  m_Name: Ben Responds to Name
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: Uncle Ben
+    message: 'Nice to meet you, {PlayerName}. '
+  - speaker: Uncle Ben
+    message: See you around!
+--- !u!114 &-1998434149664229148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 502e5286e2b770f4d84f95b6c4b2fcbc, type: 3}
+  m_Name: Naming Action
+  m_EditorClassIdentifier: 
+  namingPrompt: What is your name?
+  blackboardKeyToUpdate: PlayerName
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a5f5824ef6fa04bbd6a1e73344ebd6, type: 3}
+  m_Name: Introduction
+  m_EditorClassIdentifier: 
+  conditions: []
+  recurring: 0
+  action:
+    m_List:
+    - {fileID: -4093350347958755661}
+    - {fileID: 4115175553708782512}
+    - {fileID: -8514811935318599230}
+    - {fileID: -1998434149664229148}
+    - {fileID: -3413740012698178001}
+    - {fileID: 7611876566806978161}
+    - {fileID: 5920171329436097613}
+--- !u!114 &4115175553708782512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c608a6020a7b8b049887e281cc74641e, type: 3}
+  m_Name: Spawn Ben
+  m_EditorClassIdentifier: 
+  actionType: 0
+  actorName: Ben
+  position: {x: -1.909, y: 0.739, z: -1.51}
+--- !u!114 &5920171329436097613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7714efc8df42b39419a137890b8199f0, type: 3}
+  m_Name: Scene Change Action
+  m_EditorClassIdentifier: 
+  locationToSwitch: 0
+--- !u!114 &7611876566806978161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 397387a103833fc458922c4f8c43d2ea, type: 3}
+  m_Name: Unlock Character Action
+  m_EditorClassIdentifier: 
+  characterToUnlock: {fileID: 11400000, guid: 6895767ffb23e1148a3483eaede408eb, type: 2}

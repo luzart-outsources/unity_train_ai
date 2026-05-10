@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cb8943dd2c1f54ab4acf6823e23d22, type: 3}
+  m_Name: Uncle Ben
+  m_EditorClassIdentifier: 
+  character: {fileID: 11400000, guid: 6895767ffb23e1148a3483eaede408eb, type: 2}
+  npcScheduleList:
+  - name: Default At Home
+    time:
+      year: 0
+      season: 0
+      day: 0
+      hour: 0
+      minute: 0
+    dayOfTheWeek: 2
+    priority: 0
+    factorDate: 0
+    ignoreDayOfTheWeek: 1
+    location: 3
+    coord: {x: 4.7, y: 1.3, z: -1.6}
+    facing: {x: 0, y: 0, z: 0}
+  - name: Monday Morning
+    time:
+      year: 0
+      season: 0
+      day: 0
+      hour: 6
+      minute: 0
+    dayOfTheWeek: 2
+    priority: 1
+    factorDate: 0
+    ignoreDayOfTheWeek: 0
+    location: 2
+    coord: {x: -6.9, y: 0.1, z: 17.9}
+    facing: {x: 0, y: 0, z: 0}
+  - name: Monday Fishing Trip
+    time:
+      year: 0
+      season: 0
+      day: 0
+      hour: 8
+      minute: 0
+    dayOfTheWeek: 2
+    priority: 1
+    factorDate: 0
+    ignoreDayOfTheWeek: 0
+    location: 5
+    coord: {x: 36, y: 0, z: 86.9}
+    facing: {x: 0, y: 0, z: 0}
+  - name: Monday Afternoon
+    time:
+      year: 0
+      season: 0
+      day: 0
+      hour: 15
+      minute: 0
+    dayOfTheWeek: 2
+    priority: 1
+    factorDate: 0
+    ignoreDayOfTheWeek: 0
+    location: 2
+    coord: {x: -6.940903, y: 0.0776251, z: 17.88607}
+    facing: {x: 0, y: 0, z: 0}
+  - name: Monday Chill at home
+    time:
+      year: 0
+      season: 0
+      day: 0
+      hour: 15
+      minute: 0
+    dayOfTheWeek: 2
+    priority: 1
+    factorDate: 0
+    ignoreDayOfTheWeek: 0
+    location: 3
+    coord: {x: 4.7, y: 1.3, z: -1.6}
+    facing: {x: 0, y: 0, z: 0}
+  - name: Work Day Chill at home (Tues - Sun)
+    time:
+      year: 0
+      season: 0
+      day: 0
+      hour: 6
+      minute: 0
+    dayOfTheWeek: 2
+    priority: 1
+    factorDate: 0
+    ignoreDayOfTheWeek: 1
+    location: 3
+    coord: {x: 4.7, y: 1.3, z: -1.6}
+    facing: {x: 0, y: 0, z: 0}
+  - name: Work day Work
+    time:
+      year: 0
+      season: 0
+      day: 0
+      hour: 8
+      minute: 0
+    dayOfTheWeek: 3
+    priority: 0
+    factorDate: 0
+    ignoreDayOfTheWeek: 1
+    location: 3
+    coord: {x: -5.185, y: 0, z: 3.52}
+    facing: {x: 0, y: 180, z: 0}
+  - name: Work Day Over
+    time:
+      year: 0
+      season: 0
+      day: 0
+      hour: 16
+      minute: 0
+    dayOfTheWeek: 3
+    priority: 0
+    factorDate: 0
+    ignoreDayOfTheWeek: 1
+    location: 6
+    coord: {x: -10.05, y: 0, z: -3.24}
+    facing: {x: 0, y: 0, z: 0}

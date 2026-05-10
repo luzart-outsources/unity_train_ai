@@ -2,12 +2,39 @@
 title: Log
 category: log
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-11
 ---
 
 # TrainAI Unity — Log
 
 Chronological record of all wiki operations.
+
+## [2026-05-11] refactor | Bỏ Addressables, thêm UniTask cho NinjaUI
+
+- Bug user báo: NinjaUI framework (`Assets/Luzart/UIFramework/`) compile error đỏ vì asmdef reference `Unity.Addressables` + `Unity.ResourceManager` (không có trong manifest) + `using Cysharp.Threading.Tasks` chưa cài UniTask.
+- Add `com.cysharp.unitask` (git URL Cysharp) vào `Packages/manifest.json`.
+- Bỏ Addressables triệt để: asmdef refs, `UIConfig.AssetRef` đổi `AssetReferenceGameObject` → `GameObject` direct, xoá `AddressableUIAssetProvider.cs` thay bằng `DirectPrefabUIAssetProvider.cs` (no-op cho preload/download).
+- Update `UIManager.cs` (4 edit), `UIRegistryValidator.cs` (Editor), comment trong `IUIAssetProvider.cs` + `UIRegistrySO.cs`.
+- Pages created (2): `systems/ninjaui-framework.md`, `decisions/remove-addressables-add-unitask.md`
+- Pages updated: `index.md`, `claims.md`
+- Claims added: c-20260511-06..09
+- Note: nếu đã có `UIRegistrySO` asset, user phải re-bind prefab vào `AssetRef` (type changed → Unity không serialise cross-format).
+
+## [2026-05-11] ingest | DATN game repo (manhquyenkma/DATN)
+
+- Import code DATN của Quyền vào `Assets/Scripts/` + asset farming + scene game (snapshot rollback ở commit `b2e26bf`).
+- Add `www.nulltale.socollection` vào `Packages/manifest.json` để fix compile error generic `SoCollection<T>`.
+- Xoá URP-related: `Settings/`, `UniversalRenderPipelineGlobalSettings.asset`, `DefaultVolumeProfile.asset` (user dùng Built-in).
+- Pages created (11):
+  - `sources/datn-game-repo.md`
+  - `technical/datn-architecture.md`
+  - `systems/datn-time-weather.md`, `systems/datn-farming.md`, `systems/datn-inventory-tools.md`, `systems/datn-scene-locations.md`, `systems/datn-dialogue-cutscene.md`, `systems/datn-npc-festivals.md`, `systems/datn-animals-economy.md`, `systems/datn-blackboard-save.md`
+  - `decisions/import-datn-game-base.md`
+- Pages updated: `index.md`, `claims.md`, `contradictions.md`, `open-questions.md`, `overview.md`
+- Claims added: c-20260511-01..05 (DATN architecture facts + risks)
+- Contradictions added: x-20260511-01 (theme farming vs GDD quân đội)
+- Open questions added: q-20260511-01..03 (reskin scope, tích hợp Phase A/B vào DATN)
+
 
 ## [2026-05-07] init | Wiki initialized
 
@@ -173,3 +200,66 @@ Pages created/updated:
 - Source raw: `raw/technical/phase_a_v2_report.md`
 
 Commits: `811ff6c` (v4 + entity extractor), `0d76d6a` (v5 deployed).
+
+## [2026-05-11] design | Technical design SO-driven cho GDD InGame
+
+User yêu cầu lên kế hoạch technical từ `raw/gdd/gdd_inGame.txt` (game học kỳ
+quân đội — 30 ngày, 4 scene, quiz, NPC chat + movement) với ràng buộc: mọi
+gameplay parameter config qua ScriptableObject.
+
+Sản phẩm: [[technical/gdd-ingame-tech-design]] — blueprint đầy đủ gồm:
+- 17 SO type (TimeConfig, DayCycle, DayPlan, QuestDef, Subject, QuizSet,
+  Question, Score, NPCProfile, NPCSchedule, SceneRoute, Interactable,
+  UIText, PhaseAChat, PhaseBMovement, GameDatabase root)
+- Boot order + ServiceLocator pattern (thay 16 singleton DontDestroyOnLoad
+  của template farming cũ)
+- QuestRunner Strategy registry (1 runner / QuestType — dễ add minigame)
+- TimeManager với Freeze/Resume cho scene quest, skip weekend tự động
+- DialogueManager bridge Phase A v1/v2 qua `PhaseAChatConfigSO`
+- NPCMovementBrain bridge Phase B (21-float observation contract giữ nguyên)
+- Save/Load JSON (thay BinaryFormatter deprecated)
+- Mapping table GDD requirement → SO chịu trách nhiệm (cross-check coverage)
+- Roadmap 7 ngày demo
+
+Pages updated: [[index]] (thêm 2 link technical), [[log]].
+Pages created: [[technical/gdd-ingame-tech-design]].
+Source raw: `raw/gdd/gdd_inGame.txt`.
+
+## [2026-05-11] design | Phần II tech design — tích hợp Luzart framework
+
+User yêu cầu audit hệ thống hiện tại (UIFramework + Tween + Select) trước khi
+chốt technical. Phát hiện `Assets/Luzart/` đã có đầy đủ:
+- **NinjaUI** UI framework (`UIBase<TData>`, `UIManager.Instance`, `UIRegistrySO`,
+  6-lane stack, `UIPopupQueue`, `UIBlockService`, async/UniTask, Pause/Resume)
+- **TweenAnimation** + `SequenceTweenAnimation` + `TweenAnimationCaller`
+  (DOTween wrapper inspector-driven)
+- **NewBaseSelect** — `SelectToggleImage/GameObject/TMP_Text/UnityEvent`,
+  `SelectSwitchImage/GameObject/TMP_Text/UnityEvent` cho UI feedback
+- **Attributes** — `[Button] [ShowIf] [HideIf] [InfoBox] [ProgressBar] [Slider]
+  [Foldout] [Dropdown] [DropdownNamed] [ColorPicker] [ReadOnly] [ShowInInspector]`
+
+Sản phẩm: [[technical/gdd-ingame-luzart-integration]] — DELTA so với Phần I:
+- Mapping 10 màn UI GDD → UIId enum + Lane + CachePolicy + DismissByEscape
+- UI screen template (ConfirmScreen, QuizScreen với UniTask timer)
+- TweenAnimation cho show/hide (TypeShow OnEnable, không code animation)
+- Select pattern cho InteractButton sáng/tối (đúng GDD "nút sáng khi camera quay đến"),
+  Quiz feedback xanh/đỏ, HUD avatar mood, Ending rank label
+- SO refactor với Luzart attributes ([Foldout] [InfoBox] [Slider]
+  [ShowIfAny] [Button] cho QuestDefSO + ScoreConfigSO + TimeConfigSO)
+- Boot order chỉnh lại: bỏ ServiceLocator, dùng UIManager.Instance + GameServices
+- SceneFlow async `UniTask.WhenAll(minWait, sceneLoad)` cho Loading 3s GDD
+- Pause/Resume HUD tự động khi popup đè (PausableWhenOverlaid + OnPauseAsync)
+- Toast cho điểm số (ShowToastAsync built-in, không tự viết)
+- UniTask hoá Sentis chat predict
+- Anti-pattern Luzart-specific (đừng tự viết UIManager mới, đừng Resources.Load
+  prefab UI, đừng coroutine animation)
+- Roadmap chỉnh lại: 7 ngày demo còn 5.5 ngày vì đã có framework
+
+Phần I được mark warning ngay đầu để Quyền biết section UI bị refine ở Phần II.
+
+Pages updated: [[technical/gdd-ingame-tech-design]] (thêm note Phần II), [[index]],
+[[log]].
+Pages created: [[technical/gdd-ingame-luzart-integration]].
+Sources: `Assets/Luzart/UIFramework/NinjaUI/`, `Assets/Luzart/TweenAnimationPackage/`,
+`Assets/Luzart/NewBaseSelect/`, `Assets/Luzart/Attributes/`,
+`Assets/Luzart/UIFramework/docs/01-03-*.md`.

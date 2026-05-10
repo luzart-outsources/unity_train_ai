@@ -2,7 +2,7 @@
 title: Claims Ledger
 category: meta
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-11
 ---
 
 # Claims — Cross-page facts với citation
@@ -225,3 +225,57 @@ Mỗi claim có ID stable `c-YYYYMMDD-NN`. Khi GDD revision sửa giá trị →
 - **Sources**: `Assets/AI/Resources/responses.json` line 19, `Assets/AI/Scripts/NPCDialogueBrain.cs::DummyContext.Get("block")`
 - **Used by**: [[systems/entity-extractor]], [[decisions/phase-a-v2-iteration]]
 - **Status**: fixed in v2
+
+### c-20260511-01 — DATN có ~22 system Stardew-clone, kèm 16 singleton
+- **Claim**: Game DATN của Quyền (clone vào `Assets/Scripts/` 2026-05-11) có ~22 system phân theo folder, dùng pattern Singleton + ITimeTracker observer + ScriptableObject content + UnityEvent. Khoảng 16 singleton + 1 god-object (`GameStateManager` + `GameBlackboard`).
+- **Sources**: `Assets/Scripts/`, [[technical/datn-architecture]]
+- **Used by**: [[sources/datn-game-repo]], [[overview]], [[technical/datn-architecture]]
+- **Status**: active
+
+### c-20260511-02 — DATN dùng SoCollection từ NullTale
+- **Claim**: 5 file (Cutscene/Cutscene.cs + Festivals/{FestivalNPCBehaviour,FestivalLocation,FestivalData,FestivalNPCHandler}.cs) dùng `SoCollection<T>` generic — package GitHub `www.nulltale.socollection` (https://github.com/NullTale/SoCollection.git). User đã add vào `Packages/manifest.json` để fix compile error.
+- **Sources**: `Packages/manifest.json`, `D:/OutSources/Unity_AI/_DATN_clone/Packages/manifest.json`
+- **Used by**: [[systems/datn-dialogue-cutscene]], [[systems/datn-npc-festivals]], [[technical/datn-architecture]]
+- **Status**: active
+
+### c-20260511-03 — DATN save dùng BinaryFormatter (deprecated)
+- **Claim**: `Save/SaveManager.cs` dùng `BinaryFormatter` ghi `Application.persistentDataPath/Save.save`. Microsoft đã mark BinaryFormatter deprecated (security risk + sẽ remove ở .NET 9+). Quyền nên migrate sang JSON trước khi nộp đồ án.
+- **Sources**: `Assets/Scripts/Save/SaveManager.cs`
+- **Used by**: [[systems/datn-blackboard-save]], [[technical/datn-architecture]]
+- **Status**: active (debt, low priority cho ĐATN demo)
+
+### c-20260511-04 — DATN AI/LLMNetworkManager hardcoded API key
+- **Claim**: `Assets/Scripts/AI/LLMNetworkManager.cs` chứa API key Groq/FreeLLM hardcoded inline (security issue). Repo public DATN đã expose key. Quyền cần move sang env variable hoặc xoá trước khi public/nộp.
+- **Sources**: `Assets/Scripts/AI/LLMNetworkManager.cs`
+- **Used by**: [[sources/datn-game-repo]], [[technical/datn-architecture]]
+- **Status**: ⚠️ unfixed (chờ Quyền)
+
+### c-20260511-05 — DATN Assets ~698MB binary
+- **Claim**: Sau khi xoá URP files, `Assets/` total = 698MB (chủ yếu `Imported Asset/` chứa POLYGON Farm + Kenney + Meshtint pack). Commit vào git sẽ phình repo. Cân nhắc `.gitignore` `Imported Asset/` hoặc Git LFS.
+- **Sources**: `du -sh Assets/` 2026-05-11
+- **Used by**: [[sources/datn-game-repo]], [[decisions/import-datn-game-base]]
+- **Status**: active
+
+### c-20260511-06 — NinjaUI là user-owned framework, không thuộc DATN
+- **Claim**: `Assets/Luzart/UIFramework/NinjaUI/` là UI framework do user (chủ wiki) viết trước, namespace `Luzart`. Coexist song song với `Assets/Scripts/UI/UIManager.cs` (Stardew template của DATN) — hai system độc lập, không integrate.
+- **Sources**: `Assets/Luzart/UIFramework/NinjaUI/Runtime/Core/UIManager.cs`, `Assets/Luzart/UIFramework/NinjaUI/Runtime/NinjaUI.Runtime.asmdef`
+- **Used by**: [[systems/ninjaui-framework]], [[decisions/remove-addressables-add-unitask]]
+- **Status**: active
+
+### c-20260511-07 — UniTask version (Cysharp git URL)
+- **Claim**: UniTask install qua manifest git URL chính thức `https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask`. Asmdef reference name `UniTask`. Không dùng OpenUPM scoped registry (đỡ phức tạp hơn cho ĐATN).
+- **Sources**: `Packages/manifest.json` line 3, `Assets/Luzart/UIFramework/NinjaUI/Runtime/NinjaUI.Runtime.asmdef`
+- **Used by**: [[systems/ninjaui-framework]], [[decisions/remove-addressables-add-unitask]]
+- **Status**: active
+
+### c-20260511-08 — DirectPrefab provider thay AddressableUIAssetProvider
+- **Claim**: NinjaUI default `IUIAssetProvider` từ 2026-05-11 là `DirectPrefabUIAssetProvider` — prefab giữ trực tiếp trong `UIConfig.AssetRef` (GameObject field, drag-drop trong Inspector). `AddressableUIAssetProvider` đã xoá (file + .meta). 4 method preload/download là no-op.
+- **Sources**: `Assets/Luzart/UIFramework/NinjaUI/Runtime/Loading/DirectPrefabUIAssetProvider.cs`
+- **Used by**: [[systems/ninjaui-framework]], [[decisions/remove-addressables-add-unitask]]
+- **Status**: active
+
+### c-20260511-09 — UIConfig type breakage cần re-bind prefab
+- **Claim**: `UIConfig.AssetRef` đổi type từ `AssetReferenceGameObject` (Addressables) → `GameObject` direct. Unity không tự convert serialised reference qua 2 type → mọi `UIRegistrySO` asset đã tồn tại sẽ mất binding, user phải drag-drop lại prefab vào field `AssetRef`. Project user hiện chưa có UIRegistrySO asset nào → không bị ảnh hưởng.
+- **Sources**: `Assets/Luzart/UIFramework/NinjaUI/Runtime/Core/UIConfig.cs`
+- **Used by**: [[decisions/remove-addressables-add-unitask]]
+- **Status**: active

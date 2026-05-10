@@ -1,0 +1,10 @@
+#action-list {
+    background-color: rgb(32, 32, 32);
+    color: rgb(201, 201, 201);
+    padding: 18px;
+    border-radius: 8px;
+}
+
+#action-list .unity-list-view__size-field {
+    right: 20px;
+}

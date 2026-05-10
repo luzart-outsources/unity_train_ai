@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cb8943dd2c1f54ab4acf6823e23d22, type: 3}
+  m_Name: Frank
+  m_EditorClassIdentifier: 
+  character: {fileID: 11400000, guid: 7ff938c8d1a20d743b536686927a5f90, type: 2}
+  npcScheduleList:
+  - name: Frank Shop
+    time:
+      year: 0
+      season: 0
+      day: 0
+      hour: 0
+      minute: 0
+    dayOfTheWeek: 0
+    priority: 0
+    factorDate: 0
+    ignoreDayOfTheWeek: 1
+    location: 6
+    coord: {x: -6.72, y: 0, z: 4.37}
+    facing: {x: 0, y: 180, z: 0}
+  - name: Frank Wares
+    time:
+      year: 0
+      season: 0
+      day: 0
+      hour: 14
+      minute: 0
+    dayOfTheWeek: 0
+    priority: 0
+    factorDate: 0
+    ignoreDayOfTheWeek: 1
+    location: 6
+    coord: {x: -12.34, y: 0, z: 3.82}
+    facing: {x: 0, y: 124.64, z: 0}
+  - name: Frank Shop
+    time:
+      year: 0
+      season: 0
+      day: 0
+      hour: 17
+      minute: 0
+    dayOfTheWeek: 0
+    priority: 0
+    factorDate: 0
+    ignoreDayOfTheWeek: 1
+    location: 6
+    coord: {x: -6.72, y: 0, z: 4.37}
+    facing: {x: 0, y: 180, z: 0}

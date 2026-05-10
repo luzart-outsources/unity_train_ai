@@ -2,7 +2,7 @@
 title: Index
 category: index
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-11
 ---
 
 # TrainAI Unity — Wiki Index
@@ -32,6 +32,9 @@ Master catalog. Read first to find relevant pages.
 - [[technical/data-generation]] — Vietnamese template generator v3 (60+ pools)
 - [[technical/architecture-comparison]] — FastText vs LSTM vs Transformer trên test khó
 - [[technical/unity-integration]] — Cách load ONNX qua InferenceEngine 2.6 (Unity 6)
+- [[technical/datn-architecture]] — Kiến trúc template farming đã import (legacy reference)
+- [[technical/gdd-ingame-tech-design]] — ⭐ Technical design SO-driven cho GDD học kỳ quân đội (Phần I — gameplay)
+- [[technical/gdd-ingame-luzart-integration]] — ⭐ Phần II — tích hợp NinjaUI + Tween + Select + Attributes
 
 ## Decisions
 - [[decisions/standalone-ppo-not-ml-agents]] — Train Phase B Python thay ML-Agents Unity
@@ -50,8 +53,31 @@ Master catalog. Read first to find relevant pages.
 ## Analysis
 - [[analysis/evolution-v1-to-v3.1]] — Lịch sử v1→v3.1 (data scale, eval rigor, loop maturity)
 
+## NinjaUI Framework (Luzart)
+
+User-owned UI framework riêng (không thuộc DATN). Async-first, lane-based.
+
+- [[systems/ninjaui-framework]] — UIManager + lane stack + async lifecycle
+- [[decisions/remove-addressables-add-unitask]] — bỏ Addressables, dùng direct prefab + UniTask (2026-05-11)
+
+## DATN Game (imported 2026-05-11)
+
+Code game farming life-sim của Quyền clone từ `manhquyenkma/DATN`. ~22 system, Stardew template. Wiki các system + architecture:
+
+- [[technical/datn-architecture]] — singleton + ITimeTracker + SO data + GameBlackboard
+- [[systems/datn-time-weather]] — đồng hồ + 4 mùa + weather probability
+- [[systems/datn-farming]] — crop lifecycle Soil→Farmland→Watered→Harvest
+- [[systems/datn-inventory-tools]] — 8+8 slot, ItemData/EquipmentData/SeedData SO
+- [[systems/datn-scene-locations]] — 10 scene + transition + lock
+- [[systems/datn-dialogue-cutscene]] — DialogueManager + Cutscene SO + SoCollection
+- [[systems/datn-npc-festivals]] — NPC schedule + festival event ngày
+- [[systems/datn-animals-economy]] — chicken/egg + Shop + ShippingBin + PlayerStats
+- [[systems/datn-blackboard-save]] — GameBlackboard + BinaryFormatter save
+- [[decisions/import-datn-game-base]] — quyết định clone DATN làm base
+
 ## Sources
 - [[sources/phase-a-v2-report]] — báo cáo iteration v3→v4→v5→v6 với numbers cụ thể
+- [[sources/datn-game-repo]] — DATN GitHub repo + structure import
 
 ## Provenance (meta)
 - [[claims]] — Cross-page facts với citation

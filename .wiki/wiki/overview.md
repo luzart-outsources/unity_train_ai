@@ -1,10 +1,10 @@
 ---
 title: Project Overview
 category: overview
-tags: [unity, ai, sentis, ppo, intent-classification, vietnamese]
-sources: [raw/context_v1.md, raw/context_v2.md, raw/HANDOFF.md]
+tags: [unity, ai, sentis, ppo, intent-classification, vietnamese, datn]
+sources: [raw/context_v1.md, raw/context_v2.md, raw/HANDOFF.md, Assets/Scripts/]
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-11
 ---
 
 # TrainAI Unity — Project Overview
@@ -94,8 +94,20 @@ Chi tiết per-system: [[systems/sentis-chat]], [[systems/movement-ai]].
 - [[decisions/eval-set-must-be-real]] — Test 16 câu cũ misleading, đổi 64 câu khó
 - [[decisions/phase-a-v2-iteration]] — Eval-driven iteration v3→v4→v5 đẩy 38%→96.8%
 
+## DATN game code imported (2026-05-11)
+
+Quyền đẩy code game lên `manhquyenkma/DATN` — Stardew Valley clone (~22 system, farming sim). User clone về và copy `Assets/*` vào project, giữ nguyên `Assets/AI/` (Phase A v1/v2 brain). Add `www.nulltale.socollection` vào `Packages/manifest.json`. Xoá URP-related (user dùng Built-in).
+
+> [!warning] Theme mismatch chưa giải quyết
+> GDD nói "mô phỏng học kỳ quân đội" nhưng code thực tế là farming. Phải reskin. Xem [[contradictions#x-20260511-01]], [[open-questions#q-20260511-01]].
+
+System map: [[technical/datn-architecture]] và 8 page system trong index. Decision: [[decisions/import-datn-game-base]].
+
 ## Open questions
 
 - Quyền có chốt 8 intent chính thức không? (đang tạm dùng list trong Sentis chat)
 - Bao giờ test thực tế trong Unity scene? (chưa)
 - Deploy Phase B model trên scene doanh trại thật vs training arena? (chưa)
+- Quyền sẽ reskin DATN thành quân đội ở mức nào? (xem [[open-questions#q-20260511-01]])
+- Phase A wire vào DialogueManager DATN thế nào? (xem [[open-questions#q-20260511-02]])
+- Phase B wire vào CharacterMovement DATN thế nào? (xem [[open-questions#q-20260511-03]])

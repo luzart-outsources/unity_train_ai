@@ -2,7 +2,7 @@
 title: Open Questions
 category: meta
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-11
 ---
 
 # Open Questions
@@ -56,6 +56,32 @@ Câu hỏi chưa trả lời. Append khi gặp, move xuống "Answered" khi reso
   1. Stagger schedule (đơn giản, no retrain)
   2. Add NPC layer raycast → retrain với 23-dim obs
 - **Status**: open — vòng 2 nếu cần
+
+### q-20260511-01 — Quyền sẽ reskin DATN thành quân đội ở mức nào?
+- **Why matters**: Quyết định scope reskin ảnh hưởng directly tới việc wiki có giá trị thực tế hay không. Reskin nhẹ (đổi sprite, giữ farming) khác reskin nặng (rewrite NPC schedule, cắt animals).
+- **Where surfaced**: [[contradictions#x-20260511-01]], [[decisions/import-datn-game-base]]
+- **Candidates**:
+  1. **Light reskin**: đổi prefab POLYGON Farm → asset doanh trại, đổi NPC dialogue, giữ farming/shop loop ("tăng gia" + "căng-tin"). Dễ kịp deadline.
+  2. **Medium reskin**: cắt Animals, giữ Farming + NPC + Festival, rewrite dialogue. ~2-3 tuần.
+  3. **Heavy reskin**: cắt Farming + Animals + Shop, chỉ giữ Time + NPCSchedule + Cutscene + Save. Build mới Player+Quest. ~4-5 tuần.
+- **Status**: open — chờ Quyền
+
+### q-20260511-02 — Phase A (Sentis chat) tích hợp vào DialogueManager DATN thế nào?
+- **Why matters**: DATN đã có `DialogueManager` (scripted line) + `LLMNetworkManager` (LLM API). Cần wire `Assets/AI/Scripts/NPCDialogueBrain.cs` (Phase A v2 LSTM) thay/thêm cạnh hai cái đó. Cụ thể: khi nào dùng scripted, khi nào dùng AI predict?
+- **Where surfaced**: [[systems/datn-dialogue-cutscene]], [[systems/sentis-chat]], [[entities/commander-npc]]
+- **Candidates**:
+  1. AI cho commander NPC (chỉ huy), scripted cho NPC khác
+  2. Player text input → AI; player click choice → scripted
+  3. AI fallback nếu scripted condition không match
+- **Status**: open — Quyền chưa wire
+
+### q-20260511-03 — Phase B (movement-ai) tích hợp vào CharacterMovement DATN thế nào?
+- **Why matters**: DATN có `CharacterMovement.cs` cho NPC walk-to-target trong cutscene (hardcode `Vector3.MoveTowards`). Phase B PPO model `soldier.onnx` train cho lính tự đi tránh chướng ngại. Cần adapter để soldier NPC trong scene dùng PPO thay vì hardcoded path.
+- **Where surfaced**: [[systems/datn-npc-festivals]], [[systems/movement-ai]], [[entities/soldier-npc]]
+- **Candidates**:
+  1. Wrap PPO trong `SoldierBehaviour : MonoBehaviour` riêng, không animation linear → tự inference mỗi tick
+  2. Schedule (NPCManager) decide đích, PPO decide cách đi tới đó
+- **Status**: open — Quyền chưa wire
 
 ## Answered
 

@@ -1,0 +1,961 @@
+fileFormatVersion: 2
+guid: a1d8c656cbfe107469a51d64e18b0aa7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4910237036403418163
+    second: speech_0
+  - first:
+      213: -1064348352501586448
+    second: speech_1
+  - first:
+      213: 4416377207708810438
+    second: speech_2
+  - first:
+      213: 6146109019312602978
+    second: speech_3
+  - first:
+      213: 7619932562303866704
+    second: speech_4
+  - first:
+      213: -4446012028801317370
+    second: speech_5
+  - first:
+      213: 1971256614460903345
+    second: speech_6
+  - first:
+      213: -8151843723585317595
+    second: speech_7
+  - first:
+      213: -3879891546162431116
+    second: speech_8
+  - first:
+      213: -3511206405369734430
+    second: speech_9
+  - first:
+      213: 6046901793386616450
+    second: speech_10
+  - first:
+      213: -2714298048128520623
+    second: speech_11
+  - first:
+      213: -7447330706589381493
+    second: speech_12
+  - first:
+      213: 4451895244903844273
+    second: speech_13
+  - first:
+      213: -3849291816354624742
+    second: speech_14
+  - first:
+      213: -4319703929038242647
+    second: speech_15
+  - first:
+      213: 8090193502374800735
+    second: speech_16
+  - first:
+      213: -1357195603104081213
+    second: speech_17
+  - first:
+      213: -4302004191207748959
+    second: speech_18
+  - first:
+      213: -6652752797878715973
+    second: speech_19
+  - first:
+      213: -5322413926293976093
+    second: speech_20
+  - first:
+      213: -6600264815253859198
+    second: speech_21
+  - first:
+      213: 3308558588736617037
+    second: speech_22
+  - first:
+      213: 7295239606972346598
+    second: speech_23
+  - first:
+      213: -3546640714112494418
+    second: speech_24
+  - first:
+      213: 6850731140523072826
+    second: speech_25
+  - first:
+      213: -2777308221486636737
+    second: speech_26
+  - first:
+      213: 7643043311546685270
+    second: speech_27
+  - first:
+      213: 7941483084038893832
+    second: speech_0
+  - first:
+      213: 5157384911331131818
+    second: speech_1
+  - first:
+      213: 7722405130160636689
+    second: speech_2
+  - first:
+      213: -1511335784998361952
+    second: speech_3
+  - first:
+      213: 390150179029093734
+    second: speech_4
+  - first:
+      213: 3126367991443182311
+    second: speech_5
+  - first:
+      213: 2627524802839018743
+    second: speech_6
+  - first:
+      213: 203588459971059558
+    second: speech_7
+  - first:
+      213: 1583048717940773096
+    second: speech_8
+  - first:
+      213: 2668766108051341804
+    second: speech_9
+  - first:
+      213: -3390780864435421934
+    second: speech_10
+  - first:
+      213: 5701724731227488715
+    second: speech_11
+  - first:
+      213: 8212098529505077879
+    second: speech_12
+  - first:
+      213: 3094053626936690505
+    second: speech_13
+  - first:
+      213: 688777427007547124
+    second: speech_14
+  - first:
+      213: 5377796612132335297
+    second: speech_15
+  - first:
+      213: 1876532452651463400
+    second: speech_16
+  - first:
+      213: -1356483466915536236
+    second: speech_17
+  - first:
+      213: -8439708526332282027
+    second: speech_18
+  - first:
+      213: -3823727255507607179
+    second: speech_19
+  - first:
+      213: -1434112784869541422
+    second: speech_20
+  - first:
+      213: 6423635232723099154
+    second: speech_21
+  - first:
+      213: 1036502395481012235
+    second: speech_22
+  - first:
+      213: 6602033439984577518
+    second: speech_23
+  - first:
+      213: -4823387503887194945
+    second: speech_24
+  - first:
+      213: -7317939242771843332
+    second: speech_25
+  - first:
+      213: -5990247340674236064
+    second: speech_26
+  - first:
+      213: -2456121800035478947
+    second: speech_27
+  - first:
+      213: 2116267973013452340
+    second: speech_28
+  - first:
+      213: -1608524880343727079
+    second: speech_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 95
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: speech_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 190
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80179e50ac0d53e60800000000000000
+      internalID: 4910237036403418163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_1
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 190
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa10ad97046b29740800000000000000
+      internalID: -1064348352501586448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_2
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 190
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11301e20d8e7b2b60800000000000000
+      internalID: 4416377207708810438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_3
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 190
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a426d66c18a60be0800000000000000
+      internalID: 6146109019312602978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_4
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 190
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66d851e45871a6500800000000000000
+      internalID: 7619932562303866704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_5
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 190
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e25f1fbf17136b20800000000000000
+      internalID: -4446012028801317370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_6
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 190
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fc7fbf03e7d67420800000000000000
+      internalID: 1971256614460903345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_7
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 190
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66f91fc20aa43d200800000000000000
+      internalID: -8151843723585317595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_8
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 190
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e05ffeeb6e18f510800000000000000
+      internalID: -3879891546162431116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_9
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 190
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce18003b2ac590520800000000000000
+      internalID: -3511206405369734430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 95
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21d7228d4c681f0d0800000000000000
+      internalID: 6046901793386616450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_11
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 95
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc1cfdb1f68902f40800000000000000
+      internalID: -2714298048128520623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_12
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 95
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77a68af5a1c37f170800000000000000
+      internalID: -7447330706589381493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_13
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 95
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9470295716940fa20800000000000000
+      internalID: 4451895244903844273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_14
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 95
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f6a71aab670f8900800000000000000
+      internalID: -3849291816354624742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_15
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 95
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ce6274a685c1aa40800000000000000
+      internalID: -4319703929038242647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_16
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 95
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e278c9c258ca0a10800000000000000
+      internalID: 8090193502374800735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_17
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 95
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4922fca497dcc2de0800000000000000
+      internalID: -1357195603104081213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_18
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 95
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55bf0209fc120ea80800000000000000
+      internalID: -4302004191207748959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_19
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 95
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5716d71f1546feac0800000000000000
+      internalID: -6652752797878715973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d9310a3502091ce0800000000000000
+      internalID: -5322413926293976093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_21
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 0
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21ed425d536552950800000000000000
+      internalID: -6600264815253859198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_22
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 0
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b08bc73ef65626e00800000000000000
+      internalID: 3308558588736617037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_23
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 0
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eebe7814f622f9b50800000000000000
+      internalID: 7295239606972346598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_24
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 0
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb4eeb0ee92ef0db0800000000000000
+      internalID: -3546640714112494418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_25
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 0
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf671b2e705717a90800000000000000
+      internalID: 6850731140523072826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_26
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 0
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 061426608cd5edca0800000000000000
+      internalID: -2777308221486636737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_27
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 0
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d52dac76c3a1aedd0800000000000000
+      internalID: 7643043311546685270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_28
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 0
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 436b00d428e7e5d10800000000000000
+      internalID: 2116267973013452340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: speech_29
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 0
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9140cb6c42f5da9e0800000000000000
+      internalID: -1608524880343727079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      speech_0: 4910237036403418163
+      speech_1: -1064348352501586448
+      speech_10: 6046901793386616450
+      speech_11: -2714298048128520623
+      speech_12: -7447330706589381493
+      speech_13: 4451895244903844273
+      speech_14: -3849291816354624742
+      speech_15: -4319703929038242647
+      speech_16: 8090193502374800735
+      speech_17: -1357195603104081213
+      speech_18: -4302004191207748959
+      speech_19: -6652752797878715973
+      speech_2: 4416377207708810438
+      speech_20: -5322413926293976093
+      speech_21: -6600264815253859198
+      speech_22: 3308558588736617037
+      speech_23: 7295239606972346598
+      speech_24: -3546640714112494418
+      speech_25: 6850731140523072826
+      speech_26: -2777308221486636737
+      speech_27: 7643043311546685270
+      speech_28: 2116267973013452340
+      speech_29: -1608524880343727079
+      speech_3: 6146109019312602978
+      speech_4: 7619932562303866704
+      speech_5: -4446012028801317370
+      speech_6: 1971256614460903345
+      speech_7: -8151843723585317595
+      speech_8: -3879891546162431116
+      speech_9: -3511206405369734430
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

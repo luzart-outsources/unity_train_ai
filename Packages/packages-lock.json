@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "a9e27c03d411d2fca01cc7410c24c97cd77cb539"
+    },
     "com.unity.ai.inference": {
       "version": "2.6.1",
       "depth": 0,
@@ -211,6 +218,13 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "www.nulltale.socollection": {
+      "version": "https://github.com/NullTale/SoCollection.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "58f786195c795ab5047850a20ae8f633bc3f615f"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",

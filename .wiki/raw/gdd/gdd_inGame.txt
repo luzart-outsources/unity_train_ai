@@ -1,0 +1,119 @@
+* Các màn UI : 
+- MainMenu : 
++ Background trường học
++ Nút NewGame
++ Nút Tiếp tục
++ Thoát
+
+- Màn CutScene :
++ 1 video
+
+- Màn tạo nhân vật : 
++ 1 cái text là  : "Bạn cần điền tên trước khi vào game"
++ Có 1 inputField và 1 nút "xác nhận"
+
+- Màn Gameplay ( InGame):
++ Joystick di chuyển ( góc dưới bên trái)
++ Đồng hồ ( Giữa trên) và text thứ, ngày ...
++ MiniMap ( Góc phải trên : Map và chấm tròn vị trí người chơi)
++ Góc dưới bên phải có nút tương tác ( nút này sẽ sáng khi mà người chơi quay camera đến vị trí có thể tương tác, còn lại nó sẽ tối)
++ Bên dưới cái MiniMap sẽ là 1 dòng thể hiện quest đang cần phải làm ( Nhiệm vụ ( Thời gian)) 
++ Bên góc bên tay trái ở trên sẽ có hình mặt người ( cố định), điểm người chơi đang có
+
+- UILoading: 
++ 1 cái màn đen với dòng text tùy chỉnh  : " Hết ngày, đang chuyển sang ngày tiếp theo, ..." và màn này tồn tại 3s rồi tự động tắt
++ UI này dùng để chuyển scene luôn, ví dụ như từ scene world ra scene lớp học sẽ hiện : "Đang vào lớp học ..."
+
+- UIQuiz :
++  Có thời gian : 15s/ câu. Không chọn thì coi như không biết, bỏ qua. Nằm ở góc phải màn hình và đếm ngược
++ 1 câu hỏi, 4 câu trả lời. Bấm 1 câu trả lời sẽ chuyển sang câu trả lời khác hoặc là hết. Hết câu hỏi thì tắt popup và chuyển luôn scene ra ngoài.
+
+- UIConfirm : 
++ 1 cái popup có text là bạn đang làm gì đó tương ứng với cái nhiệm vụ mà mình đang làm :
+ Ví dụ: Ở sân vận động sẽ hiển thị : Bạn đang tập thể dục, ... Nhấn Ok để skip thời gian và hoàn thành nhiệm vụ luôn 
+
+- UIDialogueNPC (Tự design, ví dụ) : 
++ 1 InputField và 1 button Send
++ Bên trên sẽ là hội thoại .
+
+- UIEnding :
++ Text title : " Bạn đã hoàn thành khóa học quân sự"
++ Text : "Điểm rèn luyện" : xx/xx . "Điểm học tập" :  yy/yy 
++ Text : Tốt nghiệp loại : "Xuất sắc"/"Tốt"/"Trung bình" . 
++  >= xx điểm rèn luyện và >= yy điểm học tập sẽ được xếp hạng theo loại tốt nghiệp 
+Cơ chế  : 
+Với điểm học tập : 
+.) Tổng điểm tối đa: 480 điểm
+.) Xuất sắc : Tổng điểm: ≥ 432 / 480
+.) Tốt : Tổng điểm: 288 – 431 / 480
+.) Trung bình : Tổng điểm: dưới 288 / 480
+Với điểm rèn luyện :
+.) Tổng điểm tối đa: 100 điểm
+.) Xuất sắc : Tổng điểm: ≥ 90 / 100
+.) Tốt : Tổng điểm: 60 – 90 / 100
+.) Trung bình : Tổng điểm: dưới 60 / 100
+
+* Gameplay : 
+- Cơ chế Game: 
++ Ban đầu có 100 điểm ( điểm rèn luyện) và 0đ ( điểm học tập).
++ Đồng hồ sẽ quay liên tục theo thời gian 1h trong game = 3p thời gian thực. 
++ Người chơi sẽ di chuyển trong game và tương tác để làm nhiệm vụ. Nút tương tác sẽ sáng hoặc tối phụ thuộc vào hướng đứng của người chơi.
++ Đến nhiệm vụ nào thì mới có thể tương tác với khu vực của nhiệm vụ đó, nếu như đến các khu vực khác ở trong nhiệm vụ không được giao thì không thể tương tác.
++ Nếu như trong 15p trong game mà không di chuyển tới nơi làm nhiệm vụ thì sẽ bị trừ điểm
++ Tới nơi làm nhiệm vụ, ở trong Scene nhiệm vụ rồi thì đồng hồ sẽ đóng băng thời gian mà không quay nữa.
++ Hết 100 điểm rèn luyện : Hiện UIConfirm : "Bạn bị đuổi học !" . Ấn nút xác nhận sẽ ra MainMenu.
++ Chơi theo lifecycle hàng ngày, hàng ngày sẽ làm 1 số nhiệm vụ nhất định và mình sẽ phải di chuyển đến nơi nhiệm vụ và tương tác với chúng.
++ Sang ngày hôm sau thì sẽ reset thời gian về thời gian của nhiệm vụ đầu tiên trừ đi 30p rồi ngày +1.  
++ Chơi trong 30 ngày thực hiện đi thực hiện lại nhiệm vụ . Đến cuối ngày thứ 6 sẽ skip qua ngày thứ 7 và chủ nhật. Chuyển sang ngày thứ 2 luôn. Và số ngày sẽ được tự động cập nhật theo.
++ Chơi hết 30 ngày, làm xong nhiệm vụ cuối cùng của ngày 30 thì sẽ hiện lên UIEnding.
++ Cơ chế tính điểm học tập : Trong 1 buổi học, nếu hoàn thành theo % bài học sẽ quy đổi ra điểm. Ví dụ hoàn thành 66% thì sẽ làm tròn thành 7, 92% làm tròn thành 9
++ Cơ chế tính điểm rèn luyện : Khi mà đi trễ/ không hoàn thành 1 nhiệm vụ, hệ thống trừ 5 điểm
++ Mỗi buổi học sẽ là 1 bộ đề 10 câu khác nhau. Đã xếp cho mỗi buổi, mỗi câu hỏi sẽ có 1 đáp đúng và 3 đáp án sai. Click vào đáp án sẽ thành màu xanh hoặc màu đỏ ở đáp án đó. 
+Sau đó hiện lên nút continue. Bấm continue sẽ sang câu tiếp theo hoặc hết.
++ Mỗi buổi học sẽ học 1 môn : Môn gì tự config với bộ đề : Ví dụ là : Lịch sử 1, 2,3, ... hoặc là giáo dục quốc phòng abc, ...
+
+- Scene : 
++ Scene world : Scene chơi chính , các lớp
++ Scene lớp học: Bàn, ghế, bảng, bục giảng, giáo viên. 
++ Scene ký túc xá : Giường, NPC có thể động là di chuyển qua lại và NPC tĩnh nằm trên giường
++ Scene phòng ăn : Bàn, ghế, 1 NPC tĩnh.
+
+- Scene World :
+ - Setup có thể tương tác với từng vị trí( GameObject) : Sân vận động , Dọn vệ sinh , cửa nhà ăn, cửa phòng học, cửa ký túc xá, NPC đại đội trưởng
+ - Tương tác với Sân vận động : Hiện lên UIConfirm : "Bạn đang tập thể dục". Ấn ok : Thời gian chuyển tới "x"h
+ - Tương tác với khu vực dọn vệ sinh : Hiện lên UIConfirm : "Bạn đang tập thể dục". Ấn ok : Thời gian chuyển tới "x"h
+ - Tương tác với khu vực cửa phòng học : Chuyển đến Scene phòng học
+ - Tương tác với khu vực cửa ký túc xá : Chuyển đến Scene ký túc xá
+ - Tương tác với khu vực cửa phòng ăn : Chuyển đến Scene phòng ăn
+ - Tương tác với NPC ( NPC đứng cố định) : Hiện lên UIDialogue, NPC sẽ chào trước: "Chào [Tên], có chuyện gì vậy ?". Ở đây sẽ được gán cái hệ thống Chat bằng AI để hỏi.
+ - NPC di chuyển tự do ( Học sinh ) : Cũng sẽ di chuyển theo thời gian biểu. NPC ở đây sẽ được gán cái UnitySentis tự tìm đường. Ví dụ : 6h ở sân vận động sẽ di chuyển ra khu vực dọn vệ sinh, .... 
+
+- Scene lớp học : 
+ - Người chơi có thể di chuyển trong phòng và tương tác 
+ - Cài tương tác ở khu vực bàn ghế. Bấm vào tương tác sẽ hiện lên UIQuiz. 
+ - Khi thực hiện hết Quiz sẽ ra khỏi Scene lớp học và trở về Scene World và đứng ngay tại vị trí ngoài lớp học.
+
+- Scene nhà ăn : 
+ - Người chơi có thể di chuyển trong phòng và tương tác 
+ - Cài tương tác ở khu vực bàn ghế. Bấm vào tương tác sẽ hiện lên UIConfirm " Bạn đang ăn ". Ấn ok sẽ ra bên ngoài scene world
+
+
+- Scene ký túc xá : 
+ - Người chơi có thể di chuyển trong phòng và tương tác 
+ - Cài tương tác ở khu vực giường. Bấm vào tương tác sẽ hiện lên UIConfirm " Đi ngủ ". Ấn ok sẽ hiện UILoading " Sang ngày hôm sau" rồi game sẽ chuyển sang ngày hôm sau.
+
+ Các nhiệm vụ : 
+ Buổi sáng sớm (05:00 - 07:30):
++ 05:00: Tập thể dục (5h15 hạn cuối)
++ 06:00: Dọn dẹp vệ sinh 
++ 07:00: Ăn sáng và 
++ Học tập buổi sáng (07:30 - 11:30): Người chơi sẽ tham gia các lớp học thay đổi theo tuần, mỗi môn học là một loại gameplay khác nhau: Lịch sử, Chính trị: Giải đố hoặc trắc nghiệm.
++ Nghỉ trưa (11:30 - 14:00): thời gian tự do đi lại trong trại (Free Roam) ( không phải nhiệm vụ)
++ Học tập buổi chiều (14:00 - 17:00): Tiếp tục các nội dung học tập tương tự buổi sáng.
++ Thời gian tự do & Lựa chọn (17:00 - 18:30): Khám phá doanh trại.Trò chuyện với các NPC. ( Không phải nhiệm vụ)
++ 18:30 : Vào ký túc xá. Lên giường đi ngủ.
+
+
+Advanced : Ở các buổi học, có thể thay vì làm quiz thì làm các minigame khác ( Code sau ). Ví dụ như là bắn cung . Tính điểm theo cách code của các scene đó. Không liên quan đến scene lớp học.
+
+ 

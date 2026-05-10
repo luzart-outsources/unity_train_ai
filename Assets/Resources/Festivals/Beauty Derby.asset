@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8400001939185708614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b743fb3b43cf142b0e646f532e21c8, type: 3}
+  m_Name: Ben
+  m_EditorClassIdentifier: 
+  character: {fileID: 11400000, guid: 6895767ffb23e1148a3483eaede408eb, type: 2}
+  blackboardConditions: []
+  onInteract:
+    m_List:
+    - {fileID: 5784606015000772844}
+  position: {x: 8.477511, y: 1.2365127, z: 7.6970906}
+  rotation: {x: 0, y: 270, z: 0}
+--- !u!114 &-4231691823797862216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b743fb3b43cf142b0e646f532e21c8, type: 3}
+  m_Name: Abby
+  m_EditorClassIdentifier: 
+  character: {fileID: 11400000, guid: ad91d73ba5970114a867290b3cba2750, type: 2}
+  blackboardConditions: []
+  onInteract:
+    m_List: []
+  position: {x: 17.612463, y: 0.20817566, z: 6.9068584}
+  rotation: {x: 0, y: 180, z: 0}
+--- !u!114 &-674291404693562825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a6d0de4aa7e5745a0abc345fe7bd33, type: 3}
+  m_Name: Town Square
+  m_EditorClassIdentifier: 
+  id: Main Event
+  location: 7
+  blackboardConditions: []
+  npcs:
+    m_List:
+    - {fileID: -8400001939185708614}
+    - {fileID: -4231691823797862216}
+    - {fileID: 7937594421233671479}
+    - {fileID: 6066375059263058434}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 676e82f5722af2849ae14c3990fe388c, type: 3}
+  m_Name: Beauty Derby
+  m_EditorClassIdentifier: 
+  displayName: Beauty Derby
+  date:
+    year: 0
+    season: 0
+    day: 12
+    hour: 0
+    minute: 0
+  displayIcon: {fileID: 0}
+  locationConfiguration:
+    m_List:
+    - {fileID: -674291404693562825}
+  locks:
+  - locationToLock: 7
+    startHour: 0
+    endHour: 10
+    startMinute: 30
+    endMinute: 0
+  - locationToLock: 7
+    startHour: 22
+    endHour: 23
+    startMinute: 0
+    endMinute: 59
+  lockIndoorLocations: 1
+--- !u!114 &5784606015000772844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ef58cc9805edb40b57a49cc5f5e7a5, type: 3}
+  m_Name: Ben Speech
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - speaker: Ben
+    message: Did you enrol your horse?
+--- !u!114 &6066375059263058434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b743fb3b43cf142b0e646f532e21c8, type: 3}
+  m_Name: Jeff
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  blackboardConditions: []
+  onInteract:
+    m_List: []
+  position: {x: 25.302042, y: 0.11210632, z: 7.4610877}
+  rotation: {x: 0, y: 0, z: 0}
+--- !u!114 &7937594421233671479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b743fb3b43cf142b0e646f532e21c8, type: 3}
+  m_Name: Frank
+  m_EditorClassIdentifier: 
+  character: {fileID: 11400000, guid: 7ff938c8d1a20d743b536686927a5f90, type: 2}
+  blackboardConditions: []
+  onInteract:
+    m_List: []
+  position: {x: 28.48, y: 0.1979866, z: 15.97}
+  rotation: {x: 0, y: 45, z: 0}
