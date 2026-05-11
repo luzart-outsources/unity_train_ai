@@ -47,14 +47,11 @@ namespace TrainAI.Configs
         public string interactableLocationKey = "SanVanDong";
 
         [Foldout("UI")]
-        [HideIf("type", QuestType.StudyMorning)]
-        [HideIf("type", QuestType.StudyAfternoon)]
-        [InfoBox("GDD: 'Ban dang tap the duc', 'Ban dang an', 'Di ngu', etc.")]
+        [InfoBox("GDD: 'Ban dang tap the duc', 'Ban dang an', 'Di ngu'. " +
+                 "Voi quest Study*, field nay khong dung - de trong.")]
         public string confirmText = "Ban dang tap the duc";
 
         [Foldout("UI")]
-        [HideIf("type", QuestType.StudyMorning)]
-        [HideIf("type", QuestType.StudyAfternoon)]
         public string okButtonText = "OK";
 
         [Foldout("Quiz (chi cho Study)")]
