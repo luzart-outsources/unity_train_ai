@@ -71,9 +71,57 @@ namespace TrainAI.Editor.Setup
             cc.radius = 0.5f;
             go.AddComponent<TrainAI.Player.PlayerController>();
 
+            BuildQuestArrowChild(go);
+
             var saved = PrefabUtility.SaveAsPrefabAsset(go, path);
             Object.DestroyImmediate(go);
             return saved;
+        }
+
+        // Tao 1 mui ten 3D duoi chan player (shaft + head). User yeu cau.
+        public static GameObject BuildQuestArrowChild(GameObject playerGo)
+        {
+            // Neu da co arrow -> xoa de rebuild sach.
+            var existing = playerGo.transform.Find("QuestArrow");
+            if (existing != null) Object.DestroyImmediate(existing.gameObject);
+
+            var arrow = new GameObject("QuestArrow");
+            arrow.transform.SetParent(playerGo.transform, false);
+            arrow.transform.localPosition = new Vector3(0f, 0.02f, 0f); // ngay tren mat dat
+
+            // Shaft (than ten).
+            var shaft = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            shaft.name = "Shaft";
+            shaft.transform.SetParent(arrow.transform, false);
+            shaft.transform.localScale = new Vector3(0.22f, 0.04f, 1.2f);
+            shaft.transform.localPosition = new Vector3(0f, 0f, 0.25f);
+            Object.DestroyImmediate(shaft.GetComponent<BoxCollider>());
+
+            // Head (dau ten - xoay 45 deg de nhin nhu mui tam giac).
+            var head = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            head.name = "Head";
+            head.transform.SetParent(arrow.transform, false);
+            head.transform.localScale = new Vector3(0.55f, 0.04f, 0.55f);
+            head.transform.localPosition = new Vector3(0f, 0f, 1f);
+            head.transform.localRotation = Quaternion.Euler(0f, 45f, 0f);
+            Object.DestroyImmediate(head.GetComponent<BoxCollider>());
+
+            // Material vang.
+            Shader shader = Shader.Find("Standard");
+            if (shader == null) shader = Shader.Find("Universal Render Pipeline/Lit");
+            if (shader == null) shader = Shader.Find("Unlit/Color");
+            var mat = new Material(shader);
+            mat.color = new Color(1f, 0.85f, 0.2f);
+            if (mat.HasProperty("_EmissionColor"))
+            {
+                mat.EnableKeyword("_EMISSION");
+                mat.SetColor("_EmissionColor", new Color(1f, 0.6f, 0f) * 0.7f);
+            }
+            foreach (var ren in arrow.GetComponentsInChildren<Renderer>())
+                ren.sharedMaterial = mat;
+
+            arrow.AddComponent<TrainAI.World.QuestArrow>();
+            return arrow;
         }
 
         private static GameObject CreateNPCPrefab()
