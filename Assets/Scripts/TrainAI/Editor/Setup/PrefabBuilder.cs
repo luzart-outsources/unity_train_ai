@@ -92,7 +92,7 @@ namespace TrainAI.Editor.Setup
                 mat.color = new Color(0.3f, 0.6f, 0.9f);
                 ren.material = mat;
             }
-            go.AddComponent<NPCController>();
+            go.AddComponent<NPCWaypointAgent>();
 
             // Trigger.
             var trigGo = new GameObject("Trigger");

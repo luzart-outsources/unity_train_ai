@@ -30,7 +30,7 @@ Assets/Scripts/TrainAI/
   Systems/         Quest, Quiz, Score, Audio, Save, SceneFlow, Interaction, Dialogue
   UI/              10 screen kế thừa NinjaUI UIBase + 7 HUD widget
   Player/          PlayerController + CameraFollow
-  World/           InteractableTrigger + NPCController
+  World/           InteractableTrigger + NPCWaypointAgent
   Tests/           NUnit Edit Mode tests (50+ cases)
   Editor/Setup/    1-Click setup tool (auto-create SO+prefab+scene)
 
@@ -61,13 +61,9 @@ Assets/Scenes/TrainAI/     6 scene (tao boi setup tool)
 
 ## Tests
 
-`Window > General > Test Runner > EditMode > Run All`. Co ~50 test case:
-- TimeManagerTests: tick, freeze, weekend skip, jump, day wrap
-- ScoreManagerTests: penalty, clamp, kicked-out event, grade lookup
-- QuestManagerTests: state machine, late detection, complete advance
-- QuizRuntimeTests: answer correct/wrong, timeout, finished
-- DayCycleTests: lookup, NPC schedule
-- SaveManagerTests: save/load JSON, restore state
+(Da gobi sau khi xoa asmdef. Test framework can asmdef rieng. Neu can them
+lai: tao `TrainAI.Tests.asmdef` voi precompiled nunit + define
+UNITY_INCLUDE_TESTS + viet test file mo.)
 
 ## Audio
 
@@ -75,15 +71,19 @@ GDD khong noi ro audio. He thong san sang (`AudioManager`), AudioBank co 25+ Aud
 voi clip = null. Quyen drag clip vao asset trong `Assets/Configs/TrainAI/Audio/AC_*.asset`.
 Volume per channel save vao PlayerPrefs.
 
-## AI Phase A (Sentis chat)
+## AI / Behavior
 
-Stub fallback (`PhaseAChatStub`) tra ve fallback responses random tu NPCProfile.
-Wire ONNX qua: implement `IPhaseAChatService` -> assign `GameServices.Dialogue = new DialogueManager(myImpl)`.
+GDD da dinh nghia behavior data-driven trong SO. Khong dung Phase A/B ONNX
+abstraction nua, gan thang vao component:
 
-## AI Phase B (PPO movement)
+- **Chat** -> `DialogueScreen` inline: random pick tu `NPCProfileSO.fallbackResponses`.
+  Sau co the wire Sentis ONNX trong `DialogueScreen.ResolveReply` neu muon.
+- **Pathfinding** -> `NPCWaypointAgent` gan vao NPC prefab.
+  Doc `NPCScheduleSO.entries[hour].locationKey`, tim `Anchor_<key>` trong
+  scene, `Vector3.MoveTowards`. Khong dung ML.
 
-`NPCController` co stub - log location moi gio. Wire bang cach extend
-component voi navigate-to-anchor + load `soldier.onnx`.
+Anchor objects spawn boi `SceneBuilder` voi name khop convention:
+`Anchor_SanVanDong`, `Anchor_NhaAn`, `Anchor_LopHoc`, `Anchor_KyTucXa`, `Anchor_DonVeSinh`.
 
 ## Mo rong
 

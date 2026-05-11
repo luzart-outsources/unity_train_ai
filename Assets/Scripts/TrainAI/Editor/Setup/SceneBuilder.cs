@@ -136,18 +136,44 @@ namespace TrainAI.Editor.Setup
             SpawnInteractable(scene, prefabs.Interactable, db, "CuaKyTucXa", new Vector3(-15, 0, -10));
             SpawnInteractable(scene, prefabs.Interactable, db, "CuaNhaAn", new Vector3(15, 0, -10));
 
-            // NPC dai doi truong.
-            var npc = (GameObject)PrefabUtility.InstantiatePrefab(prefabs.NPC, scene);
-            npc.transform.position = new Vector3(0, 1, -10);
-            var trigger = npc.GetComponentInChildren<InteractableTrigger>();
-            if (trigger != null)
+            // Spawn Anchor objects de NPCWaypointAgent tim duong toi.
+            // Khop voi NPCScheduleSO.entries[hour].locationKey + prefix "Anchor_".
+            SpawnAnchor("SanVanDong", new Vector3(-15, 0, 3));
+            SpawnAnchor("DonVeSinh", new Vector3(15, 0, 3));
+            SpawnAnchor("NhaAn", new Vector3(15, 0, -8));
+            SpawnAnchor("KyTucXa", new Vector3(-15, 0, -8));
+            SpawnAnchor("LopHoc", new Vector3(0, 0, 13));
+
+            // NPC dai doi truong - dung yen + dialogue.
+            var npcDaiDoi = (GameObject)PrefabUtility.InstantiatePrefab(prefabs.NPC, scene);
+            npcDaiDoi.name = "NPC_DaiDoiTruong";
+            npcDaiDoi.transform.position = new Vector3(0, 1, -10);
+            var triggerDaiDoi = npcDaiDoi.GetComponentInChildren<InteractableTrigger>();
+            if (triggerDaiDoi != null)
             {
                 var npcInter = FindInteractableByKey(db, "NPC_DaiDoiTruong");
-                if (npcInter != null) trigger.SetData(npcInter);
+                if (npcInter != null) triggerDaiDoi.SetData(npcInter);
             }
-            var npcCtl = npc.GetComponent<NPCController>();
-            if (npcCtl != null && db != null && db.npcs != null && db.npcs.Count > 0)
-                new SerializedObject(npcCtl).Apply(("profile", db.npcs[0]));
+            var agentDaiDoi = npcDaiDoi.GetComponent<NPCWaypointAgent>();
+            if (agentDaiDoi != null && db != null && db.npcs != null && db.npcs.Count > 0)
+                new SerializedObject(agentDaiDoi).Apply(("profile", db.npcs[0]));
+
+            // 1 NPC hoc sinh di chuyen tu do theo schedule (demo).
+            var hocSinhProfile = CreateOrGetHocSinhProfile(db);
+            var npcHocSinh = (GameObject)PrefabUtility.InstantiatePrefab(prefabs.NPC, scene);
+            npcHocSinh.name = "NPC_HocSinh_01";
+            npcHocSinh.transform.position = new Vector3(5, 1, 0);
+            var renderer = npcHocSinh.GetComponentInChildren<MeshRenderer>();
+            if (renderer != null && renderer.sharedMaterial != null)
+            {
+                var mat = new Material(renderer.sharedMaterial);
+                mat.color = new Color(0.9f, 0.5f, 0.3f);
+                renderer.sharedMaterial = mat;
+            }
+            var agentHocSinh = npcHocSinh.GetComponent<NPCWaypointAgent>();
+            if (agentHocSinh != null && hocSinhProfile != null)
+                new SerializedObject(agentHocSinh).Apply(("profile", hocSinhProfile));
+            // NPC hoc sinh chua co InteractableSO -> trigger se khong active.
 
             EnsureEventSystem();
 
@@ -235,6 +261,67 @@ namespace TrainAI.Editor.Setup
             SpawnInteractable(scene, prefabs.Interactable, dbInst, "BackToWorld", new Vector3(0, 0, -8), backToWorldFallback: true);
 
             EnsureEventSystem();
+        }
+
+        private static void SpawnAnchor(string locationKey, Vector3 pos)
+        {
+            var go = new GameObject($"Anchor_{locationKey}");
+            go.transform.position = pos;
+            // Visualize cho de thay trong scene view.
+            var marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            marker.name = "marker";
+            marker.transform.SetParent(go.transform, false);
+            marker.transform.localScale = Vector3.one * 0.4f;
+            Object.DestroyImmediate(marker.GetComponent<SphereCollider>());
+            var ren = marker.GetComponent<MeshRenderer>();
+            if (ren != null && ren.sharedMaterial != null)
+            {
+                var mat = new Material(ren.sharedMaterial);
+                mat.color = new Color(1f, 0.8f, 0.2f, 0.5f);
+                ren.sharedMaterial = mat;
+            }
+        }
+
+        private static NPCProfileSO CreateOrGetHocSinhProfile(GameDatabaseSO db)
+        {
+            const string profilePath = "Assets/Configs/TrainAI/NPCs/NPC_HocSinh.asset";
+            const string schedulePath = "Assets/Configs/TrainAI/NPCs/NS_HocSinh.asset";
+
+            var prof = AssetDatabase.LoadAssetAtPath<NPCProfileSO>(profilePath);
+            if (prof != null) return prof;
+
+            // Schedule khop GDD lich ngay.
+            var sched = ScriptableObject.CreateInstance<NPCScheduleSO>();
+            sched.entries = new List<NPCScheduleSO.ScheduleEntry>
+            {
+                new NPCScheduleSO.ScheduleEntry { hour = 5,  locationKey = "SanVanDong" },
+                new NPCScheduleSO.ScheduleEntry { hour = 6,  locationKey = "DonVeSinh" },
+                new NPCScheduleSO.ScheduleEntry { hour = 7,  locationKey = "NhaAn" },
+                new NPCScheduleSO.ScheduleEntry { hour = 8,  locationKey = "LopHoc" },
+                new NPCScheduleSO.ScheduleEntry { hour = 12, locationKey = "NhaAn" },
+                new NPCScheduleSO.ScheduleEntry { hour = 14, locationKey = "LopHoc" },
+                new NPCScheduleSO.ScheduleEntry { hour = 18, locationKey = "NhaAn" },
+                new NPCScheduleSO.ScheduleEntry { hour = 19, locationKey = "KyTucXa" },
+            };
+            AssetDatabase.CreateAsset(sched, schedulePath);
+
+            prof = ScriptableObject.CreateInstance<NPCProfileSO>();
+            prof.id = "NPC_HocSinh";
+            prof.displayName = "Hoc sinh";
+            prof.aiMode = NPCAIMode.Movement;
+            prof.schedule = sched;
+            prof.moveSpeed = 1.5f;
+            prof.fallbackResponses = new List<string> { "Xin chao." };
+            AssetDatabase.CreateAsset(prof, profilePath);
+
+            // Optionally append to db.npcs.
+            if (db != null)
+            {
+                if (db.npcs == null) db.npcs = new List<NPCProfileSO>();
+                if (!db.npcs.Contains(prof)) db.npcs.Add(prof);
+                EditorUtility.SetDirty(db);
+            }
+            return prof;
         }
 
         private static void SpawnInteractable(UnityEngine.SceneManagement.Scene scene, GameObject prefab,

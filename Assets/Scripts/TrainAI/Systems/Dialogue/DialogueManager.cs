@@ -2,34 +2,30 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Luzart;
 using TrainAI.Configs;
-using TrainAI.Core.Bootstrap;
 using TrainAI.UI.Components;
+using UnityEngine;
 
 namespace TrainAI.Systems.Dialogue
 {
+    // Don gian: chi mo UIDialogue + ket noi NPC. Logic chat AI nam THANG trong DialogueScreen
+    // theo yeu cau "Chat gan vao UIDialogue".
     public class DialogueManager
     {
-        private readonly IPhaseAChatService _chat;
-
-        public IPhaseAChatService ChatService => _chat;
-
-        public DialogueManager(IPhaseAChatService chat)
-        {
-            _chat = chat ?? new PhaseAChatStub();
-        }
-
         public async UniTask OpenDialogueAsync(NPCProfileSO npc, CancellationToken ct = default)
         {
             if (npc == null) return;
             var data = new DialogueData { Npc = npc };
             await UIManager.Instance.ShowAsync(UIIdGame.Dialogue, new UIContext(data), default, ct);
-            // Caller co the chosse await data.ResultTcs neu can.
         }
 
-        public async UniTask<string> GetReplyAsync(string playerText, NPCProfileSO npc, CancellationToken ct)
+        // Pick 1 reply theo behavior GDD-defined (fallback responses tu NPCProfile).
+        // Quyen co the wire Sentis ONNX o day sau khi muon.
+        public string GetReply(string playerText, NPCProfileSO npc)
         {
-            string playerName = GameServices.Player != null ? GameServices.Player.Name : "ban";
-            return await _chat.RespondAsync(playerText ?? "", npc, playerName, ct);
+            if (npc == null || npc.fallbackResponses == null || npc.fallbackResponses.Count == 0)
+                return "...";
+            int idx = Random.Range(0, npc.fallbackResponses.Count);
+            return npc.fallbackResponses[idx];
         }
     }
 }

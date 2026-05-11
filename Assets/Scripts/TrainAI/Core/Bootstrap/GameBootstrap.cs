@@ -69,7 +69,7 @@ namespace TrainAI.Core.Bootstrap
             GameServices.Quiz = new QuizManager();
             GameServices.SceneFlow = new SceneFlowService();
             GameServices.Interaction = new InteractionManager();
-            GameServices.Dialogue = new DialogueManager(new PhaseAChatStub());
+            GameServices.Dialogue = new DialogueManager();
             GameServices.Save = new SaveManager();
             GameServices.Player = new PlayerData(database.playerNameDefault);
 
