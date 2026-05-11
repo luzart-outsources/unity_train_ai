@@ -15,10 +15,10 @@ namespace TrainAI.UI
         {
             // Cho UIManager init xong (1 frame).
             await UniTask.NextFrame();
-            if (UIManager.Instance == null) return;
+            if (Luzart.UIManager.Instance == null) return;
             try
             {
-                await UIManager.Instance.ShowAsync((UIId)uiIdInt);
+                await Luzart.UIManager.Instance.ShowAsync((UIId)uiIdInt);
             }
             catch (System.Exception e)
             {

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TrainAI.Systems.Save
 {
-    public class SaveManager
+    public class SaveStore
     {
         public string SavePath => Path.Combine(Application.persistentDataPath, "trainai-save.json");
         public string SaveBackup => SavePath + ".bak";
@@ -33,7 +33,7 @@ namespace TrainAI.Systems.Save
             }
             catch (Exception e)
             {
-                Debug.LogError($"[SaveManager] Save failed: {e}");
+                Debug.LogError($"[SaveStore] Save failed: {e}");
             }
         }
 
@@ -51,7 +51,7 @@ namespace TrainAI.Systems.Save
             }
             catch (Exception e)
             {
-                Debug.LogError($"[SaveManager] Load failed: {e}");
+                Debug.LogError($"[SaveStore] Load failed: {e}");
                 return false;
             }
         }
@@ -65,7 +65,7 @@ namespace TrainAI.Systems.Save
             }
             catch (Exception e)
             {
-                Debug.LogError($"[SaveManager] Delete failed: {e}");
+                Debug.LogError($"[SaveStore] Delete failed: {e}");
             }
         }
 

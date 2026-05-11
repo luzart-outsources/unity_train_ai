@@ -86,7 +86,7 @@ namespace TrainAI.UI.Screens
         private void OnClose()
         {
             AudioManager.Instance?.Play(AudioCueId.UI_Click);
-            UIManager.Instance.HideAsync(this.Id).Forget();
+            Luzart.UIManager.Instance.HideAsync(this.Id).Forget();
         }
 
         // Chat AI inline o day. Don gian: delay + pick fallback response.
@@ -112,7 +112,7 @@ namespace TrainAI.UI.Screens
 
         private string ResolveReply(string playerText, NPCProfileSO npc)
         {
-            // Uu tien dung DialogueManager neu Quyen wire AI ngoai.
+            // Uu tien dung ChatDirector neu Quyen wire AI ngoai.
             var dm = GameServices.Dialogue;
             if (dm != null) return dm.GetReply(playerText, npc);
 

@@ -47,8 +47,8 @@ namespace TrainAI.UI.Screens
         private void OnBack()
         {
             AudioManager.Instance?.Play(AudioCueId.UI_Click);
-            UIManager.Instance.HideAsync(this.Id).Forget();
-            UIManager.Instance.ShowAsync(UIId.MainMenu).Forget();
+            Luzart.UIManager.Instance.HideAsync(this.Id).Forget();
+            Luzart.UIManager.Instance.ShowAsync(UIId.MainMenu).Forget();
         }
 
         private static string WorstGrade(string a, string b)

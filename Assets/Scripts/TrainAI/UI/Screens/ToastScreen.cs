@@ -36,7 +36,7 @@ namespace TrainAI.UI.Screens
             {
                 await UniTask.Delay((int)(data.DurationSeconds * 1000), cancellationToken: ct);
             }
-            UIManager.Instance.HideAsync(this.Id).Forget();
+            Luzart.UIManager.Instance.HideAsync(this.Id).Forget();
         }
 
         private static Color StyleColor(ToastStyle s)

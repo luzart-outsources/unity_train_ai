@@ -36,7 +36,7 @@ namespace TrainAI.UI.Screens
             string name = inputName != null ? inputName.text : "Hoc vien";
             if (string.IsNullOrWhiteSpace(name)) name = "Hoc vien";
             Data?.ResultTcs.TrySetResult(name);
-            UIManager.Instance.HideAsync(this.Id).Forget();
+            Luzart.UIManager.Instance.HideAsync(this.Id).Forget();
         }
     }
 }

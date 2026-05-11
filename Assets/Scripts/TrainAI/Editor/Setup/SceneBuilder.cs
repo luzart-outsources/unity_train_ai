@@ -52,7 +52,7 @@ namespace TrainAI.Editor.Setup
             uiRoot.transform.SetParent(null);
 
             // Add UIManager components on UIRoot.
-            var uiManager = uiRoot.AddComponent<UIManager>();
+            var uiManager = uiRoot.AddComponent<Luzart.UIManager>();
             // Wire fields.
             var so = new SerializedObject(uiManager);
             so.FindProperty("registry").objectReferenceValue = registry;

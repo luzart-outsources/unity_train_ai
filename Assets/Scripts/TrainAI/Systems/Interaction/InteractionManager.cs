@@ -3,6 +3,7 @@ using TrainAI.Configs;
 using TrainAI.Core.Bootstrap;
 using TrainAI.Systems.Audio;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace TrainAI.Systems.Interaction
 {

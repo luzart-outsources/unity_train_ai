@@ -18,7 +18,7 @@ namespace TrainAI.Systems.Quest.Runners
                 Message = quest.confirmText,
                 OkLabel = quest.okButtonText,
             };
-            await UIManager.Instance.ShowAsync(UIIdGame.Confirm, new UIContext(data), default, ct);
+            await Luzart.UIManager.Instance.ShowAsync(UIIdGame.Confirm, new UIContext(data), default, ct);
             await data.ResultTcs.Task.AttachExternalCancellation(ct);
             return 0;
         }

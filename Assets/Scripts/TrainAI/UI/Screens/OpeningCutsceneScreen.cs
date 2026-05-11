@@ -29,14 +29,14 @@ namespace TrainAI.UI.Screens
                 while (videoPlayer.isPlaying && !ct.IsCancellationRequested)
                     await UniTask.Yield(ct);
             }
-            UIManager.Instance.HideAsync(this.Id).Forget();
+            Luzart.UIManager.Instance.HideAsync(this.Id).Forget();
         }
 
         private void OnSkip()
         {
             AudioManager.Instance?.Play(AudioCueId.UI_Click);
             if (videoPlayer != null) videoPlayer.Stop();
-            UIManager.Instance.HideAsync(this.Id).Forget();
+            Luzart.UIManager.Instance.HideAsync(this.Id).Forget();
         }
     }
 }

@@ -72,7 +72,7 @@ namespace TrainAI.UI.Screens
 
             int correct = _runtime != null ? _runtime.CorrectCount : 0;
             data.ResultTcs.TrySetResult(correct);
-            await UIManager.Instance.HideAsync(this.Id);
+            await Luzart.UIManager.Instance.HideAsync(this.Id);
         }
 
         protected override UniTask OnHiddenAsync(QuizData data, UIHideReason reason, CancellationToken ct)

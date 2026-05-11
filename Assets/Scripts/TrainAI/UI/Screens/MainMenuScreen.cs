@@ -64,13 +64,13 @@ namespace TrainAI.UI.Screens
         {
             // Show CharacterCreate -> wait name -> travel to World.
             var data = new CharacterCreateData { DefaultName = GameServices.Database != null ? GameServices.Database.playerNameDefault : "Hoc vien" };
-            await UIManager.Instance.ShowAsync(UIId.CreateCharacter, new UIContext(data));
+            await Luzart.UIManager.Instance.ShowAsync(UIId.CreateCharacter, new UIContext(data));
             string name = await data.ResultTcs.Task;
             if (!string.IsNullOrEmpty(name))
             {
                 GameServices.Player = new PlayerData(name);
                 Core.Events.GameEvents.RaiseTimeTick(GameServices.Time.Now); // refresh HUD
-                await UIManager.Instance.HideAsync(UIId.MainMenu);
+                await Luzart.UIManager.Instance.HideAsync(UIId.MainMenu);
                 await TravelToWorldAsync();
             }
         }
@@ -79,7 +79,7 @@ namespace TrainAI.UI.Screens
         {
             if (GameServices.Save == null || !GameServices.Save.HasSave) return;
             GameServices.Save.TryLoad(out _);
-            await UIManager.Instance.HideAsync(UIId.MainMenu);
+            await Luzart.UIManager.Instance.HideAsync(UIId.MainMenu);
             await TravelToWorldAsync();
         }
 
@@ -90,7 +90,7 @@ namespace TrainAI.UI.Screens
             await GameServices.SceneFlow.TravelAsync(route);
 
             // Show GameplayHUD.
-            await UIManager.Instance.ShowAsync(UIId.GameplayHud);
+            await Luzart.UIManager.Instance.ShowAsync(UIId.GameplayHud);
         }
 
         private static SceneRouteSO FindWorldRoute()

@@ -17,15 +17,15 @@ namespace TrainAI.Core.Bootstrap
     public static class GameServices
     {
         public static GameDatabaseSO Database { get; set; }
-        public static TimeManager Time { get; set; }
+        public static GameClock Time { get; set; }
         public static ScoreManager Score { get; set; }
         public static QuestManager Quest { get; set; }
         public static QuizManager Quiz { get; set; }
         public static SceneFlowService SceneFlow { get; set; }
         public static InteractionManager Interaction { get; set; }
-        public static DialogueManager Dialogue { get; set; }
+        public static ChatDirector Dialogue { get; set; }
         public static AudioManager Audio { get; set; }
-        public static SaveManager Save { get; set; }
+        public static SaveStore Save { get; set; }
         public static PlayerData Player { get; set; }
 
         public static void Reset()

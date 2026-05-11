@@ -63,14 +63,14 @@ namespace TrainAI.Core.Bootstrap
             if (database.audioBank != null) database.audioBank.RebuildLookup();
             if (database.uiText != null) database.uiText.RebuildLookup();
 
-            GameServices.Time = new TimeManager(database.timeConfig);
+            GameServices.Time = new GameClock(database.timeConfig);
             GameServices.Score = new ScoreManager(database.scoreConfig);
             GameServices.Quest = new QuestManager(database.dayCycle, GameServices.Time);
             GameServices.Quiz = new QuizManager();
             GameServices.SceneFlow = new SceneFlowService();
             GameServices.Interaction = new InteractionManager();
-            GameServices.Dialogue = new DialogueManager();
-            GameServices.Save = new SaveManager();
+            GameServices.Dialogue = new ChatDirector();
+            GameServices.Save = new SaveStore();
             GameServices.Player = new PlayerData(database.playerNameDefault);
 
             // AudioManager singleton.
@@ -81,7 +81,7 @@ namespace TrainAI.Core.Bootstrap
             // Quest runner registry.
             QuestRunnerProvider.InitDefault();
 
-            // Wire TimeManager events to GameEvents (re-broadcast).
+            // Wire GameClock events to GameEvents (re-broadcast).
             GameServices.Time.OnTick += t => Core.Events.GameEvents.RaiseTimeTick(t);
             GameServices.Time.OnNewDay += d => Core.Events.GameEvents.RaiseNewDay(d);
 

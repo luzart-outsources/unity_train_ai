@@ -19,13 +19,13 @@ namespace TrainAI.Systems.Quest.Runners
                 Message = quest.confirmText,
                 OkLabel = quest.okButtonText,
             };
-            await UIManager.Instance.ShowAsync(UIIdGame.Confirm, new UIContext(data), default, ct);
+            await Luzart.UIManager.Instance.ShowAsync(UIIdGame.Confirm, new UIContext(data), default, ct);
             await data.ResultTcs.Task.AttachExternalCancellation(ct);
 
             // Save game.
             GameServices.Save?.Save();
 
-            // Next day - QuestManager will react via TimeManager.OnNewDay.
+            // Next day - QuestManager will react via GameClock.OnNewDay.
             if (GameServices.Time != null)
             {
                 int firstHour = 5;

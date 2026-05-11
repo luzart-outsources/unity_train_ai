@@ -20,7 +20,7 @@ namespace TrainAI.Systems.Scene
             if (route == null) return;
 
             var loadingData = new LoadingData { Text = route.loadingText };
-            var loadingHandle = await UIManager.Instance.ShowAsync(UIId.Loading, new UIContext(loadingData), default, ct);
+            var loadingHandle = await Luzart.UIManager.Instance.ShowAsync(UIId.Loading, new UIContext(loadingData), default, ct);
 
             // Freeze time tu khi bat dau load (GDD: scene quest -> dong bang).
             if (route.freezeTimeWhileLoaded && GameServices.Time != null)
@@ -58,7 +58,7 @@ namespace TrainAI.Systems.Scene
             if (!route.freezeTimeWhileLoaded && GameServices.Time != null)
                 GameServices.Time.Resume();
 
-            await UIManager.Instance.HideAsync(loadingHandle, default, ct);
+            await Luzart.UIManager.Instance.HideAsync(loadingHandle, default, ct);
         }
 
         public void ResumeTimeIfFrozen()

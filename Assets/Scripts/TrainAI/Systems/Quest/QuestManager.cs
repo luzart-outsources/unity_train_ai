@@ -9,7 +9,7 @@ namespace TrainAI.Systems.Quest
     public class QuestManager : ITimeTickListener
     {
         private readonly DayCycleConfigSO _cfg;
-        private readonly TimeManager _time;
+        private readonly GameClock _time;
 
         private DayPlanSO _todayPlan;
         private int _currentQuestIndex;
@@ -30,7 +30,7 @@ namespace TrainAI.Systems.Quest
 
         public IReadOnlyList<QuestRuntimeState> TodayStates => _todayStates;
 
-        public QuestManager(DayCycleConfigSO cfg, TimeManager time)
+        public QuestManager(DayCycleConfigSO cfg, GameClock time)
         {
             _cfg = cfg;
             _time = time;

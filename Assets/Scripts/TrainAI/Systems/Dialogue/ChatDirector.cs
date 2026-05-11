@@ -9,13 +9,13 @@ namespace TrainAI.Systems.Dialogue
 {
     // Don gian: chi mo UIDialogue + ket noi NPC. Logic chat AI nam THANG trong DialogueScreen
     // theo yeu cau "Chat gan vao UIDialogue".
-    public class DialogueManager
+    public class ChatDirector
     {
         public async UniTask OpenDialogueAsync(NPCProfileSO npc, CancellationToken ct = default)
         {
             if (npc == null) return;
             var data = new DialogueData { Npc = npc };
-            await UIManager.Instance.ShowAsync(UIIdGame.Dialogue, new UIContext(data), default, ct);
+            await Luzart.UIManager.Instance.ShowAsync(UIIdGame.Dialogue, new UIContext(data), default, ct);
         }
 
         // Pick 1 reply theo behavior GDD-defined (fallback responses tu NPCProfile).

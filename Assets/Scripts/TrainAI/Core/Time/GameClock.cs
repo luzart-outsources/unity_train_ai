@@ -5,7 +5,7 @@ namespace TrainAI.Core.Time
 {
     // Dong ho in-game thuan logic. KHONG MonoBehaviour - testable.
     // TimeTickDriver gan vao 1 GameObject va goi Tick(deltaTime) moi frame.
-    public class TimeManager
+    public class GameClock
     {
         private readonly TimeConfigSO _cfg;
         private GameTime _now;
@@ -20,7 +20,7 @@ namespace TrainAI.Core.Time
         public event Action<int> OnNewDay;       // arg = new day number
         public event Action<GameTime> OnHourChanged;
 
-        public TimeManager(TimeConfigSO cfg)
+        public GameClock(TimeConfigSO cfg)
         {
             _cfg = cfg;
             Reset();

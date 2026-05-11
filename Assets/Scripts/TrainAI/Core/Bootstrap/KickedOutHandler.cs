@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Luzart;
 using TrainAI.Core.Events;
 using TrainAI.UI.Components;
@@ -13,8 +14,8 @@ namespace TrainAI.Core.Bootstrap
 
         private void OnKickedOut()
         {
-            if (UIManager.Instance != null)
-                UIManager.Instance.ShowAsync(UIIdGame.KickedOut, default, default).Forget();
+            if (Luzart.UIManager.Instance != null)
+                Luzart.UIManager.Instance.ShowAsync(UIIdGame.KickedOut, default, default).Forget();
         }
     }
 }

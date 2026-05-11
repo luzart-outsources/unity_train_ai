@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TrainAI.Core.Time
 {
-    // MonoBehaviour adapter - call moi frame de drive TimeManager.
+    // MonoBehaviour adapter - call moi frame de drive GameClock.
     // Gan vao GameBootstrap GO trong scene _Boot.
     public class TimeTickDriver : MonoBehaviour
     {

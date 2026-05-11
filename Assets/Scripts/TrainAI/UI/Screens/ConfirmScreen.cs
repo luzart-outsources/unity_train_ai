@@ -41,14 +41,14 @@ namespace TrainAI.UI.Screens
         {
             AudioManager.Instance?.Play(AudioCueId.UI_Click);
             Data?.ResultTcs.TrySetResult(true);
-            UIManager.Instance.HideAsync(this.Id).Forget();
+            Luzart.UIManager.Instance.HideAsync(this.Id).Forget();
         }
 
         private void OnCancel()
         {
             AudioManager.Instance?.Play(AudioCueId.UI_Click);
             Data?.ResultTcs.TrySetResult(false);
-            UIManager.Instance.HideAsync(this.Id).Forget();
+            Luzart.UIManager.Instance.HideAsync(this.Id).Forget();
         }
     }
 }

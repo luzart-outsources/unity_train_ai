@@ -17,7 +17,7 @@ namespace TrainAI.Systems.Quiz
             var data = new QuizData { Set = set };
             // UIId.Quiz - dat trong UIIdGame extension hoac tao entry trong UIRegistry.
             // Cast int -> UIId neu can.
-            await UIManager.Instance.ShowAsync((UIId)2010, new UIContext(data), default, ct);
+            await Luzart.UIManager.Instance.ShowAsync((UIId)2010, new UIContext(data), default, ct);
             int correct = await data.ResultTcs.Task.AttachExternalCancellation(ct);
             return correct;
         }
