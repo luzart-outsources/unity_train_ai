@@ -355,3 +355,31 @@ Pages updated: [[index]], [[log]].
 Pages created: [[technical/autonomous-build-spec]].
 Sources: `Assets/Scripts/TrainAI/`, `Assets/Configs/TrainAI/` (sau khi setup),
 `Assets/Prefabs/TrainAI/`, `Assets/Scenes/TrainAI/`.
+
+## [2026-05-11] fix | Remove asmdef + simplify AI per user feedback
+
+User feedback sau khi review autonomous build dem qua:
+1. Unity bi loi compile -> "Bo het asmdef".
+2. Phase A/B abstraction khong can. Chat gan vao UIDialogue, pathfinding
+   gan vao NPC. Behavior da dinh nghia trong GDD.
+
+Commit `9fce222`. Changes:
+- DELETE 4 asmdef: `TrainAI.Runtime`, `TrainAI.Editor`, `TrainAI.Tests`,
+  `Luzart.Attributes` -> code TrainAI vao `Assembly-CSharp` default,
+  auto-ref duoc NinjaUI.Runtime (autoReferenced=true) + Luzart non-asmdef
+  code + UniTask + DOTween precompiled.
+- DELETE Tests folder (6 test file + asmdef) - NUnit ref can asmdef.
+- DELETE Phase A: `IPhaseAChatService.cs`, `PhaseAChatStub.cs`.
+- DELETE Phase B stub: `NPCController.cs`.
+- ADD `NPCWaypointAgent.cs`: Vector3.MoveTowards toi GameObject ten
+  `Anchor_<locationKey>` theo `NPCScheduleSO.entries[hour]`. Khong ML.
+- SIMPLIFY `DialogueManager` (no-arg ctor, sync GetReply).
+- SIMPLIFY `DialogueScreen.HandleChatAsync` inline - pick random tu
+  `NPCProfileSO.fallbackResponses` + 400ms think delay.
+- UPDATE `PrefabBuilder.CreateNPCPrefab` dung `NPCWaypointAgent`.
+- UPDATE `SceneBuilder.BuildWorldScene`: spawn 5 anchor object
+  (`Anchor_SanVanDong`, `Anchor_DonVeSinh`, `Anchor_NhaAn`, `Anchor_KyTucXa`,
+  `Anchor_LopHoc`) + 1 NPC hoc sinh demo voi schedule khop GDD.
+
+Pages updated: [[log]] (this entry).
+Source code: commit `9fce222`.
