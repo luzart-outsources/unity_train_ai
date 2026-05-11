@@ -17,6 +17,7 @@ namespace TrainAI.Player
         private CharacterController _cc;
         private Vector3 _velocity;
         private Camera _cam;
+        private float _joystickFindCooldown;
 
         private void Awake()
         {
@@ -26,6 +27,19 @@ namespace TrainAI.Player
 
         private void Update()
         {
+            // Auto-find joystick neu chua wire. Joystick nam trong UI prefab
+            // (GameplayHud) instantiate runtime sau khi UI show -> can lazy find.
+            if (joystick == null)
+            {
+                _joystickFindCooldown -= UnityEngine.Time.deltaTime;
+                if (_joystickFindCooldown <= 0f)
+                {
+                    _joystickFindCooldown = 0.5f;
+                    joystick = Object.FindFirstObjectByType<JoystickWidget>();
+                }
+            }
+            if (_cam == null) _cam = Camera.main;
+
             Vector2 input = joystick != null ? joystick.Direction : ReadKeyboardFallback();
 
             Vector3 camForward = _cam != null ? _cam.transform.forward : Vector3.forward;

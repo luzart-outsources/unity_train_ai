@@ -14,6 +14,8 @@ namespace TrainAI.UI.HUD
         [SerializeField] private Transform playerWorld;
         [SerializeField] private float worldToMapScale = 5f;
 
+        private float _playerFindCooldown;
+
         private void Awake()
         {
             if (rawImage != null && renderTexture != null) rawImage.texture = renderTexture;
@@ -22,6 +24,16 @@ namespace TrainAI.UI.HUD
 
         private void LateUpdate()
         {
+            if (playerWorld == null)
+            {
+                _playerFindCooldown -= UnityEngine.Time.deltaTime;
+                if (_playerFindCooldown <= 0f)
+                {
+                    _playerFindCooldown = 0.5f;
+                    var p = GameObject.FindGameObjectWithTag("Player");
+                    if (p != null) playerWorld = p.transform;
+                }
+            }
             if (playerDot != null && playerWorld != null && mapCamera != null)
             {
                 Vector3 wp = playerWorld.position;
