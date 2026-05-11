@@ -356,11 +356,22 @@ namespace TrainAI.Editor.Setup
 
         private static void EnsureEventSystem()
         {
+            // Project active input handling = Input System (new). Phai dung
+            // InputSystemUIInputModule, KHONG dung StandaloneInputModule (legacy
+            // se throw InvalidOperationException khi goi Input.GetButtonDown).
             var existing = Object.FindFirstObjectByType<EventSystem>();
-            if (existing != null) return;
-            var go = new GameObject("EventSystem");
-            go.AddComponent<EventSystem>();
-            go.AddComponent<StandaloneInputModule>();
+            if (existing == null)
+            {
+                var go = new GameObject("EventSystem");
+                go.AddComponent<EventSystem>();
+                go.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+                return;
+            }
+            // Neu da co EventSystem - swap module sang InputSystem neu can.
+            var legacy = existing.GetComponent<StandaloneInputModule>();
+            if (legacy != null) Object.DestroyImmediate(legacy);
+            if (existing.GetComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>() == null)
+                existing.gameObject.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
         }
 
         private static void AddScenesToBuildSettings(string[] scenePaths)
