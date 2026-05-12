@@ -12,6 +12,8 @@ namespace TrainAI.Editor
             StrategyGenerator.GenerateAll();
             SOGenerator.GenerateAll();
             ServiceWizard.BuildServiceLocator();
+            PrefabBuilder.BuildAll();
+            SceneBuilder.BuildAll();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Validator.ValidateAll();
