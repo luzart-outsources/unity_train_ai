@@ -48,8 +48,11 @@ namespace TrainAI.Services
 
         static int QuestStartMinutes(QuestSO q) => q.window.startHour * 60 + q.window.startMinute;
 
-        public void Tick(float dt)
+public void Tick(float dt)
         {
+            // Auto-init Day 1 quests on first tick — Bootstrap doesn't fire DayStartedMsg for the starting day.
+            if (_currentDay == null && _dayDB != null) StartDay(_clock.day);
+
             CheckActivate();
             if (_activeQuest.current != null)
             {
@@ -85,25 +88,30 @@ namespace TrainAI.Services
             }
         }
 
-        void MissCurrent()
+void MissCurrent()
         {
             var q = _activeQuest.current;
             if (q == null) return;
-            _dayProgress.missedToday.Add(q.id);
-            // Penalty is applied via runtime.OnComplete(false) -> ctx.awardScoreDelta.
-            // Removing direct ApplyDelta here to avoid double-counting.
-            _activeQuest.runtimeInstance?.OnComplete(false);
+            // Funnel through Complete() to keep day-progress + score handling in one place.
+            // Complete handles the missedToday list and the runtime callback both.
+            Complete(q, false);
             BroadcastService.Send(new QuestMissedMsg(q));
-            _activeQuest.current = null;
-            _activeQuest.runtimeInstance = null;
             CheckActivate();
         }
 
-        public void Complete(QuestSO quest, bool success)
+public void Complete(QuestSO quest, bool success)
         {
             if (quest == null || _activeQuest.current != quest) return;
-            if (success) _dayProgress.completedToday.Add(quest.id);
-            else _dayProgress.missedToday.Add(quest.id);
+            if (success)
+            {
+                if (!_dayProgress.completedToday.Contains(quest.id))
+                    _dayProgress.completedToday.Add(quest.id);
+            }
+            else
+            {
+                if (!_dayProgress.missedToday.Contains(quest.id))
+                    _dayProgress.missedToday.Add(quest.id);
+            }
             _activeQuest.runtimeInstance?.OnComplete(success);
             BroadcastService.Send(new QuestCompletedMsg(quest, success, 0));
             _activeQuest.current = null;
