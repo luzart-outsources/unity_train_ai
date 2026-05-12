@@ -86,5 +86,10 @@ namespace TrainAI.Services
             Sentis?.Dispose();
             IsBootstrapped = false;
         }
+
+        public void OverrideUI(IUIRouter ui)
+        {
+            if (ui != null) UI = ui;
+        }
     }
 }
