@@ -38,6 +38,10 @@ namespace TrainAI.UI
                 if (services.UI != null) await services.UI.ShowConfirm("Khong co save game.");
                 return;
             }
+            // Saves usually happen at end-of-day (Sleep at 18:30). Reset to 05:00 so
+            // the player resumes at the start of the saved day, not after all quests
+            // have already missed their windows.
+            services.Clock?.SkipTo(5, 0);
             if (worldScene != null) await services.Scenes.LoadSingle(worldScene);
             services.Quests?.StartDay(services.clock != null ? services.clock.day : 1);
         }
