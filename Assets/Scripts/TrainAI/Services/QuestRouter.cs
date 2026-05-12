@@ -26,7 +26,10 @@ namespace TrainAI.Services
             _clock = clock;
             _dayProgress = dayProgress;
             _scoreSystem = scoreSystem;
+            BroadcastService.Subscribe<DayStartedMsg>(OnDayStarted);
         }
+
+        void OnDayStarted(DayStartedMsg msg) => StartDay(msg.day);
 
         public QuestSO Current => _activeQuest.current;
 
@@ -87,7 +90,8 @@ namespace TrainAI.Services
             var q = _activeQuest.current;
             if (q == null) return;
             _dayProgress.missedToday.Add(q.id);
-            _scoreSystem?.ApplyDelta(0, -q.latePenalty, q.id);
+            // Penalty is applied via runtime.OnComplete(false) -> ctx.awardScoreDelta.
+            // Removing direct ApplyDelta here to avoid double-counting.
             _activeQuest.runtimeInstance?.OnComplete(false);
             BroadcastService.Send(new QuestMissedMsg(q));
             _activeQuest.current = null;

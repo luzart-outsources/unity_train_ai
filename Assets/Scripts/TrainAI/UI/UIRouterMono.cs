@@ -17,7 +17,11 @@ namespace TrainAI.UI
         [SerializeField] UIExpelController expel;
         [SerializeField] UIQuizController quiz;
 
-        void Awake() { if (services != null) services.OverrideUI(this); }
+        void Awake()
+        {
+            if (services != null) services.OverrideUI(this);
+            DontDestroyOnLoad(gameObject);
+        }
 
         public UniTask<bool> ShowConfirm(string text)
             => confirm != null ? confirm.ShowAsync(text) : UniTask.FromResult(true);

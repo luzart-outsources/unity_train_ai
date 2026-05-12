@@ -11,8 +11,8 @@ namespace TrainAI.SO.Concrete
 
         public override async UniTask Execute(InteractionContext ctx)
         {
-            await UniTask.Yield();
-            Debug.Log($"[OpenDialogue] NPC={(npc != null ? npc.id : "null")} (UIRouter wired in scene)");
+            if (ctx.showDialogue == null || npc == null) return;
+            await ctx.showDialogue(npc);
         }
     }
 }

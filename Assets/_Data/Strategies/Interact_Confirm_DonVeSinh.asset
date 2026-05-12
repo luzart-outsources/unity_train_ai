@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d779f51c630ba6428952bebafa86c39, type: 3}
   m_Name: Interact_Confirm_DonVeSinh
   m_EditorClassIdentifier: TrainAI.SO.Concrete::TrainAI.SO.Concrete.OpenConfirmInteractionSO
-  promptText: Bam E de tuong tac DonVeSinh
+  promptText: Bam E de don ve sinh
   icon: {fileID: 0}
-  confirmText: Ban dang o khu DonVeSinh.
+  confirmText: Ban dang don ve sinh. Bam OK de hoan thanh.
+  skipTime: 1
+  skipToHour: 6
+  skipToMinute: 45
+  completeQuestOnConfirm: 1

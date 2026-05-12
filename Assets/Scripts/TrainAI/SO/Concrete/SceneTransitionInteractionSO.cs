@@ -9,11 +9,13 @@ namespace TrainAI.SO.Concrete
     {
         public SceneRefSO targetScene;
         public string transitionText = "Dang chuyen canh...";
+        public bool completeQuestAfter = true;
 
         public override async UniTask Execute(InteractionContext ctx)
         {
-            await UniTask.Yield();
-            Debug.Log($"[SceneTransition] -> {(targetScene != null ? targetScene.sceneName : "null")}");
+            if (targetScene != null && ctx.loadAdditive != null)
+                await ctx.loadAdditive(targetScene, transitionText);
+            if (completeQuestAfter) ctx.completeCurrentQuest?.Invoke(true);
         }
     }
 }

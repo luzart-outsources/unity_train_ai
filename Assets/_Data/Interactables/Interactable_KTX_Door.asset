@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.InteractableSO
   id: I_KTX_Door
   area: {fileID: 11400000, guid: fee5f2e525fe8264c82665b505c3c0b6, type: 2}
-  onInteract: {fileID: 11400000, guid: 1d272393f47d2c349afe2028c42371a9, type: 2}
+  onInteract: {fileID: 11400000, guid: ea5758b10fd000146914345235746d26, type: 2}
   conditionExpr: 

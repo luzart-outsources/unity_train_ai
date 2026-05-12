@@ -146,6 +146,12 @@
 /Assets/Scenes/TownSquare/Lightmap-3_comp_light.exr filter=lfs diff=lfs merge=lfs -text
 /Assets/Scenes/YodelRanch/Lightmap-0_comp_light.exr filter=lfs diff=lfs merge=lfs -text
 /Assets/TextMesh[[:space:]]Pro/Resources/Fonts[[:space:]]&[[:space:]]Materials/LiberationSans[[:space:]]SDF.asset filter=lfs diff=lfs merge=lfs -text
+/Assets/_Assets/School/Texture/001.vrmesh filter=lfs diff=lfs merge=lfs -text
+/Assets/_Assets/School/Texture/0gray1A[[:space:]]ggcopy.jpg filter=lfs diff=lfs merge=lfs -text
+/Assets/_Assets/School/Texture/0gray1A[[:space:]]ggcopySSS.jpg filter=lfs diff=lfs merge=lfs -text
+/Assets/_Assets/School/Texture/Drawing-1[[:space:]]copysss.jpg filter=lfs diff=lfs merge=lfs -text
+/Assets/_Assets/School/Texture/ROAD07A.jpg filter=lfs diff=lfs merge=lfs -text
+/Assets/_Assets/School/Truong[[:space:]]Hoc.fbx filter=lfs diff=lfs merge=lfs -text
 *.png !text !filter !merge !diff
 *.jpg !text !filter !merge !diff
 *.tga !text !filter !merge !diff

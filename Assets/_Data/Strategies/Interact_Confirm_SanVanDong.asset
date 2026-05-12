@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d779f51c630ba6428952bebafa86c39, type: 3}
   m_Name: Interact_Confirm_SanVanDong
   m_EditorClassIdentifier: TrainAI.SO.Concrete::TrainAI.SO.Concrete.OpenConfirmInteractionSO
-  promptText: Bam E de tuong tac SanVanDong
+  promptText: Bam E de tap the duc
   icon: {fileID: 0}
-  confirmText: Ban dang o khu SanVanDong.
+  confirmText: Ban dang tap the duc. Bam OK de hoan thanh.
+  skipTime: 1
+  skipToHour: 5
+  skipToMinute: 30
+  completeQuestOnConfirm: 1

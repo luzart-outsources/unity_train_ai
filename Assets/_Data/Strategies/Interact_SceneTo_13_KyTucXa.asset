@@ -16,3 +16,4 @@ MonoBehaviour:
   icon: {fileID: 0}
   targetScene: {fileID: 11400000, guid: abda44e349ea1d245bd464ee27958bf4, type: 2}
   transitionText: Dang vao 13_KyTucXa...
+  completeQuestAfter: 1

@@ -9,11 +9,13 @@ namespace TrainAI.SO.Concrete
     {
         public int skipToHour = 6;
         public int skipToMinute = 0;
+        public bool completeQuestAfter = true;
 
-        public override async UniTask Execute(InteractionContext ctx)
+        public override UniTask Execute(InteractionContext ctx)
         {
-            await UniTask.Yield();
-            Debug.Log($"[SkipTime] -> {skipToHour:00}:{skipToMinute:00}");
+            ctx.skipTimeTo?.Invoke(skipToHour, skipToMinute);
+            if (completeQuestAfter) ctx.completeCurrentQuest?.Invoke(true);
+            return UniTask.CompletedTask;
         }
     }
 }

@@ -1,0 +1,1720 @@
+fileFormatVersion: 2
+guid: b9812be54c3d73b46bdecc337a6cdfd9
+ModelImporter:
+  serializedVersion: 24200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 03 - Default
+    second: {fileID: 2100000, guid: 73c5874c3856ef54487844b94efe216c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 03 -d Default
+    second: {fileID: 2100000, guid: 6722cab351014b64e8ebd2815cf4a359, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 05 - Default
+    second: {fileID: 2100000, guid: 1465f024d66dacc4e85f82d691789b7f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 06 - Default
+    second: {fileID: 2100000, guid: 65236c166d5eb054292049ac4ee0b14d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 07 - Default
+    second: {fileID: 2100000, guid: 8462b4178c0cdd14eaec78141bbfbf88, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 10 - Deddfault
+    second: {fileID: 2100000, guid: eadd8cfbc25f6db47b8806247c4246bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 10 - Defaulddt
+    second: {fileID: 2100000, guid: d7ac042bea876074eb1c990cfdb3a101, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 10 - Default
+    second: {fileID: 2100000, guid: 1756517fb75e22445980de588fc68975, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 11 - Default
+    second: {fileID: 2100000, guid: a33828f7acc556d4a9c5ccfa5882b464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 13 - Default
+    second: {fileID: 2100000, guid: ae6315edeabd98c4fbf5e2d69856d133, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 13 - Defddault
+    second: {fileID: 2100000, guid: 1407ff4f5e1c256458969cb80b24f4f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 13 - Desfault
+    second: {fileID: 2100000, guid: bf02983f6c7fd7b429a0b9b3f04b5969, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 13 - dDesfault
+    second: {fileID: 2100000, guid: 6ce2b10d78a403443a2467dde94f8592, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 14 - Default
+    second: {fileID: 2100000, guid: cae1cea0a08167148b77e811eef07371, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 14-Default
+    second: {fileID: 2100000, guid: 67dff684d3becb34e80245ccf9bd4d9d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 15-Default
+    second: {fileID: 2100000, guid: 71d2d1d26dd8f9a4db73769eb4dc5afb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 17 - Default
+    second: {fileID: 2100000, guid: f2837fd89e8e77e478e9ee49399e74f7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 17-Default
+    second: {fileID: 2100000, guid: 9771c263f80be8d48abd1a87caa2083f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 18 - Default
+    second: {fileID: 2100000, guid: 6117313d8f7de924f8a8a1e5b4361a70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 20 - Default
+    second: {fileID: 2100000, guid: 36766410755d8074fa3c06c19b41d851, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 22 - Defadfult
+    second: {fileID: 2100000, guid: bf0a91f201de954409351d4893decc3c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 22 - Default
+    second: {fileID: 2100000, guid: 15c859e7f15bcd941bae9bd491f366b1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 22 - Dessfadfult
+    second: {fileID: 2100000, guid: daf79fb9d4f97e34ca6afa6a1f3747b4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 22 - Dsefault
+    second: {fileID: 2100000, guid: 1e399a63767f3f5429be8c13953e34b4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 24 - Default
+    second: {fileID: 2100000, guid: e21b678e26dda724191198d78f3a4d03, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ARCHMODELS_47_017_7
+    second: {fileID: 2100000, guid: 885d76e37557cc1459f0e6481974e7b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #12
+    second: {fileID: 2100000, guid: f34bb22c70c50c9489968f2f203475b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #26
+    second: {fileID: 2100000, guid: 5c0015d3a15646a499d04b4acd2a4bdb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #28
+    second: {fileID: 2100000, guid: 9252f1035a4699e4ab30e3c5ab83e58d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #297
+    second: {fileID: 2100000, guid: e5de9c8bbeaabe343922c5ca8a70d537, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351457
+    second: {fileID: 2100000, guid: b4ba46a09bd354d4f818b81937e38786, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351458
+    second: {fileID: 2100000, guid: b7aff00f27e5f7f419cb1542ca158c8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351459
+    second: {fileID: 2100000, guid: 5f915d09954ef9d47ab0f8d0f629c6c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351469
+    second: {fileID: 2100000, guid: 75d1f3ca90db00642ad6a56080411cc1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351470
+    second: {fileID: 2100000, guid: 6b1a7dac9027615479b4012087aca900, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351471
+    second: {fileID: 2100000, guid: 36ab5010a74b0e644a94b76c5894e66f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351472
+    second: {fileID: 2100000, guid: adb92034346f62b43bbf485b0bb8f623, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351473
+    second: {fileID: 2100000, guid: c358c7583f6ebaa4ea0ba8c3e029a078, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351474
+    second: {fileID: 2100000, guid: e44b0a1fc276bb34db73fc098cbe1724, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351475
+    second: {fileID: 2100000, guid: 59449d83cf69f6247897c19246a5ca7f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351476
+    second: {fileID: 2100000, guid: c6fadb553abc53e41aacc96bb7483359, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351477
+    second: {fileID: 2100000, guid: b40f012a816a212469092670c113a06e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351478
+    second: {fileID: 2100000, guid: 00ae6f894f6228046abd25e6d11c5cab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351479
+    second: {fileID: 2100000, guid: 212d46d8d09aa1046a77cd2453cc8294, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351480
+    second: {fileID: 2100000, guid: 06039afdad053624e868ed24d0deff48, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #351481
+    second: {fileID: 2100000, guid: 483c00b98c2d1ed47887b21521b03f1c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #5d05q
+    second: {fileID: 2100000, guid: 4e14fdbb0c55bed43a2b4ff5ec5d8dd3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Materialdf12
+    second: {fileID: 2100000, guid: 93ffb79b34aed1e48b2a6b66bcdc7420, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-black
+    second: {fileID: 2100000, guid: 47bf1adb844020341a4907886c484f58, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-black glossy
+    second: {fileID: 2100000, guid: ae7bbced1ec7b42438c9e34876ba5278, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-body
+    second: {fileID: 2100000, guid: 1b21eb5fee1a13549a3a6aa1d05b541f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-chrome
+    second: {fileID: 2100000, guid: c8ea65a144832ae4581157c58bbb6b6b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-fl-bulb
+    second: {fileID: 2100000, guid: 87a59b6af78dd314db72e9da4dbf0ea6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-fl-frame
+    second: {fileID: 2100000, guid: c86847e69254baf438764672d27a8095, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-fl-glass
+    second: {fileID: 2100000, guid: 18d33891063a20f4eb0c6356c1e5021f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-fl-lens
+    second: {fileID: 2100000, guid: 5f099027f8cbb7e4fa174f33c01f795f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-fl-mirror
+    second: {fileID: 2100000, guid: ddf1086d030180c488db0549b9b09461, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-fl-orange
+    second: {fileID: 2100000, guid: 9512cd23badc85d498ce5a43949be3b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-glass
+    second: {fileID: 2100000, guid: 9ffc8b8ae4e698446acb646da4a32c13, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-halogen
+    second: {fileID: 2100000, guid: c149ab49219aafd4f972584a104a280e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-l1
+    second: {fileID: 2100000, guid: 6da938a395948e9499cb87eedea8eab2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-l2
+    second: {fileID: 2100000, guid: ab169abe078263f489f3c228cf5fc3a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-l3
+    second: {fileID: 2100000, guid: 47c10a69e02e28b48bc4c4c3b531cfe4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-logo
+    second: {fileID: 2100000, guid: 935c043bacf537042b582af1d2bfdad4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S-rubber
+    second: {fileID: 2100000, guid: c1d1e6594577161499a7cef61e0ff5c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saab-black
+    second: {fileID: 2100000, guid: 930b61e82834215448426324e6ac3feb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saab-black glass
+    second: {fileID: 2100000, guid: 79c0c59742242e545b74d4d47a00b83b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saab-breake
+    second: {fileID: 2100000, guid: 87284099fa9b11441b2a8f14c603ae0c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saab-chrome
+    second: {fileID: 2100000, guid: 873aec48dcb2a5b4f889495306396ebc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saab-glass
+    second: {fileID: 2100000, guid: 8ebc761e36bb45448aebaebea22885bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saab-halo
+    second: {fileID: 2100000, guid: 1a0ae557338a7074082edb55a995a830, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saab-logo
+    second: {fileID: 2100000, guid: 07d07c6cd7b78834387ca865f67a49f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saab-mirror
+    second: {fileID: 2100000, guid: 5c15e8a368fac2241b5491adf688575c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saab-rubber
+    second: {fileID: 2100000, guid: 573c94c0e89479d46971f4c215c7a675, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saab-shields
+    second: {fileID: 2100000, guid: 31e26b010d4ad0d49b760b227e7aae6b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saab-side light
+    second: {fileID: 2100000, guid: 12d2f1c901faebd48bbd086b00be3d46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WhiteMaterial
+    second: {fileID: 2100000, guid: 3b09f08dad4129447a99d30f2fa077c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: YellowMaterial
+    second: {fileID: 2100000, guid: df33ec4b86f1b4144996d8573a7c9c55, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-3stop
+    second: {fileID: 2100000, guid: 310bc8802f0c2654c8a30e04fd70461c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-alu
+    second: {fileID: 2100000, guid: dd305686d8b13f746aef8904fb472af1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-black
+    second: {fileID: 2100000, guid: 9ecc5ce4da5ef8a43b954a04ceb0de3c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-body
+    second: {fileID: 2100000, guid: cb308d17bf2d12645a1e481d8031fbc2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-breaks
+    second: {fileID: 2100000, guid: 8ceb12e0a190e494b912409e23f38e30, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-chrome
+    second: {fileID: 2100000, guid: 2b6f70f8805e541468974c432a080891, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-door-handler
+    second: {fileID: 2100000, guid: 7405e0f2b2e6a6941844c0808054b50a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-fl-bulb
+    second: {fileID: 2100000, guid: c05cb72dbb52b714cbf980f6c06a641b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-fl-frame
+    second: {fileID: 2100000, guid: b3c8d6d960d717349beab4e6093a0006, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-fl-glass
+    second: {fileID: 2100000, guid: 00a0e7fb35152904290c047e25d9ef35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-fl-lens
+    second: {fileID: 2100000, guid: 6d516f757eb25d64e929b249465989f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-fl-mirror
+    second: {fileID: 2100000, guid: c69040737ea6e0f44a0f8976c4a4e989, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-fl-red
+    second: {fileID: 2100000, guid: 5a0817b149306ec49b4dafe1dfe45dd9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-glass
+    second: {fileID: 2100000, guid: 2fc84c8f1d818844fb2e556fc4c61381, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-glass black
+    second: {fileID: 2100000, guid: a66f3a9395a97884f9d2ca24d88bcd07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-inside-bright
+    second: {fileID: 2100000, guid: bbf3b4b3fa2f9b14b84e906e90547510, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-inside-dark
+    second: {fileID: 2100000, guid: d0a5119a28edb6a4391888b4cc9cec60, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-mirror
+    second: {fileID: 2100000, guid: 4f5d87298ec0dc747aaa463aea2efa6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-rubber
+    second: {fileID: 2100000, guid: 546f133a753a1874bacd671d75c2e17d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-shields
+    second: {fileID: 2100000, guid: 0bfff8da300e6314e82cb6c8d16cfd98, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: altima-tire
+    second: {fileID: 2100000, guid: 249ca66305d54e446af87212f9e6d354, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: b
+    second: {fileID: 2100000, guid: 22afdd71e48c3ff4893abeebf2ae38ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: by
+    second: {fileID: 2100000, guid: 348fc3167f9c519458b47f04ba0c29d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-alu
+    second: {fileID: 2100000, guid: 6144905bf13b452438ca488dabcc76d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-body-black
+    second: {fileID: 2100000, guid: 03ffb86e0e344744c8c898327389b61c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-body-blue
+    second: {fileID: 2100000, guid: f8bc5034412a3064ea10724610bf25ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-body-green
+    second: {fileID: 2100000, guid: 8dbd1b97829422d488c7cda953729ecd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-chrome
+    second: {fileID: 2100000, guid: e74c604b489ef6f4aa5be4dd2ef2ca52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-czarny
+    second: {fileID: 2100000, guid: e4c68281497684842972fb16ef25a893, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-glass
+    second: {fileID: 2100000, guid: 38903889da4c13e4cae61f7041c15cba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-glass-black
+    second: {fileID: 2100000, guid: 15e9e894334da074a94300a8b68b05f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-halo
+    second: {fileID: 2100000, guid: ca823f72cbe7cc34cb97ce8e71389ece, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-inside
+    second: {fileID: 2100000, guid: b97a6a22059d8b841a9ace02d3edaa13, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-inside-dark
+    second: {fileID: 2100000, guid: b7c0dae7df09b0d42b91ad781fa06ba9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-inside-light
+    second: {fileID: 2100000, guid: 0a5793eaba5e2df4794129f1b2d9a043, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-inside-lights
+    second: {fileID: 2100000, guid: 47361ba42895a4346b4024bcf760e466, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-inside-lights2
+    second: {fileID: 2100000, guid: f62db22c75c89844fa04957be95dfe66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-light
+    second: {fileID: 2100000, guid: bc1f8744d2158674abbd69746b39bf36, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-mirror
+    second: {fileID: 2100000, guid: 5b2eb3691ced3054ab0e94ef5f6a4ce3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-orange
+    second: {fileID: 2100000, guid: 629d584c1b4abd748b06b7b8b85818fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-plastic
+    second: {fileID: 2100000, guid: 85e9a5ca1cdfd41469acc3d48b5e2427, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-red dwn
+    second: {fileID: 2100000, guid: 8d9342ba5e235144380dcd4637eb2987, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-red main
+    second: {fileID: 2100000, guid: 62e2a152835023f4e8512bc6ebe68ec5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-red seats
+    second: {fileID: 2100000, guid: 80d895fc2b5e2b141a39eb2cc9abc343, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-red top
+    second: {fileID: 2100000, guid: 311898c3e671f5a4ca536652b803e2bb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-rubber
+    second: {fileID: 2100000, guid: 74535e6869b2a2041be51b87c0ed54c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: citybus-tire
+    second: {fileID: 2100000, guid: 52828af70c8d2b94aa4b6974ed51250e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-3stop
+    second: {fileID: 2100000, guid: 822f4a5b99aacd24687778dd2318cdd7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-alu
+    second: {fileID: 2100000, guid: fb5345f0ad537224f8e58b14af4fb171, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-black
+    second: {fileID: 2100000, guid: fc096fe0af47c8f4fb508c7868b6baeb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-body
+    second: {fileID: 2100000, guid: 4d539c848fdd3504ea3ecec50d916ccc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-body_bmp
+    second: {fileID: 2100000, guid: 64338913f89b9844e91e52bb2be9a6d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-bulb
+    second: {fileID: 2100000, guid: 3ca490625b8392344962b9a46ec923d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-chrome
+    second: {fileID: 2100000, guid: adf5301e25b4dcd43bc397da6b1ce8ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-discs
+    second: {fileID: 2100000, guid: 56ac995462a89e44383c885ac3a0a4b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-fl-frame
+    second: {fileID: 2100000, guid: e366c625ff73bc94f9c843414267b037, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-fl-glass
+    second: {fileID: 2100000, guid: fd20987e3959b8d4382b59e027d5d97a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-fl-lens
+    second: {fileID: 2100000, guid: 740d18b182b212440a5df5026b7a8ebf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-fl-mirror
+    second: {fileID: 2100000, guid: cd6efb11df86d6545b65d5c092ceb9a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-fl-orange
+    second: {fileID: 2100000, guid: a68818cb86c6cc94e8ed46c5b5dd4001, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-glass
+    second: {fileID: 2100000, guid: a7d1fbdffababc84ba782a96203a1ca9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-glass black
+    second: {fileID: 2100000, guid: 83853c38732b9b948919b73c461ed298, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-inside-bright
+    second: {fileID: 2100000, guid: 567c9d6d4c3372542ac0d764912fc6f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-inside-dark
+    second: {fileID: 2100000, guid: 2dc4f1c0c8548aa4a96a76510a073a47, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-inside-wood
+    second: {fileID: 2100000, guid: fbcaa504fd366594db10c20743857fe0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-mirror
+    second: {fileID: 2100000, guid: 5725b8592a2e9c14a9cef242289f1247, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-red
+    second: {fileID: 2100000, guid: 94cf61dc47e56dd4296ff7a4178f35ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-shield
+    second: {fileID: 2100000, guid: ba849c02f55595d4b953ed8cf1cec3af, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-tire
+    second: {fileID: 2100000, guid: c8a365d3c5e541247846d5517d39eb98, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: civic-wheel-inside
+    second: {fileID: 2100000, guid: 699e55d8166cc054dbe4cb45b6b9d00a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-3stop
+    second: {fileID: 2100000, guid: 2567471264a76db47971f00916fd4a1e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-alu
+    second: {fileID: 2100000, guid: 28b029b48ce9f254c85810e703f19ded, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-black
+    second: {fileID: 2100000, guid: 7b8b4552a239fb24ab2c11d2611097b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-black glass
+    second: {fileID: 2100000, guid: 1ab7cf6d4744bfe418b14f3314c66e0e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-body
+    second: {fileID: 2100000, guid: 170947a195f556a42b05c78c5bb41c09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-body-front
+    second: {fileID: 2100000, guid: 7095acf75d8527b47ac70d921718f216, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-breaks
+    second: {fileID: 2100000, guid: fa6066ac48195cd43bc2bfa593f92468, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-chrome
+    second: {fileID: 2100000, guid: 1a5e8520b157ed14a926b79e6e9a5262, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-fl-bulb
+    second: {fileID: 2100000, guid: c716d03cb2326ea40888f85bae8270d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-fl-frame
+    second: {fileID: 2100000, guid: 9990957ddb46fc944b514073e1862d3e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-fl-glass
+    second: {fileID: 2100000, guid: 8a28cfdd23f90444cb23e382ffa33779, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-fl-lens
+    second: {fileID: 2100000, guid: 85d3d5c66ee57dc4892a9d46467a43ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-fl-mirror
+    second: {fileID: 2100000, guid: 46dbf4bfd9d4551419ef1781034b9b79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-glass
+    second: {fileID: 2100000, guid: 240191a6b096c2c438dddd12b4601e5a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-inside
+    second: {fileID: 2100000, guid: 2e3a0143de91eb841b69cdd4ef1af0ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-light 1
+    second: {fileID: 2100000, guid: 2ad2a635169fb9347aeac82b995d283f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-light 2
+    second: {fileID: 2100000, guid: b5c067fb33e60e14497dc480d48e3360, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-light 3
+    second: {fileID: 2100000, guid: b21d46bfb3bc52841856d3f0385ea535, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-logo
+    second: {fileID: 2100000, guid: 180a4b0d01fb9d44882e20a98971db6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-logo2
+    second: {fileID: 2100000, guid: 0e8178d10e4c400409e3da055bf92288, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-mirror
+    second: {fileID: 2100000, guid: a295f1ac5fee720458bbef15249b09c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-plate
+    second: {fileID: 2100000, guid: 52287b7b4006af7499914748eb0fb4a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-red
+    second: {fileID: 2100000, guid: df06d5c50aaa1c34791380d2b68ee21e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-shields
+    second: {fileID: 2100000, guid: 228db80dd27d66344978fae7acaf6f6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cts-tire
+    second: {fileID: 2100000, guid: 0c28ed5b13a10c445853b712444d2a00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cx
+    second: {fileID: 2100000, guid: 7ab59dbbf8a39fb4f8d951bc6f9ff6b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: db
+    second: {fileID: 2100000, guid: a8888600478e3fd4aa9fce4573a42d2c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dd
+    second: {fileID: 2100000, guid: 00892d192783a4e4bacf71e5c2b628c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ffft
+    second: {fileID: 2100000, guid: bc685f3ddb2101d42b064090732a6147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-alu
+    second: {fileID: 2100000, guid: 5655e608b54ffcd4ca7fc75e9dea99e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-black
+    second: {fileID: 2100000, guid: 3c23dda6ca850e5429d895173336145e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-body
+    second: {fileID: 2100000, guid: 44e68788107ec884faa1c906274b56db, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-breaks
+    second: {fileID: 2100000, guid: 1cf13ead25875924bb784061d13cfc29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-chrome
+    second: {fileID: 2100000, guid: 00ab5b4a67e42684788fd502338d8a72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-fl-bulb
+    second: {fileID: 2100000, guid: d50812430c9ca604b9e6694cb18cee19, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-fl-frame
+    second: {fileID: 2100000, guid: b82855babda13504aba961dba91c026e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-fl-glass
+    second: {fileID: 2100000, guid: 2b2ca1a8ce767d74092573ecf13600cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-fl-lens
+    second: {fileID: 2100000, guid: fd4b3837ea29a9a4fb1721620328602e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-fl-mirror
+    second: {fileID: 2100000, guid: f0d995a730680914ab52909e1701a431, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-fl-orange
+    second: {fileID: 2100000, guid: 5e752ac61d907e248836c34e24e1880c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-glass
+    second: {fileID: 2100000, guid: 4675d2c1ae42c6e44aa9e1a8a6b43afd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-glass black
+    second: {fileID: 2100000, guid: 0e4577bb3cfe2b747be504660b70f8d1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-inside-bright
+    second: {fileID: 2100000, guid: 5fe30059f6a9fb0458baaa87070da892, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-inside-dark
+    second: {fileID: 2100000, guid: b14b10a1290989544894389ee8e3defb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-inside-wood
+    second: {fileID: 2100000, guid: 3adb966bf47a26745b903fd08e456010, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-logo
+    second: {fileID: 2100000, guid: 16997eaf1180ce24cbd96bd130cdb22f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-mirror
+    second: {fileID: 2100000, guid: fe0043041fa9b8c4cbf39e3a9ec179da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-red
+    second: {fileID: 2100000, guid: 5be9d48ee998fe245bc124e4c5d815b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-rubber
+    second: {fileID: 2100000, guid: 9c32c8d28efe85746b5e80a0392977cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-shield
+    second: {fileID: 2100000, guid: b05814d2474b912438fbbb5e387aaf74, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maxima-tire
+    second: {fileID: 2100000, guid: e4c3898a2df1e67408e679c38fdae3ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-3stop
+    second: {fileID: 2100000, guid: b2f5845be1925fa40a7243334d80dded, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-alu
+    second: {fileID: 2100000, guid: 778ab2fb4eac7854c86ee30073fc11e4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-black
+    second: {fileID: 2100000, guid: 6ee65a30fc6555e489422a3a01cb7a62, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-body
+    second: {fileID: 2100000, guid: e72a3ccfbd1eb184e9e3ef3b3f825fc1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-chrome
+    second: {fileID: 2100000, guid: e3a696a37ea320c40ac886c8d43f3852, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-discs
+    second: {fileID: 2100000, guid: b5c720670c2d27a4bb48d115939236ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-fl-bulb
+    second: {fileID: 2100000, guid: bb203fb18452a9d46a28acdac5290569, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-fl-frame
+    second: {fileID: 2100000, guid: 9fa3e2f4d3266864a93d752c2c34d048, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-fl-glass
+    second: {fileID: 2100000, guid: 1db68d3a2c15dd94c8828577e2dd5334, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-fl-lens
+    second: {fileID: 2100000, guid: 61dabc5e93fe5e247903500229cbc25f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-fl-mirror
+    second: {fileID: 2100000, guid: 156a58fe32998ad4c9ab72871d4a2128, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-glass
+    second: {fileID: 2100000, guid: 4e06d0118371df44c9e2471253fdb6a3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-glass black
+    second: {fileID: 2100000, guid: 2252947b28e1b4c4394f5b7335ccb3be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-inside
+    second: {fileID: 2100000, guid: 7f0502299f6e36f45a6cbab627928ce1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-mirror
+    second: {fileID: 2100000, guid: 1a9dbce75005a6c4fb2f908f62431604, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-plate
+    second: {fileID: 2100000, guid: ecb4589128f5fb24987b965dbc47a84c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-red
+    second: {fileID: 2100000, guid: 407a4f2cd085bc345b5d475dbec67e20, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-red small
+    second: {fileID: 2100000, guid: 0b8dbe936883bb140b44ff31dc9affd5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-shields
+    second: {fileID: 2100000, guid: afe1ae77546cac14b96ff536847e5511, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-side
+    second: {fileID: 2100000, guid: 247bd394041e46641ae2d04eec471edd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meriva-tire
+    second: {fileID: 2100000, guid: b3c09eda82b61de4c900d9aff6655ff4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-3stop
+    second: {fileID: 2100000, guid: 97d1c9aa9a9a80f4a93c8867749532d1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-alu
+    second: {fileID: 2100000, guid: f91fd83b94c2d3c4ea9a926247779884, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-black
+    second: {fileID: 2100000, guid: 0138a2ed4da4bec4e894005103480c1c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-body
+    second: {fileID: 2100000, guid: 329bde850a33d564db893efdf2ebe685, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-carbon
+    second: {fileID: 2100000, guid: a1e81c89f18e4474daa390590126491f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-chrome
+    second: {fileID: 2100000, guid: a9ead717168247f4b8cd75150fa3fdef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-chrome sign
+    second: {fileID: 2100000, guid: d211bba5b017a0b4f8ba34257f7bde5c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-dark glass
+    second: {fileID: 2100000, guid: 5e1c5504f03bc714bb75334c4427c1cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-discs
+    second: {fileID: 2100000, guid: 19efff111726b0a42bfb80b1722be18b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-fl-bulb
+    second: {fileID: 2100000, guid: 796fc0f870cc3e048b04995499bcd6f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-fl-frame
+    second: {fileID: 2100000, guid: a59596141263a6f4789c8436f4bef5fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-fl-glass
+    second: {fileID: 2100000, guid: e24489b8eeb58554485e144e55995f9b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-fl-lens
+    second: {fileID: 2100000, guid: 3ba3f613c31548844921035c5255c32d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-fl-mirror
+    second: {fileID: 2100000, guid: f2ce9a06544e7434bad74f6b9cf4ec62, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-fl-orange
+    second: {fileID: 2100000, guid: 13203c5e92c182e419a0a59085ff8876, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-glass
+    second: {fileID: 2100000, guid: bf7dfd45b2dcf9943a7fee1ff36c956d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-grid side
+    second: {fileID: 2100000, guid: 7dd97823fc4c7484896f67f3be64655f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-inside-bright
+    second: {fileID: 2100000, guid: 16a68f8cb41c4f547bb849935f298b37, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-inside-wood
+    second: {fileID: 2100000, guid: 9389fccd2be90aa45a58579f30ecbed0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-logo
+    second: {fileID: 2100000, guid: 86cced9073c330b4fab75e61da4dc7c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-mirror
+    second: {fileID: 2100000, guid: 82c9f7753c21ab54e969ccd8f01789b4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-oeange side
+    second: {fileID: 2100000, guid: 5382c85ca7c07be479639ec011f1adc7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-plate
+    second: {fileID: 2100000, guid: 01638a0acbbf38b43a6b101b6e5792f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-red
+    second: {fileID: 2100000, guid: b57f804b783469146a8744cd51cacce8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-shields
+    second: {fileID: 2100000, guid: 2c4e06d81143b644cbd1737a113c3f1c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-tire
+    second: {fileID: 2100000, guid: b92eb6eda068e004fb65e2d6b0ffe9d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-ttr
+    second: {fileID: 2100000, guid: d0915133c958d944baa3d906775ac964, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: range-wheel-inside
+    second: {fileID: 2100000, guid: 2e93d5b869bc8a740990f789359a9833, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-3stop
+    second: {fileID: 2100000, guid: ce0c2cc01adfff04ab36567e50503b79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-alu
+    second: {fileID: 2100000, guid: deaa80437d52b5947a80410d7e232f16, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-black
+    second: {fileID: 2100000, guid: 668832afb13f2ee41b17d366e87d23b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-black glass
+    second: {fileID: 2100000, guid: 65dc39b2ea88e124d920fadd7d8fc3e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-body
+    second: {fileID: 2100000, guid: dad05acc55d71034fa7c0b2f8b6eb69f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-chrome
+    second: {fileID: 2100000, guid: 66c0427afa8aeed439b3407a611826c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-darker glass
+    second: {fileID: 2100000, guid: 971af55bf64619b4b8dfd68c673da631, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-discs
+    second: {fileID: 2100000, guid: c8152d6ce08650146a1f872f9f24c70b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-fl-bulb
+    second: {fileID: 2100000, guid: f6e36193c63dfd64bb9179dd7216dc2e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-fl-frame
+    second: {fileID: 2100000, guid: 8d8528b16620273449b77bb807268cf7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-fl-glass
+    second: {fileID: 2100000, guid: b419b9a53d444514a8cd78f4dbe96760, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-fl-lens
+    second: {fileID: 2100000, guid: 1811538b0267a1149a950da6204efbca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-fl-mirror
+    second: {fileID: 2100000, guid: 7eb443e15e010da4294ba32c05832ea0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-fl-orange
+    second: {fileID: 2100000, guid: 4a3da4a07a289ad469f92c6b229f9ea1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-glass
+    second: {fileID: 2100000, guid: a10798bccb41eb944a7de88e465909d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-grid
+    second: {fileID: 2100000, guid: 54fe79353a425da4aaf8f847f7ca130c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-inside
+    second: {fileID: 2100000, guid: c57b26e7b2ab2b949833fafa6d021471, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-mirror
+    second: {fileID: 2100000, guid: 2590dece44ab50c4db144896f2b54689, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-plate
+    second: {fileID: 2100000, guid: 04d8e9d7026e8304287c3bc5e9068425, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-red
+    second: {fileID: 2100000, guid: 852c79ef817cc5544a8ab2f223361b14, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-shields
+    second: {fileID: 2100000, guid: 381c9ad14bdce76428edcca6710add0a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-small red
+    second: {fileID: 2100000, guid: 87a042ef414136b49904b5e7f192dac6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rav4-tire
+    second: {fileID: 2100000, guid: 7af9a0ef2fe61e147b7551c9cb16a486, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-alu
+    second: {fileID: 2100000, guid: c2be29aacd8772c458f61c9a6290d6e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-black frame
+    second: {fileID: 2100000, guid: 4b1ba5f78b63793458d46ec935d13362, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-discs
+    second: {fileID: 2100000, guid: 894f09f1cf2ebdb43addb127abbce003, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-grid
+    second: {fileID: 2100000, guid: 7e511c4d949c9de4e82cc9cba3d504aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-inside-bright
+    second: {fileID: 2100000, guid: 695c68d302049fc41b70a1b609805835, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-inside-dark
+    second: {fileID: 2100000, guid: 84fd2cf9b938d3d4da2a38e672c7d598, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-inside-wood
+    second: {fileID: 2100000, guid: 42428d39627f76a49b14425a4fd26f88, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-mirrlght
+    second: {fileID: 2100000, guid: bc71ea7dd91274743978dfc17779bc10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-mirror
+    second: {fileID: 2100000, guid: de28e50b3ef171a419d11e3b78d818df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-plate
+    second: {fileID: 2100000, guid: 282ab2c637c75964c9d9292e9e11cc01, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-side or
+    second: {fileID: 2100000, guid: 05d74b250aa58df40a4613c045011b10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-tire
+    second: {fileID: 2100000, guid: 231f0f2603dee5349a8da221164f3ff5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: s-wheel-inside
+    second: {fileID: 2100000, guid: 905a3f3d2e914ed4da97b884bbc1f1c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-alu
+    second: {fileID: 2100000, guid: d8891f3266451634fb1677fb3010effc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-body
+    second: {fileID: 2100000, guid: 244715851a11e5447bf494938af4a118, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-f-bulb
+    second: {fileID: 2100000, guid: b8cd9c3bf1b3a964880e56cf4ff3adb0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-f-frame
+    second: {fileID: 2100000, guid: f8ffa12d717f4384ca8a72da76afc683, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-f-glass
+    second: {fileID: 2100000, guid: 58099c369c9991e4da53106178077f82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-f-lens
+    second: {fileID: 2100000, guid: b059c9c1e57bc0545b06769764298cae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-f-mirror
+    second: {fileID: 2100000, guid: 3d599c6f7c9088f45810f3392dc1e93e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-f-orange
+    second: {fileID: 2100000, guid: ca32e67c7915206498f30a55df6af69d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-inside-bright
+    second: {fileID: 2100000, guid: 2c2d5ba4ce0a51c45ae6ba792ecabdc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-inside-dark
+    second: {fileID: 2100000, guid: 3d9534c3624b4994999a9d783199496f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-inside-wood
+    second: {fileID: 2100000, guid: 9d684115744e5a94e9538ac4ca0c2ba4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-plate
+    second: {fileID: 2100000, guid: 135cbee98af8e8b439eb48dc7c9491c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-red
+    second: {fileID: 2100000, guid: b55ba070d9219394cad7715cfda8dfb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-red2
+    second: {fileID: 2100000, guid: 44ab7517b5438dd4e9795ab17a363bbe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: saab-tire
+    second: {fileID: 2100000, guid: 500d5b176fa2437428c6e0bef30346aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tb
+    second: {fileID: 2100000, guid: f0bac147882bc5943808c75ff7995197, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-alu
+    second: {fileID: 2100000, guid: 19f2507266df2f344a05d09ef0549b8b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-black
+    second: {fileID: 2100000, guid: 78b983bf73c177a478eacc8cfe6a8236, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-body
+    second: {fileID: 2100000, guid: 027a32fb1a459454ab5ba6b894d3ad1c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-body-bmp
+    second: {fileID: 2100000, guid: 6f0264bca38bdbb4c8606d3dd7c038ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-chrome
+    second: {fileID: 2100000, guid: 9c3a762808895ae4980eedc5b7425ad3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-fl-bulb
+    second: {fileID: 2100000, guid: 4d08cd614cb464b4da5ef59182f97b51, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-fl-frame
+    second: {fileID: 2100000, guid: 12bc39401440d904b81b602e4865ef01, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-fl-glass
+    second: {fileID: 2100000, guid: fd276abbc94e069448af0de12726b813, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-fl-lens
+    second: {fileID: 2100000, guid: 304045710d4bc32409566f848c1a8357, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-fl-mirror
+    second: {fileID: 2100000, guid: 49682559c69728340b626774188200f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-fl-orange
+    second: {fileID: 2100000, guid: 1f15b8f56b091bc48aa33c72f560283d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-glass
+    second: {fileID: 2100000, guid: b096b8314a6bd1c48956b4c6f8d729ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-glass black
+    second: {fileID: 2100000, guid: 421c6277ba0c9e64eba94ce208b70f51, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-grid 2
+    second: {fileID: 2100000, guid: eb7a7290746da8c4abb6612b4728abda, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-inside-bright
+    second: {fileID: 2100000, guid: 62ba46126b88b4846a0f1d379d1ece09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-inside-wood
+    second: {fileID: 2100000, guid: 11abd6ff62bf97f4683165b94e6512d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-mirror
+    second: {fileID: 2100000, guid: cccb23c42b904094d9871f22982688e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-red
+    second: {fileID: 2100000, guid: 77c32d497336cce4f9d0c10afbc32fb7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: toyota-shields
+    second: {fileID: 2100000, guid: 49c6ab70a75e3c7408466aca4a4fca67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "\u77F3\u6750s"
+    second: {fileID: 2100000, guid: 0432d98637c718049a52e14d18092637, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "\u77F3\u6750sss"
+    second: {fileID: 2100000, guid: 14a6a78c6ded8c64eb88e95e447592b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "\u9542\u7A7A\u680F\u6746s"
+    second: {fileID: 2100000, guid: 82fcaef13c5ca1e4da745f20f83bf14d, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

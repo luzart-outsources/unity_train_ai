@@ -1,3 +1,5 @@
+using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace TrainAI.SO.Base
@@ -6,5 +8,17 @@ namespace TrainAI.SO.Base
     {
         public Transform player;
         public AreaSO area;
+
+        // Injected by InteractionRouter at runtime - SO.Base stays Services-free.
+        public Func<string, UniTask<bool>> showConfirm;
+        public Func<SceneRefSO, string, UniTask> loadAdditive;
+        public Func<SceneRefSO, UniTask> unloadAdditive;
+        public Action<int, int> skipTimeTo;
+        public Action<bool> completeCurrentQuest;
+        public Func<NPCSO, UniTask> showDialogue;
+        public Func<QuizSetSO, UniTask<(int correct, int total, bool cancelled)>> showQuiz;
+        public Action<int, int, string> applyScoreDelta;
+        public Func<string, float, UniTask> showLoading;
+        public Action advanceDay;
     }
 }

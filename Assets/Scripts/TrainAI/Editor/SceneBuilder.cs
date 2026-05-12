@@ -54,7 +54,9 @@ namespace TrainAI.Editor
 
         static void BuildSceneContent(string sceneName, ServiceLocatorSO locator, WorldBlueprint bp)
         {
-            BuildLightCamera();
+            // 00_Bootstrap is persistent UI/services shell - relies on 10_World for Camera+Light.
+            // All other scenes get their own Light+Camera.
+            if (sceneName != "00_Bootstrap") BuildLightCamera();
             BuildEventSystem();
 
             switch (sceneName)
@@ -103,6 +105,8 @@ namespace TrainAI.Editor
             var loop = bootGo.AddComponent<GameLoopDriver>();
             AssignSerialized(entry, "services", locator);
             AssignSerialized(loop, "services", locator);
+            AssignSerialized(entry, "worldScene",
+                LoadAsset<SceneRefSO>("Assets/_Data/Scenes/SceneRef_10_World.asset"));
 
             BuildPersistentUI(locator);
         }

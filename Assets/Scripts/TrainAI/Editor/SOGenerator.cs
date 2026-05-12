@@ -267,6 +267,29 @@ namespace TrainAI.Editor
                 asset.window = new TimeRange(sh, sm, eh, em);
         }
 
+        static string AreaConfirmText(string areaId) => areaId switch
+        {
+            "SanVanDong" => "Ban dang tap the duc. Bam OK de hoan thanh.",
+            "DonVeSinh"  => "Ban dang don ve sinh. Bam OK de hoan thanh.",
+            "FreeArea"   => "Khu vuc tu do.",
+            _            => $"Ban dang o khu {areaId}."
+        };
+
+        static string AreaActionVerb(string areaId) => areaId switch
+        {
+            "SanVanDong" => "tap the duc",
+            "DonVeSinh"  => "don ve sinh",
+            "FreeArea"   => "kham pha",
+            _            => $"tuong tac"
+        };
+
+        static (int hour, int minute) AreaSkipTo(string areaId) => areaId switch
+        {
+            "SanVanDong" => (5, 30),
+            "DonVeSinh"  => (6, 45),
+            _            => (-1, 0)
+        };
+
         const string InteractFolder = "Assets/_Data/Interactables";
 
         static void GenerateInteractables(WorldBlueprint bp, Dictionary<string, AreaSO> areas,
@@ -284,7 +307,18 @@ namespace TrainAI.Editor
                 inter.area = area;
 
                 InteractionSO action = null;
-                if (!string.IsNullOrEmpty(a.sub) && sceneRefs.TryGetValue(a.sub, out var subScene))
+                if (a.id == "KTX_Door")
+                {
+                    var actPath = "Assets/_Data/Strategies/Interact_Sleep_KTX.asset";
+                    var sl = BlueprintLoader.CreateOrLoad<SleepInteractionSO>(actPath);
+                    sl.confirmText = "Di ngu?";
+                    sl.loadingText = "Sang ngay hom sau...";
+                    sl.loadingSeconds = 2f;
+                    sl.promptText = "Bam E de di ngu";
+                    EditorUtility.SetDirty(sl);
+                    action = sl;
+                }
+                else if (!string.IsNullOrEmpty(a.sub) && sceneRefs.TryGetValue(a.sub, out var subScene))
                 {
                     var actPath = $"Assets/_Data/Strategies/Interact_SceneTo_{a.sub}.asset";
                     var st = BlueprintLoader.CreateOrLoad<SceneTransitionInteractionSO>(actPath);
@@ -298,8 +332,12 @@ namespace TrainAI.Editor
                 {
                     var actPath = $"Assets/_Data/Strategies/Interact_Confirm_{a.id}.asset";
                     var cf = BlueprintLoader.CreateOrLoad<OpenConfirmInteractionSO>(actPath);
-                    cf.confirmText = $"Ban dang o khu {a.id}.";
-                    cf.promptText = $"Bam E de tuong tac {a.id}";
+                    cf.confirmText = AreaConfirmText(a.id);
+                    cf.promptText = $"Bam E de {AreaActionVerb(a.id)}";
+                    cf.skipTime = a.id != "FreeArea";
+                    var (sh, sm) = AreaSkipTo(a.id);
+                    cf.skipToHour = sh; cf.skipToMinute = sm;
+                    cf.completeQuestOnConfirm = a.id != "FreeArea";
                     EditorUtility.SetDirty(cf);
                     action = cf;
                 }

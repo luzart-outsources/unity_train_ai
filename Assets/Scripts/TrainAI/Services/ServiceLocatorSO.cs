@@ -51,6 +51,7 @@ namespace TrainAI.Services
         public ISentisRuntime Sentis { get; private set; }
 
         public bool IsBootstrapped { get; private set; }
+        UIRouterFacade _uiFacade;
 
         public void Bootstrap()
         {
@@ -62,7 +63,8 @@ namespace TrainAI.Services
             else
                 Sentis = new SentisRuntimeStub();
 
-            UI = new UIRouter();
+            _uiFacade = new UIRouterFacade { Inner = new UIRouter() };
+            UI = _uiFacade;
             Scenes = new SceneRouter(UI);
 
             Score = new ScoreSystem(playerState, gameConfig, scoreRules);
@@ -73,7 +75,7 @@ namespace TrainAI.Services
             Dialogue = new DialogueService(Quests, playerState, responseTemplates, Sentis, areaDB);
             NPCs = new NPCDirector(npcDB, Movement, clock);
 
-            Interactions = new InteractionRouter(Quests, UI);
+            Interactions = new InteractionRouter(Quests, UI, Scenes, Clock, Score);
             Save = new SaveService(playerState, clock, dayProgress);
 
             IsBootstrapped = true;
@@ -89,7 +91,9 @@ namespace TrainAI.Services
 
         public void OverrideUI(IUIRouter ui)
         {
-            if (ui != null) UI = ui;
+            if (ui == null) return;
+            if (_uiFacade != null) _uiFacade.Inner = ui;
+            else UI = ui;
         }
     }
 }
