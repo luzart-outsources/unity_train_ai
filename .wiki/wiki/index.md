@@ -64,6 +64,12 @@ Master catalog. Read first to find relevant pages.
 - [[decisions/d09-sentis-per-model-worker]]
 - [[decisions/d10-json-save]]
 - [[decisions/d11-character-controller]]
+- [[decisions/d12-direct-input-api]]
+- [[decisions/d13-ui-router-facade]]
+- [[decisions/d14-joystick-pack]]
+
+## Bugs (playtest reports)
+- [[bugs/playtest-2026-05-13]] — 6 critical gameplay bugs found via MCP Play test
 
 ## Log
 - [[log]]
