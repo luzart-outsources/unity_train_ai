@@ -73,3 +73,6 @@ AI_Training/phase_a_sentis/models/eval_iter*.json
 AI_Training/phase_a_sentis/models/eval_m2_iter*.json
 AI_Training/phase_a_sentis/models/training_log_*.json
 AI_Training/phase_a_sentis/models/eval_realworld.json
+
+# Unity batch-compile logs (regenerable)
+compile_*.log

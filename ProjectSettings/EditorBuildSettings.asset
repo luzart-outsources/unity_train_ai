@@ -4,7 +4,25 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/TrainAI/_Boot.unity
+    guid: a45cd6f5d3c75ce479000ffa2fe73c92
+  - enabled: 1
+    path: Assets/Scenes/TrainAI/Title.unity
+    guid: 6a1cf2a8476b06946977e87e5d61e3b7
+  - enabled: 1
+    path: Assets/Scenes/TrainAI/World.unity
+    guid: 94333b16190eb58438dc710d5007e293
+  - enabled: 1
+    path: Assets/Scenes/TrainAI/Classroom.unity
+    guid: a06d4c1c59fa66243a35e1622c79b687
+  - enabled: 1
+    path: Assets/Scenes/TrainAI/Dormitory.unity
+    guid: 4b39a6d3560a4ba47a45a69ed12a37ce
+  - enabled: 1
+    path: Assets/Scenes/TrainAI/Cafeteria.unity
+    guid: 7caa24dc2fbb2e244bb5842bb215da1d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -1,0 +1,23 @@
+{
+    "name": "TrainAI.PlayMode.Tests",
+    "rootNamespace": "TrainAI.PlayMode.Tests",
+    "references": [
+        "TrainAI.Core",
+        "TrainAI.SO.Base",
+        "TrainAI.SO.Concrete",
+        "TrainAI.Services",
+        "TrainAI.Presentation",
+        "TrainAI.UI",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": ["nunit.framework.dll"],
+    "autoReferenced": false,
+    "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,19 @@
+{
+    "name": "TrainAI.SO.Concrete",
+    "rootNamespace": "TrainAI.SO.Concrete",
+    "references": [
+        "TrainAI.Core",
+        "TrainAI.SO.Base",
+        "TrainAI.Sentis",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

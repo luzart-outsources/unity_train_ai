@@ -1,0 +1,22 @@
+{
+    "name": "TrainAI.Editor",
+    "rootNamespace": "TrainAI.Editor",
+    "references": [
+        "TrainAI.Core",
+        "TrainAI.SO.Base",
+        "TrainAI.SO.Concrete",
+        "TrainAI.Sentis",
+        "TrainAI.Services",
+        "TrainAI.Presentation",
+        "TrainAI.UI"
+    ],
+    "includePlatforms": ["Editor"],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

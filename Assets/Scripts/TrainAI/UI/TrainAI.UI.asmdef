@@ -1,0 +1,22 @@
+{
+    "name": "TrainAI.UI",
+    "rootNamespace": "TrainAI.UI",
+    "references": [
+        "TrainAI.Core",
+        "TrainAI.SO.Base",
+        "TrainAI.SO.Concrete",
+        "TrainAI.Services",
+        "Unity.TextMeshPro",
+        "Unity.InputSystem",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

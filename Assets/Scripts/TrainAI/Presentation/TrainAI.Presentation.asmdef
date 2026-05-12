@@ -1,0 +1,21 @@
+{
+    "name": "TrainAI.Presentation",
+    "rootNamespace": "TrainAI.Presentation",
+    "references": [
+        "TrainAI.Core",
+        "TrainAI.SO.Base",
+        "TrainAI.SO.Concrete",
+        "TrainAI.Services",
+        "Unity.InputSystem",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

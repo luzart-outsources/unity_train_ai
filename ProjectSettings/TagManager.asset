@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Obstacle
   - Target
+  - Item
+  - Player
+  - NPC
+  - Interactable
   layers:
   - Default
   - TransparentFX
