@@ -1,113 +1,68 @@
 ---
-title: Project Overview
+title: TrainAI — Project Overview
 category: overview
-tags: [unity, ai, sentis, ppo, intent-classification, vietnamese, datn]
-sources: [raw/context_v1.md, raw/context_v2.md, raw/HANDOFF.md, Assets/Scripts/]
-created: 2026-05-07
-updated: 2026-05-11
+tags: [overview, gdd, military-academy]
+sources: [raw/gdd/gdd_inGame.txt, raw/gdd/context_v2.md]
+created: 2026-05-12
+updated: 2026-05-12
 ---
 
-# TrainAI Unity — Project Overview
+# TrainAI — Project Overview
 
-## Bối cảnh
-
-ĐATN của **Nguyễn Mạnh Quyền** (CT060236, Học viện Kỹ thuật Mật mã, 1/2026 – 5/2026): *"Xây dựng trò chơi giáo dục mô phỏng học kỳ quân đội sử dụng Unity + AI"*. Game mô phỏng trải nghiệm sinh viên KTMM khi học quân đội, với 2 hệ AI:
-
-1. **Sentis chat NPC** — sĩ quan chỉ huy hiểu tiếng Việt, phân loại intent, phản hồi
-2. **Movement AI NPC** — lính NPC tự đi từ điểm A đến B, tránh chướng ngại vật
-
-User của wiki này phụ trách **TRAIN 2 model AI** (việc của tôi). Quyền lo phần Unity scene + code game.
+Game mô phỏng học kỳ quân sự (đề tài ĐATN của Nguyễn Mạnh Quyền). Người chơi sống qua 30 ngày trong doanh trại, làm nhiệm vụ theo thời khóa biểu, học các môn quốc phòng qua quiz, chat với NPC chỉ huy (intent classifier ONNX), nhìn NPC học sinh tự đi theo schedule (PPO movement ONNX).
 
 ## Game
 
-- **Engine**: Unity 6 (`6000.2.8f1`) + `com.unity.ai.inference` 2.6.1 (Sentis renamed)
-- **Genre**: Educational simulation, life-sim
-- **Platform**: PC (đủ cho ĐATN demo)
-- **Team size**: 1 (Quyền) + 1 (AI helper)
-- **Deadline**: cuối tháng 5/2026
+- **Engine**: Unity 6 + `com.unity.ai.inference` 2.6.1 (AI Inference Engine, formerly Sentis, namespace `Unity.InferenceEngine`) + UniTask + Input System
+- **Genre**: Life-sim / educational (single player)
+- **Platform**: PC (mobile-friendly, joystick HUD support)
+- **Perspective**: 3D third-person, quest arrow under player feet
 
 ## Core pillars
 
-1. **Vòng lặp ngày demo** (ưu tiên 7 ngày, không bắt buộc 30): tập sáng → đi học (fade) → buổi tối Player Choice → ngủ
-2. **3 chỉ số Adaptive**: Kỷ luật / Thể lực / Kiến thức
-3. **2 endings**: Pass / Fail dựa trên chỉ số tích lũy
-4. **AI hỗ trợ immersion**: chỉ huy nói tiếng Việt + lính tự di chuyển
+1. **Day-cycle simulation** — 30 ngày, mỗi ngày một bộ quest theo timeline cố định, 1h game = 3p thực.
+2. **AI tích hợp** — NPC chỉ huy chat bằng intent classifier ONNX; NPC học sinh tự đi bằng PPO ONNX.
+3. **SO-First Modular** — mọi logic config qua ScriptableObject; thêm quest/NPC/môn = tạo asset, không sửa core.
+4. **Strategy swappable** — AI thật ↔ fake (NavMesh) đổi qua 1 field SO, dùng cho QA và demo.
+5. **Automation-buildable** — sau khi system stable, 1 button master generate toàn bộ 30 ngày từ JSON template.
 
-## Current state — Phase A v2 deployed (2026-05-07 23:00)
+## Current state
 
-Sau khi training v3.1 đóng deadline 19:00, user feedback "AI ngu, hỏi khác 1 tý dính,
-hỏi khu A trả lời khu B". Build hard test 216 câu (10 category) → V1 LSTM chỉ 38%
-(vs 98.4% test 64 câu cũ — synthetic-friendly). Triển khai Phase A v2 trong 3h
-buổi tối. Chi tiết: [[decisions/phase-a-v2-iteration]].
-
-### Final winners
-
-| Phase | Model | Hard test 216 / Best | Source |
-|---|---|---|---|
-| **Phase A v1** (giữ để A/B compare) | LSTM v3 (116K params) | 38.0% (98.4% test cũ) | `intent_classifier.onnx` |
-| **Phase A v2** ⭐ (deployed) | LSTM v5 (707K params) | **96.8%** (209/216) | `intent_classifier_v2.onnx` |
-| **Phase A v2 EntityExtractor** | rule-based, 715 phrases | (orthogonal — fix "khu A → khu B5") | `EntityExtractor.cs` + `slot_vocab.json` |
-| **Phase B PPO** ⭐⭐ | máy 2, h3_deepfocus | reward **6.572** | `deliverables_m2/soldier_m2.onnx` |
-| Phase B máy 1 runner-up | máy 1, iter 14 seed 2013 | reward 6.569 | `soldier.onnx` |
-| Phase B v2 backup | fixed env | reward 6.126 | `soldier_v2_fixedenv.onnx` |
-
-→ **V2 stack**: 1 model (LSTM v5, 96.8%) + 1 rule-based slot extractor (715 phrases) + entity-aware response templates. V1 giữ nguyên để compare. Menu Unity: **AI/4. Phase A — Compare V1 vs V2**.
-
-### Máy 2 HP grid breakdown (Phase B)
-| HP | Net | Ent | LR | Best Reward | Verdict |
-|---|---|---|---|---|---|
-| **h3_deepfocus** ⭐ | [128,128,64] | 0.005 | 1e-4 | **6.572** | conservative thắng |
-| h2_bigexplore | [256,128] | 0.02 | 3e-4 | 6.263 | tốt vừa |
-| h1_baseline | [128,128] | 0.01 | 3e-4 | 6.236 | baseline |
-| h4_bigwide | [256,256] | 0.05 | 5e-4 | 5.252 | flop — bigger net + high ent hurt |
-
-→ **Bài học HP**: conservative beats brute. Deeper net + low ent + low lr > bigger net + high ent.
-
-Chi tiết tức thời: [[live-status]].
-
-Chi tiết per-system: [[systems/sentis-chat]], [[systems/movement-ai]].
-
-> [!info] 2-machine parallel — COMPLETED
-> Final canonical sau merge: `intent_classifier.onnx` = LSTM 98.44% (máy 1), `soldier.onnx` cần update từ `soldier_m2.onnx` (máy 2). Chạy `AI_Training/merge_machine_results.py` để auto-pick winner. Setup: [[decisions/two-machine-parallel]].
+- Spec design đã viết: [docs/superpowers/specs/2026-05-12-trainai-gdd-tech-design.md](../../docs/superpowers/specs/2026-05-12-trainai-gdd-tech-design.md)
+- ONNX models đã có trong `AI_Training/deliverables/`: `intent_classifier.onnx` (LSTM, 98.44% val_acc), `soldier.onnx` (PPO, reward 6.572)
+- Repository vừa wipe sạch cũ — implementation chưa bắt đầu
 
 ## Key systems
 
-- [[systems/sentis-chat]] — NPC chỉ huy: tiếng Việt → 8 intent → response template
-- [[systems/entity-extractor]] — Phase A v2: rule-based slot extraction, fix entity-aware responses
-- [[systems/movement-ai]] — Lính NPC: nav 2D với obstacles, output ONNX cho Unity
+- [[systems/quest-system]] — 5 quest types, polymorphic SO
+- [[systems/interaction-system]] — interactable trigger + InteractionSO
+- [[systems/npc-movement]] — `IMovementService` + Strategy SO swap
+- [[systems/npc-dialogue]] — intent classifier + response filler
+- [[systems/score-system]] — học tập + rèn luyện, rule SO
+- [[systems/scene-flow]] — additive load, sub-scene
+- [[systems/ui-router]] — uGUI popup catalog
+- [[systems/save-load]] — JSON DTO
+- [[systems/broadcast-service]] — typed pub/sub
+- [[systems/sentis-runtime]] — shared ONNX worker
 
 ## Key entities
 
-- [[entities/commander-npc]] — Sĩ quan chỉ huy (consumer của Sentis chat)
-- [[entities/soldier-npc]] — Lính NPC (consumer của Movement AI)
+- [[entities/player]] — third-person capsule, quest arrow
+- [[entities/npc-commander]] — idle + OnnxDialogue
+- [[entities/npc-student]] — OnnxMovement + schedule
 
-## Key technical
+## Key technical pages
 
-- [[technical/training-pipeline]] — generate_dataset_v3 → train → eval → export ONNX
-- [[technical/unity-integration]] — Cách Quyền load model qua InferenceEngine
-- [[technical/architecture-comparison]] — FastText vs LSTM vs Transformer trên test khó
+- [[technical/architecture]] — layered, dependency direction
+- [[technical/asmdef-structure]] — 1-direction asmdef
+- [[technical/so-taxonomy]] — base/concrete/data/RSO/DB
+- [[technical/automation-tooling]] — Editor master builder
+- [[technical/placeholder-scale]] — cube convention
 
-## Key decisions
+## Decisions (locked)
 
-- [[decisions/standalone-ppo-not-ml-agents]] — Train Phase B bằng Python thay ML-Agents
-- [[decisions/lstm-canonical-not-fasttext]] — Đổi canonical từ FastText sang LSTM
-- [[decisions/eval-set-must-be-real]] — Test 16 câu cũ misleading, đổi 64 câu khó
-- [[decisions/phase-a-v2-iteration]] — Eval-driven iteration v3→v4→v5 đẩy 38%→96.8%
-
-## DATN game code imported (2026-05-11)
-
-Quyền đẩy code game lên `manhquyenkma/DATN` — Stardew Valley clone (~22 system, farming sim). User clone về và copy `Assets/*` vào project, giữ nguyên `Assets/AI/` (Phase A v1/v2 brain). Add `www.nulltale.socollection` vào `Packages/manifest.json`. Xoá URP-related (user dùng Built-in).
-
-> [!warning] Theme mismatch chưa giải quyết
-> GDD nói "mô phỏng học kỳ quân đội" nhưng code thực tế là farming. Phải reskin. Xem [[contradictions#x-20260511-01]], [[open-questions#q-20260511-01]].
-
-System map: [[technical/datn-architecture]] và 8 page system trong index. Decision: [[decisions/import-datn-game-base]].
+See [[decisions/d01-so-first-modular]], [[decisions/d02-broadcast-service]], [[decisions/d03-strategy-swap-ai]], [[decisions/d04-ugui-not-toolkit]], [[decisions/d05-third-person-3d]], [[decisions/d06-no-socollection]], [[decisions/d07-manual-prefab-override]], [[decisions/d08-automation-last]], [[decisions/d09-sentis-per-model-worker]], [[decisions/d10-json-save]], [[decisions/d11-character-controller]].
 
 ## Open questions
 
-- Quyền có chốt 8 intent chính thức không? (đang tạm dùng list trong Sentis chat)
-- Bao giờ test thực tế trong Unity scene? (chưa)
-- Deploy Phase B model trên scene doanh trại thật vs training arena? (chưa)
-- Quyền sẽ reskin DATN thành quân đội ở mức nào? (xem [[open-questions#q-20260511-01]])
-- Phase A wire vào DialogueManager DATN thế nào? (xem [[open-questions#q-20260511-02]])
-- Phase B wire vào CharacterMovement DATN thế nào? (xem [[open-questions#q-20260511-03]])
+See [[open-questions]].
