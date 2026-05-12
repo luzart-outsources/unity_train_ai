@@ -6,7 +6,7 @@
     { "id": "LopHoc_Door", "pos": {"x":5,"y":0,"z":-8},   "size": {"x":1.5,"y":2.5,"z":0.5},"scene": "10_World", "sub": "11_LopHoc" },
     { "id": "KTX_Door",    "pos": {"x":-5,"y":0,"z":-8},  "size": {"x":1.5,"y":2.5,"z":0.5},"scene": "10_World", "sub": "13_KyTucXa" },
     { "id": "NhaAn_Door",  "pos": {"x":10,"y":0,"z":-8},  "size": {"x":1.5,"y":2.5,"z":0.5},"scene": "10_World", "sub": "12_NhaAn" },
-    { "id": "FreeArea",    "pos": {"x":0,"y":0,"z":0},    "size": {"x":1,"y":1,"z":1},      "scene": "10_World" }
+    { "id": "FreeArea",    "pos": {"x":0,"y":0,"z":0},    "size": {"x":6,"y":0.1,"z":6},   "scene": "10_World" }
   ],
   "subjects": [
     { "id": "LichSu",       "displayName": "Lich su",       "lessons": 6, "maxPerLesson": 40 },

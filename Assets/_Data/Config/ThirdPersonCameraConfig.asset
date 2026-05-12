@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe565d282f472a4080f54cdc92c2315, type: 3}
+  m_Name: ThirdPersonCameraConfig
+  m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.ThirdPersonCameraConfigSO
+  distance: 6
+  height: 2.2
+  yawSpeed: 140
+  pitchMin: -10
+  pitchMax: 60
+  smoothTime: 0.08
+  invertY: 0

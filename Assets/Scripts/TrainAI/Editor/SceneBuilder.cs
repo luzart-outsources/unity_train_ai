@@ -18,6 +18,10 @@ namespace TrainAI.Editor
     {
         const string SceneFolder = "Assets/Scenes/TrainAI";
         const string PrefabFolder = "Assets/Prefabs/TrainAI";
+        const string ConfigFolder = "Assets/_Data/Config";
+        const string MaterialFolder = "Assets/_Data/Materials";
+        const string RTPath = "Assets/_Data/Config/MinimapRT.renderTexture";
+        const string CameraConfigPath = "Assets/_Data/Config/ThirdPersonCameraConfig.asset";
 
         static readonly string[] Scenes = {
             "00_Bootstrap", "01_MainMenu", "02_CutScene", "03_CreateChar",
@@ -30,6 +34,11 @@ namespace TrainAI.Editor
         public static void BuildAll()
         {
             EnsureFolder(SceneFolder);
+            EnsureFolder(ConfigFolder);
+            EnsureFolder(MaterialFolder);
+            MaterialPalette.EnsureAll(MaterialFolder);
+            EnsureCameraConfig();
+            EnsureMinimapRT();
             AssetDatabase.Refresh();
             var bp = BlueprintLoader.Load();
 
@@ -52,10 +61,48 @@ namespace TrainAI.Editor
             Debug.Log("[SceneBuilder] all scenes built");
         }
 
+        // ====================================================================
+        // shared assets
+        // ====================================================================
+        static ThirdPersonCameraConfigSO EnsureCameraConfig()
+        {
+            var cfg = AssetDatabase.LoadAssetAtPath<ThirdPersonCameraConfigSO>(CameraConfigPath);
+            if (cfg == null)
+            {
+                cfg = ScriptableObject.CreateInstance<ThirdPersonCameraConfigSO>();
+                AssetDatabase.CreateAsset(cfg, CameraConfigPath);
+            }
+            cfg.distance = 6f;
+            cfg.height = 2.2f;
+            cfg.yawSpeed = 140f;
+            cfg.pitchMin = -10f;
+            cfg.pitchMax = 60f;
+            cfg.smoothTime = 0.08f;
+            cfg.invertY = false;
+            EditorUtility.SetDirty(cfg);
+            return cfg;
+        }
+
+        static RenderTexture EnsureMinimapRT()
+        {
+            var rt = AssetDatabase.LoadAssetAtPath<RenderTexture>(RTPath);
+            if (rt == null)
+            {
+                rt = new RenderTexture(256, 256, 16, RenderTextureFormat.ARGB32)
+                {
+                    name = "MinimapRT",
+                    antiAliasing = 1,
+                    filterMode = FilterMode.Bilinear,
+                    wrapMode = TextureWrapMode.Clamp
+                };
+                AssetDatabase.CreateAsset(rt, RTPath);
+            }
+            EditorUtility.SetDirty(rt);
+            return rt;
+        }
+
         static void BuildSceneContent(string sceneName, ServiceLocatorSO locator, WorldBlueprint bp)
         {
-            // 00_Bootstrap is persistent UI/services shell - relies on 10_World for Camera+Light.
-            // All other scenes get their own Light+Camera.
             if (sceneName != "00_Bootstrap") BuildLightCamera();
             BuildEventSystem();
 
@@ -78,14 +125,23 @@ namespace TrainAI.Editor
             var lightGo = new GameObject("DirectionalLight");
             var light = lightGo.AddComponent<Light>();
             light.type = LightType.Directional;
-            light.transform.rotation = Quaternion.Euler(50, -30, 0);
+            light.transform.rotation = Quaternion.Euler(45, -25, 0);
+            light.intensity = 1.1f;
+            light.shadows = LightShadows.Soft;
 
             var camGo = new GameObject("MainCamera");
             camGo.tag = "MainCamera";
-            camGo.AddComponent<Camera>();
+            var cam = camGo.AddComponent<Camera>();
+            cam.clearFlags = CameraClearFlags.Skybox;
+            cam.farClipPlane = 200f;
             camGo.AddComponent<AudioListener>();
             camGo.transform.position = new Vector3(0, 5, -10);
             camGo.transform.LookAt(Vector3.zero);
+
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
+            RenderSettings.ambientSkyColor = new Color(0.55f, 0.70f, 0.95f);
+            RenderSettings.ambientEquatorColor = new Color(0.55f, 0.55f, 0.55f);
+            RenderSettings.ambientGroundColor = new Color(0.20f, 0.25f, 0.20f);
         }
 
         static void BuildEventSystem()
@@ -96,7 +152,7 @@ namespace TrainAI.Editor
         }
 
         // ====================================================================
-        // 00_Bootstrap: services + game loop + persistent UI canvas with all screens
+        // 00_Bootstrap
         // ====================================================================
         static void BuildBootstrap(ServiceLocatorSO locator)
         {
@@ -146,6 +202,7 @@ namespace TrainAI.Editor
         {
             var canvas = BuildCanvas("MainMenuCanvas");
             var panel = BuildPanel(canvas.transform, "MainMenuPanel");
+            BuildPanelBG(panel, new Color(0.05f, 0.10f, 0.18f, 1f));
 
             BuildTextChild(panel.transform, "Title", "TrainAI - Hoc ky quan su",
                            new Vector2(0, 200), new Vector2(600, 80), 32);
@@ -174,6 +231,7 @@ namespace TrainAI.Editor
         {
             var canvas = BuildCanvas("CreateCharCanvas");
             var panel = BuildPanel(canvas.transform, "CreateCharPanel");
+            BuildPanelBG(panel, new Color(0.05f, 0.10f, 0.18f, 1f));
 
             BuildTextChild(panel.transform, "Header", "Ban can dien ten truoc khi vao game",
                            new Vector2(0, 100), new Vector2(700, 80), 24);
@@ -197,17 +255,21 @@ namespace TrainAI.Editor
         // ====================================================================
         static void BuildWorld(ServiceLocatorSO locator, WorldBlueprint bp)
         {
+            // Ground - bigger so the play area feels generous, colored, with a soft grid look.
             var ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
             ground.name = "Ground";
-            ground.transform.localScale = new Vector3(10, 1, 10);
+            ground.transform.localScale = new Vector3(12, 1, 12); // 120x120
+            ApplyMaterial(ground, MaterialPalette.Ground(MaterialFolder));
 
+            // Player
             var playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{PrefabFolder}/Player.prefab");
             GameObject player = null;
             if (playerPrefab != null)
             {
                 player = (GameObject)PrefabUtility.InstantiatePrefab(playerPrefab);
                 player.name = "Player";
-                player.transform.position = new Vector3(0, 1, 0);
+                // Mesh feet sit at root Y=0 (see PrefabBuilder.BuildPlayer), spawn at ground level.
+                player.transform.position = new Vector3(0, 0.05f, 0);
                 if (locator != null)
                 {
                     var pc = player.GetComponent<PlayerController>();
@@ -215,21 +277,28 @@ namespace TrainAI.Editor
                 }
             }
 
-            // CameraRig as parent of MainCamera follows player
+            // Camera rig (third-person follow).
             var existingCam = GameObject.Find("MainCamera");
             if (existingCam != null)
             {
                 var rigGo = new GameObject("CameraRig");
                 rigGo.transform.position = player != null ? player.transform.position : Vector3.zero;
                 existingCam.transform.SetParent(rigGo.transform, false);
-                existingCam.transform.localPosition = new Vector3(0, 1.6f, -3.5f);
+                existingCam.transform.localPosition = Vector3.zero;
                 existingCam.transform.localRotation = Quaternion.identity;
                 var rig = rigGo.AddComponent<ThirdPersonCameraRig>();
                 AssignSerialized(rig, "target", player != null ? player.transform : null);
                 AssignSerialized(rig, "cam", existingCam.GetComponent<Camera>());
+                AssignSerialized(rig, "config", EnsureCameraConfig());
+
+                if (player != null)
+                {
+                    var pc = player.GetComponent<PlayerController>();
+                    if (pc != null) AssignSerialized(pc, "cameraRig", rigGo.transform);
+                }
             }
 
-            // Spawn area interactable cubes
+            // Spawn area interactable cubes with colored materials.
             if (bp != null)
             {
                 foreach (var a in bp.areas)
@@ -245,10 +314,18 @@ namespace TrainAI.Editor
                     box.isTrigger = true;
                     var marker = cube.AddComponent<InteractableMarker>();
                     AssignSerialized(marker, "interactable", inter);
+
+                    Material areaMat = IsDoor(a.id) ? MaterialPalette.Door(MaterialFolder)
+                                     : IsFreeArea(a.id) ? MaterialPalette.FreeArea(MaterialFolder)
+                                     : MaterialPalette.Area(MaterialFolder);
+                    ApplyMaterial(cube, areaMat);
+
+                    // Sign label so the player can read what each cube is even without the prompt.
+                    BuildSignLabel(cube.transform, a.id, a.size.y);
                 }
             }
 
-            // Spawn NPCs
+            // NPCs (mesh feet at root Y=0 in new prefab, so spawnPos.y=0 sits properly).
             var npcPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{PrefabFolder}/NPC.prefab");
             if (locator != null && locator.npcDB != null && npcPrefab != null)
             {
@@ -257,39 +334,117 @@ namespace TrainAI.Editor
                     if (npcSo == null) continue;
                     var npcGo = (GameObject)PrefabUtility.InstantiatePrefab(npcPrefab);
                     npcGo.name = $"NPC_{npcSo.id}";
-                    npcGo.transform.position = npcSo.spawnPos;
+                    var sp = npcSo.spawnPos;
+                    if (sp.y < 0.01f) sp.y = 0.05f; // lift slightly so capsule stands on ground.
+                    npcGo.transform.position = sp;
                     var view = npcGo.GetComponent<NpcView>();
                     if (view != null)
                     {
                         AssignSerialized(view, "npcDef", npcSo);
                         AssignSerialized(view, "services", locator);
                     }
+                    BuildSignLabel(npcGo.transform, npcSo.id, 2.0f);
                 }
             }
 
-            // InteractionRouterBridge in scene
+            // Interaction router bridge.
             var bridgeGo = new GameObject("InteractionBridge");
             var bridge = bridgeGo.AddComponent<InteractionRouterBridge>();
             AssignSerialized(bridge, "services", locator);
 
-            // QuestArrow on player
+            // Quest arrow above player's head.
             var arrowPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{PrefabFolder}/QuestArrow.prefab");
             if (arrowPrefab != null && player != null)
             {
                 var arrow = (GameObject)PrefabUtility.InstantiatePrefab(arrowPrefab);
                 arrow.transform.SetParent(player.transform, false);
                 arrow.transform.localPosition = Vector3.zero;
+                arrow.transform.localRotation = Quaternion.identity;
             }
+
+            // Minimap top-down camera rendering into the shared RT.
+            BuildMinimapCamera(player);
+        }
+
+        static void BuildMinimapCamera(GameObject player)
+        {
+            var rt = EnsureMinimapRT();
+            var camGo = new GameObject("MinimapCamera");
+            if (player != null)
+            {
+                camGo.transform.SetParent(player.transform, false);
+                camGo.transform.localPosition = new Vector3(0, 40f, 0);
+            }
+            else
+            {
+                camGo.transform.position = new Vector3(0, 40f, 0);
+            }
+            camGo.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+            var cam = camGo.AddComponent<Camera>();
+            cam.orthographic = true;
+            cam.orthographicSize = 30f;
+            cam.nearClipPlane = 0.1f;
+            cam.farClipPlane = 100f;
+            cam.clearFlags = CameraClearFlags.SolidColor;
+            cam.backgroundColor = new Color(0.10f, 0.18f, 0.10f, 1f);
+            cam.targetTexture = rt;
+            cam.depth = -10;
+        }
+
+        static bool IsDoor(string id) => !string.IsNullOrEmpty(id) && id.EndsWith("_Door");
+        static bool IsFreeArea(string id) => id == "FreeArea";
+
+        static void BuildSignLabel(Transform parent, string text, float topY)
+        {
+            var labelGo = new GameObject("Sign");
+            labelGo.transform.SetParent(parent, false);
+            labelGo.transform.localPosition = new Vector3(0, topY + 0.6f, 0);
+            labelGo.transform.localRotation = Quaternion.Euler(45f, 0f, 0f);
+
+            var canvas = labelGo.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.WorldSpace;
+            labelGo.AddComponent<UnityEngine.UI.CanvasScaler>();
+            labelGo.AddComponent<UnityEngine.UI.GraphicRaycaster>();
+
+            var rect = labelGo.GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2(4f, 1f);
+            rect.localScale = Vector3.one * 0.35f;
+
+            var tGo = new GameObject("Text");
+            tGo.transform.SetParent(labelGo.transform, false);
+            var tRect = tGo.AddComponent<RectTransform>();
+            tRect.sizeDelta = new Vector2(4f, 1f);
+            tRect.anchoredPosition = Vector2.zero;
+            var tmp = tGo.AddComponent<TMPro.TextMeshProUGUI>();
+            tmp.text = HumanizeId(text);
+            tmp.fontSize = 1.2f;
+            tmp.color = Color.white;
+            tmp.alignment = TMPro.TextAlignmentOptions.Center;
+            tmp.fontStyle = TMPro.FontStyles.Bold;
+        }
+
+        static string HumanizeId(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return "";
+            return id.Replace('_', ' ');
+        }
+
+        static void ApplyMaterial(GameObject go, Material mat)
+        {
+            if (mat == null) return;
+            var rend = go.GetComponent<Renderer>();
+            if (rend != null) rend.sharedMaterial = mat;
         }
 
         // ====================================================================
-        // sub-scenes: classroom/dining/dorm
+        // sub-scenes
         // ====================================================================
         static void BuildSubScene(string sceneName, ServiceLocatorSO locator)
         {
             var floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
             floor.name = $"Floor_{sceneName}";
             floor.transform.localScale = new Vector3(2, 1, 2);
+            ApplyMaterial(floor, MaterialPalette.Ground(MaterialFolder));
 
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.name = "Interactable_Center";
@@ -298,6 +453,7 @@ namespace TrainAI.Editor
             var box = cube.GetComponent<BoxCollider>();
             box.isTrigger = true;
             cube.AddComponent<InteractableMarker>();
+            ApplyMaterial(cube, MaterialPalette.Area(MaterialFolder));
         }
 
         // ====================================================================
@@ -307,6 +463,7 @@ namespace TrainAI.Editor
         {
             var canvas = BuildCanvas("EndingCanvas");
             var panel = BuildPanel(canvas.transform, "EndingPanel");
+            BuildPanelBG(panel, new Color(0.05f, 0.07f, 0.10f, 1f));
             BuildTextChild(panel.transform, "Title", "Hoan thanh khoa hoc quan su",
                            new Vector2(0, 100), new Vector2(800, 80), 36);
         }
@@ -395,7 +552,7 @@ namespace TrainAI.Editor
         }
 
         // ====================================================================
-        // UI screen panels (each on UICanvas)
+        // UI screen panels
         // ====================================================================
         static UIConfirmController BuildConfirmScreen(Transform parent)
         {
@@ -516,6 +673,15 @@ namespace TrainAI.Editor
             panel.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
             panel.GetComponent<RectTransform>().sizeDelta = new Vector2(400, 80);
             panel.GetComponent<RectTransform>().anchoredPosition = new Vector2(-220, -240);
+
+            var bg = new GameObject("BG");
+            bg.transform.SetParent(panel.transform, false);
+            var bgRect = bg.AddComponent<RectTransform>();
+            bgRect.anchorMin = Vector2.zero; bgRect.anchorMax = Vector2.one;
+            bgRect.offsetMin = Vector2.zero; bgRect.offsetMax = Vector2.zero;
+            var bgImg = bg.AddComponent<Image>();
+            bgImg.color = new Color(0f, 0f, 0f, 0.55f);
+
             var title = BuildTextChild(panel.transform, "Title", "...",
                                         new Vector2(0, 20), new Vector2(380, 40), 22);
             var window = BuildTextChild(panel.transform, "Window", "",
@@ -534,6 +700,15 @@ namespace TrainAI.Editor
             rect.anchorMax = new Vector2(0.5f, 1);
             rect.sizeDelta = new Vector2(300, 80);
             rect.anchoredPosition = new Vector2(0, -50);
+
+            var bg = new GameObject("BG");
+            bg.transform.SetParent(panel.transform, false);
+            var bgRect = bg.AddComponent<RectTransform>();
+            bgRect.anchorMin = Vector2.zero; bgRect.anchorMax = Vector2.one;
+            bgRect.offsetMin = Vector2.zero; bgRect.offsetMax = Vector2.zero;
+            var bgImg = bg.AddComponent<Image>();
+            bgImg.color = new Color(0f, 0f, 0f, 0.55f);
+
             var day = BuildTextChild(panel.transform, "Day", "Ngay 1 (Mon)",
                                       new Vector2(0, 20), new Vector2(280, 30), 18);
             var time = BuildTextChild(panel.transform, "Time", "05:00",
@@ -552,6 +727,15 @@ namespace TrainAI.Editor
             rect.anchorMax = new Vector2(0, 1);
             rect.sizeDelta = new Vector2(300, 100);
             rect.anchoredPosition = new Vector2(170, -60);
+
+            var bg = new GameObject("BG");
+            bg.transform.SetParent(panel.transform, false);
+            var bgRect = bg.AddComponent<RectTransform>();
+            bgRect.anchorMin = Vector2.zero; bgRect.anchorMax = Vector2.one;
+            bgRect.offsetMin = Vector2.zero; bgRect.offsetMax = Vector2.zero;
+            var bgImg = bg.AddComponent<Image>();
+            bgImg.color = new Color(0f, 0f, 0f, 0.55f);
+
             var hocTap = BuildTextChild(panel.transform, "HocTap", "Hoc tap: 0/480",
                                          new Vector2(0, 25), new Vector2(280, 30), 18);
             var renLuyen = BuildTextChild(panel.transform, "RenLuyen", "Ren luyen: 100/100",
@@ -570,6 +754,15 @@ namespace TrainAI.Editor
             rect.anchorMax = new Vector2(1, 0);
             rect.sizeDelta = new Vector2(300, 80);
             rect.anchoredPosition = new Vector2(-170, 100);
+
+            var bg = new GameObject("BG");
+            bg.transform.SetParent(panel.transform, false);
+            var bgRect = bg.AddComponent<RectTransform>();
+            bgRect.anchorMin = Vector2.zero; bgRect.anchorMax = Vector2.one;
+            bgRect.offsetMin = Vector2.zero; bgRect.offsetMax = Vector2.zero;
+            var bgImg = bg.AddComponent<Image>();
+            bgImg.color = new Color(0f, 0f, 0f, 0.65f);
+
             var prompt = BuildTextChild(panel.transform, "Prompt", "Bam E de tuong tac",
                                          new Vector2(0, 0), new Vector2(280, 70), 18);
             var ctrl = panel.AddComponent<UIInteractPromptController>();
@@ -583,17 +776,45 @@ namespace TrainAI.Editor
             var rect = panel.GetComponent<RectTransform>();
             rect.anchorMin = new Vector2(1, 1);
             rect.anchorMax = new Vector2(1, 1);
-            rect.sizeDelta = new Vector2(200, 200);
-            rect.anchoredPosition = new Vector2(-120, -130);
-            var bg = panel.AddComponent<Image>();
-            bg.color = new Color(0, 0, 0, 0.5f);
+            rect.sizeDelta = new Vector2(240, 240);
+            rect.anchoredPosition = new Vector2(-140, -150);
 
+            // Map background (RawImage backed by minimap render-texture).
+            var mapBg = new GameObject("MapImage");
+            mapBg.transform.SetParent(panel.transform, false);
+            var mapRect = mapBg.AddComponent<RectTransform>();
+            mapRect.anchorMin = Vector2.zero; mapRect.anchorMax = Vector2.one;
+            mapRect.offsetMin = Vector2.zero; mapRect.offsetMax = Vector2.zero;
+            var raw = mapBg.AddComponent<RawImage>();
+            raw.color = Color.white;
+            var rt = AssetDatabase.LoadAssetAtPath<RenderTexture>(RTPath);
+            if (rt == null) rt = EnsureMinimapRT();
+            raw.texture = rt;
+
+            // Frame border on top of map.
+            var frame = new GameObject("Frame");
+            frame.transform.SetParent(panel.transform, false);
+            var frRect = frame.AddComponent<RectTransform>();
+            frRect.anchorMin = Vector2.zero; frRect.anchorMax = Vector2.one;
+            frRect.offsetMin = Vector2.zero; frRect.offsetMax = Vector2.zero;
+            var frImg = frame.AddComponent<Image>();
+            frImg.color = new Color(1f, 1f, 1f, 0.18f);
+            frImg.raycastTarget = false;
+
+            // Centered player dot (since minimap camera is parented to player).
             var dotGo = new GameObject("PlayerDot");
             dotGo.transform.SetParent(panel.transform, false);
             var dotRect = dotGo.AddComponent<RectTransform>();
-            dotRect.sizeDelta = new Vector2(10, 10);
+            dotRect.sizeDelta = new Vector2(12, 12);
+            dotRect.anchorMin = new Vector2(0.5f, 0.5f);
+            dotRect.anchorMax = new Vector2(0.5f, 0.5f);
+            dotRect.anchoredPosition = Vector2.zero;
             var dotImg = dotGo.AddComponent<Image>();
-            dotImg.color = Color.green;
+            dotImg.color = new Color(0.20f, 0.95f, 0.30f);
+
+            // Label so the player knows what they're looking at.
+            BuildTextChild(panel.transform, "Label", "Ban do",
+                           new Vector2(0, -110), new Vector2(200, 22), 14);
 
             var ctrl = panel.AddComponent<UIMiniMapController>();
             AssignSerialized(ctrl, "mapRect", rect);
