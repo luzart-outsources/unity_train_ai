@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TrainAI.Core;
 using TrainAI.SO.Base;
 using UnityEngine;
 
@@ -37,11 +38,11 @@ namespace TrainAI.Services
             if (_accumulator < kTickIntervalSec) return;
             float tickDt = _accumulator;
             _accumulator = 0f;
-            object worker = _sentis != null && _sentis.IsReady ? (object)_sentis.SoldierWorker : null;
+            object payload = _sentis != null && _sentis.IsReady ? (object)_sentis : null;
             foreach (var kvp in _agents)
             {
                 if (kvp.Key == null) continue;
-                kvp.Value?.Tick(worker, tickDt);
+                kvp.Value?.Tick(payload, tickDt);
             }
         }
     }

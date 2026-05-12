@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TrainAI.Core;
 using TrainAI.SO.Base;
 using UnityEngine;
 
@@ -29,6 +30,8 @@ namespace TrainAI.Services
         [Header("Models + Responses")]
         public Unity.InferenceEngine.ModelAsset intentModel;
         public Unity.InferenceEngine.ModelAsset soldierModel;
+        public TextAsset intentMetaJson;
+        public TextAsset responsesJson;
         public ResponseTemplatesSO responseTemplates;
 
         [Header("Rules")]
@@ -53,7 +56,11 @@ namespace TrainAI.Services
         {
             if (IsBootstrapped) return;
 
-            Sentis = new SentisRuntimeStub();
+            BackendKind backend = gameConfig != null ? gameConfig.preferredBackend : BackendKind.GPUCompute;
+            if (intentModel != null || soldierModel != null)
+                Sentis = new TrainAI.Sentis.SentisRuntime(intentModel, soldierModel, intentMetaJson, responsesJson, backend);
+            else
+                Sentis = new SentisRuntimeStub();
 
             UI = new UIRouter();
             Scenes = new SceneRouter(UI);
@@ -63,7 +70,7 @@ namespace TrainAI.Services
             Quests = new QuestRouter(dayDB, activeQuest, clock, dayProgress, Score);
 
             Movement = new MovementService(Sentis);
-            Dialogue = new DialogueService(Quests, playerState, responseTemplates, Sentis);
+            Dialogue = new DialogueService(Quests, playerState, responseTemplates, Sentis, areaDB);
             NPCs = new NPCDirector(npcDB, Movement, clock);
 
             Interactions = new InteractionRouter(Quests, UI);

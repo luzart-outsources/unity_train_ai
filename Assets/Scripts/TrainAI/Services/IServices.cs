@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Unity.InferenceEngine;
 using UnityEngine;
 using TrainAI.SO.Base;
 
@@ -82,13 +80,6 @@ namespace TrainAI.Services
     {
         bool Save(int slot = 1);
         bool TryLoad(int slot, out SaveDTO dto);
-    }
-
-    public interface ISentisRuntime : IDisposable
-    {
-        bool IsReady { get; }
-        Worker IntentWorker { get; }
-        Worker SoldierWorker { get; }
     }
 
     public struct QuizResult
