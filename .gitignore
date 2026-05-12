@@ -76,3 +76,8 @@ AI_Training/phase_a_sentis/models/eval_realworld.json
 
 # Unity batch-compile logs (regenerable)
 compile_*.log
+master_*.log
+
+# Claude Code project-local MCP config (contains user-specific absolute paths)
+.mcp.json
+.claude/
