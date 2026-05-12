@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using TrainAI.SO.Base;
 using UnityEngine;
 
 namespace TrainAI.Services
@@ -5,9 +7,77 @@ namespace TrainAI.Services
     [CreateAssetMenu(fileName = "ServiceLocator", menuName = "TrainAI/Service Locator")]
     public class ServiceLocatorSO : ScriptableObject
     {
+        [Header("Config")]
+        public GameConfigSO gameConfig;
+        public TimeConfigSO timeConfig;
+
+        [Header("Runtime State")]
+        public PlayerStateRSO playerState;
+        public GameClockRSO clock;
+        public ActiveQuestRSO activeQuest;
+        public DayProgressRSO dayProgress;
+
+        [Header("Databases")]
+        public QuestDB questDB;
+        public NPCDB npcDB;
+        public InteractableDB interactDB;
+        public DayDB dayDB;
+        public QuizDB quizDB;
+        public AreaDB areaDB;
+        public SubjectDB subjectDB;
+
+        [Header("Models + Responses")]
+        public Unity.InferenceEngine.ModelAsset intentModel;
+        public Unity.InferenceEngine.ModelAsset soldierModel;
+        public ResponseTemplatesSO responseTemplates;
+
+        [Header("Rules")]
+        public List<ScoreRuleSO> scoreRules = new();
+        public EndingRuleSO endingRule;
+
+        public IGameClock Clock { get; private set; }
+        public IQuestRouter Quests { get; private set; }
+        public ISceneRouter Scenes { get; private set; }
+        public IScoreSystem Score { get; private set; }
+        public IInteractionRouter Interactions { get; private set; }
+        public INPCDirector NPCs { get; private set; }
+        public IDialogueService Dialogue { get; private set; }
+        public IMovementService Movement { get; private set; }
+        public IUIRouter UI { get; private set; }
+        public ISaveService Save { get; private set; }
+        public ISentisRuntime Sentis { get; private set; }
+
+        public bool IsBootstrapped { get; private set; }
+
         public void Bootstrap()
         {
-            Debug.Log("[ServiceLocator] Bootstrap stub - no services wired yet.");
+            if (IsBootstrapped) return;
+
+            Sentis = new SentisRuntimeStub();
+
+            UI = new UIRouter();
+            Scenes = new SceneRouter(UI);
+
+            Score = new ScoreSystem(playerState, gameConfig, scoreRules);
+            Clock = new GameClockService(timeConfig, clock, gameConfig);
+            Quests = new QuestRouter(dayDB, activeQuest, clock, dayProgress, Score);
+
+            Movement = new MovementService(Sentis);
+            Dialogue = new DialogueService(Quests, playerState, responseTemplates, Sentis);
+            NPCs = new NPCDirector(npcDB, Movement, clock);
+
+            Interactions = new InteractionRouter(Quests, UI);
+            Save = new SaveService(playerState, clock, dayProgress);
+
+            IsBootstrapped = true;
+            Debug.Log("[ServiceLocator] Bootstrap done. 11 services online.");
+        }
+
+        public void Shutdown()
+        {
+            if (!IsBootstrapped) return;
+            Sentis?.Dispose();
+            IsBootstrapped = false;
         }
     }
 }

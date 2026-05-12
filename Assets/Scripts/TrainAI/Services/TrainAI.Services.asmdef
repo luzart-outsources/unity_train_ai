@@ -6,6 +6,7 @@
         "TrainAI.SO.Base",
         "TrainAI.SO.Concrete",
         "TrainAI.Sentis",
+        "Unity.InferenceEngine",
         "UniTask"
     ],
     "includePlatforms": [],
