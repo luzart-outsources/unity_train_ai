@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7a69e625d079c44a2dd11bfc26176e, type: 3}
+  m_Name: QuizSet_LichSu_3
+  m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.QuizSetSO
+  subject: {fileID: 11400000, guid: 2de99d21124edf74db6ec6bb2e653270, type: 2}
+  questions:
+  - {fileID: 11400000, guid: 4251cfdb63d841b4b908d7daa33a57aa, type: 2}
+  - {fileID: 11400000, guid: e3faa10a14aad7f40a231eb5f280f62c, type: 2}
+  - {fileID: 11400000, guid: bbb66b80649b85748ba6b9c70917e7c9, type: 2}
+  - {fileID: 11400000, guid: e7a54219ba38ced478a74778ec39db25, type: 2}
+  - {fileID: 11400000, guid: 31a06f850387cc942b772c504f2136df, type: 2}
+  - {fileID: 11400000, guid: 7042589b91f89154ebc7a57fd6c6ace9, type: 2}
+  - {fileID: 11400000, guid: 051ba2aa66a44c04ea9bd0cf8031a3f9, type: 2}
+  - {fileID: 11400000, guid: 7e199613b7d54ca489fc11ed8734071c, type: 2}
+  - {fileID: 11400000, guid: 7d42efe5014976f4fbf5fa21b83ba8c9, type: 2}
+  - {fileID: 11400000, guid: 6e0677383b4333b40ac6385296c4cee0, type: 2}
+  perQuestionSec: 15

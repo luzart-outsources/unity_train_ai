@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b67bd9403a33fed4abd96e0c43cbe6e4, type: 3}
+  m_Name: Day_26
+  m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.DaySO
+  dayIndex: 26
+  weekday: 1
+  quests:
+  - {fileID: 11400000, guid: 86c08ecc01c5ecc49af554551fcd0e37, type: 2}
+  - {fileID: 11400000, guid: d537ec79ea6907f4e8c50706dcbff4df, type: 2}
+  - {fileID: 11400000, guid: 7d33098826b7b654c913c24b1d5a18ff, type: 2}
+  - {fileID: 11400000, guid: 7ee9bc3dbc547a94f9592127ea080c7a, type: 2}
+  - {fileID: 11400000, guid: 37a034468efa3054f830b06ae5fd9bf8, type: 2}
+  - {fileID: 11400000, guid: 9d870783002479d49b9e8c8174f56914, type: 2}
+  - {fileID: 11400000, guid: 774c18e67d17d24489a02d7fe2cb0d7c, type: 2}
+  - {fileID: 11400000, guid: 19119f4b8147bb347a3da56591e6d9a0, type: 2}

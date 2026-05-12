@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af63d6002a24b3947ae5f0a5101eca3e, type: 3}
+  m_Name: Movement_NavMesh
+  m_EditorClassIdentifier: TrainAI.SO.Concrete::TrainAI.SO.Concrete.NavMeshMovementSO
+  speed: 2.5
+  angularSpeed: 180
+  stoppingDistance: 0.3

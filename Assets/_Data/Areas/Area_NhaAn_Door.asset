@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d46c7c1e0e8ba42b516bb2929bd398, type: 3}
+  m_Name: Area_NhaAn_Door
+  m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.AreaSO
+  id: NhaAn_Door
+  worldPos: {x: 10, y: 0, z: -8}
+  size: {x: 1.5, y: 2.5, z: 0.5}
+  scene: {fileID: 11400000, guid: 427788fcbd612044bb234e641066aef5, type: 2}
+  subScene: {fileID: 11400000, guid: 6b11fec651d475f408b51abb68c8d1da, type: 2}

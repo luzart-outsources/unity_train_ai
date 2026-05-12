@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9b77ceb9f956d4e863e33ac3b57905, type: 3}
+  m_Name: ServiceLocator
+  m_EditorClassIdentifier: TrainAI.Services::TrainAI.Services.ServiceLocatorSO
+  gameConfig: {fileID: 11400000, guid: 45ff185ac2e172940949def9084b822a, type: 2}
+  timeConfig: {fileID: 11400000, guid: 3953f248c9f323f43a65dad68e0126c9, type: 2}
+  playerState: {fileID: 11400000, guid: b7ffba998e3be3d41aa6921fbc42f6a7, type: 2}
+  clock: {fileID: 11400000, guid: d8cc3b5afc010804e8a9f7410864b17d, type: 2}
+  activeQuest: {fileID: 11400000, guid: 0347a92c280cea04fb89ab5607939cff, type: 2}
+  dayProgress: {fileID: 11400000, guid: 2f44d018559a0fe4192e711ca4ec2fcd, type: 2}
+  questDB: {fileID: 11400000, guid: 8b8c61d58b8998840a35a881e9603f70, type: 2}
+  npcDB: {fileID: 11400000, guid: 00917fb6438c92445bf663126a8e6f55, type: 2}
+  interactDB: {fileID: 11400000, guid: ea0acb95476f1594a9b78e91e6906cef, type: 2}
+  dayDB: {fileID: 11400000, guid: 6bd617a39d13868478c75dd0c3a05388, type: 2}
+  quizDB: {fileID: 11400000, guid: e78c4d57a8fbfc94b9cf6fab366aa363, type: 2}
+  areaDB: {fileID: 11400000, guid: 1100e6cc7677e344599b71264eeb058c, type: 2}
+  subjectDB: {fileID: 11400000, guid: 4331d6d4a5a8f1e4b84ce7185fa20237, type: 2}
+  intentModel: {fileID: 5022602860645237092, guid: 67ea6c71cbecb09468679e93b3b4dda4, type: 3}
+  soldierModel: {fileID: 5022602860645237092, guid: 1aef3a11923d7cb42ac6ac2476dffb4d, type: 3}
+  intentMetaJson: {fileID: 4900000, guid: 044081e96a9dd934ca40235a2df93b8d, type: 3}
+  responsesJson: {fileID: 4900000, guid: a26783d23f08e8b4a89a380d4658afa2, type: 3}
+  responseTemplates: {fileID: 0}
+  scoreRules:
+  - {fileID: 11400000, guid: 211a416b96a13294a8c2d033707a4093, type: 2}
+  endingRule: {fileID: 11400000, guid: d936b80435964fb419bf26a757332f2b, type: 2}

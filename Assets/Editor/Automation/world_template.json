@@ -1,16 +1,17 @@
-{
-  "_README": "TrainAI world blueprint. Phase 11 SOGenerator reads this and produces SO assets.",
+﻿{
+  "_README": "TrainAI 30-day blueprint (auto-generated). Skip Sat/Sun per spec - all days cycle Mon-Fri only.",
   "areas": [
     { "id": "SanVanDong",  "pos": {"x":-10,"y":0,"z":0},  "size": {"x":25,"y":0.1,"z":15}, "scene": "10_World" },
     { "id": "DonVeSinh",   "pos": {"x":5,"y":0,"z":10},   "size": {"x":8,"y":0.1,"z":6},   "scene": "10_World" },
     { "id": "LopHoc_Door", "pos": {"x":5,"y":0,"z":-8},   "size": {"x":1.5,"y":2.5,"z":0.5},"scene": "10_World", "sub": "11_LopHoc" },
     { "id": "KTX_Door",    "pos": {"x":-5,"y":0,"z":-8},  "size": {"x":1.5,"y":2.5,"z":0.5},"scene": "10_World", "sub": "13_KyTucXa" },
-    { "id": "NhaAn_Door",  "pos": {"x":10,"y":0,"z":-8},  "size": {"x":1.5,"y":2.5,"z":0.5},"scene": "10_World", "sub": "12_NhaAn" }
+    { "id": "NhaAn_Door",  "pos": {"x":10,"y":0,"z":-8},  "size": {"x":1.5,"y":2.5,"z":0.5},"scene": "10_World", "sub": "12_NhaAn" },
+    { "id": "FreeArea",    "pos": {"x":0,"y":0,"z":0},    "size": {"x":1,"y":1,"z":1},      "scene": "10_World" }
   ],
   "subjects": [
-    { "id": "LichSu",       "displayName": "Lich su",       "lessons": 12, "maxPerLesson": 40 },
-    { "id": "GDQuocPhong",  "displayName": "GD Quoc phong", "lessons": 12, "maxPerLesson": 40 },
-    { "id": "ChinhTri",     "displayName": "Chinh tri",     "lessons": 6,  "maxPerLesson": 40 }
+    { "id": "LichSu",       "displayName": "Lich su",       "lessons": 6, "maxPerLesson": 40 },
+    { "id": "GDQuocPhong",  "displayName": "GD Quoc phong", "lessons": 6, "maxPerLesson": 40 },
+    { "id": "ChinhTri",     "displayName": "Chinh tri",     "lessons": 6, "maxPerLesson": 40 }
   ],
   "npcs": [
     { "id": "DaiDoiTruong", "displayName": "Dai doi truong", "pos": {"x":0,"y":0,"z":5}, "movement": "Idle", "dialogue": "Onnx" },
@@ -18,20 +19,321 @@
       "schedule": [
         { "time": "05:00", "area": "SanVanDong" },
         { "time": "06:00", "area": "DonVeSinh" },
-        { "time": "07:30", "area": "LopHoc_Door" }
+        { "time": "07:30", "area": "LopHoc_Door" },
+        { "time": "11:30", "area": "FreeArea" },
+        { "time": "14:00", "area": "LopHoc_Door" },
+        { "time": "18:30", "area": "KTX_Door" }
+      ]
+    },
+    { "id": "HocSinh_02",   "displayName": "Hoc sinh 02",    "pos": {"x":3,"y":0,"z":2}, "movement": "Onnx", "dialogue": "Mock",
+      "schedule": [
+        { "time": "05:00", "area": "SanVanDong" },
+        { "time": "07:00", "area": "NhaAn_Door" },
+        { "time": "07:30", "area": "LopHoc_Door" },
+        { "time": "18:30", "area": "KTX_Door" }
       ]
     }
   ],
   "days": [
     { "day": 1, "weekday": "Monday", "quests": [
-        { "type":"GotoConfirm",     "area":"SanVanDong",   "start":"05:00", "deadline":"05:15", "title":"Tap the duc",  "confirmText":"Ban dang tap the duc." },
-        { "type":"GotoConfirm",     "area":"DonVeSinh",    "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",  "confirmText":"Ban dang don ve sinh." },
-        { "type":"SceneTransition", "area":"NhaAn_Door",   "start":"07:00", "deadline":"07:30", "title":"An sang",      "subscene":"12_NhaAn" },
-        { "type":"Quiz",            "area":"LopHoc_Door",  "start":"07:30", "deadline":"11:30", "title":"Hoc Lich su",  "quizSet":"LichSu_1" },
-        { "type":"FreeRoam",                                "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
-        { "type":"Quiz",            "area":"LopHoc_Door",  "start":"14:00", "deadline":"17:00", "title":"Hoc GDQP",     "quizSet":"GDQuocPhong_1" },
-        { "type":"FreeRoam",                                "start":"17:00", "deadline":"18:30", "title":"Tu do" },
-        { "type":"Sleep",           "area":"KTX_Door",     "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc LichSu b1", "quizSet":"LichSu_1" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc GDQuocPhong b1", "quizSet":"GDQuocPhong_1" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 2, "weekday": "Tuesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc GDQuocPhong b1", "quizSet":"GDQuocPhong_1" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc ChinhTri b1", "quizSet":"ChinhTri_1" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 3, "weekday": "Wednesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc ChinhTri b1", "quizSet":"ChinhTri_1" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc LichSu b2", "quizSet":"LichSu_2" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 4, "weekday": "Thursday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc LichSu b2", "quizSet":"LichSu_2" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc GDQuocPhong b2", "quizSet":"GDQuocPhong_2" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 5, "weekday": "Friday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc GDQuocPhong b2", "quizSet":"GDQuocPhong_2" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc ChinhTri b2", "quizSet":"ChinhTri_2" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 6, "weekday": "Monday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc ChinhTri b2", "quizSet":"ChinhTri_2" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc LichSu b3", "quizSet":"LichSu_3" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 7, "weekday": "Tuesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc LichSu b3", "quizSet":"LichSu_3" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc GDQuocPhong b3", "quizSet":"GDQuocPhong_3" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 8, "weekday": "Wednesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc GDQuocPhong b3", "quizSet":"GDQuocPhong_3" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc ChinhTri b3", "quizSet":"ChinhTri_3" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 9, "weekday": "Thursday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc ChinhTri b3", "quizSet":"ChinhTri_3" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc LichSu b4", "quizSet":"LichSu_4" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 10, "weekday": "Friday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc LichSu b4", "quizSet":"LichSu_4" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc GDQuocPhong b4", "quizSet":"GDQuocPhong_4" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 11, "weekday": "Monday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc GDQuocPhong b4", "quizSet":"GDQuocPhong_4" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc ChinhTri b4", "quizSet":"ChinhTri_4" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 12, "weekday": "Tuesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc ChinhTri b4", "quizSet":"ChinhTri_4" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc LichSu b5", "quizSet":"LichSu_5" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 13, "weekday": "Wednesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc LichSu b5", "quizSet":"LichSu_5" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc GDQuocPhong b5", "quizSet":"GDQuocPhong_5" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 14, "weekday": "Thursday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc GDQuocPhong b5", "quizSet":"GDQuocPhong_5" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc ChinhTri b5", "quizSet":"ChinhTri_5" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 15, "weekday": "Friday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc ChinhTri b5", "quizSet":"ChinhTri_5" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc LichSu b6", "quizSet":"LichSu_6" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 16, "weekday": "Monday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc LichSu b6", "quizSet":"LichSu_6" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc GDQuocPhong b6", "quizSet":"GDQuocPhong_6" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 17, "weekday": "Tuesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc GDQuocPhong b6", "quizSet":"GDQuocPhong_6" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc ChinhTri b6", "quizSet":"ChinhTri_6" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 18, "weekday": "Wednesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc ChinhTri b6", "quizSet":"ChinhTri_6" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc LichSu b1", "quizSet":"LichSu_1" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 19, "weekday": "Thursday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc LichSu b1", "quizSet":"LichSu_1" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc GDQuocPhong b1", "quizSet":"GDQuocPhong_1" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 20, "weekday": "Friday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc GDQuocPhong b1", "quizSet":"GDQuocPhong_1" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc ChinhTri b1", "quizSet":"ChinhTri_1" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 21, "weekday": "Monday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc ChinhTri b1", "quizSet":"ChinhTri_1" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc LichSu b2", "quizSet":"LichSu_2" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 22, "weekday": "Tuesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc LichSu b2", "quizSet":"LichSu_2" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc GDQuocPhong b2", "quizSet":"GDQuocPhong_2" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 23, "weekday": "Wednesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc GDQuocPhong b2", "quizSet":"GDQuocPhong_2" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc ChinhTri b2", "quizSet":"ChinhTri_2" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 24, "weekday": "Thursday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc ChinhTri b2", "quizSet":"ChinhTri_2" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc LichSu b3", "quizSet":"LichSu_3" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 25, "weekday": "Friday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc LichSu b3", "quizSet":"LichSu_3" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc GDQuocPhong b3", "quizSet":"GDQuocPhong_3" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 26, "weekday": "Monday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc GDQuocPhong b3", "quizSet":"GDQuocPhong_3" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc ChinhTri b3", "quizSet":"ChinhTri_3" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 27, "weekday": "Tuesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc ChinhTri b3", "quizSet":"ChinhTri_3" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc LichSu b4", "quizSet":"LichSu_4" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 28, "weekday": "Wednesday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc LichSu b4", "quizSet":"LichSu_4" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc GDQuocPhong b4", "quizSet":"GDQuocPhong_4" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 29, "weekday": "Thursday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc GDQuocPhong b4", "quizSet":"GDQuocPhong_4" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc ChinhTri b4", "quizSet":"ChinhTri_4" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]},
+    { "day": 30, "weekday": "Friday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",  "start":"05:00", "deadline":"05:15", "title":"Tap the duc",   "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",   "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",   "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",  "start":"07:00", "deadline":"07:30", "title":"An sang",       "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"07:30", "deadline":"11:30", "title":"Hoc ChinhTri b4", "quizSet":"ChinhTri_4" },
+        { "type":"FreeRoam",                              "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door", "start":"14:00", "deadline":"17:00", "title":"Hoc LichSu b5", "quizSet":"LichSu_5" },
+        { "type":"FreeRoam",                              "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",    "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
     ]}
   ]
 }

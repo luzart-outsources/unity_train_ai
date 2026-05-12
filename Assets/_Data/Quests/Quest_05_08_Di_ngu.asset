@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bab3ffb371a3aba4dbf6188c736f1380, type: 3}
+  m_Name: Quest_05_08_Di_ngu
+  m_EditorClassIdentifier: TrainAI.SO.Concrete::TrainAI.SO.Concrete.SleepQuestSO
+  id: Q_d05_08
+  title: Di ngu
+  area: {fileID: 11400000, guid: fee5f2e525fe8264c82665b505c3c0b6, type: 2}
+  window:
+    startHour: 18
+    startMinute: 30
+    endHour: 23
+    endMinute: 59
+  latePenalty: 5
+  confirmText: Di ngu
+  loadingText: Sang ngay hom sau...

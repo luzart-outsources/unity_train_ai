@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7a69e625d079c44a2dd11bfc26176e, type: 3}
+  m_Name: QuizSet_GDQuocPhong_5
+  m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.QuizSetSO
+  subject: {fileID: 11400000, guid: 96d7e177c57b45941be52a582f4dedb6, type: 2}
+  questions:
+  - {fileID: 11400000, guid: ad7071471dda0d54ebbc038a87f351bb, type: 2}
+  - {fileID: 11400000, guid: be47f6b30fb66b440ad1784e59a2a535, type: 2}
+  - {fileID: 11400000, guid: 34fd5cae483dce44d9d9b4d2acade6bb, type: 2}
+  - {fileID: 11400000, guid: 365cade7ff204a84eb656739a13a15f3, type: 2}
+  - {fileID: 11400000, guid: d6431743f17c3ae4fb03e2a2695ac530, type: 2}
+  - {fileID: 11400000, guid: 3fbdcbe5b21daef4f9b2f77d827c4627, type: 2}
+  - {fileID: 11400000, guid: 3930172cdeab9914f98c15577a6d884a, type: 2}
+  - {fileID: 11400000, guid: 671c95907a3d36e49b9df5b09afa7998, type: 2}
+  - {fileID: 11400000, guid: 8e0a41cff1f8a234fae99337ba5eaf49, type: 2}
+  - {fileID: 11400000, guid: fbdb1633926d8b84584413a9cbefa16f, type: 2}
+  perQuestionSec: 15

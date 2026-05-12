@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda3f74af7966544990ff615b41a037b, type: 3}
+  m_Name: Quest_26_03_An_sang
+  m_EditorClassIdentifier: TrainAI.SO.Concrete::TrainAI.SO.Concrete.SceneTransitionQuestSO
+  id: Q_d26_03
+  title: An sang
+  area: {fileID: 11400000, guid: a448fd906dfd5ae43acfb42724a44ca0, type: 2}
+  window:
+    startHour: 7
+    startMinute: 0
+    endHour: 7
+    endMinute: 30
+  latePenalty: 5
+  subScene: {fileID: 11400000, guid: 6b11fec651d475f408b51abb68c8d1da, type: 2}
+  transitionText: Dang chuyen canh...

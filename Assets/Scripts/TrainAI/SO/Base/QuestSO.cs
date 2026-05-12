@@ -7,7 +7,7 @@ namespace TrainAI.SO.Base
     {
         [Required] public string id;
         public string title;
-        [Required] public AreaSO area;
+        public AreaSO area;
         public TimeRange window;
         public int latePenalty = 5;
 

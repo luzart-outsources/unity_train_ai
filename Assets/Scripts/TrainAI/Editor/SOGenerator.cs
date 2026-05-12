@@ -30,7 +30,7 @@ namespace TrainAI.Editor
             var sceneRefs = GenerateSceneRefs(bp);
             var areas = GenerateAreas(bp, sceneRefs);
             var subjects = GenerateSubjects(bp);
-            var quizzes = GenerateQuizzes(subjects);
+            var quizzes = GenerateQuizzes(bp, subjects);
             GenerateNPCs(bp, areas);
             GenerateDays(bp, areas, quizzes, sceneRefs);
 
@@ -109,13 +109,14 @@ namespace TrainAI.Editor
             return byId;
         }
 
-        static Dictionary<string, QuizSetSO> GenerateQuizzes(Dictionary<string, SubjectSO> subjects)
+        static Dictionary<string, QuizSetSO> GenerateQuizzes(WorldBlueprint bp, Dictionary<string, SubjectSO> subjects)
         {
             var byKey = new Dictionary<string, QuizSetSO>();
-            foreach (var kv in subjects)
+            const int QuestionsPerLesson = 10;
+            foreach (var sBp in bp.subjects)
             {
-                var subj = kv.Value;
-                int lessons = Mathf.Max(1, 1);
+                if (!subjects.TryGetValue(sBp.id, out var subj)) continue;
+                int lessons = Mathf.Max(1, sBp.lessons);
                 for (int i = 1; i <= lessons; i++)
                 {
                     string key = $"{subj.id}_{i}";
@@ -123,6 +124,24 @@ namespace TrainAI.Editor
                     qs.subject = subj;
                     qs.perQuestionSec = 15f;
                     if (qs.questions == null) qs.questions = new List<QuizQuestionSO>();
+                    if (qs.questions.Count == 0)
+                    {
+                        for (int qi = 1; qi <= QuestionsPerLesson; qi++)
+                        {
+                            string qPath = $"{QuizFolder}/Q_{key}_{qi:00}.asset";
+                            var q = BlueprintLoader.CreateOrLoad<QuizQuestionSO>(qPath);
+                            q.question = $"[{subj.displayName} - bai {i}] Cau hoi mau {qi}?";
+                            q.answers = new[] {
+                                "Dap an A (placeholder)",
+                                "Dap an B (placeholder)",
+                                "Dap an C (placeholder)",
+                                "Dap an D (placeholder)"
+                            };
+                            q.correctIndex = (qi - 1) % 4;
+                            EditorUtility.SetDirty(q);
+                            qs.questions.Add(q);
+                        }
+                    }
                     EditorUtility.SetDirty(qs);
                     byKey[key] = qs;
                 }
@@ -178,12 +197,73 @@ namespace TrainAI.Editor
                     QuestSO quest = q.type switch
                     {
                         "GotoConfirm" => BuildGotoConfirm(q, d.day, qi, areas),
+                        "Quiz" => BuildQuiz(q, d.day, qi, areas, quizzes, sceneRefs),
+                        "SceneTransition" => BuildSceneTransition(q, d.day, qi, areas, sceneRefs),
+                        "Sleep" => BuildSleep(q, d.day, qi, areas),
+                        "FreeRoam" => BuildFreeRoam(q, d.day, qi, areas),
                         _ => BuildGotoConfirm(q, d.day, qi, areas)
                     };
                     if (quest != null) day.quests.Add(quest);
                 }
                 EditorUtility.SetDirty(day);
             }
+        }
+
+        static QuestSO BuildQuiz(QuestBlueprint q, int day, int qi,
+                                 Dictionary<string, AreaSO> areas,
+                                 Dictionary<string, QuizSetSO> quizzes,
+                                 Dictionary<string, SceneRefSO> sceneRefs)
+        {
+            var path = $"{QuestFolder}/Quest_{day:00}_{qi:00}_{Safe(q.title)}.asset";
+            var asset = BlueprintLoader.CreateOrLoad<QuizQuestSO>(path);
+            ApplyCommon(asset, q, day, qi, areas);
+            if (!string.IsNullOrEmpty(q.quizSet) && quizzes.TryGetValue(q.quizSet, out var qs))
+                asset.quizSet = qs;
+            if (sceneRefs.TryGetValue("11_LopHoc", out var lop)) asset.classroomScene = lop;
+            EditorUtility.SetDirty(asset);
+            return asset;
+        }
+
+        static QuestSO BuildSceneTransition(QuestBlueprint q, int day, int qi,
+                                            Dictionary<string, AreaSO> areas,
+                                            Dictionary<string, SceneRefSO> sceneRefs)
+        {
+            var path = $"{QuestFolder}/Quest_{day:00}_{qi:00}_{Safe(q.title)}.asset";
+            var asset = BlueprintLoader.CreateOrLoad<SceneTransitionQuestSO>(path);
+            ApplyCommon(asset, q, day, qi, areas);
+            if (!string.IsNullOrEmpty(q.subscene) && sceneRefs.TryGetValue(q.subscene, out var sub))
+                asset.subScene = sub;
+            EditorUtility.SetDirty(asset);
+            return asset;
+        }
+
+        static QuestSO BuildSleep(QuestBlueprint q, int day, int qi, Dictionary<string, AreaSO> areas)
+        {
+            var path = $"{QuestFolder}/Quest_{day:00}_{qi:00}_{Safe(q.title)}.asset";
+            var asset = BlueprintLoader.CreateOrLoad<SleepQuestSO>(path);
+            ApplyCommon(asset, q, day, qi, areas);
+            EditorUtility.SetDirty(asset);
+            return asset;
+        }
+
+        static QuestSO BuildFreeRoam(QuestBlueprint q, int day, int qi, Dictionary<string, AreaSO> areas)
+        {
+            var path = $"{QuestFolder}/Quest_{day:00}_{qi:00}_{Safe(q.title)}.asset";
+            var asset = BlueprintLoader.CreateOrLoad<FreeRoamQuestSO>(path);
+            ApplyCommon(asset, q, day, qi, areas);
+            EditorUtility.SetDirty(asset);
+            return asset;
+        }
+
+        static void ApplyCommon(QuestSO asset, QuestBlueprint q, int day, int qi,
+                                Dictionary<string, AreaSO> areas)
+        {
+            asset.id = $"Q_d{day:00}_{qi:00}";
+            asset.title = q.title ?? "";
+            asset.latePenalty = 5;
+            if (!string.IsNullOrEmpty(q.area) && areas.TryGetValue(q.area, out var area)) asset.area = area;
+            if (ParseTime(q.start, out int sh, out int sm) && ParseTime(q.deadline, out int eh, out int em))
+                asset.window = new TimeRange(sh, sm, eh, em);
         }
 
         static QuestSO BuildGotoConfirm(QuestBlueprint q, int day, int qi, Dictionary<string, AreaSO> areas)

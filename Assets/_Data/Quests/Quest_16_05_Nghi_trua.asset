@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7859a81d4b15d408b463901336358e, type: 3}
+  m_Name: Quest_16_05_Nghi_trua
+  m_EditorClassIdentifier: TrainAI.SO.Concrete::TrainAI.SO.Concrete.FreeRoamQuestSO
+  id: Q_d16_05
+  title: Nghi trua
+  area: {fileID: 0}
+  window:
+    startHour: 11
+    startMinute: 30
+    endHour: 14
+    endMinute: 0
+  latePenalty: 5

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7a69e625d079c44a2dd11bfc26176e, type: 3}
+  m_Name: QuizSet_ChinhTri_2
+  m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.QuizSetSO
+  subject: {fileID: 11400000, guid: ad66b23fa80962a4cb7a99cfb3513728, type: 2}
+  questions:
+  - {fileID: 11400000, guid: fb6e8e7871e577342a409cdc91ba1218, type: 2}
+  - {fileID: 11400000, guid: e8a94a8b30b017f4a977f625318b9ba4, type: 2}
+  - {fileID: 11400000, guid: 96a221c41fee5c446bb2deb2e828a182, type: 2}
+  - {fileID: 11400000, guid: d0417037b0e329141aa7499e539ec114, type: 2}
+  - {fileID: 11400000, guid: bdd1882d2fd210841a62e951a244bf75, type: 2}
+  - {fileID: 11400000, guid: 1bbe8172f8943ca45aefc1abd5dd296b, type: 2}
+  - {fileID: 11400000, guid: ed3240dfbb656764d8d56924a75167e4, type: 2}
+  - {fileID: 11400000, guid: 9b03d0566a41c194c926f8f75517b432, type: 2}
+  - {fileID: 11400000, guid: 0ed0557a1a073a341bc329740c22854e, type: 2}
+  - {fileID: 11400000, guid: 809b26692f96bee41935cd51ee363d3c, type: 2}
+  perQuestionSec: 15
