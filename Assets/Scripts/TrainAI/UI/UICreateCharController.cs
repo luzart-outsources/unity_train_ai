@@ -13,7 +13,9 @@ namespace TrainAI.UI
         [SerializeField] Button confirmButton;
         [SerializeField] ServiceLocatorSO services;
         [SerializeField] PlayerStateRSO playerState;
+        [SerializeField] GameClockRSO clock;
         [SerializeField] SceneRefSO worldScene;
+        [SerializeField] int startDay = 1;
 
         protected override void Awake()
         {
@@ -32,9 +34,11 @@ namespace TrainAI.UI
                 if (services != null && services.UI != null) await services.UI.ShowConfirm("Vui long dien ten.");
                 return;
             }
-            if (playerState != null) playerState.playerName = name;
+            if (playerState != null) { playerState.Reset(); playerState.playerName = name; }
+            if (clock != null) clock.Reset();
             if (services != null && services.Scenes != null && worldScene != null)
                 await services.Scenes.LoadSingle(worldScene);
+            services?.Quests?.StartDay(startDay);
         }
     }
 }

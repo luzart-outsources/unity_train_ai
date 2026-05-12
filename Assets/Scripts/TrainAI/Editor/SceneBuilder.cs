@@ -105,8 +105,8 @@ namespace TrainAI.Editor
             var loop = bootGo.AddComponent<GameLoopDriver>();
             AssignSerialized(entry, "services", locator);
             AssignSerialized(loop, "services", locator);
-            AssignSerialized(entry, "worldScene",
-                LoadAsset<SceneRefSO>("Assets/_Data/Scenes/SceneRef_10_World.asset"));
+            AssignSerialized(entry, "firstScene",
+                LoadAsset<SceneRefSO>("Assets/_Data/Scenes/SceneRef_01_MainMenu.asset"));
 
             BuildPersistentUI(locator);
         }
@@ -185,6 +185,7 @@ namespace TrainAI.Editor
             var ctrl = canvas.AddComponent<UICreateCharController>();
             AssignSerialized(ctrl, "services", locator);
             AssignSerialized(ctrl, "playerState", locator != null ? locator.playerState : null);
+            AssignSerialized(ctrl, "clock", locator != null ? locator.clock : null);
             AssignSerialized(ctrl, "nameInput", input);
             AssignSerialized(ctrl, "confirmButton", confirmBtn);
             AssignSerialized(ctrl, "worldScene",

@@ -39,6 +39,7 @@ namespace TrainAI.UI
                 return;
             }
             if (worldScene != null) await services.Scenes.LoadSingle(worldScene);
+            services.Quests?.StartDay(services.clock != null ? services.clock.day : 1);
         }
 
         void OnExit()

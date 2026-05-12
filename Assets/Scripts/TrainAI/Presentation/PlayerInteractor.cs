@@ -9,25 +9,11 @@ namespace TrainAI.Presentation
 {
     public class PlayerInteractor : MonoBehaviour
     {
-        [SerializeField] float facingDot = 0.5f;
-        [SerializeField] InputActionReference interactAction;
+        [SerializeField] float facingDot = 0.3f;
+        [SerializeField] Key interactKey = Key.E;
 
         readonly HashSet<InteractableMarker> _inRange = new();
         InteractableMarker _current;
-
-        void OnEnable()
-        {
-            interactAction?.action?.Enable();
-            if (interactAction != null && interactAction.action != null)
-                interactAction.action.performed += OnInteract;
-        }
-
-        void OnDisable()
-        {
-            if (interactAction != null && interactAction.action != null)
-                interactAction.action.performed -= OnInteract;
-            interactAction?.action?.Disable();
-        }
 
         void OnTriggerEnter(Collider other)
         {
@@ -59,12 +45,10 @@ namespace TrainAI.Presentation
                 float d = Vector3.Dot(transform.forward, toIt.normalized);
                 if (d > best) { best = d; _current = m; }
             }
-        }
 
-        void OnInteract(InputAction.CallbackContext _)
-        {
-            if (_current == null || _current.interactable == null) return;
-            BroadcastService.Send(new InteractPressedMsg(_current.interactable));
+            var kb = Keyboard.current;
+            if (kb != null && kb[interactKey].wasPressedThisFrame && _current != null && _current.interactable != null)
+                BroadcastService.Send(new InteractPressedMsg(_current.interactable));
         }
     }
 }

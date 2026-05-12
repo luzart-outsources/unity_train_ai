@@ -12,10 +12,6 @@ namespace TrainAI.Presentation
         [SerializeField] float gravity = -12f;
         [SerializeField] PlayerStateRSO playerState;
 
-        [Header("Input (Input System)")]
-        [SerializeField] InputActionReference moveAction;
-        [SerializeField] InputActionReference lookAction;
-
         [Header("Camera")]
         [SerializeField] Transform cameraRig;
 
@@ -24,22 +20,9 @@ namespace TrainAI.Presentation
 
         void Awake() { _cc = GetComponent<CharacterController>(); }
 
-        void OnEnable()
-        {
-            moveAction?.action?.Enable();
-            lookAction?.action?.Enable();
-        }
-
-        void OnDisable()
-        {
-            moveAction?.action?.Disable();
-            lookAction?.action?.Disable();
-        }
-
         void Update()
         {
-            Vector2 input = moveAction != null && moveAction.action != null
-                ? moveAction.action.ReadValue<Vector2>() : Vector2.zero;
+            Vector2 input = ReadMove();
 
             Vector3 forward = cameraRig != null
                 ? Vector3.ProjectOnPlane(cameraRig.forward, Vector3.up).normalized
@@ -56,10 +39,25 @@ namespace TrainAI.Presentation
             _velocity.x = wish.x;
             _velocity.z = wish.z;
             _velocity.y = _cc.isGrounded ? -1f : _velocity.y + gravity * Time.deltaTime;
-
             _cc.Move(_velocity * Time.deltaTime);
 
             if (playerState != null) playerState.lastWorldPos = transform.position;
+        }
+
+        static Vector2 ReadMove()
+        {
+            Vector2 v = Vector2.zero;
+            var kb = Keyboard.current;
+            if (kb != null)
+            {
+                if (kb.wKey.isPressed || kb.upArrowKey.isPressed)    v.y += 1f;
+                if (kb.sKey.isPressed || kb.downArrowKey.isPressed)  v.y -= 1f;
+                if (kb.aKey.isPressed || kb.leftArrowKey.isPressed)  v.x -= 1f;
+                if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) v.x += 1f;
+            }
+            var gp = Gamepad.current;
+            if (gp != null && v == Vector2.zero) v = gp.leftStick.ReadValue();
+            return Vector2.ClampMagnitude(v, 1f);
         }
     }
 }

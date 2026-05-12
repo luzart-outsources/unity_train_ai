@@ -186,8 +186,6 @@ MonoBehaviour:
   moveSpeed: 4
   gravity: -12
   playerState: {fileID: 0}
-  moveAction: {fileID: 0}
-  lookAction: {fileID: 0}
   cameraRig: {fileID: 0}
 --- !u!114 &7587252695540481072
 MonoBehaviour:
@@ -201,5 +199,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304fac9c53bb21447b68a8584af81891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: TrainAI.Presentation::TrainAI.Presentation.PlayerInteractor
-  facingDot: 0.5
-  interactAction: {fileID: 0}
+  facingDot: 0.3
+  interactKey: 19
