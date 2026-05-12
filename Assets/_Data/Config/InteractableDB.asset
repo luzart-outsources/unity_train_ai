@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76092dc8e416d7d4cbc05e57e85346bd, type: 3}
   m_Name: InteractableDB
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.InteractableDB
-  all: []
+  all:
+  - {fileID: 11400000, guid: 841d01aab52564c4db894e2ebba632ba, type: 2}
+  - {fileID: 11400000, guid: 58463c27f1f8f2147babe254f27e6dbb, type: 2}
+  - {fileID: 11400000, guid: 4147099281e109443ad849cf1e4601df, type: 2}
+  - {fileID: 11400000, guid: b914cf5de99505c4ea67aa092450705c, type: 2}
+  - {fileID: 11400000, guid: 7193080aae327e9479e1843dd455bfa9, type: 2}
+  - {fileID: 11400000, guid: b6a92fa1d0383f8459c02689bf870835, type: 2}

@@ -9,7 +9,9 @@
         "TrainAI.Services",
         "TrainAI.Presentation",
         "TrainAI.UI",
-        "Unity.InferenceEngine"
+        "Unity.InferenceEngine",
+        "Unity.TextMeshPro",
+        "Unity.InputSystem"
     ],
     "includePlatforms": ["Editor"],
     "excludePlatforms": [],

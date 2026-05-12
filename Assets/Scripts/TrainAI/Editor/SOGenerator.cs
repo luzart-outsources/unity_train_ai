@@ -33,6 +33,7 @@ namespace TrainAI.Editor
             var quizzes = GenerateQuizzes(bp, subjects);
             GenerateNPCs(bp, areas);
             GenerateDays(bp, areas, quizzes, sceneRefs);
+            GenerateInteractables(bp, areas, sceneRefs);
 
             AutoPopulateDBs();
 
@@ -264,6 +265,47 @@ namespace TrainAI.Editor
             if (!string.IsNullOrEmpty(q.area) && areas.TryGetValue(q.area, out var area)) asset.area = area;
             if (ParseTime(q.start, out int sh, out int sm) && ParseTime(q.deadline, out int eh, out int em))
                 asset.window = new TimeRange(sh, sm, eh, em);
+        }
+
+        const string InteractFolder = "Assets/_Data/Interactables";
+
+        static void GenerateInteractables(WorldBlueprint bp, Dictionary<string, AreaSO> areas,
+                                          Dictionary<string, SceneRefSO> sceneRefs)
+        {
+            if (!AssetDatabase.IsValidFolder(InteractFolder))
+                AssetDatabase.CreateFolder("Assets/_Data", "Interactables");
+
+            foreach (var a in bp.areas)
+            {
+                if (!areas.TryGetValue(a.id, out var area)) continue;
+                var path = $"{InteractFolder}/Interactable_{a.id}.asset";
+                var inter = BlueprintLoader.CreateOrLoad<InteractableSO>(path);
+                inter.id = $"I_{a.id}";
+                inter.area = area;
+
+                InteractionSO action = null;
+                if (!string.IsNullOrEmpty(a.sub) && sceneRefs.TryGetValue(a.sub, out var subScene))
+                {
+                    var actPath = $"Assets/_Data/Strategies/Interact_SceneTo_{a.sub}.asset";
+                    var st = BlueprintLoader.CreateOrLoad<SceneTransitionInteractionSO>(actPath);
+                    st.targetScene = subScene;
+                    st.transitionText = $"Dang vao {a.sub}...";
+                    st.promptText = $"Bam E de vao {a.id}";
+                    EditorUtility.SetDirty(st);
+                    action = st;
+                }
+                else
+                {
+                    var actPath = $"Assets/_Data/Strategies/Interact_Confirm_{a.id}.asset";
+                    var cf = BlueprintLoader.CreateOrLoad<OpenConfirmInteractionSO>(actPath);
+                    cf.confirmText = $"Ban dang o khu {a.id}.";
+                    cf.promptText = $"Bam E de tuong tac {a.id}";
+                    EditorUtility.SetDirty(cf);
+                    action = cf;
+                }
+                inter.onInteract = action;
+                EditorUtility.SetDirty(inter);
+            }
         }
 
         static QuestSO BuildGotoConfirm(QuestBlueprint q, int day, int qi, Dictionary<string, AreaSO> areas)

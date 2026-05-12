@@ -17,6 +17,7 @@ namespace TrainAI.Editor
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Validator.ValidateAll();
+            SmokeTest.Run();
             Debug.Log("[MasterBuilder] === DONE ===");
         }
     }
