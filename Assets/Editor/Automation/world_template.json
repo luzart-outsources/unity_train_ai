@@ -1,0 +1,37 @@
+{
+  "_README": "TrainAI world blueprint. Phase 11 SOGenerator reads this and produces SO assets.",
+  "areas": [
+    { "id": "SanVanDong",  "pos": {"x":-10,"y":0,"z":0},  "size": {"x":25,"y":0.1,"z":15}, "scene": "10_World" },
+    { "id": "DonVeSinh",   "pos": {"x":5,"y":0,"z":10},   "size": {"x":8,"y":0.1,"z":6},   "scene": "10_World" },
+    { "id": "LopHoc_Door", "pos": {"x":5,"y":0,"z":-8},   "size": {"x":1.5,"y":2.5,"z":0.5},"scene": "10_World", "sub": "11_LopHoc" },
+    { "id": "KTX_Door",    "pos": {"x":-5,"y":0,"z":-8},  "size": {"x":1.5,"y":2.5,"z":0.5},"scene": "10_World", "sub": "13_KyTucXa" },
+    { "id": "NhaAn_Door",  "pos": {"x":10,"y":0,"z":-8},  "size": {"x":1.5,"y":2.5,"z":0.5},"scene": "10_World", "sub": "12_NhaAn" }
+  ],
+  "subjects": [
+    { "id": "LichSu",       "displayName": "Lich su",       "lessons": 12, "maxPerLesson": 40 },
+    { "id": "GDQuocPhong",  "displayName": "GD Quoc phong", "lessons": 12, "maxPerLesson": 40 },
+    { "id": "ChinhTri",     "displayName": "Chinh tri",     "lessons": 6,  "maxPerLesson": 40 }
+  ],
+  "npcs": [
+    { "id": "DaiDoiTruong", "displayName": "Dai doi truong", "pos": {"x":0,"y":0,"z":5}, "movement": "Idle", "dialogue": "Onnx" },
+    { "id": "HocSinh_01",   "displayName": "Hoc sinh 01",    "pos": {"x":-3,"y":0,"z":2}, "movement": "Onnx", "dialogue": "Mock",
+      "schedule": [
+        { "time": "05:00", "area": "SanVanDong" },
+        { "time": "06:00", "area": "DonVeSinh" },
+        { "time": "07:30", "area": "LopHoc_Door" }
+      ]
+    }
+  ],
+  "days": [
+    { "day": 1, "weekday": "Monday", "quests": [
+        { "type":"GotoConfirm",     "area":"SanVanDong",   "start":"05:00", "deadline":"05:15", "title":"Tap the duc",  "confirmText":"Ban dang tap the duc." },
+        { "type":"GotoConfirm",     "area":"DonVeSinh",    "start":"06:00", "deadline":"06:30", "title":"Don ve sinh",  "confirmText":"Ban dang don ve sinh." },
+        { "type":"SceneTransition", "area":"NhaAn_Door",   "start":"07:00", "deadline":"07:30", "title":"An sang",      "subscene":"12_NhaAn" },
+        { "type":"Quiz",            "area":"LopHoc_Door",  "start":"07:30", "deadline":"11:30", "title":"Hoc Lich su",  "quizSet":"LichSu_1" },
+        { "type":"FreeRoam",                                "start":"11:30", "deadline":"14:00", "title":"Nghi trua" },
+        { "type":"Quiz",            "area":"LopHoc_Door",  "start":"14:00", "deadline":"17:00", "title":"Hoc GDQP",     "quizSet":"GDQuocPhong_1" },
+        { "type":"FreeRoam",                                "start":"17:00", "deadline":"18:30", "title":"Tu do" },
+        { "type":"Sleep",           "area":"KTX_Door",     "start":"18:30", "deadline":"23:59", "title":"Di ngu" }
+    ]}
+  ]
+}

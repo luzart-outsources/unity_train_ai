@@ -15,6 +15,7 @@ namespace TrainAI.UI
         [SerializeField] UILoadingController loading;
         [SerializeField] UIEndingController ending;
         [SerializeField] UIExpelController expel;
+        [SerializeField] UIQuizController quiz;
 
         void Awake() { if (services != null) services.OverrideUI(this); }
 
@@ -22,7 +23,8 @@ namespace TrainAI.UI
             => confirm != null ? confirm.ShowAsync(text) : UniTask.FromResult(true);
 
         public UniTask<QuizResult> ShowQuiz(QuizSetSO set)
-            => UniTask.FromResult(new QuizResult { correctCount = 0, totalCount = set != null ? set.questions.Count : 0 });
+            => quiz != null ? quiz.ShowAsync(set)
+                : UniTask.FromResult(new QuizResult { correctCount = 0, totalCount = set != null ? set.questions.Count : 0 });
 
         public UniTask ShowLoading(string text, float seconds = 3f)
             => loading != null ? loading.ShowAsync(text, seconds) : UniTask.Delay((int)(seconds * 1000));

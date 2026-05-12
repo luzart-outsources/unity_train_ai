@@ -1,3 +1,4 @@
+using TrainAI.Core;
 using UnityEngine;
 
 namespace TrainAI.SO.Base

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TrainAI.SO.Base
+namespace TrainAI.Core
 {
     public interface IMovementAgent
     {

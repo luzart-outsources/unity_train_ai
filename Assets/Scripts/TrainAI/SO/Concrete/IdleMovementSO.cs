@@ -1,4 +1,5 @@
 using UnityEngine;
+using TrainAI.Core;
 using TrainAI.SO.Base;
 
 namespace TrainAI.SO.Concrete
