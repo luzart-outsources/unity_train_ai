@@ -315,6 +315,10 @@ namespace TrainAI.Editor
                     var marker = cube.AddComponent<InteractableMarker>();
                     AssignSerialized(marker, "interactable", inter);
 
+                    // Tall building behind door areas so the world has visible architecture.
+                    if (IsDoor(a.id))
+                        BuildDoorBuilding(a);
+
                     Material areaMat = IsDoor(a.id) ? MaterialPalette.Door(MaterialFolder)
                                      : IsFreeArea(a.id) ? MaterialPalette.FreeArea(MaterialFolder)
                                      : MaterialPalette.Area(MaterialFolder);
@@ -439,13 +443,42 @@ namespace TrainAI.Editor
         // ====================================================================
         // sub-scenes
         // ====================================================================
-        static void BuildSubScene(string sceneName, ServiceLocatorSO locator)
+static void BuildSubScene(string sceneName, ServiceLocatorSO locator)
         {
+            // Floor: 20x20 colored tile.
             var floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
             floor.name = $"Floor_{sceneName}";
             floor.transform.localScale = new Vector3(2, 1, 2);
             ApplyMaterial(floor, MaterialPalette.Ground(MaterialFolder));
 
+            // Walls (4): wrap the room so it feels enclosed.
+            BuildWall(new Vector3(0, 1.5f,  10), new Vector3(20, 3, 0.4f), "Wall_N");
+            BuildWall(new Vector3(0, 1.5f, -10), new Vector3(20, 3, 0.4f), "Wall_S");
+            BuildWall(new Vector3( 10, 1.5f, 0), new Vector3(0.4f, 3, 20), "Wall_E");
+            BuildWall(new Vector3(-10, 1.5f, 0), new Vector3(0.4f, 3, 20), "Wall_W");
+
+            // Player spawn marker (small) so the player starts in front of the door.
+            var spawn = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            spawn.name = "PlayerSpawn";
+            spawn.transform.position = new Vector3(0, -0.5f, -8);
+            spawn.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            GameObject.DestroyImmediate(spawn.GetComponent<Collider>());
+
+            // Themed furniture per scene.
+            switch (sceneName)
+            {
+                case "11_LopHoc":
+                    BuildLopHoc();
+                    break;
+                case "12_NhaAn":
+                    BuildNhaAn();
+                    break;
+                case "13_KyTucXa":
+                    BuildKyTucXa();
+                    break;
+            }
+
+            // Center interactable (front-of-room) for the gameplay loop's main action.
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.name = "Interactable_Center";
             cube.transform.position = new Vector3(0, 0.5f, 2);
@@ -454,7 +487,110 @@ namespace TrainAI.Editor
             box.isTrigger = true;
             cube.AddComponent<InteractableMarker>();
             ApplyMaterial(cube, MaterialPalette.Area(MaterialFolder));
+            BuildSignLabel(cube.transform, sceneName, 0.5f);
         }
+
+static void BuildWall(Vector3 pos, Vector3 scale, string name)
+        {
+            var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            wall.name = name;
+            wall.transform.position = pos;
+            wall.transform.localScale = scale;
+            ApplyMaterial(wall, MaterialPalette.Door(MaterialFolder));
+        }
+
+        static void BuildBox(Vector3 pos, Vector3 scale, string name, Material mat)
+        {
+            var box = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            box.name = name;
+            box.transform.position = pos;
+            box.transform.localScale = scale;
+            if (mat != null) ApplyMaterial(box, mat);
+        }
+
+        static void BuildLopHoc()
+        {
+            // Blackboard at the front wall.
+            BuildBox(new Vector3(0, 2f, 9.5f), new Vector3(6f, 2f, 0.1f), "Blackboard", MaterialPalette.NpcHat(MaterialFolder));
+            // Teacher desk in front.
+            BuildBox(new Vector3(0, 0.5f, 6.5f), new Vector3(3f, 1f, 1.2f), "TeacherDesk", MaterialPalette.Door(MaterialFolder));
+            // 3x4 grid of student desks + chairs.
+            for (int row = 0; row < 4; row++)
+            for (int col = 0; col < 3; col++)
+            {
+                float x = (col - 1) * 3.0f;
+                float z = 2.0f - row * 2.0f;
+                BuildBox(new Vector3(x, 0.45f, z), new Vector3(1.6f, 0.9f, 0.8f), $"Desk_{row}_{col}", MaterialPalette.Door(MaterialFolder));
+                BuildBox(new Vector3(x, 0.25f, z - 1.0f), new Vector3(0.7f, 0.5f, 0.7f), $"Chair_{row}_{col}", MaterialPalette.NpcHat(MaterialFolder));
+            }
+        }
+
+        static void BuildNhaAn()
+        {
+            // Food counter at the front.
+            BuildBox(new Vector3(0, 0.6f, 7f), new Vector3(8f, 1.2f, 1.5f), "FoodCounter", MaterialPalette.Door(MaterialFolder));
+            BuildBox(new Vector3(0, 1.4f, 8f), new Vector3(8f, 0.4f, 0.2f), "CounterBackboard", MaterialPalette.NpcHat(MaterialFolder));
+            // Trays on counter (yellow strips).
+            for (int i = 0; i < 4; i++)
+                BuildBox(new Vector3(-3f + i * 2f, 1.3f, 6.6f), new Vector3(1.2f, 0.05f, 0.8f), $"Tray_{i}", MaterialPalette.Arrow(MaterialFolder));
+            // Dining tables (5 rows of long tables, with benches).
+            for (int row = 0; row < 3; row++)
+            {
+                float z = 2.0f - row * 3.0f;
+                BuildBox(new Vector3(0, 0.45f, z), new Vector3(12f, 0.9f, 1.2f), $"DiningTable_{row}", MaterialPalette.Door(MaterialFolder));
+                BuildBox(new Vector3(0, 0.22f, z - 1.0f), new Vector3(12f, 0.45f, 0.5f), $"Bench_N_{row}", MaterialPalette.NpcHat(MaterialFolder));
+                BuildBox(new Vector3(0, 0.22f, z + 1.0f), new Vector3(12f, 0.45f, 0.5f), $"Bench_S_{row}", MaterialPalette.NpcHat(MaterialFolder));
+            }
+        }
+
+        static void BuildKyTucXa()
+        {
+            // Two rows of bunk beds along the side walls.
+            for (int i = 0; i < 4; i++)
+            {
+                float z = 6f - i * 4f;
+                // West bunk: lower + upper bed.
+                BuildBox(new Vector3(-7f, 0.5f, z), new Vector3(2.5f, 1f, 3.5f), $"BunkLower_W_{i}", MaterialPalette.Door(MaterialFolder));
+                BuildBox(new Vector3(-7f, 0.95f, z), new Vector3(2.3f, 0.2f, 3.3f), $"PillowSheet_W_{i}", MaterialPalette.Player(MaterialFolder));
+                BuildBox(new Vector3(-7f, 2.0f, z), new Vector3(2.5f, 1f, 3.5f), $"BunkUpper_W_{i}", MaterialPalette.Door(MaterialFolder));
+                // East bunk.
+                BuildBox(new Vector3( 7f, 0.5f, z), new Vector3(2.5f, 1f, 3.5f), $"BunkLower_E_{i}", MaterialPalette.Door(MaterialFolder));
+                BuildBox(new Vector3( 7f, 0.95f, z), new Vector3(2.3f, 0.2f, 3.3f), $"PillowSheet_E_{i}", MaterialPalette.Player(MaterialFolder));
+                BuildBox(new Vector3( 7f, 2.0f, z), new Vector3(2.5f, 1f, 3.5f), $"BunkUpper_E_{i}", MaterialPalette.Door(MaterialFolder));
+            }
+            // Lockers along the back wall.
+            for (int i = 0; i < 6; i++)
+                BuildBox(new Vector3(-6f + i * 2.4f, 1.5f, 9f), new Vector3(2.0f, 3f, 0.6f), $"Locker_{i}", MaterialPalette.NpcHat(MaterialFolder));
+        }
+
+static void BuildDoorBuilding(AreaBlueprint a)
+        {
+            // Sit a 6x4x5 building immediately behind the door (further Z-).
+            Vector3 doorPos = new Vector3(a.pos.x, 0f, a.pos.z);
+            Vector3 buildingPos = doorPos + new Vector3(0f, 2f, -3f);
+            var b = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            b.name = $"Building_{a.id}";
+            b.transform.position = buildingPos;
+            b.transform.localScale = new Vector3(7f, 4f, 5f);
+            ApplyMaterial(b, MaterialPalette.Area(MaterialFolder));
+            // Roof slab.
+            var roof = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            roof.name = $"Roof_{a.id}";
+            roof.transform.position = buildingPos + new Vector3(0f, 2.2f, 0f);
+            roof.transform.localScale = new Vector3(7.6f, 0.3f, 5.6f);
+            ApplyMaterial(roof, MaterialPalette.NpcHat(MaterialFolder));
+            // Window strips (front face).
+            for (int i = -1; i <= 1; i++)
+            {
+                var win = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                win.name = $"Win_{a.id}_{i}";
+                win.transform.position = buildingPos + new Vector3(i * 2f, 0.8f, 2.55f);
+                win.transform.localScale = new Vector3(1.2f, 1.2f, 0.05f);
+                ApplyMaterial(win, MaterialPalette.Player(MaterialFolder));
+            }
+        }
+
+
 
         // ====================================================================
         // 99_Ending
