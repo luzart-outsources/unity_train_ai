@@ -97,10 +97,31 @@ namespace TrainAI.Editor
                     if (loc == null) { Fail("ServiceLocator missing"); break; }
                     Log("- OK World loaded; services bootstrapped=" + loc.IsBootstrapped);
                     Log($"- start: day={loc.clock.day} hour={loc.clock.hour}:{loc.clock.minute:D2} hocTap={loc.playerState.hocTap} renLuyen={loc.playerState.renLuyen}");
+                    SessionState.SetFloat("TrainAI.Playtest.HoldStart", now);
                     Wait(now, 1); Advance(); break;
                 }
 
                 case 4:
+                {
+                    // Hold in 10_World and rotate the scene camera for 60 real
+                    // seconds. This is a GPU stress test — earlier crashes hit
+                    // 'D3D12 Device removed' after sustained rendering, so we
+                    // want to confirm the scene survives a minute of frames
+                    // before we trust it.
+                    float holdStart = SessionState.GetFloat("TrainAI.Playtest.HoldStart", now);
+                    if (now - holdStart < 60f)
+                    {
+                        var rig = GameObject.Find("CameraRig");
+                        if (rig != null)
+                            rig.transform.Rotate(0f, 30f * UnityEngine.Time.unscaledDeltaTime, 0f, Space.World);
+                        // Don't Wait; let every Editor update tick rotate a bit.
+                        break;
+                    }
+                    Log("- OK 60s rotation stress survived (GPU stable)");
+                    Wait(now, 1); Advance(); break;
+                }
+
+                case 5:
                 {
                     var loc = FirstLocator();
                     if (loc == null) { Fail("ServiceLocator dropped mid-test"); break; }
@@ -120,7 +141,7 @@ namespace TrainAI.Editor
                     }
                     Log($"- advanced 30 days; errors={errors}");
                     Log($"- after: day={loc.clock.day} weekday={loc.clock.weekday} hocTap={loc.playerState.hocTap} renLuyen={loc.playerState.renLuyen}");
-                    Log(errors == 0 ? "## RESULT: PASS (30-day clock loop stable)" : $"## RESULT: FAIL ({errors} errors)");
+                    Log(errors == 0 ? "## RESULT: PASS (60s stress + 30-day clock loop stable)" : $"## RESULT: FAIL ({errors} errors)");
                     Finish("done");
                     break;
                 }
@@ -144,6 +165,10 @@ namespace TrainAI.Editor
             SessionState.SetBool(KeyActive, false);
             EditorApplication.update -= Tick;
             EditorApplication.isPlaying = false;
+            // If we were launched via -executeMethod, also drop a sentinel so
+            // the external CLI watcher knows we finished normally (not a crash
+            // exit). The watcher tails this file's existence.
+            File.WriteAllText("Library/playtest_done.flag", System.DateTime.Now.ToString("O") + " " + note);
         }
 
         static void Log(string line)
