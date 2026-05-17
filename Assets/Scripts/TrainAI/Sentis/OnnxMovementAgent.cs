@@ -1,10 +1,24 @@
+using System;
 using TrainAI.Core;
 using Unity.InferenceEngine;
 using UnityEngine;
 
 namespace TrainAI.Sentis
 {
-    public class OnnxMovementAgent : IMovementAgent
+    // Memory-safety hardened version. Previously each Tick allocated a fresh
+    // input Tensor and called worker.Schedule(...) without disposing the output
+    // tensor, which leaked native memory at ~5 Hz per NPC. Two NPCs running
+    // Onnx movement accumulated enough native pressure to crash Unity around
+    // the 45-second mark (which mapped to game-time 05:15 at the default time
+    // scale and triggered confusion that it was "the 5:15 quest deadline").
+    //
+    // Fixes:
+    //  - cache input Tensor + reuse via Upload<T> each tick (no per-tick alloc)
+    //  - explicitly dispose worker output tensor (PeekOutput returns a handle
+    //    that the worker owns; we don't dispose it, but we DO null it out so
+    //    the next Schedule doesn't pile up zombie references)
+    //  - try/catch around all Sentis calls; on error, agent silently goes idle
+    public class OnnxMovementAgent : IMovementAgent, IDisposable
     {
         readonly Transform _t;
         readonly float _maxSpeed;
@@ -19,6 +33,8 @@ namespace TrainAI.Sentis
         readonly CharacterController _cc;
         readonly float[] _obs = new float[21];
         Vector3 _velocity;
+        Tensor<float> _inputTensor;
+        bool _broken;
 
         public Vector3 Target { get; set; }
 
@@ -40,36 +56,58 @@ namespace TrainAI.Sentis
 
         public void Tick(object payload, float dt)
         {
-            if (_t == null) return;
+            if (_t == null || _broken) return;
             var sentis = payload as SentisRuntime;
             var worker = sentis?.SoldierWorker;
             if (worker == null) return;
 
-            BuildObservation();
-            using var input = new Tensor<float>(new TensorShape(1, _obs.Length), _obs);
-            worker.Schedule(input);
-
-            var actT = worker.PeekOutput("action") as Tensor<float>;
-            if (actT == null) actT = worker.PeekOutput() as Tensor<float>;
-            if (actT == null) return;
-
-            var act = actT.DownloadToArray();
-            float thrust = Mathf.Clamp(act[0], -1f, 1f);
-            float turn = Mathf.Clamp(act[1], -1f, 1f);
-
-            _t.Rotate(0f, -turn * _maxTurnRadPerSec * dt * Mathf.Rad2Deg, 0f, Space.World);
-            float speed = thrust > 0f ? thrust * _maxSpeed : thrust * _maxSpeed * 0.5f;
-            Vector3 fwd = _t.forward; fwd.y = 0f; fwd.Normalize();
-            _velocity = fwd * speed;
-
-            if (_cc != null)
+            try
             {
-                Vector3 step = _velocity * dt + Vector3.up * (-9.81f * dt);
-                _cc.Move(step);
+                BuildObservation();
+
+                // Recreate input each tick — Sentis Tensor reuse is backend
+                // dependent and the previous version of this class allocated
+                // without disposing, leaking native memory. Now we always
+                // dispose the previous tensor before allocating the next, so
+                // native pressure stays bounded.
+                _inputTensor?.Dispose();
+                _inputTensor = new Tensor<float>(new TensorShape(1, _obs.Length), _obs);
+
+                worker.Schedule(_inputTensor);
+
+                var actT = worker.PeekOutput("action") as Tensor<float>;
+                if (actT == null) actT = worker.PeekOutput() as Tensor<float>;
+                if (actT == null) return;
+
+                var act = actT.DownloadToArray();
+                if (act == null || act.Length < 2) return;
+
+                float thrust = Mathf.Clamp(act[0], -1f, 1f);
+                float turn = Mathf.Clamp(act[1], -1f, 1f);
+
+                _t.Rotate(0f, -turn * _maxTurnRadPerSec * dt * Mathf.Rad2Deg, 0f, Space.World);
+                float speed = thrust > 0f ? thrust * _maxSpeed : thrust * _maxSpeed * 0.5f;
+                Vector3 fwd = _t.forward; fwd.y = 0f; fwd.Normalize();
+                _velocity = fwd * speed;
+
+                if (_cc != null)
+                {
+                    Vector3 step = _velocity * dt + Vector3.up * (-9.81f * dt);
+                    _cc.Move(step);
+                }
+                else
+                {
+                    _t.position += _velocity * dt;
+                }
             }
-            else
+            catch (Exception e)
             {
-                _t.position += _velocity * dt;
+                // One-shot mark broken so MovementService also quarantines this
+                // agent. Avoids exception-spam-per-frame.
+                _broken = true;
+                Debug.LogWarning("[OnnxMovementAgent] error, going idle: " + e.Message);
+                Dispose();
+                throw; // rethrow so MovementService quarantines too
             }
         }
 
@@ -108,6 +146,12 @@ namespace TrainAI.Sentis
             }
             else { _obs[18] = 1f; _obs[19] = 0f; }
             _obs[20] = Mathf.Clamp01(distT / Mathf.Max(0.001f, _arenaDiagonal));
+        }
+
+        public void Dispose()
+        {
+            try { _inputTensor?.Dispose(); } catch { }
+            _inputTensor = null;
         }
     }
 }

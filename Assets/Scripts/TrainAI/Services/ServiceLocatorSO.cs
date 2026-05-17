@@ -85,7 +85,17 @@ namespace TrainAI.Services
         public void Shutdown()
         {
             if (!IsBootstrapped) return;
+            // Dispose IDisposable services so they unhook BroadcastService
+            // subscriptions. Otherwise the static BroadcastService keeps the
+            // old handlers alive across play-mode restarts, doubling event
+            // dispatch each session — a memory + correctness leak.
+            (Quests as System.IDisposable)?.Dispose();
+            (NPCs as System.IDisposable)?.Dispose();
+            (Movement as System.IDisposable)?.Dispose();
             Sentis?.Dispose();
+            // Also clear the broadcaster outright as a belt-and-suspenders
+            // measure for stray subscribers in UI / presentation layers.
+            BroadcastService.Clear();
             IsBootstrapped = false;
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TrainAI.Core;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace TrainAI.Services
 {
-    public class QuestRouter : IQuestRouter
+    public class QuestRouter : IQuestRouter, IDisposable
     {
         readonly DayDB _dayDB;
         readonly ActiveQuestRSO _activeQuest;
@@ -28,6 +29,12 @@ namespace TrainAI.Services
             _scoreSystem = scoreSystem;
             BroadcastService.Subscribe<DayStartedMsg>(OnDayStarted);
         }
+
+        // Unsubscribe so the static BroadcastService doesn't accumulate stale
+        // handlers across play-mode restarts (each restart was creating a fresh
+        // service but leaving the old subscriber registered, doubling message
+        // dispatch each session — a memory + correctness leak).
+        public void Dispose() => BroadcastService.Unsubscribe<DayStartedMsg>(OnDayStarted);
 
         void OnDayStarted(DayStartedMsg msg) => StartDay(msg.day);
 

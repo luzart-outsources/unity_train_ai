@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TrainAI.Core;
 using TrainAI.SO.Base;
@@ -8,6 +9,9 @@ namespace TrainAI.Services
     public class MovementService : IMovementService
     {
         readonly Dictionary<Transform, IMovementAgent> _agents = new();
+        // Quarantine list: agents that threw on Tick get suspended so a single
+        // bad agent can't crash the whole movement loop frame after frame.
+        readonly HashSet<Transform> _quarantined = new();
         readonly ISentisRuntime _sentis;
         float _accumulator;
         const float kTickIntervalSec = 0.2f;
@@ -18,6 +22,7 @@ namespace TrainAI.Services
         {
             if (npc == null || strategy == null) return;
             _agents[npc] = strategy.Bind(npc);
+            _quarantined.Remove(npc);
         }
 
         public void SetTarget(Transform npc, Vector3 target)
@@ -30,6 +35,7 @@ namespace TrainAI.Services
         {
             if (npc == null) return;
             _agents.Remove(npc);
+            _quarantined.Remove(npc);
         }
 
         public void Tick(float dt)
@@ -42,7 +48,19 @@ namespace TrainAI.Services
             foreach (var kvp in _agents)
             {
                 if (kvp.Key == null) continue;
-                kvp.Value?.Tick(payload, tickDt);
+                if (_quarantined.Contains(kvp.Key)) continue;
+                try
+                {
+                    kvp.Value?.Tick(payload, tickDt);
+                }
+                catch (Exception e)
+                {
+                    // Log once, suspend this agent so it doesn't spam exceptions
+                    // and accumulate Sentis tensor allocations (which previously
+                    // crashed the editor after ~45s when Onnx agents leaked).
+                    Debug.LogWarning($"[MovementService] agent '{kvp.Key.name}' threw, quarantining: {e.Message}");
+                    _quarantined.Add(kvp.Key);
+                }
             }
         }
     }

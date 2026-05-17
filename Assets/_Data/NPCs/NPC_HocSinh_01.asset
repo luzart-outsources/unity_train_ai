@@ -16,6 +16,6 @@ MonoBehaviour:
   displayName: Hoc sinh 01
   portrait: {fileID: 0}
   spawnPos: {x: -3, y: 0, z: 2}
-  movement: {fileID: 11400000, guid: 4647c0052605687438e96132c7a47974, type: 2}
+  movement: {fileID: 11400000, guid: df1e8aa2c763ad94e8beb093f5e8e5ae, type: 2}
   dialogue: {fileID: 11400000, guid: f5205dbe111ed2041b1006946ef56906, type: 2}
   schedule: {fileID: 11400000, guid: 2a724319983e5654184f918926ca6980, type: 2}

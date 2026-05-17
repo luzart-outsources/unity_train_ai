@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TrainAI.Core;
 using TrainAI.Core.Messages;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace TrainAI.Services
 {
-    public class NPCDirector : INPCDirector
+    public class NPCDirector : INPCDirector, IDisposable
     {
         readonly NPCDB _npcDB;
         readonly IMovementService _movement;
@@ -21,6 +22,8 @@ namespace TrainAI.Services
             _clock = clock;
             BroadcastService.Subscribe<TimeTickMsg>(OnTimeTick);
         }
+
+        public void Dispose() => BroadcastService.Unsubscribe<TimeTickMsg>(OnTimeTick);
 
         public void RegisterNpcTransform(string npcId, Transform t)
         {
