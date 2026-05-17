@@ -111,8 +111,14 @@ namespace TrainAI.Editor
                 }
             }
 
-            // Mark every static-ish child static for batching
-            MarkStaticRecursive(root.transform);
+            // DO NOT mark GLB-imported buildings as static — some Sketchfab
+            // submeshes export with Lines/Points topology (debug wireframe
+            // helpers), which Unity's static batcher chokes on with hundreds
+            // of "Failed getting triangles. Submesh topology is lines or
+            // points." errors per frame, eventually crashing the D3D12
+            // driver. Only mark the primitive polish objects (cubes, cylinders)
+            // static — they're plain triangles and batch safely.
+            MarkPrimitivesStatic(root.transform);
 
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
@@ -141,6 +147,29 @@ namespace TrainAI.Editor
             var inst = (GameObject)PrefabUtility.InstantiatePrefab(src);
             inst.name = p.name;
             inst.transform.SetParent(parent, false);
+
+            // Strip renderers whose mesh has any non-Triangle submesh (Lines /
+            // Points from Sketchfab debug helpers). Leaving them in caused
+            // hundreds of "Failed getting triangles. Submesh topology is lines
+            // or points." asserts per frame and eventually crashed the D3D12
+            // driver. Triangulated meshes pass through untouched.
+            foreach (var mf in inst.GetComponentsInChildren<MeshFilter>(true))
+            {
+                var m = mf.sharedMesh;
+                if (m == null) continue;
+                bool bad = false;
+                for (int si = 0; si < m.subMeshCount; si++)
+                {
+                    var t = m.GetTopology(si);
+                    if (t != MeshTopology.Triangles && t != MeshTopology.Quads)
+                    { bad = true; break; }
+                }
+                if (bad)
+                {
+                    var rend = mf.GetComponent<Renderer>();
+                    if (rend != null) rend.enabled = false;
+                }
+            }
             inst.transform.localScale = Vector3.one;
 
             var rends = inst.GetComponentsInChildren<Renderer>(true);
@@ -360,11 +389,29 @@ namespace TrainAI.Editor
             CreateChildPrimitive(sl.transform, "Bulb", new Vector3(0, 5.2f, 0), new Vector3(0.5f, 0.5f, 0.5f), Mat("bulb", new Color(1f, 0.95f, 0.6f)), PrimitiveType.Sphere);
         }
 
-        static void MarkStaticRecursive(Transform t)
+        static void MarkPrimitivesStatic(Transform t)
         {
-            // Sets every GameObject under root to static so URP/built-in can batch them.
+            // Walks the hierarchy and marks only nodes that are NOT part of a
+            // GLB import (i.e. nodes whose MeshFilter mesh wasn't sourced from
+            // a .glb asset). Cube/cylinder primitives we created live inside
+            // the layout root and have built-in Unity meshes — those are safe
+            // to mark static. Anything inside an imported GLB prefab instance
+            // is left non-static so the static batcher doesn't try to merge
+            // its (potentially Lines/Points) submeshes.
+            if (IsGlbInstance(t)) return; // skip the entire GLB subtree
             t.gameObject.isStatic = true;
-            for (int i = 0; i < t.childCount; i++) MarkStaticRecursive(t.GetChild(i));
+            for (int i = 0; i < t.childCount; i++) MarkPrimitivesStatic(t.GetChild(i));
+        }
+
+        static bool IsGlbInstance(Transform t)
+        {
+            // PrefabUtility marks instantiated prefab roots; we use that as a
+            // cheap proxy for "this is an imported model". For our layout, the
+            // only prefab-instance children of _HOLA_Layout are GLBs.
+            var src = UnityEditor.PrefabUtility.GetCorrespondingObjectFromSource(t.gameObject);
+            if (src == null) return false;
+            string p = UnityEditor.AssetDatabase.GetAssetPath(src);
+            return !string.IsNullOrEmpty(p) && (p.EndsWith(".glb") || p.EndsWith(".gltf"));
         }
     }
 }
