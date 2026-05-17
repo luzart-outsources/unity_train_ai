@@ -50,6 +50,17 @@ namespace TrainAI.Services
                     if (q != null) _pendingToday.Enqueue(q);
             }
             _dayProgress.Reset();
+            // Clear any quest still 'active' from the previous day before
+            // running CheckActivate. Without this, AdvanceDay's broadcast
+            // path (StartDay called with the clock still at last night's
+            // 18:30+) would activate Day-N's first quest immediately, and the
+            // next time the clock advanced past its 5:15 deadline (e.g. the
+            // very next Tick after SkipTo(5,0) on day-start logic) the quest
+            // would be marked missed despite never being run. Clearing here
+            // guarantees CheckActivate below picks the quest fresh against
+            // the current (post-SkipTo) clock.
+            _activeQuest.current = null;
+            _activeQuest.runtimeInstance = null;
             CheckActivate();
         }
 
