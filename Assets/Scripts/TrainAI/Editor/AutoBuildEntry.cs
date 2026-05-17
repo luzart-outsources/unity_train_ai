@@ -21,8 +21,9 @@ namespace TrainAI.Editor
             Debug.Log("[AutoBuild] starting");
             try
             {
-                Step("Swap Player Visual", PlayerVisualSwapper.SwapVisual);
-                Step("Build HOLA Layout",  HolaMapLayoutBuilder.BuildHolaLayout);
+                Step("Swap Player Visual",     PlayerVisualSwapper.SwapVisual);
+                Step("Build HOLA Layout",      HolaMapLayoutBuilder.BuildHolaLayout);
+                Step("Attach MinimapThrottle", MinimapThrottleSetup.Attach);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
                 Debug.Log("[AutoBuild] DONE");

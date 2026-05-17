@@ -31,7 +31,11 @@ namespace TrainAI.Editor
             _matCache ??= new Dictionary<string, Material>();
             if (_matCache.TryGetValue(key, out var existing) && existing != null) return existing;
             var shader = Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard");
-            var m = new Material(shader) { name = "HolaMat_" + key, color = c, enableInstancing = true };
+            // Note: enableInstancing left FALSE. With GPU instancing on + URP +
+            // D3D12, large scenes were hitting command-buffer limits during
+            // sustained camera rotation. Plain forward rendering is slower
+            // but doesn't crash.
+            var m = new Material(shader) { name = "HolaMat_" + key, color = c, enableInstancing = false };
             _matCache[key] = m;
             return m;
         }
