@@ -25,8 +25,8 @@ MonoBehaviour:
   quizDB: {fileID: 11400000, guid: e78c4d57a8fbfc94b9cf6fab366aa363, type: 2}
   areaDB: {fileID: 11400000, guid: 1100e6cc7677e344599b71264eeb058c, type: 2}
   subjectDB: {fileID: 11400000, guid: 4331d6d4a5a8f1e4b84ce7185fa20237, type: 2}
-  intentModel: {fileID: 5022602860645237092, guid: 67ea6c71cbecb09468679e93b3b4dda4, type: 3}
-  soldierModel: {fileID: 5022602860645237092, guid: 1aef3a11923d7cb42ac6ac2476dffb4d, type: 3}
+  intentModel: {fileID: 0}
+  soldierModel: {fileID: 0}
   intentMetaJson: {fileID: 4900000, guid: 044081e96a9dd934ca40235a2df93b8d, type: 3}
   responsesJson: {fileID: 4900000, guid: a26783d23f08e8b4a89a380d4658afa2, type: 3}
   responseTemplates: {fileID: 0}
