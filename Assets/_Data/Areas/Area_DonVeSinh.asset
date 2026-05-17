@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Area_DonVeSinh
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.AreaSO
   id: DonVeSinh
-  worldPos: {x: 5, y: 0, z: 10}
+  worldPos: {x: -55, y: 0, z: 50}
   size: {x: 8, y: 0.1, z: 6}
   scene: {fileID: 11400000, guid: 427788fcbd612044bb234e641066aef5, type: 2}
   subScene: {fileID: 0}

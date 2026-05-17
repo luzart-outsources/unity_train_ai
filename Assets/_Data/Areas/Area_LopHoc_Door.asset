@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Area_LopHoc_Door
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.AreaSO
   id: LopHoc_Door
-  worldPos: {x: 5, y: 0, z: -8}
+  worldPos: {x: -50, y: 0, z: 6}
   size: {x: 1.5, y: 2.5, z: 0.5}
   scene: {fileID: 11400000, guid: 427788fcbd612044bb234e641066aef5, type: 2}
   subScene: {fileID: 11400000, guid: e058cec3e40cede4ca9bfe511ce002b4, type: 2}

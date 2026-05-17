@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Area_KTX_Door
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.AreaSO
   id: KTX_Door
-  worldPos: {x: -5, y: 0, z: -8}
+  worldPos: {x: 50, y: 0, z: 38}
   size: {x: 1.5, y: 2.5, z: 0.5}
   scene: {fileID: 11400000, guid: 427788fcbd612044bb234e641066aef5, type: 2}
   subScene: {fileID: 11400000, guid: abda44e349ea1d245bd464ee27958bf4, type: 2}

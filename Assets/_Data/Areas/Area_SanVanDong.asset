@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Area_SanVanDong
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.AreaSO
   id: SanVanDong
-  worldPos: {x: -10, y: 0, z: 0}
+  worldPos: {x: 55, y: 0, z: -42}
   size: {x: 25, y: 0.1, z: 15}
   scene: {fileID: 11400000, guid: 427788fcbd612044bb234e641066aef5, type: 2}
   subScene: {fileID: 0}

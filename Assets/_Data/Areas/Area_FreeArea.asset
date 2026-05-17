@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Area_FreeArea
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.AreaSO
   id: FreeArea
-  worldPos: {x: 0, y: 0, z: 0}
+  worldPos: {x: -30, y: 0, z: -8}
   size: {x: 6, y: 0.1, z: 6}
   scene: {fileID: 11400000, guid: 427788fcbd612044bb234e641066aef5, type: 2}
   subScene: {fileID: 0}
