@@ -34,6 +34,10 @@ namespace TrainAI.Services
         UniTask LoadAdditive(SceneRefSO scene, string transitionText = null);
         UniTask UnloadAdditive(SceneRefSO scene);
         UniTask LoadSingle(SceneRefSO scene);
+        // Replaces all currently loaded scenes with the target (additive load
+        // first, then unloads olds). Use for "enter building / change area"
+        // transitions where the previous scene shouldn't stay in memory.
+        UniTask LoadReplacing(SceneRefSO target, string transitionText = null);
     }
 
     public interface IScoreSystem

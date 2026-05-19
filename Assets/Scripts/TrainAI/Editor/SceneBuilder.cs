@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TMPro;
 using TrainAI.Presentation;
 using TrainAI.Services;
 using TrainAI.SO.Base;
@@ -9,7 +9,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace TrainAI.Editor
@@ -22,6 +21,19 @@ namespace TrainAI.Editor
         const string MaterialFolder = "Assets/_Data/Materials";
         const string RTPath = "Assets/_Data/Config/MinimapRT.renderTexture";
         const string CameraConfigPath = "Assets/_Data/Config/ThirdPersonCameraConfig.asset";
+
+        // Pack prefabs that we instantiate by path (no compile-time dependency).
+        // Fixed Joystick: always visible at its anchor (vs Floating which hides until tap).
+        const string FloatingJoystickPath = "Assets/Joystick Pack/Prefabs/Fixed Joystick.prefab";
+        const string ArtFarmhouse = "Assets/Imported Asset/PolygonFarm/Prefabs/Buildings/SM_Bld_Farmhouse_01.prefab";
+        const string ArtBarn = "Assets/Imported Asset/PolygonFarm/Prefabs/Buildings/SM_Bld_Barn_01.prefab";
+        const string ArtGreenhouse = "Assets/Imported Asset/PolygonFarm/Prefabs/Buildings/SM_Bld_Greenhouse_01.prefab";
+
+        // Canvas sortingOrder layers — gives a deterministic vertical stack
+        // so HUD never floats over menus and modals always sit on top.
+        const int SortOrder_HUD = 50;
+        const int SortOrder_SceneMenu = 100;
+        const int SortOrder_Modal = 200;
 
         static readonly string[] Scenes = {
             "00_Bootstrap", "01_MainMenu", "02_CutScene", "03_CreateChar",
@@ -72,11 +84,11 @@ namespace TrainAI.Editor
                 cfg = ScriptableObject.CreateInstance<ThirdPersonCameraConfigSO>();
                 AssetDatabase.CreateAsset(cfg, CameraConfigPath);
             }
-            cfg.distance = 6f;
-            cfg.height = 2.2f;
+            cfg.distance = 9f;
+            cfg.height = 4f;
             cfg.yawSpeed = 140f;
-            cfg.pitchMin = -10f;
-            cfg.pitchMax = 60f;
+            cfg.pitchMin = -5f;
+            cfg.pitchMax = 55f;
             cfg.smoothTime = 0.08f;
             cfg.invertY = false;
             EditorUtility.SetDirty(cfg);
@@ -167,25 +179,42 @@ namespace TrainAI.Editor
             BuildPersistentUI(locator);
         }
 
+        // Layout:
+        //   UICanvas (Canvas sortingOrder=0, holds UIRouterMono + DontDestroyOnLoad)
+        //     HUDCanvas   (Canvas sortingOrder=50,  enabled only on gameplay scenes)
+        //     ModalCanvas (Canvas sortingOrder=200, always available, panels hidden until shown)
         static void BuildPersistentUI(ServiceLocatorSO locator)
         {
-            var canvas = BuildCanvas("UICanvas", sortOrder: 100);
+            var uiRoot = BuildCanvas("UICanvas", sortOrder: 0);
 
-            var router = canvas.AddComponent<UIRouterMono>();
+            var router = uiRoot.AddComponent<UIRouterMono>();
             AssignSerialized(router, "services", locator);
 
-            var confirm = BuildConfirmScreen(canvas.transform);
-            var dialogue = BuildDialogueScreen(canvas.transform);
-            var loading = BuildLoadingScreen(canvas.transform);
-            var quiz = BuildQuizScreen(canvas.transform);
-            var ending = BuildEndingScreen(canvas.transform);
-            var expel = BuildExpelScreen(canvas.transform);
-            BuildQuestHUD(canvas.transform);
-            BuildClockHUD(canvas.transform, locator);
-            BuildScoreHUD(canvas.transform, locator);
-            BuildInteractPrompt(canvas.transform);
-            BuildMiniMap(canvas.transform, locator);
-            BuildJoystick(canvas.transform);
+            var hudRoot = BuildSubCanvas(uiRoot.transform, "HUDCanvas", SortOrder_HUD);
+            var hudCanvas = hudRoot.GetComponent<Canvas>();
+            var hudGroup = hudRoot.AddComponent<CanvasGroup>();
+            var hudGate = hudRoot.AddComponent<SceneAwareHUDRoot>();
+            AssignSerialized(hudGate, "hudCanvas", hudCanvas);
+            AssignSerialized(hudGate, "hudGroup", hudGroup);
+
+            var modalRoot = BuildSubCanvas(uiRoot.transform, "ModalCanvas", SortOrder_Modal);
+
+            // Modals — full-screen dim + centered popup, hidden by default (UIScreenBase.Awake).
+            var confirm = BuildConfirmScreen(modalRoot.transform);
+            var dialogue = BuildDialogueScreen(modalRoot.transform);
+            var loading = BuildLoadingScreen(modalRoot.transform);
+            var quiz = BuildQuizScreen(modalRoot.transform);
+            var ending = BuildEndingScreen(modalRoot.transform);
+            var expel = BuildExpelScreen(modalRoot.transform);
+
+            // HUD chips — anchored to corners of HUDCanvas, sci-fi chip background.
+            BuildQuestHUD(hudRoot.transform);
+            BuildClockHUD(hudRoot.transform, locator);
+            BuildScoreHUD(hudRoot.transform, locator);
+            BuildInteractPrompt(hudRoot.transform);
+            BuildInteractButton(hudRoot.transform);
+            BuildMiniMap(hudRoot.transform, locator);
+            BuildJoystick(hudRoot.transform);
 
             AssignSerialized(router, "confirm", confirm);
             AssignSerialized(router, "dialogue", dialogue);
@@ -193,6 +222,17 @@ namespace TrainAI.Editor
             AssignSerialized(router, "quiz", quiz);
             AssignSerialized(router, "ending", ending);
             AssignSerialized(router, "expel", expel);
+
+            // Hide modal hosts in the editor preview without breaking the runtime
+            // Show()/Hide() cycle. We must keep gameObject.activeSelf=true at save
+            // time so UIScreenBase.Awake() can run; we just zero the CanvasGroup so
+            // nothing is drawn or clickable until Show() flips it back to 1.
+            foreach (var modal in new MonoBehaviour[] { confirm, dialogue, loading, quiz, ending, expel })
+            {
+                if (modal == null) continue;
+                var cg = modal.GetComponent<CanvasGroup>();
+                if (cg != null) { cg.alpha = 0f; cg.blocksRaycasts = false; cg.interactable = false; }
+            }
         }
 
         // ====================================================================
@@ -200,18 +240,25 @@ namespace TrainAI.Editor
         // ====================================================================
         static void BuildMainMenu(ServiceLocatorSO locator)
         {
-            var canvas = BuildCanvas("MainMenuCanvas");
-            var panel = BuildPanel(canvas.transform, "MainMenuPanel");
-            BuildPanelBG(panel, new Color(0.05f, 0.10f, 0.18f, 1f));
+            var canvas = BuildCanvas("MainMenuCanvas", sortOrder: SortOrder_SceneMenu);
+            SciFiTheme.AddSceneBackdrop(canvas.transform);
 
-            BuildTextChild(panel.transform, "Title", "TrainAI - Hoc ky quan su",
-                           new Vector2(0, 200), new Vector2(600, 80), 32);
-            var newBtn = BuildButtonChild(panel.transform, "NewGameButton", "New Game",
-                                          new Vector2(0, 60), new Vector2(240, 60));
-            var contBtn = BuildButtonChild(panel.transform, "ContinueButton", "Tiep tuc",
-                                           new Vector2(0, -20), new Vector2(240, 60));
-            var exitBtn = BuildButtonChild(panel.transform, "ExitButton", "Thoat",
-                                           new Vector2(0, -100), new Vector2(240, 60));
+            var card = BuildCard(canvas.transform, "MainMenuCard", new Vector2(720, 720));
+
+            BuildHeaderText(card.transform, "Title", "TRAIN AI",
+                            new Vector2(0, 260), new Vector2(640, 90), 56);
+            BuildBodyText(card.transform, "Subtitle", "Hoc ky quan su",
+                          new Vector2(0, 190), new Vector2(640, 50), 24, SciFiTheme.TextMuted);
+
+            var newBtn = BuildPrimaryButton(card.transform, "NewGameButton", "Bat dau moi",
+                                            new Vector2(0, 40), new Vector2(360, 78));
+            var contBtn = BuildPrimaryButton(card.transform, "ContinueButton", "Tiep tuc",
+                                             new Vector2(0, -50), new Vector2(360, 78));
+            var exitBtn = BuildSecondaryButton(card.transform, "ExitButton", "Thoat",
+                                               new Vector2(0, -140), new Vector2(360, 78));
+
+            BuildBodyText(card.transform, "Hint", "Hoc tap + Ren luyen | Ban di chuyen bang WASD / phim mui ten",
+                          new Vector2(0, -260), new Vector2(640, 40), 16, SciFiTheme.TextMuted);
 
             var ctrl = canvas.AddComponent<UIMainMenuController>();
             AssignSerialized(ctrl, "services", locator);
@@ -229,16 +276,20 @@ namespace TrainAI.Editor
         // ====================================================================
         static void BuildCreateChar(ServiceLocatorSO locator)
         {
-            var canvas = BuildCanvas("CreateCharCanvas");
-            var panel = BuildPanel(canvas.transform, "CreateCharPanel");
-            BuildPanelBG(panel, new Color(0.05f, 0.10f, 0.18f, 1f));
+            var canvas = BuildCanvas("CreateCharCanvas", sortOrder: SortOrder_SceneMenu);
+            SciFiTheme.AddSceneBackdrop(canvas.transform);
 
-            BuildTextChild(panel.transform, "Header", "Ban can dien ten truoc khi vao game",
-                           new Vector2(0, 100), new Vector2(700, 80), 24);
-            var input = BuildInputFieldChild(panel.transform, "NameInput",
-                                              new Vector2(0, 0), new Vector2(400, 50));
-            var confirmBtn = BuildButtonChild(panel.transform, "ConfirmButton", "Xac nhan",
-                                              new Vector2(0, -80), new Vector2(200, 60));
+            var card = BuildCard(canvas.transform, "CreateCharCard", new Vector2(800, 480));
+
+            BuildHeaderText(card.transform, "Header", "TAO HO SO HOC VIEN",
+                            new Vector2(0, 150), new Vector2(700, 80), 38);
+            BuildBodyText(card.transform, "Sub", "Nhap ten cua ban truoc khi nhap hoc",
+                          new Vector2(0, 90), new Vector2(700, 40), 18, SciFiTheme.TextMuted);
+
+            var input = BuildInputFieldChild(card.transform, "NameInput",
+                                              new Vector2(0, 10), new Vector2(520, 64));
+            var confirmBtn = BuildPrimaryButton(card.transform, "ConfirmButton", "Xac nhan",
+                                                 new Vector2(0, -90), new Vector2(280, 72));
 
             var ctrl = canvas.AddComponent<UICreateCharController>();
             AssignSerialized(ctrl, "services", locator);
@@ -255,20 +306,17 @@ namespace TrainAI.Editor
         // ====================================================================
         static void BuildWorld(ServiceLocatorSO locator, WorldBlueprint bp)
         {
-            // Ground - bigger so the play area feels generous, colored, with a soft grid look.
             var ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
             ground.name = "Ground";
-            ground.transform.localScale = new Vector3(12, 1, 12); // 120x120
+            ground.transform.localScale = new Vector3(12, 1, 12);
             ApplyMaterial(ground, MaterialPalette.Ground(MaterialFolder));
 
-            // Player
             var playerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{PrefabFolder}/Player.prefab");
             GameObject player = null;
             if (playerPrefab != null)
             {
                 player = (GameObject)PrefabUtility.InstantiatePrefab(playerPrefab);
                 player.name = "Player";
-                // Mesh feet sit at root Y=0 (see PrefabBuilder.BuildPlayer), spawn at ground level.
                 player.transform.position = new Vector3(0, 0.05f, 0);
                 if (locator != null)
                 {
@@ -277,7 +325,6 @@ namespace TrainAI.Editor
                 }
             }
 
-            // Camera rig (third-person follow).
             var existingCam = GameObject.Find("MainCamera");
             if (existingCam != null)
             {
@@ -298,7 +345,6 @@ namespace TrainAI.Editor
                 }
             }
 
-            // Spawn area interactable cubes with colored materials.
             if (bp != null)
             {
                 foreach (var a in bp.areas)
@@ -315,7 +361,6 @@ namespace TrainAI.Editor
                     var marker = cube.AddComponent<InteractableMarker>();
                     AssignSerialized(marker, "interactable", inter);
 
-                    // Tall building behind door areas so the world has visible architecture.
                     if (IsDoor(a.id))
                         BuildDoorBuilding(a);
 
@@ -323,13 +368,9 @@ namespace TrainAI.Editor
                                      : IsFreeArea(a.id) ? MaterialPalette.FreeArea(MaterialFolder)
                                      : MaterialPalette.Area(MaterialFolder);
                     ApplyMaterial(cube, areaMat);
-
-                    // Sign label so the player can read what each cube is even without the prompt.
-                    BuildSignLabel(cube.transform, a.id, a.size.y);
                 }
             }
 
-            // NPCs (mesh feet at root Y=0 in new prefab, so spawnPos.y=0 sits properly).
             var npcPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{PrefabFolder}/NPC.prefab");
             if (locator != null && locator.npcDB != null && npcPrefab != null)
             {
@@ -339,7 +380,7 @@ namespace TrainAI.Editor
                     var npcGo = (GameObject)PrefabUtility.InstantiatePrefab(npcPrefab);
                     npcGo.name = $"NPC_{npcSo.id}";
                     var sp = npcSo.spawnPos;
-                    if (sp.y < 0.01f) sp.y = 0.05f; // lift slightly so capsule stands on ground.
+                    if (sp.y < 0.01f) sp.y = 0.05f;
                     npcGo.transform.position = sp;
                     var view = npcGo.GetComponent<NpcView>();
                     if (view != null)
@@ -347,16 +388,13 @@ namespace TrainAI.Editor
                         AssignSerialized(view, "npcDef", npcSo);
                         AssignSerialized(view, "services", locator);
                     }
-                    BuildSignLabel(npcGo.transform, npcSo.id, 2.0f);
                 }
             }
 
-            // Interaction router bridge.
             var bridgeGo = new GameObject("InteractionBridge");
             var bridge = bridgeGo.AddComponent<InteractionRouterBridge>();
             AssignSerialized(bridge, "services", locator);
 
-            // Quest arrow above player's head.
             var arrowPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{PrefabFolder}/QuestArrow.prefab");
             if (arrowPrefab != null && player != null)
             {
@@ -366,7 +404,6 @@ namespace TrainAI.Editor
                 arrow.transform.localRotation = Quaternion.identity;
             }
 
-            // Minimap top-down camera rendering into the shared RT.
             BuildMinimapCamera(player);
         }
 
@@ -398,12 +435,15 @@ namespace TrainAI.Editor
         static bool IsDoor(string id) => !string.IsNullOrEmpty(id) && id.EndsWith("_Door");
         static bool IsFreeArea(string id) => id == "FreeArea";
 
+        // World-space label floating above areas/NPCs. Kept small enough not to dominate
+        // the camera frame — the previous 0.35 scale + fontSize 1.2 read as a giant
+        // billboard at distance 6.
         static void BuildSignLabel(Transform parent, string text, float topY)
         {
             var labelGo = new GameObject("Sign");
             labelGo.transform.SetParent(parent, false);
-            labelGo.transform.localPosition = new Vector3(0, topY + 0.6f, 0);
-            labelGo.transform.localRotation = Quaternion.Euler(45f, 0f, 0f);
+            labelGo.transform.localPosition = new Vector3(0, topY + 0.4f, 0);
+            labelGo.transform.localRotation = Quaternion.Euler(20f, 0f, 0f);
 
             var canvas = labelGo.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.WorldSpace;
@@ -411,20 +451,22 @@ namespace TrainAI.Editor
             labelGo.AddComponent<UnityEngine.UI.GraphicRaycaster>();
 
             var rect = labelGo.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(4f, 1f);
-            rect.localScale = Vector3.one * 0.35f;
+            rect.sizeDelta = new Vector2(3f, 0.6f);
+            rect.localScale = Vector3.one * 0.08f;
 
             var tGo = new GameObject("Text");
             tGo.transform.SetParent(labelGo.transform, false);
             var tRect = tGo.AddComponent<RectTransform>();
-            tRect.sizeDelta = new Vector2(4f, 1f);
+            tRect.sizeDelta = new Vector2(3f, 0.6f);
             tRect.anchoredPosition = Vector2.zero;
-            var tmp = tGo.AddComponent<TMPro.TextMeshProUGUI>();
+            var tmp = tGo.AddComponent<TextMeshProUGUI>();
             tmp.text = HumanizeId(text);
-            tmp.fontSize = 1.2f;
+            tmp.fontSize = 0.45f;
             tmp.color = Color.white;
-            tmp.alignment = TMPro.TextAlignmentOptions.Center;
-            tmp.fontStyle = TMPro.FontStyles.Bold;
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.fontStyle = FontStyles.Bold;
+            tmp.outlineWidth = 0.25f;
+            tmp.outlineColor = new Color(0f, 0f, 0f, 1f);
         }
 
         static string HumanizeId(string id)
@@ -443,42 +485,31 @@ namespace TrainAI.Editor
         // ====================================================================
         // sub-scenes
         // ====================================================================
-static void BuildSubScene(string sceneName, ServiceLocatorSO locator)
+        static void BuildSubScene(string sceneName, ServiceLocatorSO locator)
         {
-            // Floor: 20x20 colored tile.
             var floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
             floor.name = $"Floor_{sceneName}";
             floor.transform.localScale = new Vector3(2, 1, 2);
             ApplyMaterial(floor, MaterialPalette.Ground(MaterialFolder));
 
-            // Walls (4): wrap the room so it feels enclosed.
             BuildWall(new Vector3(0, 1.5f,  10), new Vector3(20, 3, 0.4f), "Wall_N");
             BuildWall(new Vector3(0, 1.5f, -10), new Vector3(20, 3, 0.4f), "Wall_S");
             BuildWall(new Vector3( 10, 1.5f, 0), new Vector3(0.4f, 3, 20), "Wall_E");
             BuildWall(new Vector3(-10, 1.5f, 0), new Vector3(0.4f, 3, 20), "Wall_W");
 
-            // Player spawn marker (small) so the player starts in front of the door.
             var spawn = GameObject.CreatePrimitive(PrimitiveType.Cube);
             spawn.name = "PlayerSpawn";
             spawn.transform.position = new Vector3(0, -0.5f, -8);
             spawn.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             GameObject.DestroyImmediate(spawn.GetComponent<Collider>());
 
-            // Themed furniture per scene.
             switch (sceneName)
             {
-                case "11_LopHoc":
-                    BuildLopHoc();
-                    break;
-                case "12_NhaAn":
-                    BuildNhaAn();
-                    break;
-                case "13_KyTucXa":
-                    BuildKyTucXa();
-                    break;
+                case "11_LopHoc": BuildLopHoc(); break;
+                case "12_NhaAn":  BuildNhaAn(); break;
+                case "13_KyTucXa": BuildKyTucXa(); break;
             }
 
-            // Center interactable (front-of-room) for the gameplay loop's main action.
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.name = "Interactable_Center";
             cube.transform.position = new Vector3(0, 0.5f, 2);
@@ -487,10 +518,9 @@ static void BuildSubScene(string sceneName, ServiceLocatorSO locator)
             box.isTrigger = true;
             cube.AddComponent<InteractableMarker>();
             ApplyMaterial(cube, MaterialPalette.Area(MaterialFolder));
-            BuildSignLabel(cube.transform, sceneName, 0.5f);
         }
 
-static void BuildWall(Vector3 pos, Vector3 scale, string name)
+        static void BuildWall(Vector3 pos, Vector3 scale, string name)
         {
             var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             wall.name = name;
@@ -510,11 +540,8 @@ static void BuildWall(Vector3 pos, Vector3 scale, string name)
 
         static void BuildLopHoc()
         {
-            // Blackboard at the front wall.
             BuildBox(new Vector3(0, 2f, 9.5f), new Vector3(6f, 2f, 0.1f), "Blackboard", MaterialPalette.NpcHat(MaterialFolder));
-            // Teacher desk in front.
             BuildBox(new Vector3(0, 0.5f, 6.5f), new Vector3(3f, 1f, 1.2f), "TeacherDesk", MaterialPalette.Door(MaterialFolder));
-            // 3x4 grid of student desks + chairs.
             for (int row = 0; row < 4; row++)
             for (int col = 0; col < 3; col++)
             {
@@ -527,13 +554,10 @@ static void BuildWall(Vector3 pos, Vector3 scale, string name)
 
         static void BuildNhaAn()
         {
-            // Food counter at the front.
             BuildBox(new Vector3(0, 0.6f, 7f), new Vector3(8f, 1.2f, 1.5f), "FoodCounter", MaterialPalette.Door(MaterialFolder));
             BuildBox(new Vector3(0, 1.4f, 8f), new Vector3(8f, 0.4f, 0.2f), "CounterBackboard", MaterialPalette.NpcHat(MaterialFolder));
-            // Trays on counter (yellow strips).
             for (int i = 0; i < 4; i++)
                 BuildBox(new Vector3(-3f + i * 2f, 1.3f, 6.6f), new Vector3(1.2f, 0.05f, 0.8f), $"Tray_{i}", MaterialPalette.Arrow(MaterialFolder));
-            // Dining tables (5 rows of long tables, with benches).
             for (int row = 0; row < 3; row++)
             {
                 float z = 2.0f - row * 3.0f;
@@ -545,67 +569,85 @@ static void BuildWall(Vector3 pos, Vector3 scale, string name)
 
         static void BuildKyTucXa()
         {
-            // Two rows of bunk beds along the side walls.
             for (int i = 0; i < 4; i++)
             {
                 float z = 6f - i * 4f;
-                // West bunk: lower + upper bed.
                 BuildBox(new Vector3(-7f, 0.5f, z), new Vector3(2.5f, 1f, 3.5f), $"BunkLower_W_{i}", MaterialPalette.Door(MaterialFolder));
                 BuildBox(new Vector3(-7f, 0.95f, z), new Vector3(2.3f, 0.2f, 3.3f), $"PillowSheet_W_{i}", MaterialPalette.Player(MaterialFolder));
                 BuildBox(new Vector3(-7f, 2.0f, z), new Vector3(2.5f, 1f, 3.5f), $"BunkUpper_W_{i}", MaterialPalette.Door(MaterialFolder));
-                // East bunk.
                 BuildBox(new Vector3( 7f, 0.5f, z), new Vector3(2.5f, 1f, 3.5f), $"BunkLower_E_{i}", MaterialPalette.Door(MaterialFolder));
                 BuildBox(new Vector3( 7f, 0.95f, z), new Vector3(2.3f, 0.2f, 3.3f), $"PillowSheet_E_{i}", MaterialPalette.Player(MaterialFolder));
                 BuildBox(new Vector3( 7f, 2.0f, z), new Vector3(2.5f, 1f, 3.5f), $"BunkUpper_E_{i}", MaterialPalette.Door(MaterialFolder));
             }
-            // Lockers along the back wall.
             for (int i = 0; i < 6; i++)
                 BuildBox(new Vector3(-6f + i * 2.4f, 1.5f, 9f), new Vector3(2.0f, 3f, 0.6f), $"Locker_{i}", MaterialPalette.NpcHat(MaterialFolder));
         }
 
-static void BuildDoorBuilding(AreaBlueprint a)
+        // Pick a PolygonFarm building per door so each sub-scene reads as a distinct place
+        // (Farmhouse=LopHoc, Greenhouse=NhaAn, Barn=KyTucXa). Falls back to a tinted cube
+        // if the artist pack is missing, so blueprint changes never break scene build.
+        static void BuildDoorBuilding(AreaBlueprint a)
         {
-            // Sit a 6x4x5 building immediately behind the door (further Z-).
+            string artistPath = PickBuildingForDoor(a.id);
             Vector3 doorPos = new Vector3(a.pos.x, 0f, a.pos.z);
-            Vector3 buildingPos = doorPos + new Vector3(0f, 2f, -3f);
-            var b = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            b.name = $"Building_{a.id}";
-            b.transform.position = buildingPos;
-            b.transform.localScale = new Vector3(7f, 4f, 5f);
-            ApplyMaterial(b, MaterialPalette.Area(MaterialFolder));
-            // Roof slab.
-            var roof = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            roof.name = $"Roof_{a.id}";
-            roof.transform.position = buildingPos + new Vector3(0f, 2.2f, 0f);
-            roof.transform.localScale = new Vector3(7.6f, 0.3f, 5.6f);
-            ApplyMaterial(roof, MaterialPalette.NpcHat(MaterialFolder));
-            // Window strips (front face).
-            for (int i = -1; i <= 1; i++)
+            Vector3 buildingPos = doorPos + new Vector3(0f, 0f, -5f);
+
+            var artist = AssetDatabase.LoadAssetAtPath<GameObject>(artistPath);
+            if (artist != null)
             {
-                var win = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                win.name = $"Win_{a.id}_{i}";
-                win.transform.position = buildingPos + new Vector3(i * 2f, 0.8f, 2.55f);
-                win.transform.localScale = new Vector3(1.2f, 1.2f, 0.05f);
-                ApplyMaterial(win, MaterialPalette.Player(MaterialFolder));
+                var b = (GameObject)PrefabUtility.InstantiatePrefab(artist);
+                b.name = $"Building_{a.id}";
+                b.transform.position = buildingPos;
+                b.transform.rotation = Quaternion.Euler(0, 180, 0); // face the door (player side)
+                EnsureMeshColliders(b);
+                return;
             }
+
+            Debug.LogWarning($"[SceneBuilder] Building art missing at {artistPath}; cube fallback.");
+            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.name = $"Building_{a.id}";
+            cube.transform.position = buildingPos + new Vector3(0f, 2f, 0f);
+            cube.transform.localScale = new Vector3(7f, 4f, 5f);
+            ApplyMaterial(cube, MaterialPalette.Area(MaterialFolder));
         }
 
+        static string PickBuildingForDoor(string id)
+        {
+            if (id == "LopHoc_Door") return ArtFarmhouse;   // Classroom
+            if (id == "NhaAn_Door")  return ArtGreenhouse;  // Cafeteria
+            if (id == "KTX_Door")    return ArtBarn;        // Dormitory
+            return ArtFarmhouse;
+        }
 
+        // Building prefabs ship with MeshRenderers but sometimes lack colliders. Add one
+        // MeshCollider per child MeshFilter so the player can't walk through the walls.
+        static void EnsureMeshColliders(GameObject root)
+        {
+            foreach (var mf in root.GetComponentsInChildren<MeshFilter>(includeInactive: false))
+            {
+                if (mf.GetComponent<Collider>() != null) continue;
+                var mc = mf.gameObject.AddComponent<MeshCollider>();
+                mc.convex = false;
+            }
+        }
 
         // ====================================================================
         // 99_Ending
         // ====================================================================
         static void BuildEnding()
         {
-            var canvas = BuildCanvas("EndingCanvas");
-            var panel = BuildPanel(canvas.transform, "EndingPanel");
-            BuildPanelBG(panel, new Color(0.05f, 0.07f, 0.10f, 1f));
-            BuildTextChild(panel.transform, "Title", "Hoan thanh khoa hoc quan su",
-                           new Vector2(0, 100), new Vector2(800, 80), 36);
+            var canvas = BuildCanvas("EndingCanvas", sortOrder: SortOrder_SceneMenu);
+            SciFiTheme.AddSceneBackdrop(canvas.transform);
+
+            var card = BuildCard(canvas.transform, "EndingCard", new Vector2(900, 520));
+            BuildHeaderText(card.transform, "Title", "HOAN THANH KHOA HOC",
+                            new Vector2(0, 140), new Vector2(820, 90), 48);
+            BuildBodyText(card.transform, "Sub", "Chuc mung dong chi da ket thuc hoc ky quan su",
+                          new Vector2(0, 50), new Vector2(820, 60), 22, SciFiTheme.TextMuted);
         }
 
         // ====================================================================
-        // UI helpers
+        // Canvas helpers
         // ====================================================================
         static GameObject BuildCanvas(string name, int sortOrder = 0)
         {
@@ -616,6 +658,26 @@ static void BuildDoorBuilding(AreaBlueprint a)
             var scaler = go.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
+            scaler.matchWidthOrHeight = 0.5f;
+            go.AddComponent<GraphicRaycaster>();
+            return go;
+        }
+
+        // A nested Canvas inside another Canvas — overrides sorting so it stacks
+        // independently above/below sibling canvases.
+        static GameObject BuildSubCanvas(Transform parent, string name, int sortOrder)
+        {
+            var go = new GameObject(name);
+            go.transform.SetParent(parent, false);
+            var rect = go.AddComponent<RectTransform>();
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+
+            var canvas = go.AddComponent<Canvas>();
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = sortOrder;
             go.AddComponent<GraphicRaycaster>();
             return go;
         }
@@ -633,24 +695,68 @@ static void BuildDoorBuilding(AreaBlueprint a)
             return go;
         }
 
-        static GameObject BuildTextChild(Transform parent, string name, string text,
-                                          Vector2 anchoredPos, Vector2 size, int fontSize)
+        // Centered sci-fi card with sliced panel sprite. popup_bg_01 reads cleaner than
+        // _02 (less angular cut-out frame) and is the asset pack's main panel.
+        static GameObject BuildCard(Transform parent, string name, Vector2 size)
         {
             var go = new GameObject(name);
             go.transform.SetParent(parent, false);
             var rect = go.AddComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
             rect.sizeDelta = size;
-            rect.anchoredPosition = anchoredPos;
-            var tmp = go.AddComponent<TMPro.TextMeshProUGUI>();
-            tmp.text = text;
-            tmp.fontSize = fontSize;
-            tmp.alignment = TMPro.TextAlignmentOptions.Center;
-            tmp.color = Color.white;
+            rect.anchoredPosition = Vector2.zero;
+            var img = go.AddComponent<Image>();
+            img.sprite = SciFiTheme.Load("popup_bg_01");
+            img.type = Image.Type.Sliced;
+            img.color = Color.white;
             return go;
         }
 
+        // ====================================================================
+        // Text helpers
+        // ====================================================================
+        static GameObject BuildTextChild(Transform parent, string name, string text,
+                                          Vector2 anchoredPos, Vector2 size, int fontSize,
+                                          Color? color = null)
+        {
+            var go = new GameObject(name);
+            go.transform.SetParent(parent, false);
+            var rect = go.AddComponent<RectTransform>();
+            rect.sizeDelta = size;
+            rect.anchoredPosition = anchoredPos;
+            var tmp = go.AddComponent<TextMeshProUGUI>();
+            tmp.text = text;
+            tmp.fontSize = fontSize;
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.color = color ?? SciFiTheme.TextWhite;
+            return go;
+        }
+
+        static GameObject BuildHeaderText(Transform parent, string name, string text,
+                                          Vector2 anchoredPos, Vector2 size, int fontSize)
+        {
+            var go = BuildTextChild(parent, name, text, anchoredPos, size, fontSize);
+            SciFiTheme.StyleHeader(go.GetComponent<TextMeshProUGUI>(), fontSize);
+            return go;
+        }
+
+        static GameObject BuildBodyText(Transform parent, string name, string text,
+                                        Vector2 anchoredPos, Vector2 size, int fontSize,
+                                        Color? color = null)
+        {
+            var go = BuildTextChild(parent, name, text, anchoredPos, size, fontSize, color);
+            SciFiTheme.StyleBody(go.GetComponent<TextMeshProUGUI>(), fontSize);
+            if (color.HasValue) go.GetComponent<TextMeshProUGUI>().color = color.Value;
+            return go;
+        }
+
+        // ====================================================================
+        // Button / input helpers
+        // ====================================================================
         static Button BuildButtonChild(Transform parent, string name, string label,
-                                        Vector2 anchoredPos, Vector2 size)
+                                        Vector2 anchoredPos, Vector2 size, bool primary = false)
         {
             var go = new GameObject(name);
             go.transform.SetParent(parent, false);
@@ -658,14 +764,22 @@ static void BuildDoorBuilding(AreaBlueprint a)
             rect.sizeDelta = size;
             rect.anchoredPosition = anchoredPos;
             var img = go.AddComponent<Image>();
-            img.color = new Color(0.2f, 0.3f, 0.5f, 1f);
+            img.color = Color.white;
             var btn = go.AddComponent<Button>();
-            BuildTextChild(go.transform, "Label", label, Vector2.zero, size, 20);
+
+            BuildTextChild(go.transform, "Label", label, Vector2.zero, size, Mathf.Max(18, (int)(size.y * 0.34f)));
+            SciFiTheme.StyleButton(btn, primary);
             return btn;
         }
 
-        static TMPro.TMP_InputField BuildInputFieldChild(Transform parent, string name,
-                                                          Vector2 anchoredPos, Vector2 size)
+        static Button BuildPrimaryButton(Transform parent, string name, string label, Vector2 pos, Vector2 size)
+            => BuildButtonChild(parent, name, label, pos, size, primary: true);
+
+        static Button BuildSecondaryButton(Transform parent, string name, string label, Vector2 pos, Vector2 size)
+            => BuildButtonChild(parent, name, label, pos, size, primary: false);
+
+        static TMP_InputField BuildInputFieldChild(Transform parent, string name,
+                                                    Vector2 anchoredPos, Vector2 size)
         {
             var go = new GameObject(name);
             go.transform.SetParent(parent, false);
@@ -673,33 +787,51 @@ static void BuildDoorBuilding(AreaBlueprint a)
             rect.sizeDelta = size;
             rect.anchoredPosition = anchoredPos;
             var img = go.AddComponent<Image>();
-            img.color = new Color(0.1f, 0.1f, 0.15f, 1f);
-            var input = go.AddComponent<TMPro.TMP_InputField>();
+            img.color = Color.white;
+            var input = go.AddComponent<TMP_InputField>();
+
             var textArea = new GameObject("TextArea");
             textArea.transform.SetParent(go.transform, false);
             var taRect = textArea.AddComponent<RectTransform>();
             taRect.anchorMin = Vector2.zero;
             taRect.anchorMax = Vector2.one;
-            taRect.offsetMin = new Vector2(10, 5);
-            taRect.offsetMax = new Vector2(-10, -5);
-            var textGo = BuildTextChild(textArea.transform, "Text", "", Vector2.zero, size - new Vector2(20, 10), 18);
-            input.textComponent = textGo.GetComponent<TMPro.TextMeshProUGUI>();
+            taRect.offsetMin = new Vector2(20, 8);
+            taRect.offsetMax = new Vector2(-20, -8);
+
+            var textGo = BuildTextChild(textArea.transform, "Text", "",
+                                         Vector2.zero, size - new Vector2(40, 16), 22);
+            var tmp = textGo.GetComponent<TextMeshProUGUI>();
+            tmp.alignment = TextAlignmentOptions.MidlineLeft;
+            input.textComponent = tmp;
+            input.fontAsset = tmp.font;
+            SciFiTheme.StyleInputField(input);
             return input;
         }
 
         // ====================================================================
-        // UI screen panels
+        // Modals (children of ModalCanvas)
         // ====================================================================
+        // Each modal is a full-screen container with a sci-fi dim BG + a centered card.
+        // Hidden by default via UIScreenBase.Awake -> Hide().
+        static (GameObject panel, GameObject card) BuildModalPanel(Transform parent, string name, Vector2 cardSize)
+        {
+            var panel = BuildPanel(parent, name);
+            SciFiTheme.StyleScreenDim(panel);
+            var card = BuildCard(panel.transform, name + "Card", cardSize);
+            return (panel, card);
+        }
+
         static UIConfirmController BuildConfirmScreen(Transform parent)
         {
-            var panel = BuildPanel(parent, "UIConfirm");
-            BuildPanelBG(panel);
-            var body = BuildTextChild(panel.transform, "Body", "...", new Vector2(0, 50), new Vector2(700, 100), 24);
-            var ok = BuildButtonChild(panel.transform, "OK", "OK", new Vector2(-120, -80), new Vector2(180, 60));
-            var cancel = BuildButtonChild(panel.transform, "Cancel", "Huy", new Vector2(120, -80), new Vector2(180, 60));
+            var (panel, card) = BuildModalPanel(parent, "UIConfirm", new Vector2(720, 360));
+            BuildHeaderText(card.transform, "Title", "XAC NHAN", new Vector2(0, 110), new Vector2(640, 60), 30);
+            var body = BuildBodyText(card.transform, "Body", "...", new Vector2(0, 20), new Vector2(640, 120), 22);
+            var ok = BuildPrimaryButton(card.transform, "OK", "OK", new Vector2(-130, -110), new Vector2(220, 70));
+            var cancel = BuildSecondaryButton(card.transform, "Cancel", "Huy", new Vector2(130, -110), new Vector2(220, 70));
+
             var ctrl = panel.AddComponent<UIConfirmController>();
             AssignSerialized(ctrl, "canvasGroup", panel.GetComponent<CanvasGroup>());
-            AssignSerialized(ctrl, "bodyText", body.GetComponent<TMPro.TextMeshProUGUI>());
+            AssignSerialized(ctrl, "bodyText", body.GetComponent<TextMeshProUGUI>());
             AssignSerialized(ctrl, "okButton", ok);
             AssignSerialized(ctrl, "cancelButton", cancel);
             return ctrl;
@@ -707,18 +839,42 @@ static void BuildDoorBuilding(AreaBlueprint a)
 
         static UIDialogueController BuildDialogueScreen(Transform parent)
         {
-            var panel = BuildPanel(parent, "UIDialogue");
-            BuildPanelBG(panel);
-            var name = BuildTextChild(panel.transform, "NpcName", "NPC", new Vector2(0, 200), new Vector2(600, 50), 26);
-            var history = BuildTextChild(panel.transform, "History", "", new Vector2(0, 50), new Vector2(800, 250), 18);
-            history.GetComponent<TMPro.TextMeshProUGUI>().alignment = TMPro.TextAlignmentOptions.TopLeft;
-            var input = BuildInputFieldChild(panel.transform, "Input", new Vector2(-100, -150), new Vector2(500, 50));
-            var send = BuildButtonChild(panel.transform, "Send", "Gui", new Vector2(220, -150), new Vector2(120, 50));
-            var close = BuildButtonChild(panel.transform, "Close", "X", new Vector2(380, 220), new Vector2(60, 50));
+            var (panel, card) = BuildModalPanel(parent, "UIDialogue", new Vector2(1080, 600));
+            var npcName = BuildHeaderText(card.transform, "NpcName", "NPC",
+                                          new Vector2(0, 230), new Vector2(900, 60), 32);
+
+            // Conversation history area with framed background.
+            var histBg = new GameObject("HistoryBG");
+            histBg.transform.SetParent(card.transform, false);
+            var hbgRect = histBg.AddComponent<RectTransform>();
+            hbgRect.sizeDelta = new Vector2(960, 320);
+            hbgRect.anchoredPosition = new Vector2(0, 30);
+            var hbgImg = histBg.AddComponent<Image>();
+            hbgImg.sprite = SciFiTheme.Load("list_bg_n");
+            hbgImg.type = Image.Type.Sliced;
+            hbgImg.color = new Color(0f, 0.04f, 0.12f, 0.85f);
+
+            var history = BuildBodyText(histBg.transform, "History", "",
+                                         new Vector2(0, 0), new Vector2(920, 290), 20);
+            var histText = history.GetComponent<TextMeshProUGUI>();
+            histText.alignment = TextAlignmentOptions.TopLeft;
+            var histRect = history.GetComponent<RectTransform>();
+            histRect.anchorMin = new Vector2(0, 0);
+            histRect.anchorMax = new Vector2(1, 1);
+            histRect.offsetMin = new Vector2(20, 15);
+            histRect.offsetMax = new Vector2(-20, -15);
+
+            var input = BuildInputFieldChild(card.transform, "Input",
+                                              new Vector2(-100, -200), new Vector2(720, 64));
+            var send = BuildPrimaryButton(card.transform, "Send", "Gui",
+                                           new Vector2(380, -200), new Vector2(160, 64));
+            var close = BuildSecondaryButton(card.transform, "Close", "X",
+                                              new Vector2(500, 235), new Vector2(64, 64));
+
             var ctrl = panel.AddComponent<UIDialogueController>();
             AssignSerialized(ctrl, "canvasGroup", panel.GetComponent<CanvasGroup>());
-            AssignSerialized(ctrl, "npcName", name.GetComponent<TMPro.TextMeshProUGUI>());
-            AssignSerialized(ctrl, "history", history.GetComponent<TMPro.TextMeshProUGUI>());
+            AssignSerialized(ctrl, "npcName", npcName.GetComponent<TextMeshProUGUI>());
+            AssignSerialized(ctrl, "history", histText);
             AssignSerialized(ctrl, "input", input);
             AssignSerialized(ctrl, "sendButton", send);
             AssignSerialized(ctrl, "closeButton", close);
@@ -728,104 +884,155 @@ static void BuildDoorBuilding(AreaBlueprint a)
         static UILoadingController BuildLoadingScreen(Transform parent)
         {
             var panel = BuildPanel(parent, "UILoading");
-            BuildPanelBG(panel, new Color(0, 0, 0, 0.85f));
-            var label = BuildTextChild(panel.transform, "Label", "Dang tai...",
-                                        new Vector2(0, 0), new Vector2(700, 100), 28);
+            SciFiTheme.StyleScreenDim(panel, alpha: 0.92f);
+
+            var card = BuildCard(panel.transform, "UILoadingCard", new Vector2(600, 220));
+            var label = BuildBodyText(card.transform, "Label", "Dang tai...",
+                                       new Vector2(0, 30), new Vector2(540, 60), 26);
+
+            // Animated progress strip — uses the loading_bar sprite as a filling band.
+            var barBg = new GameObject("BarBG");
+            barBg.transform.SetParent(card.transform, false);
+            var barBgRect = barBg.AddComponent<RectTransform>();
+            barBgRect.sizeDelta = new Vector2(460, 18);
+            barBgRect.anchoredPosition = new Vector2(0, -40);
+            var barBgImg = barBg.AddComponent<Image>();
+            barBgImg.sprite = SciFiTheme.Load("loading_bar_bg");
+            barBgImg.type = Image.Type.Sliced;
+            barBgImg.color = new Color(0.05f, 0.10f, 0.22f, 1f);
+
+            var bar = new GameObject("Bar");
+            bar.transform.SetParent(barBg.transform, false);
+            var barRect = bar.AddComponent<RectTransform>();
+            barRect.anchorMin = new Vector2(0, 0);
+            barRect.anchorMax = new Vector2(1, 1);
+            barRect.offsetMin = new Vector2(2, 2);
+            barRect.offsetMax = new Vector2(-2, -2);
+            var barImg = bar.AddComponent<Image>();
+            barImg.sprite = SciFiTheme.Load("loading_bar");
+            barImg.type = Image.Type.Sliced;
+            barImg.color = SciFiTheme.AccentCyan;
+
             var ctrl = panel.AddComponent<UILoadingController>();
             AssignSerialized(ctrl, "canvasGroup", panel.GetComponent<CanvasGroup>());
-            AssignSerialized(ctrl, "label", label.GetComponent<TMPro.TextMeshProUGUI>());
+            AssignSerialized(ctrl, "label", label.GetComponent<TextMeshProUGUI>());
             return ctrl;
         }
 
         static UIQuizController BuildQuizScreen(Transform parent)
         {
-            var panel = BuildPanel(parent, "UIQuiz");
-            BuildPanelBG(panel);
-            var question = BuildTextChild(panel.transform, "Question", "Cau hoi?",
-                                           new Vector2(0, 200), new Vector2(900, 120), 26);
-            var counter = BuildTextChild(panel.transform, "Counter", "1/10",
-                                          new Vector2(-400, 280), new Vector2(120, 40), 20);
-            var timer = BuildTextChild(panel.transform, "Timer", "15",
-                                        new Vector2(400, 280), new Vector2(120, 40), 24);
+            var (panel, card) = BuildModalPanel(parent, "UIQuiz", new Vector2(1100, 720));
 
+            var counter = BuildHeaderText(card.transform, "Counter", "1/10",
+                                           new Vector2(-440, 300), new Vector2(180, 60), 26);
+            var timer = BuildHeaderText(card.transform, "Timer", "15",
+                                         new Vector2(440, 300), new Vector2(180, 60), 28);
+            var question = BuildBodyText(card.transform, "Question", "Cau hoi?",
+                                          new Vector2(0, 200), new Vector2(960, 140), 26);
+
+            // UIQuizController lives on the panel so UIScreenBase.Hide() disables the
+            // full modal (including the card and its buttons).
             var ctrl = panel.AddComponent<UIQuizController>();
             AssignSerialized(ctrl, "canvasGroup", panel.GetComponent<CanvasGroup>());
-            AssignSerialized(ctrl, "questionText", question.GetComponent<TMPro.TextMeshProUGUI>());
-            AssignSerialized(ctrl, "counterText", counter.GetComponent<TMPro.TextMeshProUGUI>());
-            AssignSerialized(ctrl, "timerText", timer.GetComponent<TMPro.TextMeshProUGUI>());
+            AssignSerialized(ctrl, "questionText", question.GetComponent<TextMeshProUGUI>());
+            AssignSerialized(ctrl, "counterText", counter.GetComponent<TextMeshProUGUI>());
+            AssignSerialized(ctrl, "timerText", timer.GetComponent<TextMeshProUGUI>());
 
             var buttons = new Button[4];
-            var labels = new TMPro.TextMeshProUGUI[4];
+            var labels = new TextMeshProUGUI[4];
             for (int i = 0; i < 4; i++)
             {
-                float x = (i % 2 == 0 ? -200 : 200);
-                float y = (i < 2 ? 50 : -50);
-                var b = BuildButtonChild(panel.transform, $"Ans{i}", $"Dap an {(char)('A' + i)}",
-                                          new Vector2(x, y), new Vector2(360, 70));
+                float x = (i % 2 == 0 ? -240 : 240);
+                float y = (i < 2 ? 50 : -60);
+                var b = BuildButtonChild(card.transform, $"Ans{i}", $"Dap an {(char)('A' + i)}",
+                                          new Vector2(x, y), new Vector2(440, 82));
                 buttons[i] = b;
                 var lbl = b.transform.Find("Label");
-                if (lbl != null) labels[i] = lbl.GetComponent<TMPro.TextMeshProUGUI>();
+                if (lbl != null) labels[i] = lbl.GetComponent<TextMeshProUGUI>();
             }
             AssignSerializedArray(ctrl, "answerButtons", buttons);
             AssignSerializedArray(ctrl, "answerLabels", labels);
 
-            var cont = BuildButtonChild(panel.transform, "Continue", "Tiep theo",
-                                         new Vector2(0, -180), new Vector2(200, 60));
+            var cont = BuildPrimaryButton(card.transform, "Continue", "Tiep theo",
+                                           new Vector2(0, -230), new Vector2(280, 76));
             AssignSerialized(ctrl, "continueButton", cont);
             return ctrl;
         }
 
         static UIEndingController BuildEndingScreen(Transform parent)
         {
-            var panel = BuildPanel(parent, "UIEnding");
-            BuildPanelBG(panel, new Color(0, 0, 0, 0.9f));
-            var head = BuildTextChild(panel.transform, "Headline", "TOT NGHIEP",
-                                       new Vector2(0, 120), new Vector2(800, 100), 48);
-            var body = BuildTextChild(panel.transform, "Body", "...",
-                                       new Vector2(0, -20), new Vector2(800, 200), 22);
+            var (panel, card) = BuildModalPanel(parent, "UIEnding", new Vector2(900, 560));
+            var head = BuildHeaderText(card.transform, "Headline", "TOT NGHIEP",
+                                        new Vector2(0, 150), new Vector2(820, 110), 56);
+            var body = BuildBodyText(card.transform, "Body", "...",
+                                      new Vector2(0, 0), new Vector2(820, 220), 24);
             var ctrl = panel.AddComponent<UIEndingController>();
             AssignSerialized(ctrl, "canvasGroup", panel.GetComponent<CanvasGroup>());
-            AssignSerialized(ctrl, "headlineText", head.GetComponent<TMPro.TextMeshProUGUI>());
-            AssignSerialized(ctrl, "bodyText", body.GetComponent<TMPro.TextMeshProUGUI>());
+            AssignSerialized(ctrl, "headlineText", head.GetComponent<TextMeshProUGUI>());
+            AssignSerialized(ctrl, "bodyText", body.GetComponent<TextMeshProUGUI>());
             return ctrl;
         }
 
         static UIExpelController BuildExpelScreen(Transform parent)
         {
-            var panel = BuildPanel(parent, "UIExpel");
-            BuildPanelBG(panel, new Color(0.5f, 0, 0, 0.9f));
-            var body = BuildTextChild(panel.transform, "Body", "...",
-                                       new Vector2(0, 0), new Vector2(800, 150), 26);
+            var (panel, card) = BuildModalPanel(parent, "UIExpel", new Vector2(820, 420));
+
+            // Override card to a red-tinted variant.
+            var cardImg = card.GetComponent<Image>();
+            if (cardImg != null) cardImg.color = new Color(1f, 0.78f, 0.78f, 1f);
+
+            BuildHeaderText(card.transform, "Title", "DUOI HOC", new Vector2(0, 130), new Vector2(720, 70), 38);
+            var body = BuildBodyText(card.transform, "Body", "...",
+                                      new Vector2(0, -30), new Vector2(720, 200), 24, SciFiTheme.WarnRed);
             var ctrl = panel.AddComponent<UIExpelController>();
             AssignSerialized(ctrl, "canvasGroup", panel.GetComponent<CanvasGroup>());
-            AssignSerialized(ctrl, "bodyText", body.GetComponent<TMPro.TextMeshProUGUI>());
+            AssignSerialized(ctrl, "bodyText", body.GetComponent<TextMeshProUGUI>());
             return ctrl;
         }
 
+        // ====================================================================
+        // HUDs (children of HUDCanvas, auto-hidden outside gameplay scenes)
+        // ====================================================================
+        // Quest panel — 4 lines visible at all times so the player always knows the
+        // current objective, time window and remaining time without opening a quest log.
+        // Layout (top→bottom): NHIEM VU header / title / objective hint / window + countdown.
         static void BuildQuestHUD(Transform parent)
         {
             var panel = BuildPanel(parent, "QuestHUD");
-            panel.GetComponent<RectTransform>().anchorMin = new Vector2(1, 1);
-            panel.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
-            panel.GetComponent<RectTransform>().sizeDelta = new Vector2(400, 80);
-            panel.GetComponent<RectTransform>().anchoredPosition = new Vector2(-220, -240);
+            var rect = panel.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(1, 1);
+            rect.anchorMax = new Vector2(1, 1);
+            rect.pivot = new Vector2(1, 1);
+            rect.sizeDelta = new Vector2(440, 200);
+            rect.anchoredPosition = new Vector2(-30, -30);
+            SciFiTheme.StyleHUDChip(panel);
 
-            var bg = new GameObject("BG");
-            bg.transform.SetParent(panel.transform, false);
-            var bgRect = bg.AddComponent<RectTransform>();
-            bgRect.anchorMin = Vector2.zero; bgRect.anchorMax = Vector2.one;
-            bgRect.offsetMin = Vector2.zero; bgRect.offsetMax = Vector2.zero;
-            var bgImg = bg.AddComponent<Image>();
-            bgImg.color = new Color(0f, 0f, 0f, 0.55f);
+            var header = BuildBodyText(panel.transform, "Header", "NHIEM VU",
+                                       new Vector2(0, 75), new Vector2(400, 28), 14, SciFiTheme.TextMuted);
+            var title = BuildBodyText(panel.transform, "Title", "...",
+                                       new Vector2(0, 42), new Vector2(400, 36), 22);
+            title.GetComponent<TextMeshProUGUI>().color = SciFiTheme.AccentCyan;
+            title.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
 
-            var title = BuildTextChild(panel.transform, "Title", "...",
-                                        new Vector2(0, 20), new Vector2(380, 40), 22);
-            var window = BuildTextChild(panel.transform, "Window", "",
-                                         new Vector2(0, -20), new Vector2(380, 30), 18);
+            var objective = BuildBodyText(panel.transform, "Objective", "...",
+                                          new Vector2(0, 5), new Vector2(400, 32), 17);
+
+            var window = BuildBodyText(panel.transform, "Window", "00:00 - 00:00",
+                                       new Vector2(-90, -42), new Vector2(220, 28), 14, SciFiTheme.TextMuted);
+            window.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.MidlineLeft;
+
+            var countdown = BuildBodyText(panel.transform, "Countdown", "",
+                                          new Vector2(90, -42), new Vector2(220, 28), 16);
+            countdown.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.MidlineRight;
+            countdown.GetComponent<TextMeshProUGUI>().color = SciFiTheme.AccentCyan;
+            countdown.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+
             var ctrl = panel.AddComponent<UIQuestHUDController>();
             AssignSerialized(ctrl, "canvasGroup", panel.GetComponent<CanvasGroup>());
-            AssignSerialized(ctrl, "titleText", title.GetComponent<TMPro.TextMeshProUGUI>());
-            AssignSerialized(ctrl, "windowText", window.GetComponent<TMPro.TextMeshProUGUI>());
+            AssignSerialized(ctrl, "titleText", title.GetComponent<TextMeshProUGUI>());
+            AssignSerialized(ctrl, "objectiveText", objective.GetComponent<TextMeshProUGUI>());
+            AssignSerialized(ctrl, "windowText", window.GetComponent<TextMeshProUGUI>());
+            AssignSerialized(ctrl, "countdownText", countdown.GetComponent<TextMeshProUGUI>());
         }
 
         static void BuildClockHUD(Transform parent, ServiceLocatorSO locator)
@@ -834,24 +1041,21 @@ static void BuildDoorBuilding(AreaBlueprint a)
             var rect = panel.GetComponent<RectTransform>();
             rect.anchorMin = new Vector2(0.5f, 1);
             rect.anchorMax = new Vector2(0.5f, 1);
-            rect.sizeDelta = new Vector2(300, 80);
-            rect.anchoredPosition = new Vector2(0, -50);
+            rect.pivot = new Vector2(0.5f, 1);
+            rect.sizeDelta = new Vector2(320, 96);
+            rect.anchoredPosition = new Vector2(0, -30);
+            SciFiTheme.StyleHUDChip(panel);
 
-            var bg = new GameObject("BG");
-            bg.transform.SetParent(panel.transform, false);
-            var bgRect = bg.AddComponent<RectTransform>();
-            bgRect.anchorMin = Vector2.zero; bgRect.anchorMax = Vector2.one;
-            bgRect.offsetMin = Vector2.zero; bgRect.offsetMax = Vector2.zero;
-            var bgImg = bg.AddComponent<Image>();
-            bgImg.color = new Color(0f, 0f, 0f, 0.55f);
+            var day = BuildBodyText(panel.transform, "Day", "Ngay 1 (Mon)",
+                                      new Vector2(0, 22), new Vector2(300, 30), 16, SciFiTheme.TextMuted);
+            var time = BuildBodyText(panel.transform, "Time", "05:00",
+                                       new Vector2(0, -20), new Vector2(300, 40), 26);
+            time.GetComponent<TextMeshProUGUI>().color = SciFiTheme.AccentCyan;
+            time.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
 
-            var day = BuildTextChild(panel.transform, "Day", "Ngay 1 (Mon)",
-                                      new Vector2(0, 20), new Vector2(280, 30), 18);
-            var time = BuildTextChild(panel.transform, "Time", "05:00",
-                                       new Vector2(0, -15), new Vector2(280, 30), 22);
             var ctrl = panel.AddComponent<UIClockHUDController>();
-            AssignSerialized(ctrl, "dayText", day.GetComponent<TMPro.TextMeshProUGUI>());
-            AssignSerialized(ctrl, "timeText", time.GetComponent<TMPro.TextMeshProUGUI>());
+            AssignSerialized(ctrl, "dayText", day.GetComponent<TextMeshProUGUI>());
+            AssignSerialized(ctrl, "timeText", time.GetComponent<TextMeshProUGUI>());
             AssignSerialized(ctrl, "clock", locator != null ? locator.clock : null);
         }
 
@@ -861,24 +1065,20 @@ static void BuildDoorBuilding(AreaBlueprint a)
             var rect = panel.GetComponent<RectTransform>();
             rect.anchorMin = new Vector2(0, 1);
             rect.anchorMax = new Vector2(0, 1);
-            rect.sizeDelta = new Vector2(300, 100);
-            rect.anchoredPosition = new Vector2(170, -60);
+            rect.pivot = new Vector2(0, 1);
+            rect.sizeDelta = new Vector2(340, 110);
+            rect.anchoredPosition = new Vector2(30, -30);
+            SciFiTheme.StyleHUDChip(panel);
 
-            var bg = new GameObject("BG");
-            bg.transform.SetParent(panel.transform, false);
-            var bgRect = bg.AddComponent<RectTransform>();
-            bgRect.anchorMin = Vector2.zero; bgRect.anchorMax = Vector2.one;
-            bgRect.offsetMin = Vector2.zero; bgRect.offsetMax = Vector2.zero;
-            var bgImg = bg.AddComponent<Image>();
-            bgImg.color = new Color(0f, 0f, 0f, 0.55f);
+            var hocTap = BuildBodyText(panel.transform, "HocTap", "Hoc tap: 0/480",
+                                         new Vector2(0, 28), new Vector2(320, 30), 18);
+            var renLuyen = BuildBodyText(panel.transform, "RenLuyen", "Ren luyen: 100/100",
+                                           new Vector2(0, -16), new Vector2(320, 30), 18,
+                                           SciFiTheme.TextMuted);
 
-            var hocTap = BuildTextChild(panel.transform, "HocTap", "Hoc tap: 0/480",
-                                         new Vector2(0, 25), new Vector2(280, 30), 18);
-            var renLuyen = BuildTextChild(panel.transform, "RenLuyen", "Ren luyen: 100/100",
-                                           new Vector2(0, -15), new Vector2(280, 30), 18);
             var ctrl = panel.AddComponent<UIScoreHUDController>();
-            AssignSerialized(ctrl, "hocTapText", hocTap.GetComponent<TMPro.TextMeshProUGUI>());
-            AssignSerialized(ctrl, "renLuyenText", renLuyen.GetComponent<TMPro.TextMeshProUGUI>());
+            AssignSerialized(ctrl, "hocTapText", hocTap.GetComponent<TextMeshProUGUI>());
+            AssignSerialized(ctrl, "renLuyenText", renLuyen.GetComponent<TextMeshProUGUI>());
             AssignSerialized(ctrl, "playerState", locator != null ? locator.playerState : null);
         }
 
@@ -886,24 +1086,72 @@ static void BuildDoorBuilding(AreaBlueprint a)
         {
             var panel = BuildPanel(parent, "InteractPrompt");
             var rect = panel.GetComponent<RectTransform>();
-            rect.anchorMin = new Vector2(1, 0);
-            rect.anchorMax = new Vector2(1, 0);
-            rect.sizeDelta = new Vector2(300, 80);
-            rect.anchoredPosition = new Vector2(-170, 100);
+            rect.anchorMin = new Vector2(0.5f, 0);
+            rect.anchorMax = new Vector2(0.5f, 0);
+            rect.pivot = new Vector2(0.5f, 0);
+            rect.sizeDelta = new Vector2(420, 80);
+            rect.anchoredPosition = new Vector2(0, 80);
+            SciFiTheme.StyleHUDChip(panel);
 
-            var bg = new GameObject("BG");
-            bg.transform.SetParent(panel.transform, false);
-            var bgRect = bg.AddComponent<RectTransform>();
-            bgRect.anchorMin = Vector2.zero; bgRect.anchorMax = Vector2.one;
-            bgRect.offsetMin = Vector2.zero; bgRect.offsetMax = Vector2.zero;
-            var bgImg = bg.AddComponent<Image>();
-            bgImg.color = new Color(0f, 0f, 0f, 0.65f);
+            var prompt = BuildBodyText(panel.transform, "Prompt", "Bam E de tuong tac",
+                                         new Vector2(0, 0), new Vector2(400, 60), 22);
+            prompt.GetComponent<TextMeshProUGUI>().color = SciFiTheme.AccentCyan;
 
-            var prompt = BuildTextChild(panel.transform, "Prompt", "Bam E de tuong tac",
-                                         new Vector2(0, 0), new Vector2(280, 70), 18);
             var ctrl = panel.AddComponent<UIInteractPromptController>();
             AssignSerialized(ctrl, "canvasGroup", panel.GetComponent<CanvasGroup>());
-            AssignSerialized(ctrl, "promptText", prompt.GetComponent<TMPro.TextMeshProUGUI>());
+            AssignSerialized(ctrl, "promptText", prompt.GetComponent<TextMeshProUGUI>());
+        }
+
+        // Big touch-friendly Interact button on the right side, mirrors the E key.
+        // UIInteractButton listens to InteractZone messages so it auto-hides when no
+        // interactable is in range and re-broadcasts InteractPressedMsg on tap.
+        static void BuildInteractButton(Transform parent)
+        {
+            var go = new GameObject("InteractButton");
+            go.transform.SetParent(parent, false);
+            var rect = go.AddComponent<RectTransform>();
+            rect.anchorMin = new Vector2(1, 0);
+            rect.anchorMax = new Vector2(1, 0);
+            rect.pivot = new Vector2(1, 0);
+            rect.sizeDelta = new Vector2(180, 180);
+            rect.anchoredPosition = new Vector2(-60, 60);
+
+            var canvasGroup = go.AddComponent<CanvasGroup>();
+
+            // Backing image: chevron sci-fi primary button shape so it reads as "press me".
+            var bgGo = new GameObject("BG");
+            bgGo.transform.SetParent(go.transform, false);
+            var bgRect = bgGo.AddComponent<RectTransform>();
+            bgRect.anchorMin = Vector2.zero; bgRect.anchorMax = Vector2.one;
+            bgRect.offsetMin = Vector2.zero; bgRect.offsetMax = Vector2.zero;
+            var img = bgGo.AddComponent<Image>();
+            img.sprite = SciFiTheme.Load("popup_btn_n");
+            img.type = Image.Type.Sliced;
+            img.color = Color.white;
+            img.raycastTarget = true;
+
+            var btn = bgGo.AddComponent<Button>();
+            SciFiTheme.StyleButton(btn, primary: true);
+
+            // Big "E" label centred so desktop + touch users both see what binds to this.
+            var labelGo = new GameObject("Label");
+            labelGo.transform.SetParent(bgGo.transform, false);
+            var labelRect = labelGo.AddComponent<RectTransform>();
+            labelRect.anchorMin = Vector2.zero; labelRect.anchorMax = Vector2.one;
+            labelRect.offsetMin = Vector2.zero; labelRect.offsetMax = Vector2.zero;
+            var tmp = labelGo.AddComponent<TextMeshProUGUI>();
+            tmp.text = "E";
+            tmp.fontSize = 72;
+            tmp.fontStyle = FontStyles.Bold;
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.color = SciFiTheme.TextWhite;
+            tmp.outlineWidth = 0.2f;
+            tmp.outlineColor = new Color(0f, 0f, 0f, 0.7f);
+
+            var ctrl = go.AddComponent<UIInteractButton>();
+            AssignSerialized(ctrl, "button", btn);
+            AssignSerialized(ctrl, "canvasGroup", canvasGroup);
+            AssignSerialized(ctrl, "label", tmp);
         }
 
         static void BuildMiniMap(Transform parent, ServiceLocatorSO locator)
@@ -912,14 +1160,16 @@ static void BuildDoorBuilding(AreaBlueprint a)
             var rect = panel.GetComponent<RectTransform>();
             rect.anchorMin = new Vector2(1, 1);
             rect.anchorMax = new Vector2(1, 1);
-            rect.sizeDelta = new Vector2(240, 240);
-            rect.anchoredPosition = new Vector2(-140, -150);
+            rect.pivot = new Vector2(1, 1);
+            rect.sizeDelta = new Vector2(260, 260);
+            rect.anchoredPosition = new Vector2(-30, -160);
 
             // Map background (RawImage backed by minimap render-texture).
             var mapBg = new GameObject("MapImage");
             mapBg.transform.SetParent(panel.transform, false);
             var mapRect = mapBg.AddComponent<RectTransform>();
-            mapRect.anchorMin = Vector2.zero; mapRect.anchorMax = Vector2.one;
+            mapRect.anchorMin = new Vector2(0.04f, 0.06f);
+            mapRect.anchorMax = new Vector2(0.96f, 0.94f);
             mapRect.offsetMin = Vector2.zero; mapRect.offsetMax = Vector2.zero;
             var raw = mapBg.AddComponent<RawImage>();
             raw.color = Color.white;
@@ -927,17 +1177,19 @@ static void BuildDoorBuilding(AreaBlueprint a)
             if (rt == null) rt = EnsureMinimapRT();
             raw.texture = rt;
 
-            // Frame border on top of map.
+            // Sci-fi frame.
             var frame = new GameObject("Frame");
             frame.transform.SetParent(panel.transform, false);
             var frRect = frame.AddComponent<RectTransform>();
             frRect.anchorMin = Vector2.zero; frRect.anchorMax = Vector2.one;
             frRect.offsetMin = Vector2.zero; frRect.offsetMax = Vector2.zero;
             var frImg = frame.AddComponent<Image>();
-            frImg.color = new Color(1f, 1f, 1f, 0.18f);
+            frImg.sprite = SciFiTheme.Load("item_frame_f");
+            frImg.type = Image.Type.Sliced;
+            frImg.color = SciFiTheme.AccentCyan;
             frImg.raycastTarget = false;
 
-            // Centered player dot (since minimap camera is parented to player).
+            // Centered player dot.
             var dotGo = new GameObject("PlayerDot");
             dotGo.transform.SetParent(panel.transform, false);
             var dotRect = dotGo.AddComponent<RectTransform>();
@@ -948,9 +1200,8 @@ static void BuildDoorBuilding(AreaBlueprint a)
             var dotImg = dotGo.AddComponent<Image>();
             dotImg.color = new Color(0.20f, 0.95f, 0.30f);
 
-            // Label so the player knows what they're looking at.
-            BuildTextChild(panel.transform, "Label", "Ban do",
-                           new Vector2(0, -110), new Vector2(200, 22), 14);
+            BuildBodyText(panel.transform, "Label", "BAN DO",
+                          new Vector2(0, -120), new Vector2(220, 22), 14, SciFiTheme.AccentCyan);
 
             var ctrl = panel.AddComponent<UIMiniMapController>();
             AssignSerialized(ctrl, "mapRect", rect);
@@ -958,46 +1209,26 @@ static void BuildDoorBuilding(AreaBlueprint a)
             AssignSerialized(ctrl, "playerState", locator != null ? locator.playerState : null);
         }
 
+        // Joystick: instantiate the Floating Joystick from Joystick Pack (proper touch
+        // input from a polished prefab) rather than rolling our own. PlayerController
+        // resolves it at Start() via FindFirstObjectByType<Joystick>().
         static void BuildJoystick(Transform parent)
         {
-            var panel = BuildPanel(parent, "Joystick");
-            var rect = panel.GetComponent<RectTransform>();
-            rect.anchorMin = new Vector2(0, 0);
-            rect.anchorMax = new Vector2(0, 0);
-            rect.sizeDelta = new Vector2(200, 200);
-            rect.anchoredPosition = new Vector2(150, 150);
-
-            var bgGo = new GameObject("Background");
-            bgGo.transform.SetParent(panel.transform, false);
-            var bgRect = bgGo.AddComponent<RectTransform>();
-            bgRect.sizeDelta = new Vector2(160, 160);
-            var bgImg = bgGo.AddComponent<Image>();
-            bgImg.color = new Color(0.3f, 0.3f, 0.3f, 0.4f);
-
-            var handleGo = new GameObject("Handle");
-            handleGo.transform.SetParent(bgGo.transform, false);
-            var handleRect = handleGo.AddComponent<RectTransform>();
-            handleRect.sizeDelta = new Vector2(60, 60);
-            var handleImg = handleGo.AddComponent<Image>();
-            handleImg.color = new Color(0.6f, 0.6f, 0.6f, 0.8f);
-
-            var ctrl = panel.AddComponent<UIJoystickController>();
-            AssignSerialized(ctrl, "background", bgRect);
-            AssignSerialized(ctrl, "handle", handleRect);
-        }
-
-        static void BuildPanelBG(GameObject panel, Color? color = null)
-        {
-            var bgGo = new GameObject("BG");
-            bgGo.transform.SetParent(panel.transform, false);
-            var rect = bgGo.AddComponent<RectTransform>();
-            rect.anchorMin = Vector2.zero;
-            rect.anchorMax = Vector2.one;
-            rect.offsetMin = Vector2.zero;
-            rect.offsetMax = Vector2.zero;
-            var img = bgGo.AddComponent<Image>();
-            img.color = color ?? new Color(0, 0, 0, 0.7f);
-            bgGo.transform.SetAsFirstSibling();
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(FloatingJoystickPath);
+            if (prefab == null)
+            {
+                Debug.LogWarning($"[SceneBuilder] Joystick prefab missing at {FloatingJoystickPath}, skipping.");
+                return;
+            }
+            var go = (GameObject)PrefabUtility.InstantiatePrefab(prefab, parent);
+            go.name = "Joystick";
+            // Reanchor to bottom-left quadrant of HUDCanvas (sized to a sensible thumb area).
+            var rt = go.GetComponent<RectTransform>();
+            rt.anchorMin = new Vector2(0, 0);
+            rt.anchorMax = new Vector2(0.35f, 0.55f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.offsetMin = Vector2.zero;
+            rt.offsetMax = Vector2.zero;
         }
 
         // ====================================================================

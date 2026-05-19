@@ -1,3 +1,4 @@
+using TrainAI.Services;
 using UnityEngine;
 
 namespace TrainAI.Presentation
@@ -28,6 +29,15 @@ namespace TrainAI.Presentation
         void LateUpdate()
         {
             if (_cam == null || _cam.targetTexture == null) return;
+            // Skip rendering while a scene transition is in flight. The
+            // MinimapCamera lives in 10_World — when LoadReplacing unloads
+            // 10_World to enter a sub-scene, calling Render() right at the
+            // unload boundary leaves command-buffer state dangling because
+            // the renderers being drawn are about to be destroyed. The
+            // 426× "m_CmdState == kEmpty" assertion spam observed in the
+            // 2026-05-19 08:26 crash dump matches that signature exactly.
+            // Same pattern as MovementService.Tick gating on IsTransitioning.
+            if (SceneRouter.IsTransitioning) return;
             _accum += Time.unscaledDeltaTime;
             if (_accum < intervalSec) return;
             _accum = 0f;

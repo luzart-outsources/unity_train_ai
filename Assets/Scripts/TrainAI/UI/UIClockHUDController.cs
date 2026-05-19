@@ -12,10 +12,25 @@ namespace TrainAI.UI
         [SerializeField] TMP_Text timeText;
         [SerializeField] GameClockRSO clock;
 
-        void OnEnable() => BroadcastService.Subscribe<TimeTickMsg>(OnTick);
-        void OnDisable() => BroadcastService.Unsubscribe<TimeTickMsg>(OnTick);
+        void OnEnable()
+        {
+            BroadcastService.Subscribe<TimeTickMsg>(OnTick);
+            BroadcastService.Subscribe<DayStartedMsg>(OnDayStarted);
+            RefreshDay();
+        }
+        void OnDisable()
+        {
+            BroadcastService.Unsubscribe<TimeTickMsg>(OnTick);
+            BroadcastService.Unsubscribe<DayStartedMsg>(OnDayStarted);
+        }
 
-        void Update()
+        // Day text only changes once per game-day, so refresh on the event
+        // instead of formatting a new string into a TMP buffer every Update
+        // (the per-frame cost was small but constant; TMP re-tessellation
+        // adds up at 60+ FPS when nothing meaningful changed).
+        void OnDayStarted(DayStartedMsg _) => RefreshDay();
+
+        void RefreshDay()
         {
             if (clock != null && dayText != null)
                 dayText.text = $"Ngay {clock.day} ({clock.weekday})";

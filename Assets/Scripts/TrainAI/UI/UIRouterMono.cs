@@ -20,15 +20,26 @@ namespace TrainAI.UI
         void Awake()
         {
             if (services != null) services.OverrideUI(this);
-            DontDestroyOnLoad(gameObject);
+            // Survive scene loads as a single root so HUDCanvas + ModalCanvas children stay together.
+            var root = transform.root.gameObject;
+            DontDestroyOnLoad(root);
         }
 
         public UniTask<bool> ShowConfirm(string text)
-            => confirm != null ? confirm.ShowAsync(text) : UniTask.FromResult(true);
+        {
+            // Fail-closed when the confirm panel isn't wired — previously
+            // returned FromResult(true) which silently auto-OK'd. Matches
+            // the user-reported bug "đến KTX là chuyển sang ngày khác luôn"
+            // pattern: bed interaction proceeded to advanceDay without ever
+            // showing the popup. See SleepInteractionSO comments.
+            if (confirm != null) return confirm.ShowAsync(text);
+            Debug.LogError("[UIRouterMono] ShowConfirm: confirm panel not assigned in inspector — returning Cancel (false)");
+            return UniTask.FromResult(false);
+        }
 
         public UniTask<QuizResult> ShowQuiz(QuizSetSO set)
             => quiz != null ? quiz.ShowAsync(set)
-                : UniTask.FromResult(new QuizResult { correctCount = 0, totalCount = set != null ? set.questions.Count : 0 });
+                : UniTask.FromResult(new QuizResult { correctCount = 0, totalCount = set != null ? set.questions.Count : 0, cancelled = true });
 
         public UniTask ShowLoading(string text, float seconds = 3f)
             => loading != null ? loading.ShowAsync(text, seconds) : UniTask.Delay((int)(seconds * 1000));

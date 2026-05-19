@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: TrainAI.SO.Concrete::TrainAI.SO.Concrete.SleepInteractionSO
   promptText: Bam E de di ngu
   icon: {fileID: 0}
-  confirmText: Di ngu?
+  confirmText: Di ngu
   loadingText: Sang ngay hom sau...
   loadingSeconds: 2
+  returnScene: {fileID: 11400000, guid: 427788fcbd612044bb234e641066aef5, type: 2}
+  returnTransitionText: Sang ngay moi, ra san...

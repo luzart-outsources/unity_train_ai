@@ -15,6 +15,9 @@ namespace TrainAI.Presentation
         [Header("Camera")]
         [SerializeField] Transform cameraRig;
 
+        [Header("Mobile")]
+        [SerializeField] Joystick joystick;
+
         CharacterController _cc;
         Vector3 _velocity;
 
@@ -26,6 +29,14 @@ namespace TrainAI.Presentation
                 var rig = GameObject.Find("CameraRig");
                 if (rig != null) cameraRig = rig.transform;
             }
+        }
+
+        void Start()
+        {
+            // Joystick lives on the persistent UICanvas (DontDestroyOnLoad scene),
+            // so it isn't available at Awake before this scene's Start. Resolve here.
+            if (joystick == null)
+                joystick = Object.FindFirstObjectByType<Joystick>(FindObjectsInactive.Include);
         }
 
         void Update()
@@ -59,7 +70,7 @@ namespace TrainAI.Presentation
             if (playerState != null) playerState.lastWorldPos = transform.position;
         }
 
-        static Vector2 ReadMove()
+        Vector2 ReadMove()
         {
             Vector2 v = Vector2.zero;
             var kb = Keyboard.current;
@@ -72,6 +83,7 @@ namespace TrainAI.Presentation
             }
             var gp = Gamepad.current;
             if (gp != null && v == Vector2.zero) v = gp.leftStick.ReadValue();
+            if (joystick != null && v == Vector2.zero) v = joystick.Direction;
             return Vector2.ClampMagnitude(v, 1f);
         }
     }

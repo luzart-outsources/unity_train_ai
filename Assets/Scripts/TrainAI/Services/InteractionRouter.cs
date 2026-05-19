@@ -36,6 +36,7 @@ namespace TrainAI.Services
                 showConfirm = _ui != null ? _ui.ShowConfirm : null,
                 loadAdditive = _scenes != null ? _scenes.LoadAdditive : null,
                 unloadAdditive = _scenes != null ? _scenes.UnloadAdditive : null,
+                loadReplacing = _scenes != null ? _scenes.LoadReplacing : null,
                 skipTimeTo = _clock != null ? _clock.SkipTo : null,
                 completeCurrentQuest = success => _quests?.Complete(_quests.Current, success),
                 showDialogue = _ui != null ? _ui.ShowDialogue : null,

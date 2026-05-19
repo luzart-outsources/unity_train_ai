@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25e20085050ad3740ad66206d08a59f6, type: 3}
+  m_Name: Interactable_LopHoc_Quiz
+  m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.InteractableSO
+  id: LopHoc_Quiz
+  area: {fileID: 11400000, guid: 6507cdc3e74a9ee429b8ebc85ae71ac8, type: 2}
+  onInteract: {fileID: 11400000, guid: 02afd5472e0cb4246914e26379836c6a, type: 2}
+  conditionExpr:
+  bypassQuestGate: 1

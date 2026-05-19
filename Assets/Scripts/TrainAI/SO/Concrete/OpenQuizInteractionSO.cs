@@ -9,6 +9,10 @@ namespace TrainAI.SO.Concrete
     {
         public QuizSetSO quizSet;
         public bool completeQuestAfter = true;
+        // Per GDD "Khi thực hiện hết Quiz sẽ ra khỏi Scene lớp học và trở về
+        // Scene World." Set to SceneRef_10_World to auto-exit after the quiz.
+        public SceneRefSO returnScene;
+        public string returnTransitionText = "Roi lop hoc...";
 
         public override async UniTask Execute(InteractionContext ctx)
         {
@@ -21,6 +25,8 @@ namespace TrainAI.SO.Concrete
                 ctx.applyScoreDelta?.Invoke(gain, 0, quizSet.subject != null ? quizSet.subject.id : "quiz");
             }
             if (completeQuestAfter) ctx.completeCurrentQuest?.Invoke(true);
+            if (returnScene != null && ctx.loadReplacing != null)
+                await ctx.loadReplacing(returnScene, returnTransitionText);
         }
     }
 }

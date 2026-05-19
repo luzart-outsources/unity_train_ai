@@ -11,6 +11,13 @@
 [Uu]serSettings/
 [Aa]ssets/AssetStoreTools*
 
+# Bake outputs — HOLA Map BakeBuildingsTool emits combined-mesh .asset
+# files that are 100MB-1GB each (Sketchfab GLBs are high-poly). Always
+# rebuildable via Tools > Build Game > HOLA Map > Bake.
+Assets/_Data/BakedMeshes/
+Assets/_Data/BakedMeshes.meta
+Assets/Screenshots/
+
 # IDE / OS / Visual Studio scaffolding
 *.csproj
 *.unityproj

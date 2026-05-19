@@ -106,7 +106,7 @@ Sau đó hiện lên nút continue. Bấm continue sẽ sang câu tiếp theo ho
  Buổi sáng sớm (05:00 - 07:30):
 + 05:00: Tập thể dục (5h15 hạn cuối)
 + 06:00: Dọn dẹp vệ sinh 
-+ 07:00: Ăn sáng và 
++ 07:00: Ăn sáng
 + Học tập buổi sáng (07:30 - 11:30): Người chơi sẽ tham gia các lớp học thay đổi theo tuần, mỗi môn học là một loại gameplay khác nhau: Lịch sử, Chính trị: Giải đố hoặc trắc nghiệm.
 + Nghỉ trưa (11:30 - 14:00): thời gian tự do đi lại trong trại (Free Roam) ( không phải nhiệm vụ)
 + Học tập buổi chiều (14:00 - 17:00): Tiếp tục các nội dung học tập tương tự buổi sáng.

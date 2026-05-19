@@ -7,7 +7,8 @@
         "TrainAI.SO.Concrete",
         "TrainAI.Services",
         "Unity.InputSystem",
-        "UniTask"
+        "UniTask",
+        "JoystickPack"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

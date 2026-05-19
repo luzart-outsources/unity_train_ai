@@ -27,16 +27,20 @@ namespace TrainAI.Sentis
             if (_worker == null || tokenIds == null)
                 return new IntentResult { intent = IntentId.OUT_OF_SCOPE, score = 0f };
 
+            // Both input and output tensors must be Disposed deterministically.
+            // PeekOutput returns a Tensor handle owned by the worker; the
+            // backing native buffer is released on the next Schedule(), but
+            // the handle wrapper itself accumulates allocations in the Job
+            // allocator if never disposed. Symptom: "JobTempAlloc has
+            // allocations more than 4 frames old" warning + GPU TDR after
+            // sustained gameplay — exact pattern from the 2026-05-19 08:26
+            // crash dump.
             using var input = new Tensor<int>(new TensorShape(1, _maxLen), tokenIds);
             _worker.Schedule(input);
 
-            var logitsT = _worker.PeekOutput("logits") as Tensor<float>;
-            if (logitsT == null)
-            {
-                // try generic output (first)
-                logitsT = _worker.PeekOutput() as Tensor<float>;
-                if (logitsT == null) return new IntentResult { intent = IntentId.OUT_OF_SCOPE };
-            }
+            using var logitsT = (_worker.PeekOutput("logits") as Tensor<float>)
+                                ?? (_worker.PeekOutput() as Tensor<float>);
+            if (logitsT == null) return new IntentResult { intent = IntentId.OUT_OF_SCOPE };
             var logits = logitsT.DownloadToArray();
             return Softmax(logits);
         }

@@ -1,0 +1,5 @@
+GLB bounds at scale 1.0 (after glTFast import):
+Truong Hoc.glb sx=7263.24 sy=776.52 sz=8887.86 rends=128
+Toa Hoc.glb sx=2006.00 sy=862.01 sz=2664.00 rends=296
+KTX.glb sx=29.59 sy=29.62 sz=16.96 rends=15
+cang tin.glb sx=516.50 sy=191.02 sz=480.50 rends=141

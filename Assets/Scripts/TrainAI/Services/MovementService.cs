@@ -12,6 +12,11 @@ namespace TrainAI.Services
         // Quarantine list: agents that threw on Tick get suspended so a single
         // bad agent can't crash the whole movement loop frame after frame.
         readonly HashSet<Transform> _quarantined = new();
+        // Reused snapshot of agent transforms so a strategy Tick that ends up
+        // calling Register/Unregister mid-iteration can't trigger
+        // "Collection was modified" — caused freeze spikes when an NPC reached
+        // its target and a strategy reassigned itself.
+        readonly List<Transform> _tickScratch = new();
         readonly ISentisRuntime _sentis;
         float _accumulator;
         const float kTickIntervalSec = 0.2f;
@@ -40,26 +45,39 @@ namespace TrainAI.Services
 
         public void Tick(float dt)
         {
+            // Skip Tick while the scene transition is in flight. Dispatching
+            // Sentis GPU compute on NPC transforms that are about to be
+            // destroyed in the unload phase has corrupted the D3D12 command
+            // buffer enough to make the NVIDIA driver kill the editor mid-
+            // transition (crash dump points at DispatchComputeProgram).
+            if (SceneRouter.IsTransitioning) return;
+
             _accumulator += dt;
             if (_accumulator < kTickIntervalSec) return;
             float tickDt = _accumulator;
             _accumulator = 0f;
             object payload = _sentis != null && _sentis.IsReady ? (object)_sentis : null;
-            foreach (var kvp in _agents)
+
+            _tickScratch.Clear();
+            foreach (var k in _agents.Keys) _tickScratch.Add(k);
+
+            for (int i = 0; i < _tickScratch.Count; i++)
             {
-                if (kvp.Key == null) continue;
-                if (_quarantined.Contains(kvp.Key)) continue;
+                var key = _tickScratch[i];
+                if (key == null) continue;
+                if (_quarantined.Contains(key)) continue;
+                if (!_agents.TryGetValue(key, out var agent)) continue;
                 try
                 {
-                    kvp.Value?.Tick(payload, tickDt);
+                    agent?.Tick(payload, tickDt);
                 }
                 catch (Exception e)
                 {
                     // Log once, suspend this agent so it doesn't spam exceptions
                     // and accumulate Sentis tensor allocations (which previously
                     // crashed the editor after ~45s when Onnx agents leaked).
-                    Debug.LogWarning($"[MovementService] agent '{kvp.Key.name}' threw, quarantining: {e.Message}");
-                    _quarantined.Add(kvp.Key);
+                    Debug.LogWarning($"[MovementService] agent '{key.name}' threw, quarantining: {e.Message}");
+                    _quarantined.Add(key);
                 }
             }
         }

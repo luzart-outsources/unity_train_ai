@@ -11,6 +11,12 @@ namespace TrainAI.SO.Base
         public int renLuyen;
         public string currentScene;
         public Vector3 lastWorldPos;
+        // Snapshot of player's world-scene position taken just before
+        // transitioning into a sub-scene (NhaAn / LopHoc / KyTucXa). When
+        // returning to 10_World the player is warped back here instead of
+        // being left at the sub-scene's PlayerSpawn coord — so they end up
+        // standing at the same door they used to enter.
+        public Vector3 worldExitPos;
 
         public override void Reset()
         {
@@ -19,6 +25,7 @@ namespace TrainAI.SO.Base
             renLuyen = 100;
             currentScene = "10_World";
             lastWorldPos = Vector3.zero;
+            worldExitPos = Vector3.zero;
         }
     }
 }

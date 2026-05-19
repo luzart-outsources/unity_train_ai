@@ -29,16 +29,20 @@ namespace TrainAI.UI
         {
             if (nameInput == null) return;
             string name = (nameInput.text ?? "").Trim();
-            if (string.IsNullOrEmpty(name))
+            try
             {
-                if (services != null && services.UI != null) await services.UI.ShowConfirm("Vui long dien ten.");
-                return;
+                if (string.IsNullOrEmpty(name))
+                {
+                    if (services != null && services.UI != null) await services.UI.ShowConfirm("Vui long dien ten.");
+                    return;
+                }
+                if (playerState != null) { playerState.Reset(); playerState.playerName = name; }
+                if (clock != null) clock.Reset();
+                if (services != null && services.Scenes != null && worldScene != null)
+                    await services.Scenes.LoadSingle(worldScene);
+                services?.Quests?.StartDay(startDay);
             }
-            if (playerState != null) { playerState.Reset(); playerState.playerName = name; }
-            if (clock != null) clock.Reset();
-            if (services != null && services.Scenes != null && worldScene != null)
-                await services.Scenes.LoadSingle(worldScene);
-            services?.Quests?.StartDay(startDay);
+            catch (System.Exception e) { Debug.LogError($"[CreateChar] OnConfirm failed: {e}"); }
         }
     }
 }

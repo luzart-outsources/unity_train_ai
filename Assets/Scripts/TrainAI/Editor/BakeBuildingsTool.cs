@@ -132,6 +132,13 @@ namespace TrainAI.Editor
             finalMesh.CombineMeshes(finalCombine.ToArray(), false /* keep submeshes */, false);
             finalMesh.RecalculateBounds();
 
+            // Reorder index and vertex buffers for GPU vertex-cache locality.
+            // Free perf win at bake time — the actual draw cost on baked
+            // meshes drops a few percent because the post-T&L cache sees
+            // better triangle ordering. Safe to call once before persist:
+            // it mutates the mesh in place, doesn't change rendered output.
+            finalMesh.Optimize();
+
             // Persist mesh so the scene reference survives reloads.
             string meshPath = $"{BakedFolder}/{name}.asset";
             AssetDatabase.CreateAsset(finalMesh, meshPath);

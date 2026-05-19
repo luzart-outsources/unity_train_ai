@@ -13,6 +13,9 @@ namespace TrainAI.SO.Base
         public Func<string, UniTask<bool>> showConfirm;
         public Func<SceneRefSO, string, UniTask> loadAdditive;
         public Func<SceneRefSO, UniTask> unloadAdditive;
+        // Load new scene then unload current ones — for "enter building"
+        // transitions that should free the world scene's memory.
+        public Func<SceneRefSO, string, UniTask> loadReplacing;
         public Action<int, int> skipTimeTo;
         public Action<bool> completeCurrentQuest;
         public Func<NPCSO, UniTask> showDialogue;

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe565d282f472a4080f54cdc92c2315, type: 3}
   m_Name: ThirdPersonCameraConfig
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.ThirdPersonCameraConfigSO
-  distance: 6
-  height: 2.2
+  distance: 9
+  height: 4
   yawSpeed: 140
-  pitchMin: -10
-  pitchMax: 60
+  pitchMin: -5
+  pitchMax: 55
   smoothTime: 0.08
   invertY: 0

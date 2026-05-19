@@ -69,7 +69,11 @@ namespace TrainAI.Services
 
             Score = new ScoreSystem(playerState, gameConfig, scoreRules);
             Clock = new GameClockService(timeConfig, clock, gameConfig);
-            Quests = new QuestRouter(dayDB, activeQuest, clock, dayProgress, Score);
+            // QuestRouter takes IGameClock so it can SkipTo the next quest's
+            // start after one completes — closes the dead time gap that made
+            // quest chains feel broken in real gameplay (the simulator was
+            // hiding it by manually SkipTo-ing per quest).
+            Quests = new QuestRouter(dayDB, activeQuest, clock, dayProgress, Score, Clock);
 
             Movement = new MovementService(Sentis);
             Dialogue = new DialogueService(Quests, playerState, responseTemplates, Sentis, areaDB);

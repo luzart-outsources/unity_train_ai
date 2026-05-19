@@ -18,4 +18,4 @@ MonoBehaviour:
   maxHocTap: 480
   passHocTap: 288
   passRenLuyen: 60
-  preferredBackend: 1
+  preferredBackend: 0

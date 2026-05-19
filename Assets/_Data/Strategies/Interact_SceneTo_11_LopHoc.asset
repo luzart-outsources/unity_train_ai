@@ -16,4 +16,5 @@ MonoBehaviour:
   icon: {fileID: 0}
   targetScene: {fileID: 11400000, guid: e058cec3e40cede4ca9bfe511ce002b4, type: 2}
   transitionText: Dang vao 11_LopHoc...
-  completeQuestAfter: 1
+  completeQuestAfter: 0
+  replaceCurrentScene: 1

@@ -1,11 +1,23 @@
 using TrainAI.SO.Base;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace TrainAI.Presentation
 {
     public class ThirdPersonCameraRig : MonoBehaviour
     {
+        // Singleton-by-survival: only one rig may exist at a time. The first
+        // instance that wakes up survives (and DDOLs itself); any later copy
+        // — typically from re-loading 10_World after a sub-scene visit —
+        // self-destructs. Pattern identical to InteractionRouterBridge and
+        // PlayerPersistence so the camera also survives every LoadReplacing.
+        //
+        // Why this matters: without DDOL the rig dies with 10_World during a
+        // world→sub-scene swap, and the sub-scene's own static MainCamera
+        // takes over (no follow logic). User reported "mất camera focus" on
+        // every transition except the very first world load.
+        static ThirdPersonCameraRig _instance;
         const float DEF_DIST = 6f;
         const float DEF_HEIGHT = 2.2f;
         const float DEF_YAW_SPEED = 140f;
@@ -35,14 +47,45 @@ namespace TrainAI.Presentation
 
         void Awake()
         {
-            if (cam == null) cam = GetComponentInChildren<Camera>();
-            if (target == null)
+            if (_instance != null && _instance != this)
             {
-                var p = GameObject.FindGameObjectWithTag("Player");
-                if (p != null) target = p.transform;
+                Destroy(gameObject);
+                return;
             }
+            _instance = this;
+            // Reparent to scene root so DontDestroyOnLoad accepts it.
+            if (transform.parent != null) transform.SetParent(null, true);
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
+            if (cam == null) cam = GetComponentInChildren<Camera>();
+            RefreshTarget();
             _yaw = initialYaw;
             _pitch = initialPitch;
+        }
+
+        void OnDestroy()
+        {
+            if (_instance == this) _instance = null;
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // Player is DDOL too, but its tag-by-find may not have been ready
+            // when our Awake ran (different scene load order). Re-find on
+            // every load to recover from any race. Also snap on next frame so
+            // the camera doesn't smoothly lerp from the old world position to
+            // the player's new sub-scene position (jarring).
+            RefreshTarget();
+            _snapped = false;
+        }
+
+        void RefreshTarget()
+        {
+            if (target != null && target.gameObject != null) return;
+            var p = GameObject.FindGameObjectWithTag("Player");
+            if (p != null) target = p.transform;
         }
 
         void LateUpdate()

@@ -11,6 +11,16 @@ namespace TrainAI.Presentation
 
         public NPCSO Definition => npcDef;
 
+        // Runtime-only inject: NpcStagedSpawner instantiates the NPC prefab
+        // a few frames after scene load and needs to wire NPCSO + locator
+        // refs that the inspector can't pre-set on a freshly created instance.
+        // Must run BEFORE Start() — call right after Instantiate().
+        public void Configure(NPCSO def, ServiceLocatorSO svc)
+        {
+            npcDef = def;
+            services = svc;
+        }
+
         void Start()
         {
             if (services == null || !services.IsBootstrapped || npcDef == null) return;

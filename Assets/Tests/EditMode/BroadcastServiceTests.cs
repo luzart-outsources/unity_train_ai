@@ -51,5 +51,25 @@ namespace TrainAI.EditMode.Tests
             BroadcastService.Send(new PingMsg(1));
             Assert.AreEqual(0, hit);
         }
+
+        [Test]
+        public void ThrowingSubscriber_DoesNotBlockOthers()
+        {
+            // Regression: previously a throwing handler short-circuited the
+            // multicast chain (later subscribers never ran) AND propagated
+            // up to the Send caller — which inside GameClockService.Tick
+            // froze the game loop. Send now traps per-subscriber.
+            int before = 0, after = 0;
+            BroadcastService.Subscribe<PingMsg>(_ => before++);
+            BroadcastService.Subscribe<PingMsg>(_ => throw new System.InvalidOperationException("boom"));
+            BroadcastService.Subscribe<PingMsg>(_ => after++);
+
+            // Expect the throw to be swallowed inside Send → broadcast log warning.
+            UnityEngine.TestTools.LogAssert.Expect(UnityEngine.LogType.Warning, new System.Text.RegularExpressions.Regex("subscriber #1 threw"));
+
+            Assert.DoesNotThrow(() => BroadcastService.Send(new PingMsg(7)));
+            Assert.AreEqual(1, before, "earlier subscriber should still fire");
+            Assert.AreEqual(1, after,  "later subscriber should still fire despite middle throw");
+        }
     }
 }

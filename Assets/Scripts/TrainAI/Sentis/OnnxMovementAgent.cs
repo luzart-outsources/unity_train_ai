@@ -75,8 +75,14 @@ namespace TrainAI.Sentis
 
                 worker.Schedule(_inputTensor);
 
-                var actT = worker.PeekOutput("action") as Tensor<float>;
-                if (actT == null) actT = worker.PeekOutput() as Tensor<float>;
+                // PeekOutput must be disposed deterministically — same leak
+                // pattern as IntentClassifier. Symptom under sustained
+                // inference (5 Hz × N agents): "JobTempAlloc has allocations
+                // more than 4 frames old" → command-buffer state corruption
+                // → GPU TDR. Wrap in `using` so dispose fires even on early
+                // returns below.
+                using var actT = (worker.PeekOutput("action") as Tensor<float>)
+                                 ?? (worker.PeekOutput() as Tensor<float>);
                 if (actT == null) return;
 
                 var act = actT.DownloadToArray();

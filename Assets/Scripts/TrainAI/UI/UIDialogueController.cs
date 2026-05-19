@@ -45,8 +45,18 @@ namespace TrainAI.UI
             if (string.IsNullOrWhiteSpace(text)) return;
             if (history != null) history.text += $"\n[Ban] {text}";
             input.text = "";
-            string reply = await _replyFn(text);
-            if (history != null) history.text += $"\n[{(_npc != null ? _npc.displayName : "NPC")}] {reply}";
+            try
+            {
+                string reply = await _replyFn(text);
+                if (history != null) history.text += $"\n[{(_npc != null ? _npc.displayName : "NPC")}] {reply}";
+            }
+            catch (Exception e)
+            {
+                // Sentis inference can fail under low VRAM; show a friendly
+                // line instead of crashing the dialogue panel.
+                if (history != null) history.text += $"\n[NPC] ...";
+                Debug.LogWarning($"[Dialogue] reply failed: {e.Message}");
+            }
         }
 
         void OnClose() { _tcs?.TrySetResult(); Hide(); }
