@@ -90,6 +90,10 @@ namespace TrainAI.Editor
             // Drop the previous container so we can rerun this idempotently.
             var existing = GameObject.Find(ContainerName);
             if (existing != null) Object.DestroyImmediate(existing);
+            // Wipe SceneBuilder's legacy auto-spawned NPC_* root objects too.
+            var rootGOs = scene.GetRootGameObjects();
+            foreach (var go in rootGOs)
+                if (go != null && go.name.StartsWith("NPC_")) Object.DestroyImmediate(go);
             var root = new GameObject(ContainerName);
             root.transform.position = Vector3.zero;
 
@@ -124,7 +128,7 @@ namespace TrainAI.Editor
             // wander off the plaza centre.
             if (npcDaiDoi != null)
             {
-                var commander = BuildLightweightNpc("DaiDoiTruong", new Vector3(-30, 0, -8), new Color(0.85f, 0.15f, 0.20f));
+                var commander = BuildLightweightNpc("DaiDoiTruong", new Vector3(78, 0, -22), new Color(0.85f, 0.15f, 0.20f));
                 commander.transform.SetParent(root.transform, false);
                 commander.transform.rotation = Quaternion.Euler(0, 180, 0);
                 ConfigureNpc(commander, npcDaiDoi, locator);
@@ -295,6 +299,15 @@ namespace TrainAI.Editor
             var existingSpawner = GameObject.Find(SpawnerContainerName);
             if (existingSpawner != null) Object.DestroyImmediate(existingSpawner);
 
+            // Also wipe any root-level "NPC_*" GameObjects from SceneBuilder's
+            // legacy NPCSO.spawnPos auto-spawn path. Otherwise a designer who
+            // runs "5. Build Scenes" followed by this NPC menu ends up with
+            // 7 NPCs (3 SceneBuilder + 4 staged) and the commander shows up
+            // in two places: the asset's spawnPos and the staged V11 coord.
+            var rootGOs = scene.GetRootGameObjects();
+            foreach (var go in rootGOs)
+                if (go != null && go.name.StartsWith("NPC_")) Object.DestroyImmediate(go);
+
             var spawnerGo = new GameObject(SpawnerContainerName);
             spawnerGo.transform.position = Vector3.zero;
             var spawner = spawnerGo.AddComponent<NpcStagedSpawner>();
@@ -309,7 +322,7 @@ namespace TrainAI.Editor
                 new NpcStagedSpawner.SpawnEntry { npcDef = npcHocSinh02, position = new Vector3(  8, 0,  -6), eulerAngles = new Vector3(0, 200, 0), label = "HocSinh_02" },
                 new NpcStagedSpawner.SpawnEntry { npcDef = npcHocSinh01, position = new Vector3(-22, 0,  10), eulerAngles = new Vector3(0, 160, 0), label = "HocSinh_01_b" },
                 npcDaiDoi != null
-                    ? new NpcStagedSpawner.SpawnEntry { npcDef = npcDaiDoi, position = new Vector3(-30, 0, -8), eulerAngles = new Vector3(0, 180, 0), label = "DaiDoiTruong" }
+                    ? new NpcStagedSpawner.SpawnEntry { npcDef = npcDaiDoi, position = new Vector3(78, 0, -22), eulerAngles = new Vector3(0, 180, 0), label = "DaiDoiTruong" }
                     : default
             };
 

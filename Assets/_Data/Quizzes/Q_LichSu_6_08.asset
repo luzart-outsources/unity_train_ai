@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f9f6b65e29deb6458143c89c9a12203, type: 3}
   m_Name: Q_LichSu_6_08
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.QuizQuestionSO
-  question: '[Lich su - bai 6] Cau hoi mau 8?'
+  question: "Qu\u1ED1c h\u1ED9i kho\xE1 VI quy\u1EBFt \u0111\u1ECBnh \u0111\u1ED5i
+    t\xEAn n\u01B0\u1EDBc th\xE0nh CHXHCN Vi\u1EC7t Nam n\u0103m:"
   answers:
-  - Dap an A (placeholder)
-  - Dap an B (placeholder)
-  - Dap an C (placeholder)
-  - Dap an D (placeholder)
-  correctIndex: 3
+  - 1975
+  - 1976
+  - 1980
+  - 1992
+  correctIndex: 1

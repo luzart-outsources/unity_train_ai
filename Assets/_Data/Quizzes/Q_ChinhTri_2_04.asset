@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f9f6b65e29deb6458143c89c9a12203, type: 3}
   m_Name: Q_ChinhTri_2_04
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.QuizQuestionSO
-  question: '[Chinh tri - bai 2] Cau hoi mau 4?'
+  question: "B\xE1c H\u1ED3 \u0111\u1ECDc Tuy\xEAn ng\xF4n \u0110\u1ED9c l\u1EADp
+    ng\xE0y n\xE0o?"
   answers:
-  - Dap an A (placeholder)
-  - Dap an B (placeholder)
-  - Dap an C (placeholder)
-  - Dap an D (placeholder)
-  correctIndex: 3
+  - 19-8-1945
+  - 2-9-1945
+  - 7-5-1954
+  - 30-4-1975
+  correctIndex: 1

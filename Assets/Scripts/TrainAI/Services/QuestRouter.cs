@@ -143,11 +143,19 @@ void MissCurrent()
         {
             var q = _activeQuest.current;
             if (q == null) return;
+            // Broadcast QuestMissedMsg BEFORE Complete() runs CheckActivate().
+            // Order matters: Complete() may immediately activate the next quest
+            // (auto-advance clock pattern) and fire QuestActivatedMsg. If we
+            // broadcast QuestMissedMsg AFTER that, the UI's OnEnded handler
+            // (which uses a generic <T> signature, doesn't compare quest
+            // identity) would re-hide the freshly-shown next quest. Sending
+            // Missed first means: hide old → Complete hides via Completed →
+            // CheckActivate activates next → HUD shows. Final state visible.
+            BroadcastService.Send(new QuestMissedMsg(q));
             // Funnel through Complete() to keep day-progress + score handling in one place.
             // Complete handles the missedToday list and the runtime callback both.
+            // It also calls CheckActivate internally, so we don't call it again here.
             Complete(q, false);
-            BroadcastService.Send(new QuestMissedMsg(q));
-            CheckActivate();
         }
 
 public void Complete(QuestSO quest, bool success)

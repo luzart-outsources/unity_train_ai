@@ -16,6 +16,16 @@ namespace TrainAI.Presentation
         async void Awake()
         {
             if (services == null) { Debug.LogError("[BootstrapEntry] ServiceLocator not assigned."); return; }
+            // Force a moderate quality preset at game start. Project default
+            // was 'Ultra' (level 5) — too heavy for GTX 1060 Max-Q class GPUs:
+            // shadowDistance=150, AA=2x, full real-time shadows. Bumping down
+            // to 'Medium' (level 2) gives ~30-40% GPU frame-time headroom
+            // without visually losing much in a stylized campus scene.
+            // Also pin targetFrameRate so vSync stays at 60Hz on monitors
+            // that default to higher refresh.
+            UnityEngine.QualitySettings.SetQualityLevel(2, true);
+            UnityEngine.Application.targetFrameRate = 60;
+
             // async void Awake — wrap so a Sentis model load failure or a
             // first-scene-missing throw becomes a logged error instead of
             // Unity's unhandled-exception crash (which leaves the user

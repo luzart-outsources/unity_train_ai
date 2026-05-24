@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f9f6b65e29deb6458143c89c9a12203, type: 3}
   m_Name: Q_LichSu_2_03
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.QuizQuestionSO
-  question: '[Lich su - bai 2] Cau hoi mau 3?'
+  question: "Hai B\xE0 Tr\u01B0ng kh\u1EDFi ngh\u0129a ch\u1ED1ng l\u1EA1i nh\xE0:"
   answers:
-  - Dap an A (placeholder)
-  - Dap an B (placeholder)
-  - Dap an C (placeholder)
-  - Dap an D (placeholder)
-  correctIndex: 2
+  - "H\xE1n"
+  - "\u0110\u01B0\u1EDDng"
+  - "T\u1ED1ng"
+  - "Nguy\xEAn"
+  correctIndex: 0

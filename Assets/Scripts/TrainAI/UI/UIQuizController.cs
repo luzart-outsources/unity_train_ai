@@ -16,6 +16,17 @@ namespace TrainAI.UI
         [SerializeField] TMP_Text[] answerLabels = new TMP_Text[4];
         [SerializeField] Button continueButton;
 
+        // Bold pass/fail feedback that overlays the answer area for ~1.5s
+        // after each pick. Color tints are subtle enough to confuse on a
+        // glance (per user feedback 2026-05-22) — a giant ✓/✗ with a Vietnamese
+        // label makes the result unambiguous.
+        [SerializeField] GameObject feedbackOverlay;
+        [SerializeField] TMP_Text feedbackIconText;
+        [SerializeField] TMP_Text feedbackResultText;
+        readonly Color _feedbackPassColor = new(0.16f, 0.78f, 0.20f);
+        readonly Color _feedbackFailColor = new(0.85f, 0.20f, 0.20f);
+        readonly Color _feedbackSkipColor = new(0.85f, 0.65f, 0.10f);
+
         readonly Color _idleColor = Color.white;
         // Selected-by-player palette is brighter / more saturated than the
         // "this is the answer key" palette so the player can always tell
@@ -92,6 +103,7 @@ namespace TrainAI.UI
                 }
             }
             if (continueButton != null) continueButton.gameObject.SetActive(false);
+            if (feedbackOverlay != null) feedbackOverlay.SetActive(false);
         }
 
         void OnAnswer(int idx)
@@ -104,6 +116,7 @@ namespace TrainAI.UI
             if (correct) _correctCount++;
 
             PaintFeedback(q, idx, timedOut: false);
+            ShowOverlay(correct ? "OK" : "FAIL");
             if (continueButton != null) continueButton.gameObject.SetActive(true);
         }
 
@@ -119,8 +132,40 @@ namespace TrainAI.UI
             _selectedIdx = -1;
             var q = _set != null && _index < _set.questions.Count ? _set.questions[_index] : null;
             PaintFeedback(q, idx: -1, timedOut: true);
+            ShowOverlay("TIMEOUT");
             if (timerText != null) timerText.text = "0";
             if (continueButton != null) continueButton.gameObject.SetActive(true);
+        }
+
+        // Big symbol + label panel that briefly overlays the answer grid. Kept
+        // visible through the entire post-answer state (until Continue is
+        // clicked or auto-hidden by ShowQuestion). Designer keeps the existing
+        // colored buttons as residual feedback after dismissal.
+        void ShowOverlay(string kind)
+        {
+            if (feedbackOverlay == null) return;
+            feedbackOverlay.SetActive(true);
+            // Use ASCII-only glyphs ("V"/"X"/"!") so TMP doesn't have to extend
+            // its dynamic font atlas on first quiz answer. Unicode checkmarks
+            // (U+2713 / U+2717) previously triggered a runtime atlas upload mid-
+            // frame which raced with the render command buffer → D3D12
+            // assertion 'm_CmdState == kActive' and editor crash. Visual is
+            // still clear via the color + label combo (green V + "Dung!" = pass).
+            switch (kind)
+            {
+                case "OK":
+                    if (feedbackIconText != null) { feedbackIconText.text = "V"; feedbackIconText.color = _feedbackPassColor; }
+                    if (feedbackResultText != null) { feedbackResultText.text = "Dung!"; feedbackResultText.color = _feedbackPassColor; }
+                    break;
+                case "FAIL":
+                    if (feedbackIconText != null) { feedbackIconText.text = "X"; feedbackIconText.color = _feedbackFailColor; }
+                    if (feedbackResultText != null) { feedbackResultText.text = "Sai!"; feedbackResultText.color = _feedbackFailColor; }
+                    break;
+                default: // TIMEOUT
+                    if (feedbackIconText != null) { feedbackIconText.text = "!"; feedbackIconText.color = _feedbackSkipColor; }
+                    if (feedbackResultText != null) { feedbackResultText.text = "Het gio!"; feedbackResultText.color = _feedbackSkipColor; }
+                    break;
+            }
         }
 
         // Single paint path covers all three end-states: correct pick, wrong

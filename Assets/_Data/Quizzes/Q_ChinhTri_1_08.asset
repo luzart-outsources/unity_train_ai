@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f9f6b65e29deb6458143c89c9a12203, type: 3}
   m_Name: Q_ChinhTri_1_08
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.QuizQuestionSO
-  question: '[Chinh tri - bai 1] Cau hoi mau 8?'
+  question: "V\u1EADt ch\u1EA5t theo \u0111\u1ECBnh ngh\u0129a c\u1EE7a L\xEA-nin
+    l\xE0:"
   answers:
-  - Dap an A (placeholder)
-  - Dap an B (placeholder)
-  - Dap an C (placeholder)
-  - Dap an D (placeholder)
-  correctIndex: 3
+  - "C\xE1i c\xF3 s\u1EB5n trong t\u1EF1 nhi\xEAn"
+  - "Ph\u1EA1m tr\xF9 tri\u1EBFt h\u1ECDc ch\u1EC9 th\u1EF1c t\u1EA1i kh\xE1ch quan
+    t\u1ED3n t\u1EA1i \u0111\u1ED9c l\u1EADp v\u1EDBi \xFD th\u1EE9c"
+  - "C\xE1i do con ng\u01B0\u1EDDi t\u1EA1o ra"
+  - "C\xE1i kh\xF4ng nh\xECn th\u1EA5y \u0111\u01B0\u1EE3c"
+  correctIndex: 1

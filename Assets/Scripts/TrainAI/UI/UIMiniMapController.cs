@@ -9,8 +9,25 @@ namespace TrainAI.UI
         [SerializeField] RectTransform mapRect;
         [SerializeField] RectTransform playerDot;
         [SerializeField] PlayerStateRSO playerState;
-        [SerializeField] Vector2 worldMin = new(-25, -25);
-        [SerializeField] Vector2 worldMax = new(25, 25);
+        [SerializeField] Vector2 worldMin = new(-100, -70);
+        [SerializeField] Vector2 worldMax = new(100, 70);
+
+        // When set, replaces the RawImage's RenderTexture with a static HOLA
+        // poster image. Lets us swap the live top-down RT for a designer-
+        // authored map without ripping out the RawImage pipeline — keeps
+        // the same SciFi frame + PlayerDot logic, only the underlying texture
+        // changes.
+        [SerializeField] RawImage mapImage;
+        [SerializeField] Texture holaMapTexture;
+
+        void OnEnable()
+        {
+            if (mapImage != null && holaMapTexture != null)
+            {
+                mapImage.texture = holaMapTexture;
+                mapImage.uvRect = new Rect(0, 0, 1, 1);
+            }
+        }
 
         void Update()
         {

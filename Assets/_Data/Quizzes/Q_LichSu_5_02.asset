@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f9f6b65e29deb6458143c89c9a12203, type: 3}
   m_Name: Q_LichSu_5_02
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.QuizQuestionSO
-  question: '[Lich su - bai 5] Cau hoi mau 2?'
+  question: "L\xE3nh t\u1EE5 phong tr\xE0o T\xE2y S\u01A1n l\xE0 ba anh em:"
   answers:
-  - Dap an A (placeholder)
-  - Dap an B (placeholder)
-  - Dap an C (placeholder)
-  - Dap an D (placeholder)
-  correctIndex: 1
+  - "Nguy\u1EC5n Nh\u1EA1c, Nguy\u1EC5n Hu\u1EC7, Nguy\u1EC5n L\u1EEF"
+  - "Tr\u1EA7n H\u01B0ng \u0110\u1EA1o, Tr\u1EA7n Quang Kh\u1EA3i, Tr\u1EA7n Nh\u1EADt
+    Du\u1EADt"
+  - "L\xEA Lai, L\xEA L\u1EE3i, Nguy\u1EC5n Tr\xE3i"
+  - "\u0110inh B\u1ED9 L\u0129nh, \u0110inh Li\u1EC5n, \u0110inh To\xE0n"
+  correctIndex: 0

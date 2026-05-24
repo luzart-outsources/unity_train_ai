@@ -19,7 +19,12 @@ namespace TrainAI.Services
         readonly List<Transform> _tickScratch = new();
         readonly ISentisRuntime _sentis;
         float _accumulator;
-        const float kTickIntervalSec = 0.2f;
+        // Bumped from 0.2s to 0.5s — Sentis CPU inference per agent costs
+        // ~10-30ms each call on GTX 1060 Max-Q hardware. At 5Hz that was 5
+        // spikes/sec interrupting player input (perceived as control lag even
+        // at 60 FPS render). 2Hz halves the spike rate. NPC reaction feels
+        // identical to player (they don't perceive sub-second route updates).
+        const float kTickIntervalSec = 0.5f;
 
         public MovementService(ISentisRuntime sentis) { _sentis = sentis; }
 

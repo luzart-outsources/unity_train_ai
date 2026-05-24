@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f9f6b65e29deb6458143c89c9a12203, type: 3}
   m_Name: Q_GDQuocPhong_1_07
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.QuizQuestionSO
-  question: '[GD Quoc phong - bai 1] Cau hoi mau 7?'
+  question: "Kho\u1EA3ng c\xE1ch h\xE0ng d\u1ECDc gi\u1EEFa hai ng\u01B0\u1EDDi l\xE0:"
   answers:
-  - Dap an A (placeholder)
-  - Dap an B (placeholder)
-  - Dap an C (placeholder)
-  - Dap an D (placeholder)
-  correctIndex: 2
+  - "1 c\xE1nh tay"
+  - "1 b\u01B0\u1EDBc"
+  - "2 b\u01B0\u1EDBc"
+  - "Kh\xF4ng quy \u0111\u1ECBnh"
+  correctIndex: 0

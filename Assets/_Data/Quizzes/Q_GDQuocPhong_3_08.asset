@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f9f6b65e29deb6458143c89c9a12203, type: 3}
   m_Name: Q_GDQuocPhong_3_08
   m_EditorClassIdentifier: TrainAI.SO.Base::TrainAI.SO.Base.QuizQuestionSO
-  question: '[GD Quoc phong - bai 3] Cau hoi mau 8?'
+  question: "Sau khi n\xE9m l\u1EF1u \u0111\u1EA1n c\u1EA7n:"
   answers:
-  - Dap an A (placeholder)
-  - Dap an B (placeholder)
-  - Dap an C (placeholder)
-  - Dap an D (placeholder)
-  correctIndex: 3
+  - "\u0110\u1EE9ng quan s\xE1t"
+  - "N\u1EB1m xu\u1ED1ng tr\xE1nh m\u1EA3nh"
+  - "Ch\u1EA1y v\u1EC1 ph\xEDa m\u1EE5c ti\xEAu"
+  - "H\xF4 l\u1EDBn"
+  correctIndex: 1
