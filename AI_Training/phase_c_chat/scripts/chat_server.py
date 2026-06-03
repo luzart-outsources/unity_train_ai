@@ -36,8 +36,17 @@ ROOT       = Path(__file__).resolve().parent.parent
 MODELS_DIR = ROOT / "models"
 DATA_DIR   = ROOT / "data"
 
-# Prefer fine-tuned model if it exists.
-FT_DIR = MODELS_DIR / "minilm_ft"
+# Prefer the highest-versioned fine-tuned model if any exist.
+# finetune_embedding.py saves to minilm_ft_v2, minilm_ft_v3, ... so the
+# newest checkpoint always wins.
+def _latest_ft_dir(base: Path):
+    cands = sorted(base.glob("minilm_ft_v*"), reverse=True)
+    if cands:
+        return cands[0]
+    legacy = base / "minilm_ft"
+    return legacy if legacy.exists() else None
+
+FT_DIR = _latest_ft_dir(MODELS_DIR) or (MODELS_DIR / "minilm_ft")
 INFO   = json.loads((MODELS_DIR / "index_info.json").read_text(encoding="utf-8"))
 META   = json.loads((MODELS_DIR / "qa_metadata.json").read_text(encoding="utf-8"))
 EMB    = np.load(MODELS_DIR / "embeddings.npy")

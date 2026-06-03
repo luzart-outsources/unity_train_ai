@@ -1,0 +1,859 @@
+{
+  "model": "D:\\Unity Training\\unity_train_ai\\AI_Training\\phase_c_chat\\models\\minilm_ft_v2",
+  "useFt": true,
+  "overall": {
+    "passed": 47,
+    "total": 49,
+    "acc": 0.9591836734693877
+  },
+  "byCategory": {
+    "CLEAN": {
+      "passed": 19,
+      "total": 19
+    },
+    "NO_ACCENT": {
+      "passed": 8,
+      "total": 8
+    },
+    "TELEX_TYPOS": {
+      "passed": 1,
+      "total": 3
+    },
+    "CODE_MIX": {
+      "passed": 7,
+      "total": 7
+    },
+    "ELLIPSIS": {
+      "passed": 4,
+      "total": 4
+    },
+    "SLANG": {
+      "passed": 4,
+      "total": 4
+    },
+    "OOS": {
+      "passed": 4,
+      "total": 4
+    },
+    "ADVERSARIAL": {
+      "passed": 3,
+      "total": 3
+    },
+    "ORIGINAL_BUG": {
+      "passed": 4,
+      "total": 4
+    }
+  },
+  "results": [
+    {
+      "case_num": 1,
+      "query": "Sân vận động ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "SanVanDong"
+      ],
+      "expected_phrase": [
+        "sân vận động"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "SanVanDong",
+      "top_score": 0.9941402077674866,
+      "top_answer": "Muốn tới sân vận động thì đi phía đông doanh trại doanh trại, có biển chỉ dẫn rồi đó.",
+      "passed": true
+    },
+    {
+      "case_num": 2,
+      "query": "Nhà ăn ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "NhaAn_Door"
+      ],
+      "expected_phrase": [
+        "nhà ăn"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "NhaAn_Door",
+      "top_score": 0.9959576725959778,
+      "top_answer": "nhà ăn ở trung tâm doanh trại, đi theo đường nội bộ tầm 65m thấy ngay.",
+      "passed": true
+    },
+    {
+      "case_num": 3,
+      "query": "Lớp học ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "LopHoc_Door"
+      ],
+      "expected_phrase": [
+        "lớp học"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "LopHoc_Door",
+      "top_score": 0.9655781984329224,
+      "top_answer": "lớp học ở phía bắc doanh trại, đi theo đường nội bộ tầm 89m thấy ngay.",
+      "passed": true
+    },
+    {
+      "case_num": 4,
+      "query": "Ký túc xá ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "KTX_Door"
+      ],
+      "expected_phrase": [
+        "ký túc xá"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "KTX_Door",
+      "top_score": 0.998229444026947,
+      "top_answer": "Muốn tới ký túc xá thì đi phía nam doanh trại doanh trại, có biển chỉ dẫn rồi đó.",
+      "passed": true
+    },
+    {
+      "case_num": 5,
+      "query": "Khu tự do ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "FreeArea"
+      ],
+      "expected_phrase": [
+        "tự do"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "FreeArea",
+      "top_score": 0.9959527254104614,
+      "top_answer": "khu tự do ở phía đông nam doanh trại, đi theo đường nội bộ tầm 61m thấy ngay.",
+      "passed": true
+    },
+    {
+      "case_num": 6,
+      "query": "Khu dọn vệ sinh ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "DonVeSinh"
+      ],
+      "expected_phrase": [
+        "dọn vệ sinh"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "DonVeSinh",
+      "top_score": 0.9930868148803711,
+      "top_answer": "khu dọn vệ sinh là khu nằm phía phía tây nam doanh trại doanh trại, dễ tìm thôi đồng chí.",
+      "passed": true
+    },
+    {
+      "case_num": 7,
+      "query": "Mấy giờ ăn cơm",
+      "category": "CLEAN",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_TIME",
+      "top_entity": "slot_3",
+      "top_score": 0.766543447971344,
+      "top_answer": "Ăn sáng kéo dài từ 07:00 đến 07:30 hằng ngày.",
+      "passed": true
+    },
+    {
+      "case_num": 8,
+      "query": "Mấy giờ tập thể dục",
+      "category": "CLEAN",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": [
+        "slot_1"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_TIME",
+      "top_entity": "slot_1",
+      "top_score": 1.0,
+      "top_answer": "Tập thể dục lúc 05:00 đến 05:15. Đồng chí đến đúng giờ nhé.",
+      "passed": true
+    },
+    {
+      "case_num": 9,
+      "query": "Tập thể dục mấy giờ",
+      "category": "CLEAN",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": [
+        "slot_1"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_TIME",
+      "top_entity": "slot_1",
+      "top_score": 0.9981437921524048,
+      "top_answer": "Tập thể dục kéo dài từ 05:00 đến 05:15 hằng ngày.",
+      "passed": true
+    },
+    {
+      "case_num": 10,
+      "query": "Hôm nay học môn gì",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 1.0000001192092896,
+      "top_answer": "{__SCHEDULE_TODAY__}",
+      "passed": true
+    },
+    {
+      "case_num": 11,
+      "query": "Hôm nay có gì",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 1.0,
+      "top_answer": "{__SCHEDULE_TODAY__}",
+      "passed": true
+    },
+    {
+      "case_num": 12,
+      "query": "Lịch hôm nay sao",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 0.9999999403953552,
+      "top_answer": "{__SCHEDULE_TODAY__}",
+      "passed": true
+    },
+    {
+      "case_num": 13,
+      "query": "Đại đội trưởng là ai",
+      "category": "CLEAN",
+      "expected_intent": "ASK_NPC",
+      "expected_entity": [
+        "DaiDoiTruong"
+      ],
+      "expected_phrase": [
+        "chỉ huy"
+      ],
+      "top_intent": "ASK_NPC",
+      "top_entity": "DaiDoiTruong",
+      "top_score": 0.9982364177703857,
+      "top_answer": "Đại đội trưởng là chỉ huy trực tiếp của đại đội, đồng chí gặp ở khu vực doanh trại.",
+      "passed": true
+    },
+    {
+      "case_num": 14,
+      "query": "Lịch sử là môn gì",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SUBJECT_INFO",
+      "expected_entity": [
+        "LichSu"
+      ],
+      "expected_phrase": [
+        "Lịch sử"
+      ],
+      "top_intent": "ASK_SUBJECT_INFO",
+      "top_entity": "LichSu",
+      "top_score": 0.9980635046958923,
+      "top_answer": "Lịch sử là môn cốt lõi của đại đội ta, đồng chí học đủ 6 lần để qua môn.",
+      "passed": true
+    },
+    {
+      "case_num": 15,
+      "query": "Chính trị là môn gì",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SUBJECT_INFO",
+      "expected_entity": [
+        "ChinhTri"
+      ],
+      "expected_phrase": [
+        "Chính trị"
+      ],
+      "top_intent": "ASK_SUBJECT_INFO",
+      "top_entity": "ChinhTri",
+      "top_score": 0.9781606197357178,
+      "top_answer": "Học Chính trị ở lớp học, mỗi lần đủ 4 câu hỏi. Cố gắng nhé.",
+      "passed": true
+    },
+    {
+      "case_num": 16,
+      "query": "GDQP là môn gì",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SUBJECT_INFO",
+      "expected_entity": [
+        "GDQuocPhong"
+      ],
+      "expected_phrase": [
+        "Quốc phòng"
+      ],
+      "top_intent": "ASK_SUBJECT_INFO",
+      "top_entity": "GDQuocPhong",
+      "top_score": 0.9036673307418823,
+      "top_answer": "Môn Giáo dục Quốc phòng là một trong 3 môn chính ở học viện. Học qua 6 cấp độ, mỗi cấp 4 câu hỏi.",
+      "passed": true
+    },
+    {
+      "case_num": 17,
+      "query": "Em chào thủ trưởng",
+      "category": "CLEAN",
+      "expected_intent": "GREETING",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "GREETING",
+      "top_entity": "greeting",
+      "top_score": 1.0000001192092896,
+      "top_answer": "Chào đồng chí, hôm nay có việc gì cần báo cáo?",
+      "passed": true
+    },
+    {
+      "case_num": 18,
+      "query": "Em xin phép",
+      "category": "CLEAN",
+      "expected_intent": "GOODBYE",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "GOODBYE",
+      "top_entity": "goodbye",
+      "top_score": 1.0,
+      "top_answer": "Đồng chí về vị trí của mình đi. Nhớ đúng giờ.",
+      "passed": true
+    },
+    {
+      "case_num": 19,
+      "query": "Em cảm ơn",
+      "category": "CLEAN",
+      "expected_intent": "THANKS",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "THANKS",
+      "top_entity": "thanks",
+      "top_score": 0.9999998807907104,
+      "top_answer": "Không có gì, đồng chí cứ làm tốt nhiệm vụ là được.",
+      "passed": true
+    },
+    {
+      "case_num": 20,
+      "query": "san van dong o dau",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "SanVanDong"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "SanVanDong",
+      "top_score": 0.9999999403953552,
+      "top_answer": "Muốn tới sân vận động thì đi phía đông doanh trại doanh trại, có biển chỉ dẫn rồi đó.",
+      "passed": true
+    },
+    {
+      "case_num": 21,
+      "query": "nha an o dau",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "NhaAn_Door"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "NhaAn_Door",
+      "top_score": 1.0000001192092896,
+      "top_answer": "nhà ăn là khu nằm phía trung tâm doanh trại doanh trại, dễ tìm thôi đồng chí.",
+      "passed": true
+    },
+    {
+      "case_num": 22,
+      "query": "lop hoc o dau",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "LopHoc_Door"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "LopHoc_Door",
+      "top_score": 1.0000001192092896,
+      "top_answer": "Muốn tới lớp học thì đi phía bắc doanh trại doanh trại, có biển chỉ dẫn rồi đó.",
+      "passed": true
+    },
+    {
+      "case_num": 23,
+      "query": "ky tuc xa o dau",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "KTX_Door"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "KTX_Door",
+      "top_score": 1.0,
+      "top_answer": "ký túc xá nằm ở phía nam doanh trại, từ vị trí hiện tại đi thẳng tầm 110m là tới.",
+      "passed": true
+    },
+    {
+      "case_num": 24,
+      "query": "may gio an com",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_TIME",
+      "top_entity": "slot_3",
+      "top_score": 0.7540715336799622,
+      "top_answer": "Ăn sáng bắt đầu lúc 07:00 và kết thúc lúc 07:30.",
+      "passed": true
+    },
+    {
+      "case_num": 25,
+      "query": "hom nay hoc gi",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 0.9912451505661011,
+      "top_answer": "{__SCHEDULE_TODAY__}",
+      "passed": true
+    },
+    {
+      "case_num": 26,
+      "query": "dai doi truong la ai",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_NPC",
+      "expected_entity": [
+        "DaiDoiTruong"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_NPC",
+      "top_entity": "DaiDoiTruong",
+      "top_score": 0.9525144100189209,
+      "top_answer": "Đại đội trưởng - chỉ huy trực tiếp của đại đội.",
+      "passed": true
+    },
+    {
+      "case_num": 27,
+      "query": "don ve sinh o dau",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "DonVeSinh"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "DonVeSinh",
+      "top_score": 1.0,
+      "top_answer": "khu dọn vệ sinh ở phía tây nam doanh trại, đi theo đường nội bộ tầm 102m thấy ngay.",
+      "passed": true
+    },
+    {
+      "case_num": 28,
+      "query": "Saan vaan ddoongg o ddaau",
+      "category": "TELEX_TYPOS",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "SanVanDong"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "LopHoc_Door",
+      "top_score": 0.3953548073768616,
+      "top_answer": "lớp học ở phía bắc doanh trại, đi theo đường nội bộ tầm 89m thấy ngay.",
+      "passed": false
+    },
+    {
+      "case_num": 29,
+      "query": "Nhaa aan o ddaau",
+      "category": "TELEX_TYPOS",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "NhaAn_Door"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "NhaAn_Door",
+      "top_score": 0.5265697836875916,
+      "top_answer": "nhà ăn ở trung tâm doanh trại, đi theo đường nội bộ tầm 65m thấy ngay.",
+      "passed": true
+    },
+    {
+      "case_num": 30,
+      "query": "Maay giio aan coom",
+      "category": "TELEX_TYPOS",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "OUT_OF_SCOPE",
+      "top_entity": "out_of_scope",
+      "top_score": 0.4935111999511719,
+      "top_answer": "Ngoài chuyên môn rồi đồng chí. Tập trung vào học viện đi.",
+      "passed": false
+    },
+    {
+      "case_num": 31,
+      "query": "Where is sân vận động",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "SanVanDong"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "SanVanDong",
+      "top_score": 0.9882062673568726,
+      "top_answer": "Muốn tới sân vận động thì đi phía đông doanh trại doanh trại, có biển chỉ dẫn rồi đó.",
+      "passed": true
+    },
+    {
+      "case_num": 32,
+      "query": "Where is canteen",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "NhaAn_Door"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "NhaAn_Door",
+      "top_score": 0.9848572015762329,
+      "top_answer": "Đồng chí đi trung tâm doanh trại, qua sân điều lệnh tầm 65m là tới nhà ăn.",
+      "passed": true
+    },
+    {
+      "case_num": 33,
+      "query": "Where is classroom",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "LopHoc_Door"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "LopHoc_Door",
+      "top_score": 0.9468919038772583,
+      "top_answer": "lớp học là khu nằm phía phía bắc doanh trại doanh trại, dễ tìm thôi đồng chí.",
+      "passed": true
+    },
+    {
+      "case_num": 34,
+      "query": "Where is dormitory",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "KTX_Door"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "KTX_Door",
+      "top_score": 0.835464596748352,
+      "top_answer": "Muốn tới ký túc xá thì đi phía nam doanh trại doanh trại, có biển chỉ dẫn rồi đó.",
+      "passed": true
+    },
+    {
+      "case_num": 35,
+      "query": "Today học gì",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 1.0000001192092896,
+      "top_answer": "{__SCHEDULE_TODAY__}",
+      "passed": true
+    },
+    {
+      "case_num": 36,
+      "query": "Schedule hôm nay",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 1.0,
+      "top_answer": "{__SCHEDULE_TODAY__}",
+      "passed": true
+    },
+    {
+      "case_num": 37,
+      "query": "What time ăn cơm",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_TIME",
+      "top_entity": "slot_3",
+      "top_score": 0.7385410070419312,
+      "top_answer": "Giờ ăn sáng là 07:00, sai giờ là phạt đó đồng chí.",
+      "passed": true
+    },
+    {
+      "case_num": 38,
+      "query": "nhà ăn?",
+      "category": "ELLIPSIS",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "NhaAn_Door"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "NhaAn_Door",
+      "top_score": 0.891857385635376,
+      "top_answer": "Muốn tới nhà ăn thì đi trung tâm doanh trại doanh trại, có biển chỉ dẫn rồi đó.",
+      "passed": true
+    },
+    {
+      "case_num": 39,
+      "query": "lớp học?",
+      "category": "ELLIPSIS",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "LopHoc_Door"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "LopHoc_Door",
+      "top_score": 0.8065905570983887,
+      "top_answer": "lớp học ở phía bắc doanh trại, đi theo đường nội bộ tầm 89m thấy ngay.",
+      "passed": true
+    },
+    {
+      "case_num": 40,
+      "query": "KTX đâu",
+      "category": "ELLIPSIS",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "KTX_Door"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "KTX_Door",
+      "top_score": 0.8991209864616394,
+      "top_answer": "ký túc xá là khu nằm phía phía nam doanh trại doanh trại, dễ tìm thôi đồng chí.",
+      "passed": true
+    },
+    {
+      "case_num": 41,
+      "query": "Đói",
+      "category": "ELLIPSIS",
+      "expected_intent": null,
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "SMALL_TALK",
+      "top_entity": "small_talk",
+      "top_score": 0.8758273124694824,
+      "top_answer": "Tâm trạng ổn, đồng chí có việc gì cần báo cáo cứ nói.",
+      "passed": true
+    },
+    {
+      "case_num": 42,
+      "query": "svd đâu v",
+      "category": "SLANG",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "SanVanDong"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "SanVanDong",
+      "top_score": 0.9756802320480347,
+      "top_answer": "Đồng chí đi thẳng từ cổng chính theo hướng phía đông doanh trại, sân vận động ở đó.",
+      "passed": true
+    },
+    {
+      "case_num": 43,
+      "query": "ktx đâu nhỉ",
+      "category": "SLANG",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "KTX_Door"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "KTX_Door",
+      "top_score": 1.0,
+      "top_answer": "ký túc xá nằm ở phía nam doanh trại, từ vị trí hiện tại đi thẳng tầm 110m là tới.",
+      "passed": true
+    },
+    {
+      "case_num": 44,
+      "query": "ddt la ai v",
+      "category": "SLANG",
+      "expected_intent": "ASK_NPC",
+      "expected_entity": [
+        "DaiDoiTruong"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_NPC",
+      "top_entity": "DaiDoiTruong",
+      "top_score": 0.8321986198425293,
+      "top_answer": "Đại đội trưởng là chỉ huy trực tiếp của đại đội, đồng chí gặp ở khu vực doanh trại.",
+      "passed": true
+    },
+    {
+      "case_num": 45,
+      "query": "gdqp hok cai gi",
+      "category": "SLANG",
+      "expected_intent": "ASK_SUBJECT_INFO",
+      "expected_entity": [
+        "GDQuocPhong"
+      ],
+      "expected_phrase": null,
+      "top_intent": "ASK_SUBJECT_INFO",
+      "top_entity": "GDQuocPhong",
+      "top_score": 0.9136601686477661,
+      "top_answer": "Giáo dục Quốc phòng là môn cốt lõi của đại đội ta, đồng chí học đủ 6 lần để qua môn.",
+      "passed": true
+    },
+    {
+      "case_num": 46,
+      "query": "Crypto giảm sốc",
+      "category": "OOS",
+      "expected_intent": "OUT_OF_SCOPE",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "OUT_OF_SCOPE",
+      "top_entity": "out_of_scope",
+      "top_score": 1.0,
+      "top_answer": "Cái đó không thuộc phạm vi tôi nắm được. Đồng chí hỏi việc trong đại đội đi.",
+      "passed": true
+    },
+    {
+      "case_num": 47,
+      "query": "iPhone giá bao nhiêu",
+      "category": "OOS",
+      "expected_intent": "OUT_OF_SCOPE",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "OUT_OF_SCOPE",
+      "top_entity": "out_of_scope",
+      "top_score": 0.6321954727172852,
+      "top_answer": "Câu này tôi không trả lời được. Hỏi gì về lịch, vị trí, môn học - tôi biết.",
+      "passed": true
+    },
+    {
+      "case_num": 48,
+      "query": "Messi đá hay không",
+      "category": "OOS",
+      "expected_intent": "OUT_OF_SCOPE",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "OUT_OF_SCOPE",
+      "top_entity": "out_of_scope",
+      "top_score": 0.8210169076919556,
+      "top_answer": "Ngoài chuyên môn rồi đồng chí. Tập trung vào học viện đi.",
+      "passed": true
+    },
+    {
+      "case_num": 49,
+      "query": "Wifi password",
+      "category": "OOS",
+      "expected_intent": "OUT_OF_SCOPE",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "OUT_OF_SCOPE",
+      "top_entity": "out_of_scope",
+      "top_score": 1.0,
+      "top_answer": "Cái đó không thuộc phạm vi tôi nắm được. Đồng chí hỏi việc trong đại đội đi.",
+      "passed": true
+    },
+    {
+      "case_num": 50,
+      "query": "Em đói",
+      "category": "ADVERSARIAL",
+      "expected_intent": null,
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "OUT_OF_SCOPE",
+      "top_entity": "out_of_scope",
+      "top_score": 1.0,
+      "top_answer": "Cái đó không thuộc phạm vi tôi nắm được. Đồng chí hỏi việc trong đại đội đi.",
+      "passed": true
+    },
+    {
+      "case_num": 51,
+      "query": "Em buồn ngủ",
+      "category": "ADVERSARIAL",
+      "expected_intent": null,
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "SMALL_TALK",
+      "top_entity": "small_talk",
+      "top_score": 0.854360044002533,
+      "top_answer": "Hôm nay tôi ổn, đồng chí đừng lo. Có việc gì cần hỏi không?",
+      "passed": true
+    },
+    {
+      "case_num": 52,
+      "query": "Mệt quá",
+      "category": "ADVERSARIAL",
+      "expected_intent": "SMALL_TALK",
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "SMALL_TALK",
+      "top_entity": "small_talk",
+      "top_score": 1.0,
+      "top_answer": "Hôm nay tôi ổn, đồng chí đừng lo. Có việc gì cần hỏi không?",
+      "passed": true
+    },
+    {
+      "case_num": 53,
+      "query": "khu A1 ở đâu",
+      "category": "ORIGINAL_BUG",
+      "expected_intent": null,
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "FreeArea",
+      "top_score": 0.6112093925476074,
+      "top_answer": "Đồng chí đi thẳng từ cổng chính theo hướng phía đông nam doanh trại, khu tự do ở đó.",
+      "passed": true
+    },
+    {
+      "case_num": 54,
+      "query": "khu A2 ở đâu",
+      "category": "ORIGINAL_BUG",
+      "expected_intent": null,
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "FreeArea",
+      "top_score": 0.6737260818481445,
+      "top_answer": "Đồng chí đi thẳng từ cổng chính theo hướng phía đông nam doanh trại, khu tự do ở đó.",
+      "passed": true
+    },
+    {
+      "case_num": 55,
+      "query": "khu A3 ở đâu",
+      "category": "ORIGINAL_BUG",
+      "expected_intent": null,
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "FreeArea",
+      "top_score": 0.7436972856521606,
+      "top_answer": "Đồng chí đi phía đông nam doanh trại, qua sân điều lệnh tầm 61m là tới khu tự do.",
+      "passed": true
+    },
+    {
+      "case_num": 56,
+      "query": "khu B ở đâu",
+      "category": "ORIGINAL_BUG",
+      "expected_intent": null,
+      "expected_entity": null,
+      "expected_phrase": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "FreeArea",
+      "top_score": 0.6536393165588379,
+      "top_answer": "Đồng chí đi phía đông nam doanh trại, qua sân điều lệnh tầm 61m là tới khu tự do.",
+      "passed": true
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "modelName": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "modelName": "D:\\Unity Training\\unity_train_ai\\AI_Training\\phase_c_chat\\models\\minilm_ft_v2",
   "dim": 384,
   "count": 11159,
   "dtype": "float32",
@@ -8,5 +8,6 @@
     "embeddings_f32": "embeddings.npy",
     "embeddings_f16": "embeddings.fp16.npy",
     "metadata": "qa_metadata.json"
-  }
+  },
+  "finetuned": true
 }

@@ -43,11 +43,20 @@ MODELS_DIR = ROOT / "models"
 
 QA_PATH         = DATA_DIR / "qa_pairs.jsonl"
 BASE_MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-FT_OUT_DIR      = MODELS_DIR / "minilm_ft"
-LOG_OUT         = MODELS_DIR / "ft_train_log.json"
+# Save to versioned folder so a running chat_server (with mmap'd weights)
+# can't lock the new checkpoint. Pick the next available v-suffix.
+def _pick_out_dir(base: Path, stem: str) -> Path:
+    v = 2
+    while (base / f"{stem}_v{v}").exists():
+        v += 1
+    return base / f"{stem}_v{v}"
 
-EPOCHS      = 2
-BATCH_SIZE  = 32
+FT_OUT_DIR      = _pick_out_dir(MODELS_DIR, "minilm_ft")
+LOG_OUT         = MODELS_DIR / f"ft_train_log_{FT_OUT_DIR.name}.json"
+
+# Strong training config — "train nhiều lên" per user request.
+EPOCHS      = 6          # was 2 (3x more passes over the data)
+BATCH_SIZE  = 32         # in-batch negatives scale with batch size
 LR          = 2e-5
 WARMUP_FRAC = 0.10
 HOLDOUT_FRAC = 0.10

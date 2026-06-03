@@ -27,8 +27,15 @@ EMB  = np.load(EMB_PATH)
 META = json.loads(META_PATH.read_text(encoding="utf-8"))
 INFO = json.loads(INFO_PATH.read_text(encoding="utf-8"))
 
-USE_FT = FT_DIR.exists() and "--base" not in sys.argv
-MODEL_NAME = str(FT_DIR) if USE_FT else INFO["modelName"]
+# Pick the highest-versioned FT folder if any.
+def _latest_ft(base):
+    cs = sorted(base.glob("minilm_ft_v*"), reverse=True)
+    if cs: return cs[0]
+    legacy = base / "minilm_ft"
+    return legacy if legacy.exists() else None
+_FT_PATH = _latest_ft(MODELS_DIR)
+USE_FT = _FT_PATH is not None and "--base" not in sys.argv
+MODEL_NAME = str(_FT_PATH) if USE_FT else INFO["modelName"]
 print(f"[eval] using model: {MODEL_NAME}")
 encoder = SentenceTransformer(MODEL_NAME)
 
