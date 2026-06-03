@@ -1,0 +1,12 @@
+{
+  "modelName": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "dim": 384,
+  "count": 11159,
+  "dtype": "float32",
+  "normalized": true,
+  "files": {
+    "embeddings_f32": "embeddings.npy",
+    "embeddings_f16": "embeddings.fp16.npy",
+    "metadata": "qa_metadata.json"
+  }
+}
