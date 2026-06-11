@@ -1,0 +1,727 @@
+{
+  "tag": "v6",
+  "model": "D:\\Unity Training\\unity_train_ai\\AI_Training\\phase_c_chat\\models\\student_encoder_v6.pt",
+  "overall": {
+    "passed": 52,
+    "total": 53,
+    "acc": 0.9811320754716981
+  },
+  "byCategory": {
+    "CLEAN": {
+      "passed": 19,
+      "total": 19
+    },
+    "NO_ACCENT": {
+      "passed": 8,
+      "total": 8
+    },
+    "TELEX_TYPOS": {
+      "passed": 2,
+      "total": 3
+    },
+    "CODE_MIX": {
+      "passed": 7,
+      "total": 7
+    },
+    "ELLIPSIS": {
+      "passed": 4,
+      "total": 4
+    },
+    "SLANG": {
+      "passed": 4,
+      "total": 4
+    },
+    "OOS": {
+      "passed": 4,
+      "total": 4
+    },
+    "ADVERSARIAL": {
+      "passed": 3,
+      "total": 3
+    },
+    "ORIGINAL_BUG": {
+      "passed": 4,
+      "total": 4
+    }
+  },
+  "results": [
+    {
+      "case_num": 1,
+      "query": "Sân vận động ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "SanVanDong"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "SanVanDong",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 2,
+      "query": "Nhà ăn ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "NhaAn_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "NhaAn_Door",
+      "top_score": 1.0000001192092896,
+      "passed": true
+    },
+    {
+      "case_num": 3,
+      "query": "Lớp học ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "LopHoc_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "LopHoc_Door",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 4,
+      "query": "Ký túc xá ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "KTX_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "KTX_Door",
+      "top_score": 0.9999998807907104,
+      "passed": true
+    },
+    {
+      "case_num": 5,
+      "query": "Khu tự do ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "FreeArea"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "FreeArea",
+      "top_score": 0.9999998807907104,
+      "passed": true
+    },
+    {
+      "case_num": 6,
+      "query": "Khu dọn vệ sinh ở đâu",
+      "category": "CLEAN",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "DonVeSinh"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "DonVeSinh",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 7,
+      "query": "Mấy giờ ăn cơm",
+      "category": "CLEAN",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": null,
+      "top_intent": "ASK_TIME",
+      "top_entity": "slot_3",
+      "top_score": 0.9025956392288208,
+      "passed": true
+    },
+    {
+      "case_num": 8,
+      "query": "Mấy giờ tập thể dục",
+      "category": "CLEAN",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": [
+        "slot_1"
+      ],
+      "top_intent": "ASK_TIME",
+      "top_entity": "slot_1",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 9,
+      "query": "Tập thể dục mấy giờ",
+      "category": "CLEAN",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": [
+        "slot_1"
+      ],
+      "top_intent": "ASK_TIME",
+      "top_entity": "slot_1",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 10,
+      "query": "Hôm nay học môn gì",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 0.9999999403953552,
+      "passed": true
+    },
+    {
+      "case_num": 11,
+      "query": "Hôm nay có gì",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 12,
+      "query": "Lịch hôm nay sao",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 0.9999998807907104,
+      "passed": true
+    },
+    {
+      "case_num": 13,
+      "query": "Đại đội trưởng là ai",
+      "category": "CLEAN",
+      "expected_intent": "ASK_NPC",
+      "expected_entity": [
+        "DaiDoiTruong"
+      ],
+      "top_intent": "ASK_NPC",
+      "top_entity": "DaiDoiTruong",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 14,
+      "query": "Lịch sử là môn gì",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SUBJECT_INFO",
+      "expected_entity": [
+        "LichSu"
+      ],
+      "top_intent": "ASK_SUBJECT_INFO",
+      "top_entity": "LichSu",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 15,
+      "query": "Chính trị là môn gì",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SUBJECT_INFO",
+      "expected_entity": [
+        "ChinhTri"
+      ],
+      "top_intent": "ASK_SUBJECT_INFO",
+      "top_entity": "ChinhTri",
+      "top_score": 0.9946737885475159,
+      "passed": true
+    },
+    {
+      "case_num": 16,
+      "query": "GDQP là môn gì",
+      "category": "CLEAN",
+      "expected_intent": "ASK_SUBJECT_INFO",
+      "expected_entity": [
+        "GDQuocPhong"
+      ],
+      "top_intent": "ASK_SUBJECT_INFO",
+      "top_entity": "GDQuocPhong",
+      "top_score": 0.9999998807907104,
+      "passed": true
+    },
+    {
+      "case_num": 17,
+      "query": "Em chào thủ trưởng",
+      "category": "CLEAN",
+      "expected_intent": "GREETING",
+      "expected_entity": null,
+      "top_intent": "GREETING",
+      "top_entity": "greeting",
+      "top_score": 1.0000001192092896,
+      "passed": true
+    },
+    {
+      "case_num": 18,
+      "query": "Em xin phép",
+      "category": "CLEAN",
+      "expected_intent": "GOODBYE",
+      "expected_entity": null,
+      "top_intent": "GOODBYE",
+      "top_entity": "goodbye",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 19,
+      "query": "Em cảm ơn",
+      "category": "CLEAN",
+      "expected_intent": "THANKS",
+      "expected_entity": null,
+      "top_intent": "THANKS",
+      "top_entity": "thanks",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 20,
+      "query": "san van dong o dau",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "SanVanDong"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "SanVanDong",
+      "top_score": 1.0000001192092896,
+      "passed": true
+    },
+    {
+      "case_num": 21,
+      "query": "nha an o dau",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "NhaAn_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "NhaAn_Door",
+      "top_score": 1.0000001192092896,
+      "passed": true
+    },
+    {
+      "case_num": 22,
+      "query": "lop hoc o dau",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "LopHoc_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "LopHoc_Door",
+      "top_score": 0.9999998807907104,
+      "passed": true
+    },
+    {
+      "case_num": 23,
+      "query": "ky tuc xa o dau",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "KTX_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "KTX_Door",
+      "top_score": 0.9999999403953552,
+      "passed": true
+    },
+    {
+      "case_num": 24,
+      "query": "may gio an com",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": null,
+      "top_intent": "ASK_TIME",
+      "top_entity": "slot_3",
+      "top_score": 0.8710834980010986,
+      "passed": true
+    },
+    {
+      "case_num": 25,
+      "query": "hom nay hoc gi",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 26,
+      "query": "dai doi truong la ai",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_NPC",
+      "expected_entity": [
+        "DaiDoiTruong"
+      ],
+      "top_intent": "ASK_NPC",
+      "top_entity": "DaiDoiTruong",
+      "top_score": 0.9830271005630493,
+      "passed": true
+    },
+    {
+      "case_num": 27,
+      "query": "don ve sinh o dau",
+      "category": "NO_ACCENT",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "DonVeSinh"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "DonVeSinh",
+      "top_score": 1.000000238418579,
+      "passed": true
+    },
+    {
+      "case_num": 28,
+      "query": "Saan vaan ddoongg o ddaau",
+      "category": "TELEX_TYPOS",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "SanVanDong"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "NhaAn_Door",
+      "top_score": 0.6177401542663574,
+      "passed": false
+    },
+    {
+      "case_num": 29,
+      "query": "Nhaa aan o ddaau",
+      "category": "TELEX_TYPOS",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "NhaAn_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "NhaAn_Door",
+      "top_score": 0.799904465675354,
+      "passed": true
+    },
+    {
+      "case_num": 30,
+      "query": "Maay giio aan coom",
+      "category": "TELEX_TYPOS",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": null,
+      "top_intent": "ASK_TIME",
+      "top_entity": "slot_3",
+      "top_score": 0.6897639036178589,
+      "passed": true
+    },
+    {
+      "case_num": 31,
+      "query": "Where is sân vận động",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "SanVanDong"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "SanVanDong",
+      "top_score": 0.9771309494972229,
+      "passed": true
+    },
+    {
+      "case_num": 32,
+      "query": "Where is canteen",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "NhaAn_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "NhaAn_Door",
+      "top_score": 0.9893412590026855,
+      "passed": true
+    },
+    {
+      "case_num": 33,
+      "query": "Where is classroom",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "LopHoc_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "LopHoc_Door",
+      "top_score": 0.9378201365470886,
+      "passed": true
+    },
+    {
+      "case_num": 34,
+      "query": "Where is dormitory",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "KTX_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "KTX_Door",
+      "top_score": 0.7462673187255859,
+      "passed": true
+    },
+    {
+      "case_num": 35,
+      "query": "Today học gì",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 36,
+      "query": "Schedule hôm nay",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_SCHEDULE_TODAY",
+      "expected_entity": null,
+      "top_intent": "ASK_SCHEDULE_TODAY",
+      "top_entity": "today",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 37,
+      "query": "What time ăn cơm",
+      "category": "CODE_MIX",
+      "expected_intent": "ASK_TIME",
+      "expected_entity": null,
+      "top_intent": "ASK_TIME",
+      "top_entity": "slot_3",
+      "top_score": 0.8778783082962036,
+      "passed": true
+    },
+    {
+      "case_num": 38,
+      "query": "nhà ăn?",
+      "category": "ELLIPSIS",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "NhaAn_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "NhaAn_Door",
+      "top_score": 0.9586039781570435,
+      "passed": true
+    },
+    {
+      "case_num": 39,
+      "query": "lớp học?",
+      "category": "ELLIPSIS",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "LopHoc_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "LopHoc_Door",
+      "top_score": 0.8320806622505188,
+      "passed": true
+    },
+    {
+      "case_num": 40,
+      "query": "KTX đâu",
+      "category": "ELLIPSIS",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "KTX_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "KTX_Door",
+      "top_score": 0.9962456226348877,
+      "passed": true
+    },
+    {
+      "case_num": 41,
+      "query": "Đói",
+      "category": "ELLIPSIS",
+      "expected_intent": null,
+      "expected_entity": null,
+      "top_intent": "SMALL_TALK",
+      "top_entity": "small_talk",
+      "top_score": 0.9290448427200317,
+      "passed": true
+    },
+    {
+      "case_num": 42,
+      "query": "svd đâu v",
+      "category": "SLANG",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "SanVanDong"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "SanVanDong",
+      "top_score": 0.9952794313430786,
+      "passed": true
+    },
+    {
+      "case_num": 43,
+      "query": "ktx đâu nhỉ",
+      "category": "SLANG",
+      "expected_intent": "ASK_LOCATION",
+      "expected_entity": [
+        "KTX_Door"
+      ],
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "KTX_Door",
+      "top_score": 0.9999998807907104,
+      "passed": true
+    },
+    {
+      "case_num": 44,
+      "query": "ddt la ai v",
+      "category": "SLANG",
+      "expected_intent": "ASK_NPC",
+      "expected_entity": [
+        "DaiDoiTruong"
+      ],
+      "top_intent": "ASK_NPC",
+      "top_entity": "DaiDoiTruong",
+      "top_score": 0.9809143543243408,
+      "passed": true
+    },
+    {
+      "case_num": 45,
+      "query": "gdqp hok cai gi",
+      "category": "SLANG",
+      "expected_intent": "ASK_SUBJECT_INFO",
+      "expected_entity": [
+        "GDQuocPhong"
+      ],
+      "top_intent": "ASK_SUBJECT_INFO",
+      "top_entity": "GDQuocPhong",
+      "top_score": 0.9673827886581421,
+      "passed": true
+    },
+    {
+      "case_num": 46,
+      "query": "Crypto giảm sốc",
+      "category": "OOS",
+      "expected_intent": "OUT_OF_SCOPE",
+      "expected_entity": null,
+      "top_intent": "OUT_OF_SCOPE",
+      "top_entity": "out_of_scope",
+      "top_score": 0.9999998807907104,
+      "passed": true
+    },
+    {
+      "case_num": 47,
+      "query": "iPhone giá bao nhiêu",
+      "category": "OOS",
+      "expected_intent": "OUT_OF_SCOPE",
+      "expected_entity": null,
+      "top_intent": "OUT_OF_SCOPE",
+      "top_entity": "out_of_scope",
+      "top_score": 0.8193579912185669,
+      "passed": true
+    },
+    {
+      "case_num": 48,
+      "query": "Messi đá hay không",
+      "category": "OOS",
+      "expected_intent": "OUT_OF_SCOPE",
+      "expected_entity": null,
+      "top_intent": "OUT_OF_SCOPE",
+      "top_entity": "out_of_scope",
+      "top_score": 0.8940668106079102,
+      "passed": true
+    },
+    {
+      "case_num": 49,
+      "query": "Wifi password",
+      "category": "OOS",
+      "expected_intent": "OUT_OF_SCOPE",
+      "expected_entity": null,
+      "top_intent": "OUT_OF_SCOPE",
+      "top_entity": "out_of_scope",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 50,
+      "query": "Em đói",
+      "category": "ADVERSARIAL",
+      "expected_intent": null,
+      "expected_entity": null,
+      "top_intent": "OUT_OF_SCOPE",
+      "top_entity": "out_of_scope",
+      "top_score": 1.0,
+      "passed": true
+    },
+    {
+      "case_num": 51,
+      "query": "Em buồn ngủ",
+      "category": "ADVERSARIAL",
+      "expected_intent": null,
+      "expected_entity": null,
+      "top_intent": "SMALL_TALK",
+      "top_entity": "small_talk",
+      "top_score": 0.9248975515365601,
+      "passed": true
+    },
+    {
+      "case_num": 52,
+      "query": "Mệt quá",
+      "category": "ADVERSARIAL",
+      "expected_intent": "SMALL_TALK",
+      "expected_entity": null,
+      "top_intent": "SMALL_TALK",
+      "top_entity": "small_talk",
+      "top_score": 0.9999998807907104,
+      "passed": true
+    },
+    {
+      "case_num": 53,
+      "query": "khu A1 ở đâu",
+      "category": "ORIGINAL_BUG",
+      "expected_intent": null,
+      "expected_entity": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "FreeArea",
+      "top_score": 0.5834623575210571,
+      "passed": true
+    },
+    {
+      "case_num": 54,
+      "query": "khu A2 ở đâu",
+      "category": "ORIGINAL_BUG",
+      "expected_intent": null,
+      "expected_entity": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "FreeArea",
+      "top_score": 0.6603446006774902,
+      "passed": true
+    },
+    {
+      "case_num": 55,
+      "query": "khu A3 ở đâu",
+      "category": "ORIGINAL_BUG",
+      "expected_intent": null,
+      "expected_entity": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "FreeArea",
+      "top_score": 0.7766039371490479,
+      "passed": true
+    },
+    {
+      "case_num": 56,
+      "query": "khu B ở đâu",
+      "category": "ORIGINAL_BUG",
+      "expected_intent": null,
+      "expected_entity": null,
+      "top_intent": "ASK_LOCATION",
+      "top_entity": "FreeArea",
+      "top_score": 0.6526359915733337,
+      "passed": true
+    }
+  ]
+}
