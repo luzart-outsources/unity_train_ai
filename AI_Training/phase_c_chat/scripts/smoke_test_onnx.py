@@ -208,11 +208,13 @@ def main():
         rt = route(score)
 
         # Pass criteria:
-        # - If expected_intent is None (ORIGINAL_BUG): want route != template
-        #   (graceful fallback or low_confidence is OK)
+        # - If expected_intent is None (ORIGINAL_BUG): want EITHER
+        #   (a) graceful fallback / low_confidence  OR
+        #   (b) confident OUT_OF_SCOPE answer (v6+ recognises "khu A1" etc
+        #       as fake areas thanks to the v9 negative training set)
         # - Else: want top intent matches AND (no expected_entity OR matches)
         if expected_intent is None:
-            ok = rt in ("fallback", "low_confidence")
+            ok = rt in ("fallback", "low_confidence") or m["intent"] == "OUT_OF_SCOPE"
         else:
             ok = m["intent"] == expected_intent
             if ok and expected_entity is not None:
