@@ -101,10 +101,11 @@ def main():
         f.write(out_embs.astype("<f4").tobytes())
     print(f"[bank] wrote {OUT_BYTES}   ({OUT_BYTES.stat().st_size/1024/1024:.2f} MiB)")
 
-    # Sidecar metadata (answer text + intent etc).
+    # Sidecar metadata (question kept for debug round-trip + answer + intent).
     meta = [
         {
             "id":         r["id"],
+            "question":   r["question"],
             "answer":     r["answer"],
             "intent":     r["intent"],
             "entityId":   r.get("entityId", ""),
