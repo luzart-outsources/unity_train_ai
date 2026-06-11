@@ -1,0 +1,40 @@
+{
+  "total": 54493,
+  "byIntent": {
+    "ASK_LOCATION": 39893,
+    "ASK_TIME": 3084,
+    "ASK_HOWTO": 1019,
+    "ASK_SCHEDULE_TODAY": 375,
+    "ASK_SUBJECT_INFO": 3286,
+    "ASK_NPC": 4242,
+    "GREETING": 776,
+    "GOODBYE": 477,
+    "THANKS": 393,
+    "SMALL_TALK": 490,
+    "OUT_OF_SCOPE": 458
+  },
+  "byAugmentation": {
+    "none": 4700,
+    "no_accent": 4478,
+    "telex": 6820,
+    "heavy_telex": 9110,
+    "slang": 2566,
+    "code_mix": 11764,
+    "filler": 10335,
+    "dbl_filler": 4421,
+    "ellipsis": 299
+  },
+  "intents": [
+    "ASK_HOWTO",
+    "ASK_LOCATION",
+    "ASK_NPC",
+    "ASK_SCHEDULE_TODAY",
+    "ASK_SUBJECT_INFO",
+    "ASK_TIME",
+    "GOODBYE",
+    "GREETING",
+    "OUT_OF_SCOPE",
+    "SMALL_TALK",
+    "THANKS"
+  ]
+}
