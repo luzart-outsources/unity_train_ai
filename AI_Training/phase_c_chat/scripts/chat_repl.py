@@ -269,11 +269,12 @@ def main():
                   f"[{C.MAG}{m['intent']:18s}{C.RESET}|{C.BLUE}{m['entityId']:15s}{C.RESET}]  "
                   f"{m['question']}")
 
-        # Decide reply
+        # Decide reply (matches EmbeddingChatBrain.cs default
+        # surfaceLowConfidenceCandidate=false behaviour).
         if rt == "template":
             ans = top["answer"]
         elif rt == "low_confidence":
-            ans = top["answer"]   # surface candidate but warn
+            ans = fallback_answer   # play safe — match Unity offline default
         else:
             ans = fallback_answer
 

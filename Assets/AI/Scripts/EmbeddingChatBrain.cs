@@ -52,6 +52,8 @@ namespace TrainAI.AI
         [Range(0f, 1f)] public float highThreshold = 0.88f;
         [Tooltip("Below this score -> 'I don't understand' fallback")]
         [Range(0f, 1f)] public float lowThreshold  = 0.72f;
+        [Tooltip("If true, low_confidence route returns the candidate answer (useful when a downstream RAG/LLM will refine it). Default false: low_confidence falls back to the safe 'I don't understand' answer offline.")]
+        public bool surfaceLowConfidenceCandidate = false;
 
         [Header("Fallback")]
         [TextArea(2, 4)]
@@ -146,8 +148,15 @@ namespace TrainAI.AI
             }
             else if (bestS >= lowThreshold)
             {
-                // Still surface the candidate so caller can decide to RAG it.
-                answer = ResolvePlaceholders(meta.answer, gameState);
+                // Score is in the "ambiguous" zone — by default play it safe and
+                // return the fallback answer rather than risk confidently saying
+                // the wrong thing (e.g. "1+1=?" tokenizing to "1" + "1" matches
+                // NPC entries that mention "đồng chí 01" / "ban 01" at ~0.86).
+                // Set surfaceLowConfidenceCandidate=true if a downstream LLM
+                // will refine the candidate via RAG.
+                answer = surfaceLowConfidenceCandidate
+                    ? ResolvePlaceholders(meta.answer, gameState)
+                    : fallbackAnswer;
                 route  = "low_confidence";
             }
             else
