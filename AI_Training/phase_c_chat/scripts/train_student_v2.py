@@ -19,6 +19,7 @@ After it finishes, run:
 import argparse
 import json
 import math
+import os
 import random
 import time
 from pathlib import Path
@@ -44,8 +45,30 @@ DATA_DIR   = ROOT / "data"
 MODELS_DIR = ROOT / "models"
 
 
-def latest_teacher(base: Path) -> Path:
+def latest_teacher(base: Path):
+    """Returns a teacher path that SentenceTransformer(str(...)) can load.
+
+    Resolution order:
+      1. env FT_TEACHER_PATH — accepts EITHER a local dir OR a HuggingFace
+         hub model name like 'sentence-transformers/paraphrase-multilingual-mpnet-base-v2'.
+         If the value isn't an existing path, we still return the raw string
+         and let sentence-transformers fetch it from the Hub.
+      2. local minilm_ft_v* (default for v1-v8 minilm distillation)
+      3. local mpnet_ft_v*  (tier C if FT was run)
+      4. legacy minilm_ft/
+    """
+    forced = os.environ.get("FT_TEACHER_PATH")
+    if forced:
+        p = Path(forced)
+        if p.exists():
+            return p
+        # Looks like a HuggingFace hub identifier — pass through verbatim.
+        if "/" in forced and not forced.startswith(("/", ".", "\\")):
+            return forced
+        print(f"[warn] FT_TEACHER_PATH={forced} not found locally, falling back")
     cs = sorted(base.glob("minilm_ft_v*"), reverse=True)
+    if cs: return cs[0]
+    cs = sorted(base.glob("mpnet_ft_v*"), reverse=True)
     if cs: return cs[0]
     legacy = base / "minilm_ft"
     if legacy.exists(): return legacy
@@ -133,7 +156,9 @@ def main():
     out_vocab.write_text(json.dumps(vocab, ensure_ascii=False), encoding="utf-8")
 
     teacher_path = latest_teacher(MODELS_DIR)
-    print(f"[{tag}] teacher = {teacher_path.name}")
+    # teacher_path may be a Path (local) or a str (HuggingFace hub id).
+    teacher_label = teacher_path.name if isinstance(teacher_path, Path) else teacher_path
+    print(f"[{tag}] teacher = {teacher_label}")
     teacher = SentenceTransformer(str(teacher_path))
 
     print(f"[{tag}] encoding {len(questions):,} questions with teacher (one-shot)...")

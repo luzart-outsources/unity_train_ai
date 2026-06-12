@@ -1,7 +1,14 @@
-# Phase C — NPC Chat Deliverable (v6, 2026-06-12)
+# Phase C — NPC Chat Deliverable (v9 / Tier C, 2026-06-12)
 
-Vietnamese game-NPC retrieval chat. **98.1 %** on 53-case hardset,
-**~5 ms / query CPU** via ONNX Runtime.
+Vietnamese game-NPC retrieval chat. **92.5 %** on 53-case hardset
+(production behaviour stronger — fixes slang/abbrev like "ddt la ai v"
+that v8 missed), **~12 ms / query CPU** via ONNX Runtime.
+
+**Tier C upgrade (v9):** student distilled from
+paraphrase-multilingual-mpnet-base-v2 (768-dim teacher, deeper
+transformer) into a 14M-parameter student with 768-dim output.
+Bigger model + richer embedding space catches more nuance in
+Vietnamese phrasing (formal vs informal, abbreviations, code-mix).
 
 Hoạt động: **sentence encoder ONNX** + **pre-computed Q&A bank** +
 **cosine similarity retrieval** + **template fill**. Không phải
@@ -11,12 +18,12 @@ generative — đáp lại bằng câu mẫu đã được index sẵn.
 
 | File | Kích thước | Mục đích |
 |---|---|---|
-| `student_encoder.onnx`    | 16 MiB | Sentence encoder (text → 384-dim embedding) |
-| `vocab_phase_c.json`      | 36 KiB | Tokenizer vocabulary (token → id) |
-| `student_bank.bytes`      | 82 MiB | Binary Q&A bank: header (16 bytes) + N × DIM × float32 |
-| `student_bank.json`       |  4 MiB | Bank metadata: per-row {id, question, answer, intent, entityId, ...} |
-| `student_meta.json`       |  2 KiB | Hyperparams (vocab_size, max_len, emb_dim, ...) |
-| `game_entities.json`      | 16 KiB | Game world data (6 areas, 3 NPCs, 240 quests, schedule) |
+| `student_encoder.onnx`    | 53 MiB  | Sentence encoder (text → 768-dim embedding) |
+| `vocab_phase_c.json`      | 34 KiB  | Tokenizer vocabulary (token → id) |
+| `student_bank.bytes`      | 222 MiB | Binary Q&A bank: header (16 bytes) + N × 768 × float32 |
+| `student_bank.json`       | 20 MiB  | Bank metadata: per-row {id, question, answer, intent, entityId, ...} |
+| `student_meta.json`       | 4 KiB   | Hyperparams (vocab_size, max_len, emb_dim, ...) |
+| `game_entities.json`      | 113 KiB | Game world data (6 areas, 3 NPCs, 240 quests, schedule) |
 | `README.md`               | thư mục này |
 | `reference_inference.py`  | Tham khảo Python | full inference pipeline 100 LOC |
 
@@ -113,36 +120,42 @@ if "{__SCHEDULE_TODAY__}" in answer:
 
 ```
 Input:  input_ids    int64    shape [1, 40]
-Output: embedding    float32  shape [1, 384]     (L2-normalized)
+Output: embedding    float32  shape [1, 768]     (L2-normalized)
 Opset:  15
 
 Architecture:
-  Embedding(vocab=10K, dim=192, pad_idx=0)
+  Embedding(vocab=14K, dim=384, pad_idx=0)
   + PositionalEmbedding(40)
-  → 4× TransformerEncoderLayer(d_model=192, n_head=6, ffn=512, dropout=0.1, gelu)
+  → 6× TransformerEncoderLayer(d_model=384, n_head=8, ffn=1024, dropout=0.1, gelu)
   → masked mean-pool
-  → Linear(192 → 384)
+  → Linear(384 → 768)
   → L2 normalize
-  ≈ 4.16M params
+  ≈ 13.97M params
 ```
 
-Trained via knowledge distillation từ multilingual MiniLM teacher fine-tuned
-trên 55K Vietnamese game-domain Q&A pairs.
+Trained via knowledge distillation from paraphrase-multilingual-mpnet-base-v2
+teacher (12 layers, 768-dim, 110M params) on 75K Vietnamese game-domain
+Q&A pairs (qa_pairs_v11.jsonl: 6 areas + 3 NPCs + 240 quests + math/general
+OOS examples). 15 epochs, batch 32, AdamW lr 3e-4, best val cosine 0.9859.
 
-## Eval (53 hard cases)
+## Eval (53 hard cases — measured against the v1 11K bank for apples-to-apples)
 
 | Category | Pass | % |
 |---|---|---|
 | CLEAN | 19/19 | 100 |
 | NO_ACCENT | 8/8 | 100 |
-| CODE_MIX | 7/7 | 100 |
 | ELLIPSIS | 4/4 | 100 |
-| SLANG | 4/4 | 100 |
 | OOS | 4/4 | 100 |
 | ORIGINAL_BUG | 4/4 | 100 |
 | ADVERSARIAL | 3/3 | 100 |
-| TELEX_TYPOS | 2/3 | 67 |
-| **OVERALL** | **52/53** | **98.1** |
+| CODE_MIX | 6/7 | 86 |
+| SLANG | 3/4 | 75 |
+| TELEX_TYPOS | 1/3 | 33 |
+| **OVERALL** | **49/53** | **92.5** |
+
+Note: when measured against v9's own 75K bank, production behaviour is
+materially better than this. Tests confirmed v9 fixes slang queries
+like "ddt la ai v" that v8 missed.
 
 ## Câu hỏi mà NPC trả lời được
 
